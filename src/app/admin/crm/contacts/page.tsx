@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { cashFieldRows, hasCashFields } from '@/lib/transformation-cash-fields';
 import {
   Users,
   Search,
@@ -28,6 +29,10 @@ interface Contact {
   phone: string | null;
   organization: string | null;
   role: string | null;
+  employer: string | null;
+  role_category: string | null;
+  payment_path: string | null;
+  urgency_window: string | null;
   status: string;
   lead_score: number;
   priority: string;
@@ -79,7 +84,11 @@ export default function ContactsPage() {
           c.first_name?.toLowerCase().includes(query) ||
           c.last_name?.toLowerCase().includes(query) ||
           c.email?.toLowerCase().includes(query) ||
-          c.organization?.toLowerCase().includes(query)
+          c.organization?.toLowerCase().includes(query) ||
+          c.employer?.toLowerCase().includes(query) ||
+          c.role_category?.toLowerCase().includes(query) ||
+          c.payment_path?.toLowerCase().includes(query) ||
+          c.urgency_window?.toLowerCase().includes(query)
       );
     }
 
@@ -424,6 +433,32 @@ export default function ContactsPage() {
                     </div>
                   </div>
                 </div>
+
+                {hasCashFields({
+                  employer: selectedContact.employer,
+                  role: selectedContact.role,
+                  roleCategory: selectedContact.role_category,
+                  paymentPath: selectedContact.payment_path,
+                  urgencyWindow: selectedContact.urgency_window,
+                }) && (
+                  <div>
+                    <h3 className="text-sm font-semibold text-slate-700 mb-3">Transformation cash fields</h3>
+                    <dl className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {cashFieldRows({
+                        employer: selectedContact.employer,
+                        role: selectedContact.role,
+                        roleCategory: selectedContact.role_category,
+                        paymentPath: selectedContact.payment_path,
+                        urgencyWindow: selectedContact.urgency_window,
+                      }).map((row) => (
+                        <div key={row.label} className="rounded-lg bg-slate-50 px-3 py-2">
+                          <dt className="text-xs text-slate-500">{row.label}</dt>
+                          <dd className="text-sm text-slate-900 break-words">{row.value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                )}
 
                 {selectedContact.tags && selectedContact.tags.length > 0 && (
                   <div>

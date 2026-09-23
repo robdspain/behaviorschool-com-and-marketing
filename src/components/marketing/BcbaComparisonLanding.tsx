@@ -139,7 +139,7 @@ export function BcbaComparisonLanding({
           </h2>
           <p className="mt-5 leading-8 text-slate-600">
             Use the comparison to choose a platform, then open{" "}
-            <Link href="/behavior-study-tools" className="font-semibold text-[#1f4d3f] underline">
+            <Link href="https://behaviorstudytools.com/" className="font-semibold text-[#1f4d3f] underline">
               Behavior Study Tools
             </Link>{" "}
             or{" "}

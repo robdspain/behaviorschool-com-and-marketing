@@ -3,6 +3,12 @@
 import React, { useState } from 'react';
 import { CheckCircle } from 'lucide-react';
 import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
+import {
+  CASH_FIELD_PROMPTS,
+  PAYMENT_PATH_OPTIONS,
+  ROLE_CATEGORY_OPTIONS,
+  URGENCY_WINDOW_OPTIONS,
+} from '@/lib/transformation-cash-fields';
 
 // ─── COHORT FLAG ───────────────────────────────────────────────────────────────
 // Set this to `true` when a cohort is open for enrollment.
@@ -91,10 +97,13 @@ function ApplicationForm() {
     const payload = {
       fullName: String(data.get('fullName') || '').trim(),
       email: String(data.get('email') || '').trim(),
+      employer: String(data.get('employer') || '').trim(),
+      roleCategory: String(data.get('roleCategory') || '').trim(),
       bcbaCertNumber: String(data.get('bcbaCertNumber') || '').trim(),
       currentRole: String(data.get('currentRole') || '').trim(),
       thursdayCapacity: String(data.get('thursdayCapacity') || '').trim(),
       payer: String(data.get('payer') || '').trim(),
+      urgencyWindow: String(data.get('urgencyWindow') || '').trim(),
       systemToRebuild: String(data.get('systemToRebuild') || '').trim(),
       whyJoin: String(data.get('whyJoin') || '').trim(),
       marketingConsent: data.get('marketingConsent') === 'on',
@@ -176,14 +185,33 @@ function ApplicationForm() {
             <input id="email" name="email" type="email" required autoComplete="email" className={fieldClass} />
           </div>
           <div>
+            <label htmlFor="employer" className="block text-sm font-semibold text-slate-700 mb-1">
+              {CASH_FIELD_PROMPTS.employer}
+            </label>
+            <input id="employer" name="employer" type="text" required autoComplete="organization" className={fieldClass} />
+          </div>
+          <div>
+            <label htmlFor="roleCategory" className="block text-sm font-semibold text-slate-700 mb-1">
+              {CASH_FIELD_PROMPTS.role}
+            </label>
+            <select id="roleCategory" name="roleCategory" required className={fieldClass}>
+              <option value="">Select one</option>
+              {ROLE_CATEGORY_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="currentRole" className="block text-sm font-semibold text-slate-700 mb-1">
+              Current Role / Title <span className="text-slate-400 font-normal">(optional)</span>
+            </label>
+            <input id="currentRole" name="currentRole" type="text" autoComplete="organization-title" className={fieldClass} />
+          </div>
+          <div>
             <label htmlFor="bcbaCertNumber" className="block text-sm font-semibold text-slate-700 mb-1">
               BCBA Certification # <span className="text-slate-400 font-normal">(optional)</span>
             </label>
             <input id="bcbaCertNumber" name="bcbaCertNumber" type="text" className={fieldClass} />
-          </div>
-          <div>
-            <label htmlFor="currentRole" className="block text-sm font-semibold text-slate-700 mb-1">Current Role / Title</label>
-            <input id="currentRole" name="currentRole" type="text" required autoComplete="organization-title" className={fieldClass} />
           </div>
           <div>
             <label htmlFor="thursdayCapacity" className="block text-sm font-semibold text-slate-700 mb-1">
@@ -199,13 +227,24 @@ function ApplicationForm() {
           </div>
           <div>
             <label htmlFor="payer" className="block text-sm font-semibold text-slate-700 mb-1">
-              Who will pay tuition?
+              {CASH_FIELD_PROMPTS.payment}
             </label>
             <select id="payer" name="payer" required className={fieldClass}>
               <option value="">Select one</option>
-              <option value="self">Self-pay</option>
-              <option value="district_po">District purchase order / invoice</option>
-              <option value="unsure">Not sure yet</option>
+              {PAYMENT_PATH_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor="urgencyWindow" className="block text-sm font-semibold text-slate-700 mb-1">
+              {CASH_FIELD_PROMPTS.urgency}
+            </label>
+            <select id="urgencyWindow" name="urgencyWindow" required className={fieldClass}>
+              <option value="">Select one</option>
+              {URGENCY_WINDOW_OPTIONS.map((option) => (
+                <option key={option.value} value={option.value}>{option.label}</option>
+              ))}
             </select>
           </div>
           <div>

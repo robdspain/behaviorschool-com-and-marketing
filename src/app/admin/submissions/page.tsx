@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Mail, Phone, Briefcase, Calendar, Search, Archive, ArchiveRestore, Send, Clock } from "lucide-react";
+import { cashFieldRows, hasCashFields } from "@/lib/transformation-cash-fields";
 
 interface Submission {
   id: string;
@@ -10,6 +11,10 @@ interface Submission {
   email: string;
   phone: string | null;
   role: string;
+  employer: string | null;
+  role_category: string | null;
+  payment_path: string | null;
+  urgency_window: string | null;
   current_challenges: string | null;
   status: string;
   submitted_at: string;
@@ -196,7 +201,11 @@ export default function SubmissionsPage() {
     const matchesSearch =
       sub.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       sub.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      sub.email.toLowerCase().includes(searchTerm.toLowerCase());
+      sub.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (sub.employer || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (sub.role_category || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (sub.payment_path || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (sub.urgency_window || "").toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesStatus = statusFilter === "all" || sub.status === statusFilter;
 
@@ -345,6 +354,29 @@ export default function SubmissionsPage() {
                     </span>
                   </div>
                 </div>
+
+                {hasCashFields({
+                  employer: submission.employer,
+                  role: submission.role,
+                  roleCategory: submission.role_category,
+                  paymentPath: submission.payment_path,
+                  urgencyWindow: submission.urgency_window,
+                }) && (
+                  <dl className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {cashFieldRows({
+                      employer: submission.employer,
+                      role: submission.role,
+                      roleCategory: submission.role_category,
+                      paymentPath: submission.payment_path,
+                      urgencyWindow: submission.urgency_window,
+                    }).map((row) => (
+                      <div key={row.label} className="rounded-lg bg-emerald-50 px-3 py-2">
+                        <dt className="text-xs font-medium text-emerald-800">{row.label}</dt>
+                        <dd className="text-sm text-slate-800 break-words">{row.value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
 
                 {submission.current_challenges && (
                   <div className="mt-4 p-4 bg-slate-50 rounded-lg">

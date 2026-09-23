@@ -123,7 +123,7 @@ export default function FailedBcbaExamHelpPage() {
         <h2 className="text-2xl font-bold text-slate-950">What to change before your next attempt</h2>
         <p className="mt-3 leading-relaxed text-slate-700">
           Use{" "}
-          <Link href="/behavior-study-tools" className="font-semibold text-emerald-800 underline">
+          <Link href="https://behaviorstudytools.com/" className="font-semibold text-emerald-800 underline">
             Behavior Study Tools
           </Link>{" "}
           to sort the miss, then{" "}
