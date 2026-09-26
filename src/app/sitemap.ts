@@ -223,6 +223,12 @@ async function buildSitemap(
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/bcba-exam-statistics`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/bcba-exam-weak-areas`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
