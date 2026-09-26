@@ -1,6 +1,6 @@
 ---
-title: "BDS Modules Appears to Be Down — What BCBA Candidates Should Know"
-date: "2026-02-26"
+title: "BDS Modules Appears to Be Down - What BCBA Candidates Should Know"
+date: "2026-09-25T09:00:00.000Z"
 description: "BDS Modules has been a go-to resource for BCBA exam prep, but the site is currently experiencing DNS issues. Here are your options."
 author: Rob Spain
 tags:
@@ -8,7 +8,7 @@ tags:
   - Study Resources
   - blog
 status: published
-meta_title: "BDS Modules Appears to Be Down — What BCBA Candidates Should Know"
+meta_title: "BDS Modules Appears to Be Down - What BCBA Candidates Should Know"
 meta_description: "BDS Modules has been a go-to resource for BCBA exam prep, but the site is currently experiencing DNS issues. Here are your options."
 ---
 
@@ -22,9 +22,9 @@ Here's what to think about as you look for an alternative.
 
 Not all exam prep tools are built the same. When evaluating an alternative, look for a few key features:
 
-**Practice questions aligned to the BACB Task List.** The BCBA exam tests specific content domains — measurement, behavior assessment, behavior-change procedures, ethical considerations, and more. Your practice questions should map to those domains, not just cover general ABA concepts.
+**Practice questions aligned to the BACB test content outline.** The BCBA exam tests specific content domains - measurement, behavior assessment, behavior-change procedures, ethical considerations, and more. Your practice questions should map to those domains, not just cover general ABA concepts.
 
-**Full-length mock exams with timing.** The actual BCBA exam is timed. Practicing under simulated exam conditions — same length, same pacing — builds the stamina and time management you'll need on test day.
+**Full-length mock exams with timing.** The actual BCBA exam is timed. Practicing under simulated exam conditions - same length, same pacing - builds the stamina and time management you'll need on test day.
 
 **Domain-specific mini-exams.** If you're strong in some areas and weak in others, you need the ability to drill down into the specific domains where you're losing points. Broad practice helps, but targeted practice is what moves the needle late in your prep.
 
@@ -32,9 +32,9 @@ Not all exam prep tools are built the same. When evaluating an alternative, look
 
 **Error review.** The questions you keep getting wrong are the ones that will show up on your exam. A platform that lets you systematically review your mistakes is worth more than one that just shows you your score.
 
-## BehaviorSchool as an Alternative
+## Behavior Study Tools as an Alternative
 
-[Behavior Study Tools](/behavior-study-tools) is an actively maintained BCBA exam prep platform that covers all of the above. You can [start free practice](https://study.behaviorschool.com/free-practice/) with a 9-question set and no account. Practice questions are organized by BACB content domain, and a full-length timed mock exam is available after you create a free account. The analytics dashboard shows your performance by domain so you can adjust your study plan based on actual data — not guesswork.
+[Behavior Study Tools](/behavior-study-tools) is an actively maintained BCBA exam prep platform that covers all of the above. You can [start free practice](https://study.behaviorschool.com/free-practice/) with a 9-question set and no account. Practice questions are organized by BACB content domain, and a full-length timed mock exam is available after you create a free account. The analytics dashboard shows your performance by domain so you can adjust your study plan based on actual data - not guesswork.
 
 It also includes SAFMEDS-style flashcard sessions for fluency-building, which is a legitimate evidence-based approach to learning behavioral concepts quickly.
 
@@ -44,15 +44,15 @@ There's a free tier to get started, so you can try it without committing.
 
 If you are replacing BDS Modules in the middle of exam prep, start with the format that matches your immediate problem:
 
-- **[BCBA exam practice questions](/bcba-exam-practice-questions)** — use these when you need shorter daily sessions, concept review, and rationales before a full-length exam.
-- **[Free mock exam](https://study.behaviorschool.com/free-mock-exam/)** — use this when you need a timed 185-question readiness check after you create a free account.
-- **[Sample BCBA exam questions](/bcba-test-questions)** — use these when you want to preview question formats, wording, and explanation style before choosing a full practice path.
-- **[BCBA practice exam](/bcba-practice-exam)** — use this when you want broader practice with scoring, explanations, and repeated exam-style review.
+- **[BCBA exam practice questions](/bcba-exam-practice-questions)** - use these when you need shorter daily sessions, concept review, and rationales before a full-length exam.
+- **[Free mock exam](https://study.behaviorschool.com/free-mock-exam/)** - use this when you need a timed 185-question readiness check after you create a free account.
+- **[Sample BCBA exam questions](/bcba-test-questions)** - use these when you want to preview question formats, wording, and explanation style before choosing a full practice path.
+- **[BCBA practice exam](/bcba-practice-exam)** - use this when you want broader practice with scoring, explanations, and repeated exam-style review.
 
 ## The Most Important Thing
 
 Whatever platform you use, the most important factor in BCBA exam success is consistent daily practice. An hour of focused study every day beats a weekend cramming session every time. Pick a tool you can actually use every day, track your progress across domains, and adjust based on the data.
 
-The exam is hard. The 2024 first-time pass rate was 54%. That's not a number to take lightly — but it's also not a reason to panic. Candidates who prepare systematically, identify their weak spots, and practice under realistic conditions pass at much higher rates.
+The exam is hard. The 2025 first-time pass rate was 51% (BACB). That's not a number to take lightly - but it's also not a reason to panic. Candidates who prepare systematically, identify their weak spots, and practice under realistic conditions give themselves a better shot.
 
 Get back on a study plan. The exam isn't waiting.
