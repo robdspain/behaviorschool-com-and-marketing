@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { buildDate, buildYear, isPostBcba2027 } from "@/lib/bcba-2027";
 
 const canonical = "https://behaviorschool.com/bcba-exam-statistics";
 const BACB_EXAM = "https://www.bacb.com/examination-information/";
@@ -11,10 +12,9 @@ const BACB_TCO = "https://www.bacb.com/wp-content/uploads/2022/01/BCBA-6th-Editi
 const BACB_TRANSITION = "https://www.bacb.com/wp-content/uploads/2025/06/BCBA-2027-Requirements-Transition-260130-a.pdf";
 const BACB_REQUIREMENTS = "https://www.bacb.com/wp-content/uploads/2025/03/2027-BCBA-Requirements_260127-a.pdf";
 const BACB_NEWSLETTER = "https://www.bacb.com/wp-content/uploads/2025/11/BACB_December2025_Newsletter-251124-2-a.pdf";
-const BACB_2027_EFFECTIVE = "2027-01-01T00:00:00-07:00";
-const isPost2027 = Date.now() >= Date.parse(BACB_2027_EFFECTIVE);
-const currentYear = new Date().getFullYear();
-const dateModified = isPost2027 ? new Date().toISOString().slice(0, 10) : "2026-09-25";
+const isPost2027 = isPostBcba2027();
+const currentYear = buildYear();
+const dateModified = isPost2027 ? buildDate() : "2026-09-25";
 const title = `BCBA Exam Statistics ${currentYear}: Pass Rates by Year`;
 const descriptionBefore = "BCBA first-time pass rate was 51% in 2025 (BACB). See pass rates since 2015, question counts by edition, BCBA growth, and what changes in 2027.";
 const descriptionAfter = "BCBA first-time pass rate was 51% in 2025 (BACB). See pass rates since 2015, question counts by edition, BCBA growth, and the 2027 rule changes.";
@@ -58,7 +58,7 @@ function DataTable({ headers, rows, minWidth = "min-w-[760px]" }: { headers: str
 
 const faqBase = [
   { question: "What is the BCBA pass rate in 2025?", answer: "51% for first-time candidates (9,955 tested) and 23% for retake candidates (13,196 tested), according to the BACB. 2025 is the latest year the BACB has published." },
-  { question: "Is the BCBA exam getting harder?", answer: "The BACB hasn't said so. What the data shows is that a smaller share of first-time candidates pass: 67% in 2015, 55% to 56% in 2022 and 2023, and 51% in 2025. The BACB sets the passing score with the modified Angoff method, a panel of BCBA subject matter experts, and sets a new one when the test content outline changes. Other exam forms are statistically equated to that standard. Pass rates also depend on who is testing, so the numbers alone can't tell you why they moved." },
+  { question: "Is the BCBA exam getting harder?", answer: "The BACB hasn't said so. What the data shows is that a smaller share of first-time candidates pass: 67% in 2015, 55% to 56% in 2022 and 2023, and 51% in 2025. The BACB sets the passing score with the modified Angoff method and sets a new one when the test content outline changes; other forms are statistically equated. Pass rates also depend on who is testing, so the numbers alone can't tell you why they moved." },
   { question: "How many BCBAs are there?", answer: "85,587 as of July 1, 2026, according to the BACB. There were 81,566 at the end of 2025 and 37,859 at the end of 2019." },
   { question: "How many questions are on the BCBA exam?", answer: "185 multiple-choice questions in 4 hours: 175 scored and 10 unscored pilot questions. Your result is based on your overall score, not on each content area." },
   { question: "Is the BCBA exam changing in 2027?", answer: isPost2027 ? "No. New BCBA eligibility, coursework, and fieldwork rules took effect January 1, 2027, but the exam stayed the same. It's still based on the 6th edition test content outline: 185 questions, 175 scored, 4 hours." : "No. New BCBA eligibility, coursework, and fieldwork rules take effect January 1, 2027, but the BACB says there are no upcoming changes to the BCBA exam or its test content outline. 2027 applicants still test on the 6th edition outline: 185 questions, 175 scored, 4 hours." },
@@ -70,7 +70,7 @@ const datasetJsonLd = { "@context": "https://schema.org", "@type": "Dataset", na
 export default function BcbaExamStatisticsPage() {
   const historicalSources = <>Sources: 2021 to 2025 pass rates and counts: <Link className="underline" href={BACB_EXAM}>BACB Examination Information</Link>. 2015 to 2019: <Link className="underline" href="http://web.archive.org/web/20210103162546/https://www.bacb.com/examination-information/">Wayback snapshot</Link>. 2020: <Link className="underline" href="http://web.archive.org/web/20220617194443/https://www.bacb.com/examination-information/">Wayback snapshot</Link> and <Link className="underline" href={BACB_ANNUAL}>BACB Annual Data Report</Link>.</>;
   return <>
-    <SeoArticlePage title="BCBA Exam Statistics: Pass Rates, Question Counts, and Certification Trends by Year" description={isPost2027 ? descriptionAfter : descriptionBefore} eyebrow="BCBA exam data" breadcrumbLabel="BCBA Exam Statistics" canonical={canonical} dateModified={dateModified} primaryCta={{ label: "Take the free 9-question diagnostic", href: "https://study.behaviorschool.com/free-practice/" }} secondaryLinks={[{ label: "How many questions are on the BCBA exam?", href: "/how-many-questions-on-bcba-exam" }, { label: "BCBA exam pass rate", href: "/blog/bcba-exam-pass-rate" }, { label: "Free 185-question mock", href: "https://study.behaviorschool.com/free-mock-exam/" }]} sections={[
+    <SeoArticlePage title="BCBA Exam Statistics: Pass Rates, Question Counts, and Certification Trends by Year" description={isPost2027 ? descriptionAfter : descriptionBefore} eyebrow="BCBA exam data" breadcrumbLabel="BCBA Exam Statistics" canonical={canonical} dateModified={dateModified} datePublished="2026-09-25" primaryCta={{ label: "Take the free 9-question diagnostic", href: "https://study.behaviorschool.com/free-practice/" }} secondaryLinks={[{ label: "How many questions are on the BCBA exam?", href: "/how-many-questions-on-bcba-exam" }, { label: "BCBA exam pass rate", href: "/blog/bcba-exam-pass-rate" }, { label: "Free 185-question mock", href: "https://study.behaviorschool.com/free-mock-exam/" }]} sections={[
       { heading: "The short answer", body: <>In 2025, <strong>51%</strong> of first-time BCBA exam candidates passed and <strong>23%</strong> of retake candidates passed, according to the <Link className="font-semibold underline" href={BACB_EXAM}>BACB</Link>. That&apos;s the lowest first-time rate in the BACB&apos;s published results going back to 2015, when it was 67%. The exam is <strong>185 questions</strong> (175 scored, 10 unscored) in 4 hours.</>, bullets: ["The 2025 results are the latest year the BACB has published.", "The BACB does not say why pass rates changed, so this page does not either."] },
       { heading: "BCBA exam pass rates by year", body: historicalSources },
       { heading: "BCaBA exam pass rates by year", body: <>This optional comparison uses the same BACB examination and annual-report sources. A blank cell is shown as n/p when the BACB source did not publish it.</> },

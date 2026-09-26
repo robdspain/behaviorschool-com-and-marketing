@@ -32,6 +32,7 @@ type SeoArticlePageProps = {
   canonical: string;
   heroVisual?: boolean;
   dateModified?: string;
+  datePublished?: string;
   children?: ReactNode;
 };
 
@@ -47,6 +48,7 @@ export function SeoArticlePage({
   canonical,
   heroVisual = false,
   dateModified = "2026-06-29",
+  datePublished,
   children,
 }: SeoArticlePageProps) {
   const breadcrumbItems = [
@@ -63,6 +65,7 @@ export function SeoArticlePage({
         description,
         url: canonical,
         dateModified,
+        ...(datePublished ? { datePublished } : {}),
         author: {
           "@type": "Person",
           name: "Rob Spain",

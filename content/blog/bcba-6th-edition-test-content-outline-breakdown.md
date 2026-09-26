@@ -21,7 +21,7 @@ If you're preparing for the BCBA exam, you're studying the **6th Edition Test Co
 
 This guide breaks down every domain of the BCBA 6th Edition TCO, gives you the exam weights, tells you which tasks are highest-yield, and flags which sections catch school-based BCBAs off guard.
 
-> **Download the official source:** [BCBA Test Content Outline (6th ed.)](https://www.bacb.com/wp-content/bcba-outline-6thEd/) - free PDF directly from BACB.
+> **Download the official source:** [BCBA Test Content Outline (6th ed.)](https://www.bacb.com/wp-content/uploads/2022/01/BCBA-6th-Edition-Test-Content-Outline-240903-a.pdf) - free PDF directly from BACB.
 
 > **Quick fact:** The BCBA exam contains **175 scored questions** plus 10 unscored pilot questions (185 total). The 6th Edition TCO organizes those questions across **9 domains** with 104 total tasks. For the complete count, timing, and domain table, see [How Many Questions Are on the BCBA Exam?](/how-many-questions-on-bcba-exam).
 
@@ -175,7 +175,7 @@ Domain I has 19 questions (11%) in the 6th edition, up from 17 (10%) in the 5th.
 | H - Selecting & Implementing Interventions | 8 | 20 (11%) | High |
 | I - Personnel Supervision & Management | 7 | 19 (11%) | Medium |
 
-> **Source:** BACB, [BCBA Test Content Outline (6th ed.)](https://www.bacb.com/wp-content/bcba-outline-6thEd/). Every domain is tested.
+> **Source:** BACB, [BCBA Test Content Outline (6th ed.)](https://www.bacb.com/wp-content/uploads/2022/01/BCBA-6th-Edition-Test-Content-Outline-240903-a.pdf). Every domain is tested.
 
 ---
 
@@ -273,7 +273,7 @@ The BCBA Test Content Outline (6th ed.) organizes 175 scored exam questions acro
 
 ## Sources & References
 
-- Behavior Analyst Certification Board. (2022). *BCBA test content outline (6th ed.).* https://www.bacb.com/wp-content/bcba-outline-6thEd/
+- Behavior Analyst Certification Board. (2022). *BCBA test content outline (6th ed.).* https://www.bacb.com/wp-content/uploads/2022/01/BCBA-6th-Edition-Test-Content-Outline-240903-a.pdf
 - Behavior Analyst Certification Board. (2022). *Ethics Code for Behavior Analysts*. BACB. https://www.bacb.com/ethics/ethics-code-for-behavior-analysts/
 - Individuals with Disabilities Education Act, 20 U.S.C. § 1414 et seq. (2004).
 - Behavior Analyst Certification Board. (n.d.). *Examination information.* https://www.bacb.com/examination-information/

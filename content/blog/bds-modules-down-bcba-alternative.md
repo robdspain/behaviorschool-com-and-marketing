@@ -32,7 +32,7 @@ Not all exam prep tools are built the same. When evaluating an alternative, look
 
 **Error review.** The questions you keep getting wrong are the ones that will show up on your exam. A platform that lets you systematically review your mistakes is worth more than one that just shows you your score.
 
-## BehaviorSchool as an Alternative
+## Behavior Study Tools as an Alternative
 
 [Behavior Study Tools](/behavior-study-tools) is an actively maintained BCBA exam prep platform that covers all of the above. You can [start free practice](https://study.behaviorschool.com/free-practice/) with a 9-question set and no account. Practice questions are organized by BACB content domain, and a full-length timed mock exam is available after you create a free account. The analytics dashboard shows your performance by domain so you can adjust your study plan based on actual data - not guesswork.
 

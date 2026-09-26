@@ -10,7 +10,7 @@ tags:
   - BCBA
   - blog
 status: published
-meta_title: "Free BCBA Exam Prep That Works | BehaviorSchool"
+meta_title: "Free BCBA Exam Prep That Works | Behavior Study Tools"
 meta_description: "Study strategies, free practice exams, and a 16-week study plan for the BCBA exam. Learn what actually works from BCBAs who passed first try."
 ---
 
@@ -91,7 +91,7 @@ Cramming doesn't work for an exam this broad. **Spaced repetition** - reviewing 
 **How to implement spaced repetition:**
 
 - Study a topic → review it the next day → review it 3 days later → review it 1 week later → review it 2 weeks later
-- Use a spaced repetition app or system (Anki, or BehaviorSchool's [study tools](/study) which build this in automatically)
+- Use a spaced repetition app or system (Anki, or Behavior Study Tools which builds this in automatically)
 - Interleave topics: don't study all of reinforcement in one sitting, then all of punishment the next. Mix related and unrelated topics within each session
 
 ### 4. Build a Study Schedule (and Stick to It)
@@ -181,7 +181,7 @@ Free resources can absolutely get you to a passing score. But consider paid opti
 - You want AI-adaptive practice that targets your specific weak areas
 - You want the confidence of a large, validated question bank
 
-BehaviorSchool's [BCBA exam prep tools](/bcba-exam-prep) combine AI-powered adaptive practice with the BCBA Test Content Outline (6th ed.) at a fraction of the cost of traditional prep courses.
+Behavior Study Tools combines adaptive practice with the BCBA Test Content Outline (6th ed.) at a fraction of the cost of traditional prep courses.
 
 ## What to Do If You've Failed Before
 
@@ -237,13 +237,13 @@ Passing the BCBA exam opens the door to a career that changes lives - including 
 
 **Start here:**
 
-1. Download the [BCBA Test Content Outline (6th ed.)](https://www.bacb.com/wp-content/bcba-outline-6thEd/) from the BACB website
+1. Download the [BCBA Test Content Outline (6th ed.)](https://www.bacb.com/wp-content/uploads/2022/01/BCBA-6th-Edition-Test-Content-Outline-240903-a.pdf) from the BACB website
 2. Take a [free diagnostic practice exam](/free-bcba-practice-exam) or a broader [BCBA practice exam](/bcba-practice-exam) to identify your starting point
 3. Build your 12-16 week study schedule using the template above
 4. Set up your study tools: flashcards, practice questions, and a tracking system
 5. Find an accountability partner or study group
 
-**Want adaptive, AI-powered study tools that adjust to your weak areas?** [Check out BehaviorSchool's BCBA study platform](/study) - built by BCBAs who've been where you are, designed to get you where you want to be.
+**Want adaptive study tools that adjust to your weak areas?** [Try Behavior Study Tools](/behavior-study-tools) - built by BCBAs who've been where you are, designed to get you where you want to be.
 
 ## Frequently Asked Questions About BCBA Exam Prep
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { buildYear, isPostBcba2027 } from "@/lib/bcba-2027";
 
 const canonical = "https://behaviorschool.com/how-many-questions-on-bcba-exam";
 const BACB_EXAM = "https://www.bacb.com/examination-information/";
@@ -9,9 +10,8 @@ const BACB_TCO = "https://www.bacb.com/wp-content/uploads/2022/01/BCBA-6th-Editi
 const BACB_TRANSITION = "https://www.bacb.com/wp-content/uploads/2025/06/BCBA-2027-Requirements-Transition-260130-a.pdf";
 const BACB_REQUIREMENTS = "https://www.bacb.com/wp-content/uploads/2025/03/2027-BCBA-Requirements_260127-a.pdf";
 const BACB_NEWSLETTER = "https://www.bacb.com/wp-content/uploads/2025/11/BACB_December2025_Newsletter-251124-2-a.pdf";
-const EFFECTIVE_AT = Date.parse("2027-01-01T00:00:00-07:00");
-const isPost2027 = Date.now() >= EFFECTIVE_AT;
-const currentYear = new Date().getFullYear();
+const isPost2027 = isPostBcba2027();
+const currentYear = buildYear();
 const dateModified = isPost2027 ? "2027-01-01" : "2026-09-25";
 const yearQuestion = `How many questions is the BCBA exam in ${currentYear}?`;
 
@@ -62,6 +62,7 @@ export default function HowManyQuestionsOnBcbaExamPage() {
       breadcrumbLabel="How Many Questions Are on the BCBA Exam?"
       canonical={canonical}
       dateModified={dateModified}
+      datePublished="2026-09-25"
       primaryCta={{ label: "Take the free 9-question check", href: "https://study.behaviorschool.com/free-practice/" }}
       secondaryLinks={[
         { label: "Free 185-question mock", href: "https://study.behaviorschool.com/free-mock-exam/" },

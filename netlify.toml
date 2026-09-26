@@ -74,9 +74,11 @@
 [functions."transformation-nurture-worker"]
   schedule = "12 * * * *"
 
-# Fallback trigger to refresh salary data yearly (and ensure site rebuild)
+# Rebuild the static BCBA 2027 date-gated pages at 00:05 MST on Jan 1, 2027.
+[functions."bcba-2027-rebuild"]
+  schedule = "5 7 1 1 *"
 
-# Weekly revenue summary — every Monday at 8 AM ET (13:00 UTC)
+# Weekly revenue summary, every Monday at 8 AM ET (13:00 UTC)
 [functions."weekly-revenue-summary"]
   schedule = "0 13 * * 1"
 
