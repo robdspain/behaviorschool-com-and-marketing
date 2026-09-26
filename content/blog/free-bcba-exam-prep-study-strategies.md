@@ -42,6 +42,8 @@ The BCBA exam is based on the BACB's 6th Edition Task List, which organizes cont
 
 ### Exam Format
 
+For the complete question count and pacing breakdown, see [How Many Questions Are on the BCBA Exam?](/how-many-questions-on-bcba-exam).
+
 - The BCBA exam is a **computer-based, multiple‑choice exam** administered at Pearson VUE testing centers.
 - The BACB publishes the official exam structure, timing, and question format here: https://www.bacb.com/bcba/bcba-exam/
 - Most questions are **application-based** — you’ll analyze scenarios and apply concepts, not just define terms.

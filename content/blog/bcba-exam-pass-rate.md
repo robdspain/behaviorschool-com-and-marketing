@@ -35,6 +35,8 @@ If you are preparing for the exam — or if you have already taken it and did no
 
 The BACB publishes pass-rate data annually on its [Examination Information](https://www.bacb.com/examination-information/) page. For **first-time BCBA candidates**, the official percentages are:
 
+If you are also checking the test format, [How Many Questions Are on the BCBA Exam?](/how-many-questions-on-bcba-exam) covers the current question count, timing, and domain breakdown:
+
 | Year | First-time pass rate | First-time fail rate |
 |------|---------------------|----------------------|
 | 2022 | 55% | 45% |

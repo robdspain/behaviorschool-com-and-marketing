@@ -217,6 +217,12 @@ async function buildSitemap(
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/how-many-questions-on-bcba-exam`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
       url: `${baseUrl}/bcba-exam-weak-areas`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

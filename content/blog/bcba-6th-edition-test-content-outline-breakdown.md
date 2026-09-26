@@ -23,7 +23,7 @@ This guide breaks down every domain of the BCBA 6th Edition TCO, gives you the e
 
 > **Download the official source:** [BCBA 6th Edition Task List & Test Content Outline (BACB.com)](https://www.bacb.com/bcba-bcaba-behavior-analyst-task-list/) — free PDF directly from BACB.
 
-> **Quick fact:** The BCBA exam contains **175 scored questions** plus 10 unscored pilot questions (185 total). The 6th Edition TCO organizes those questions across **9 domains** with 104 total tasks.
+> **Quick fact:** The BCBA exam contains **175 scored questions** plus 10 unscored pilot questions (185 total). The 6th Edition TCO organizes those questions across **9 domains** with 104 total tasks. For the complete count, timing, and domain table, see [How Many Questions Are on the BCBA Exam?](/how-many-questions-on-bcba-exam).
 
 ---
 
