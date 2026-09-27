@@ -3,8 +3,8 @@ import { ArrowRight, PlayCircle, Shield, Target, TrendingUp } from 'lucide-react
 import { buildPageMetadata } from '@/lib/seo/metadata'
 
 export const metadata = buildPageMetadata({
-  title: 'Free BCBA Practice | Quick Check or Full 185 Mock | Behavior Study Tools',
-  description: 'Try a free 9-question BCBA Quick domain check with no account, or take the full 185-question mock in Behavior Study Tools. The full mock requires a free account before you start.',
+  title: 'Free BCBA Mock Exam Questions & Practice Questions | Behavior Study Tools',
+  description: 'Try free BCBA practice questions with a 9-question quick check, no account needed, or take the full free BCBA mock exam questions in a 185-question timed mock (free account required before you start).',
   canonical: 'https://behaviorschool.com/practice',
 })
 
@@ -13,9 +13,9 @@ export default function PracticePage() {
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       <section className="container mx-auto px-6 pt-24 pb-8 text-center">
         <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-6">BCBA Practice</div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Free BCBA Practice Tests</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">Free BCBA Mock Exam Questions & Practice Questions</h1>
         <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto">
-          Try a free 9-question Quick domain check with no account, or take the full 185-question mock in Behavior Study Tools with a free account.
+          Try free BCBA practice questions with a 9-question quick check, no account needed, or take the full free BCBA mock exam questions in a realistic 185-question mock inside Behavior Study Tools (free account required before you start).
         </p>
       </section>
 
@@ -32,7 +32,7 @@ export default function PracticePage() {
               'No account needed',
             ]}
             href="/practice/launch?mode=mini"
-            cta="Start Quick domain check"
+            cta="Start free BCBA practice questions"
           />
 
           {/* Full Mock */}
@@ -46,7 +46,7 @@ export default function PracticePage() {
               'Free account required before you start',
             ]}
             href="https://study.behaviorschool.com/free-mock-exam/"
-            cta="Start Full (185)"
+            cta="Start free BCBA mock exam questions"
             highlight
           />
         </div>
