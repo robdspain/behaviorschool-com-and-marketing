@@ -91,7 +91,7 @@ Cramming doesn't work for an exam this broad. **Spaced repetition** - reviewing 
 **How to implement spaced repetition:**
 
 - Study a topic → review it the next day → review it 3 days later → review it 1 week later → review it 2 weeks later
-- Use a spaced repetition app or system (Anki, or Behavior Study Tools which builds this in automatically)
+- Use a spaced repetition system (Behavior Study Tools builds this in automatically)
 - Interleave topics: don't study all of reinforcement in one sitting, then all of punishment the next. Mix related and unrelated topics within each session
 
 ### 4. Build a Study Schedule (and Stick to It)
@@ -168,8 +168,6 @@ You don't need to spend hundreds of dollars to prepare effectively. Here are the
 
 ### Free Study Tools
 
-- **Anki** - Free spaced repetition flashcard app (search for shared BCBA decks, but verify accuracy)
-- **Quizlet** - Free flashcard sets (same caveat: verify accuracy of user-created content)
 - **Study groups** - Free to form; check Facebook groups, Reddit, and university cohorts
 
 ### When to Invest in Paid Resources
@@ -253,7 +251,7 @@ Most candidates need 12-16 weeks of consistent study (1-2 hours daily, 5-6 days 
 
 ### What are the best free BCBA practice exam resources?
 
-BehaviorSchool's free practice exam, BACB sample questions, university study materials, and YouTube BCBA exam prep channels offer quality free practice. Always verify content aligns with the BCBA Test Content Outline (6th ed.).
+The Behavior Study Tools free 9-question practice, BACB sample questions, university study materials, and YouTube BCBA exam prep channels offer quality free practice. Always verify content aligns with the BCBA Test Content Outline (6th ed.).
 
 ### Is the BCBA exam hard?
 
@@ -265,8 +263,8 @@ There's no fixed public number. The BACB sets the passing score with the modifie
 
 ### What should I do the week before the BCBA exam?
 
-Do light review only-no cramming. Get adequate sleep, visit your testing center, prepare your ID and materials, and trust your preparation. The week before is for rest and confidence-building, not learning new content.
+Do light review only, no cramming. Get adequate sleep, visit your testing center, prepare your ID and materials, and trust your preparation. The week before is for rest and confidence-building, not learning new content.
 
 ---
 
-*Get weekly BCBA exam tips, free practice questions, and study motivation delivered to your inbox. [Subscribe to the BehaviorSchool newsletter](/subscribe) - join thousands of future BCBAs studying smarter, not harder.*
+*Get weekly BCBA exam tips, free practice questions, and study motivation delivered to your inbox. [Subscribe to the Behavior School newsletter](/subscribe) - join thousands of future BCBAs studying smarter, not harder.*

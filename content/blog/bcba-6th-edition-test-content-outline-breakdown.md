@@ -35,7 +35,7 @@ The BCBA Test Content Outline (6th ed.), published in 2022, replaced the BCBA Ta
 - **Diversity, equity, and inclusion content integrated:** The BACB integrated this content into 8 tasks across 4 domains, for example F.2 (Identify and integrate relevant cultural variables in the assessment process) and I.3 (Identify and implement methods that promote equity in supervision practices). Domain I is Personnel Supervision and Management, which was also in the 5th edition.
 - **Ethics restructured:** Domain E, retitled Ethical and Professional Issues, now has 12 specific tasks instead of references to the entire Ethics Code.
 - **"Foundational" vs. "Applied" structure:** The 6th edition distinguishes between conceptual foundations (early domains) and applied practice (later domains).
-- **Increased real-world scenarios:**
+
 > For a detailed comparison of 5th vs. 6th edition structure, see the BACB's published TCO at bacb.com.
 
 ---
@@ -62,13 +62,18 @@ This domain covers the philosophical and theoretical bedrock of behavior analysi
 
 ---
 
+### Domain B: Concepts and Principles
+**Task count:** 24 tasks | **Questions:** 24 (14%)
+
+The largest conceptual domain - this is where reinforcement, punishment, extinction, and related principles live.
+
 **Key tasks include:**
 - Identify and distinguish among behavior, response, and response class.
 - Identify and distinguish between stimulus and stimulus class.
 - Identify and distinguish between respondent and operant conditioning.
 - Identify and distinguish between positive and negative reinforcement contingencies.
 - Identify and distinguish between positive and negative punishment contingencies.
-- Identify and distinguish among automatic and socially mediated contingencies.
+- Identify and distinguish between automatic and socially mediated contingencies.
 - Identify and distinguish among unconditioned, conditioned, and generalized reinforcers.
 - Identify and distinguish among unconditioned, conditioned, and generalized punishers.
 - Identify and distinguish among simple schedules of reinforcement.
@@ -86,7 +91,95 @@ This domain covers the philosophical and theoretical bedrock of behavior analysi
 - Identify ways behavioral momentum can be used to understand response persistence.
 - Identify ways the matching law can be used to interpret response allocation.
 - Identify and distinguish between imitation and observational learning.
-- Identify processes that promote emergent relations and generative performance.
+- Identify examples of processes that promote emergent relations and generative performance.
+
+**High-yield:** Schedules of reinforcement (VI, VR, FI, FR) and their characteristic response patterns come up consistently in candidate reports. Know the scallop pattern, the post-reinforcement pause, and which schedules are most resistant to extinction.
+
+---
+
+### Domain C: Measurement, Data Display, and Interpretation
+**Task count:** 12 tasks | **Questions:** 21 (12%)
+
+Measurement is one of the most applied domains and often underestimated by candidates. This is where data systems live.
+
+**Key tasks include:**
+- Create operational definitions of behavior.
+- Distinguish among direct, indirect, and product measures of behavior.
+- Measure occurrence.
+- Measure temporal dimensions of behavior (e.g., duration, latency, interresponse time).
+- Distinguish between continuous and discontinuous measurement procedures.
+- Design and apply discontinuous measurement procedures (e.g., interval recording, time sampling).
+- Measure efficiency (e.g., trials to criterion, cost-benefit analysis, training duration).
+- Evaluate the validity and reliability of measurement procedures.
+- Select a measurement procedure to obtain representative data that accounts for the critical dimension of the behavior and environmental constraints.
+- Graph data to communicate relevant quantitative relations (e.g., equal-interval graphs, bar graphs, cumulative records).
+- Interpret graphed data.
+- Select a measurement procedure to obtain representative procedural integrity data that accounts for relevant dimensions (e.g., accuracy, dosage) and environmental constraints.
+
+**School BCBA angle:** Data sheets, ABC recording, scatter plots, frequency counts for IEP goals - all of this anchors in Domain C. If you're building your exam prep, measurement should be a priority; it's both testable and immediately applicable.
+
+---
+
+### Domain D: Experimental Design
+**Task count:** 9 tasks | **Questions:** 13 (7%)
+
+Fewer questions than most domains, but it requires conceptual precision. This covers single-case design, internal validity, and research interpretation.
+
+**Key tasks include:**
+- Distinguish between dependent and independent variables.
+- Distinguish between internal and external validity.
+- Identify threats to internal validity (e.g., history, maturation).
+- Identify the defining features of single-case experimental designs (e.g., individuals serve as their own controls, repeated measures, prediction, verification, replication).
+- Identify the relative strengths of single-case experimental designs and group designs.
+- Critique and interpret data from single-case experimental designs.
+- Distinguish among reversal, multiple-baseline, multielement, and changing-criterion designs.
+- Identify rationales for conducting comparative, component, and parametric analyses.
+- Apply single-case experimental designs.
+
+**What to know:** Expect scenario questions such as: "A researcher wants to minimize carryover effects. Which design is most appropriate?"
+
+---
+
+### Domain E: Ethical and Professional Issues
+**Task count:** 12 tasks | **Questions:** 22 (13%)
+
+Ethical and Professional Issues has 12 tasks and 22 questions (13%), up from 18 questions (10%) in the 5th edition. Do not underweight this.
+
+**Key tasks include:**
+- Identify and apply core principles underlying the ethics codes for BACB certificants (e.g., benefit others; treat others with compassion, dignity, and respect; behave with integrity).
+- Identify the risks to oneself, others, and the profession as a result of engaging in unethical behavior.
+- Develop and maintain competence by engaging in professional development activities (e.g., read literature, seek consultation, establish mentors).
+- Identify and comply with requirements for collecting, using, protecting, and disclosing confidential information.
+- Identify and comply with requirements for making public statements about professional activities (e.g., social media activity; misrepresentation of professional credentials, behavior analysis, and service outcomes).
+- Identify the conditions under which services or supervision should be discontinued and apply steps that should be taken when transitioning clients and supervisees to another professional.
+- Identify types of and risks associated with multiple relationships, and how to mitigate those risks when they are unavoidable.
+- Identify and apply interpersonal and other skills (e.g., accepting feedback, listening actively, seeking input, collaborating) to establish and maintain professional relationships.
+- Engage in cultural humility in service delivery and professional relationships.
+- Apply culturally responsive and inclusive service and supervision activities.
+- Identify personal biases and how they might interfere with professional activity.
+- Identify and apply the legal, regulatory, and practice requirements (e.g., licensure, jurisprudence, funding, certification) relevant to the delivery of behavior-analytic services.
+
+**Top traps:**
+- Multiple relationships: know the risks and how to mitigate them when they are unavoidable
+- Confidentiality: know the requirements for collecting, using, protecting, and disclosing information
+- Discontinuing services: know the steps for transitioning clients and supervisees
+
+---
+
+### Domain F: Behavior Assessment
+**Task count:** 8 tasks | **Questions:** 23 (13%)
+
+This is where FBAs, preference assessments, and skill assessments live. Extremely applied, high relevance for school BCBAs.
+
+**Key tasks include:**
+- Identify relevant sources of information in records (e.g., educational, medical, historical) at the outset of the case.
+- Identify and integrate relevant cultural variables in the assessment process.
+- Design and evaluate assessments of relevant skill strengths and areas of need.
+- Design and evaluate preference assessments.
+- Design and evaluate descriptive assessments.
+- Design and evaluate functional analyses.
+- Interpret assessment data to determine the need for behavior-analytic services and/or referral to others.
+- Interpret assessment data to identify and prioritize socially significant, client-informed, and culturally responsive behavior-change procedures and goals.
 
 **School BCBA angle:** The FBA → function → BIP chain is your daily workflow. This domain directly transfers to practice. If you're a working school BCBA, you have an advantage here - use it.
 
@@ -267,7 +360,7 @@ The BCBA Test Content Outline (6th ed.) organizes 175 scored exam questions acro
 
 ---
 
-*Rob Spain is a Board Certified Behavior Analyst (BCBA) and International Behavior Analyst (IBA) with 25+ years of school-based practice. He is the founder of BehaviorSchool and Behavior Study Tools.*
+*Rob Spain is a Board Certified Behavior Analyst (BCBA) and International Behavior Analyst (IBA) with 25+ years of school-based practice. He is the founder of Behavior School and Behavior Study Tools.*
 
 ---
 

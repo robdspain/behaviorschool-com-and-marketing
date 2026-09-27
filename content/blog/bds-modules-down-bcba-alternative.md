@@ -1,6 +1,6 @@
 ---
 title: "BDS Modules Appears to Be Down - What BCBA Candidates Should Know"
-date: "2026-09-25T09:00:00.000Z"
+date: "2026-02-26"
 description: "BDS Modules has been a go-to resource for BCBA exam prep, but the site is currently experiencing DNS issues. Here are your options."
 author: Rob Spain
 tags:

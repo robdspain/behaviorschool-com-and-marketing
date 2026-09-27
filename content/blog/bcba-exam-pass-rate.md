@@ -35,14 +35,14 @@ If you are preparing for the exam - or if you have already taken it and did not 
 
 The BACB publishes pass-rate data annually on its [Examination Information](https://www.bacb.com/examination-information/) page. For **first-time BCBA candidates**, the official percentages are:
 
-If you are also checking the test format, [How Many Questions Are on the BCBA Exam?](/how-many-questions-on-bcba-exam) covers the current question count, timing, and domain breakdown:
-
 | Year | First-time pass rate | First-time fail rate |
 |------|---------------------|----------------------|
 | 2022 | 55% | 45% |
 | 2023 | 56% | 44% |
 | 2024 | 54% | 46% |
 | 2025 | 51% | 49% |
+
+If you are also checking the test format, [How Many Questions Are on the BCBA Exam?](/how-many-questions-on-bcba-exam) covers the current question count, timing, and domain breakdown.
 
 So when the first-time pass rate was **54% in 2024**, **46% did not pass** on that first attempt - not “more than half.” The most recent published year in that table is **2025**, at **51%** first-time pass.
 
@@ -122,7 +122,7 @@ If you are preparing for the BCBA exam or preparing to retake it, start with a f
 
 ---
 
-*Rob Spain, BCBA, IBA, is the founder of BehaviorSchool and a practicing school BCBA.*
+*Rob Spain, BCBA, IBA, is the founder of Behavior School and a practicing school BCBA.*
 
 ---
 *Edited by Rob Spain, BCBA, IBA. Content written and researched with AI assistance.*

@@ -81,7 +81,7 @@ export default function HowManyQuestionsOnBcbaExamPage() {
         },
         {
           heading: "How much time you get per question",
-          body: <>You have <strong>4 hours (240 minutes) for 185 questions</strong>. That&apos;s about <strong>1 minute and 18 seconds per question</strong> if you spread the time evenly. The <Link className="font-semibold underline" href={BACB_EXAM}>BCBA Handbook</Link> says the 4 hours also covers the terms and conditions, the navigation tutorial, and any time you spend reviewing answers at the end. The clock keeps running during breaks.</>,
+          body: <>You have <strong>4 hours (240 minutes) for 185 questions</strong>. That&apos;s about <strong>1 minute and 18 seconds per question</strong> if you spread the time evenly. The <Link className="font-semibold underline" href="https://www.bacb.com/bcba-handbook">BCBA Handbook</Link> says the 4 hours also covers the terms and conditions, the navigation tutorial, and any time you spend reviewing answers at the end. The clock keeps running during breaks.</>,
           bullets: [
             "1 hour: You should be near question 46.",
             "2 hours: You should be near question 93.",
@@ -99,7 +99,7 @@ export default function HowManyQuestionsOnBcbaExamPage() {
         },
         {
           heading: "How to practice for 185 questions",
-          body: <>Knowing the number is step one. Sitting through 185 questions is a different skill. Find your weakest area first with the <Link className="font-semibold underline" href="https://study.behaviorschool.com/free-practice/">free BCBA exam practice questions</Link> (9-question diagnostic) from Behavior Study Tools. It has one question from each 6th edition content area, takes about seven minutes, and you don&apos;t need to sign up. Then build stamina with the <Link className="font-semibold underline" href="https://study.behaviorschool.com/free-mock-exam/">free BCBA mock exam questions</Link>&mdash;a 185-question timed mock exam. It follows the 6th edition outline and requires a free account before you start. Your results are saved there.</>,
+          body: <>Knowing the number is step one. Sitting through 185 questions is a different skill. Find your weakest area first with the <Link className="font-semibold underline" href="https://study.behaviorschool.com/free-practice/">free BCBA exam practice questions</Link> (9-question diagnostic) from Behavior Study Tools. It has one question from each 6th edition content area, takes about seven minutes, and you don&apos;t need to sign up. Then build stamina with the <Link className="font-semibold underline" href="https://study.behaviorschool.com/free-mock-exam/">free BCBA mock exam questions</Link>, a 185-question timed mock exam. It follows the 6th edition outline and requires a free account before you start. Your results are saved there.</>,
           bullets: [
             "Do the diagnostic this week.",
             "Save the full mock for a day you can protect a real 4-hour block.",
