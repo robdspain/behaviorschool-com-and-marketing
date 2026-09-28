@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920" role="img" aria-labelledby="title desc">
+  <title id="title">Full mock pacing checkpoint</title>
+  <desc id="desc">YouTube Shorts graphic showing a free full BCBA mock as a pacing checkpoint.</desc>
+  <rect width="1080" height="1920" fill="#123628"/>
+  <rect x="72" y="92" width="936" height="1736" fill="#fffdf7"/>
+  <text x="118" y="190" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="700">Behavior Study Tools</text>
+  <text x="118" y="336" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="800">A full mock</text>
+  <text x="118" y="428" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="800">is a pacing</text>
+  <text x="118" y="520" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="76" font-weight="800">checkpoint.</text>
+  <g transform="translate(118 700)">
+    <rect width="844" height="156" fill="#f1e1c5" stroke="#c8952d" stroke-width="4"/>
+    <text x="40" y="98" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800">185 timed questions</text>
+    <rect y="226" width="844" height="156" fill="#1f4d3f"/>
+    <text x="40" y="324" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800">Score and domains</text>
+    <rect y="452" width="844" height="156" fill="#f1e1c5" stroke="#c8952d" stroke-width="4"/>
+    <text x="40" y="550" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="800">One follow-up block</text>
+  </g>
+  <text x="118" y="1506" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="800">Free account.</text>
+  <text x="118" y="1568" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="800">No credit card.</text>
+</svg>

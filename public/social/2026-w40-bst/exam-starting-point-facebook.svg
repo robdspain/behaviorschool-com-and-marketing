@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Behavior Study Tools exam starting point</title>
+  <desc id="desc">Facebook graphic showing a free nine-question BCBA diagnostic leading to one study block.</desc>
+  <rect width="1200" height="630" fill="#f7f3ea"/>
+  <rect x="56" y="56" width="1088" height="518" fill="#fffdf7" stroke="#123628" stroke-width="4"/>
+  <text x="96" y="126" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Behavior Study Tools</text>
+  <text x="96" y="206" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800">Start with a</text>
+  <text x="96" y="274" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800">smaller signal.</text>
+  <g transform="translate(96 340)">
+    <rect width="236" height="108" fill="#1f4d3f"/>
+    <text x="28" y="52" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800">9 questions</text>
+    <text x="28" y="84" fill="#dbece7" font-family="Arial, Helvetica, sans-serif" font-size="22">free diagnostic</text>
+    <path d="M272 54h82" stroke="#c8952d" stroke-width="8"/>
+    <path d="M342 37l30 17-30 17z" fill="#c8952d"/>
+    <rect x="412" width="282" height="108" fill="#f1e1c5" stroke="#c8952d" stroke-width="3"/>
+    <text x="442" y="52" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800">Domain signal</text>
+    <text x="442" y="84" fill="#3d4a46" font-family="Arial, Helvetica, sans-serif" font-size="22">after completion</text>
+    <path d="M734 54h74" stroke="#c8952d" stroke-width="8"/>
+    <path d="M796 37l30 17-30 17z" fill="#c8952d"/>
+    <rect x="866" width="178" height="108" fill="#1f4d3f"/>
+    <text x="900" y="52" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="800">One next</text>
+    <text x="900" y="84" fill="#dbece7" font-family="Arial, Helvetica, sans-serif" font-size="22">study block</text>
+  </g>
+  <text x="96" y="520" fill="#3d4a46" font-family="Arial, Helvetica, sans-serif" font-size="30">Use free practice before you review everything.</text>
+</svg>

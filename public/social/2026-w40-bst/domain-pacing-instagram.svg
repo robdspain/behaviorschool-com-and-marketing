@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Mock result decision pattern</title>
+  <desc id="desc">Instagram graphic showing a mock result reviewed by domain pattern, pacing evidence, and error type.</desc>
+  <rect width="1080" height="1350" fill="#f8f7f3"/>
+  <rect x="70" y="70" width="940" height="1210" fill="#fffdf7" stroke="#123628" stroke-width="4"/>
+  <text x="112" y="152" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Behavior Study Tools</text>
+  <text x="112" y="258" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="800">Use your</text>
+  <text x="112" y="340" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="800">mock for the</text>
+  <text x="112" y="422" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="800">next decision.</text>
+  <g transform="translate(118 548)">
+    <rect width="844" height="138" fill="#1f4d3f"/>
+    <text x="38" y="84" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">1. Domain pattern</text>
+    <rect y="184" width="844" height="138" fill="#f1e1c5" stroke="#c8952d" stroke-width="4"/>
+    <text x="38" y="268" fill="#111827" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">2. Pacing evidence</text>
+    <rect y="368" width="844" height="138" fill="#1f4d3f"/>
+    <text x="38" y="452" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">3. Error type</text>
+  </g>
+  <text x="112" y="1112" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">Then choose one</text>
+  <text x="112" y="1170" fill="#1f4d3f" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="800">focused study block.</text>
+</svg>
