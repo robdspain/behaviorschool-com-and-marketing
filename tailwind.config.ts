@@ -18,13 +18,18 @@ const config: Config = {
     },
     extend: {
       colors: {
-        // Behavior School brand (mid-century schoolhouse inspired)
-        'bs-primary': '#1E3A34', // chalkboard green
-        'bs-primary-dark': '#152825',
-        'bs-accent': '#E3B23C', // vintage golden
-        'bs-background': '#FAF3E0', // cream paper
-        'bs-text': '#1A1A1A',
-        'bs-text-light': '#6B7280',
+        // Must match src/app/globals.css 2026 chalkboard block. Do not invent hexes here.
+        'bs-primary': '#1f4d3f',
+        'bs-primary-dark': '#123628',
+        'bs-chalk-dark': '#0b3528',
+        'bs-accent': '#e4b63d',
+        'bs-gold': '#e4b63d',
+        'bs-background': '#fbfaf6',
+        'bs-parchment': '#fbfaf6',
+        'bs-text': '#171f1d',
+        'bs-ink': '#171f1d',
+        'bs-on-gold': '#171f1d',
+        'bs-text-light': '#5c5449',
         // Brand section backgrounds - Option 1: Subtle & Warm Neutrals
         'bs-section-odd': '#F8F4E9', // warm beige/aged paper
         'bs-section-even': '#FFFFFF', // pure white

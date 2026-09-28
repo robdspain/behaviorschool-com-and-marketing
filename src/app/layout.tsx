@@ -192,13 +192,8 @@ export default function RootLayout({
         <PerformanceMonitor />
         {/* Preconnect hints for performance */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link rel="preconnect" href="https://behaviorstudytools.com" />
         <link rel="preconnect" href="https://community.behaviorschool.com" />
-
-        {/* Preload critical images */}
-        <link rel="preload" href="/optimized/Hero/Hero-group1-optimized.webp" as="image" type="image/webp" fetchPriority="high" />
 
         {/* DNS prefetch for additional performance */}
         <link rel="dns-prefetch" href="//www.google-analytics.com" />

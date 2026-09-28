@@ -1,4 +1,6 @@
-# ✅ Brand Color Rollout - COMPLETE
+> **Retired.** Do not implement from this file. Canonical tokens are `src/app/globals.css` and `BRAND_STYLE_GUIDE.md`. See `BRAND_DEBT.md`.
+
+# Brand Color Rollout - COMPLETE
 ## Date: October 3, 2025
 
 ---
