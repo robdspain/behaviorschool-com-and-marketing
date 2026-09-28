@@ -24,8 +24,8 @@ const StructuredData = dynamic(() => import('./structured-data').then(mod => ({ 
 const FAQData = dynamic(() => import('./structured-data').then(mod => ({ default: mod.FAQStructuredData })));
 
 export const metadata: Metadata = {
-  title: "Free BCBA Mock Exam | Behavior School",
-  description: "Free full-length BCBA mock exam with 185 questions in Behavior Study Tools. Free account required before you start. Instant scoring, detailed explanations & performance analytics. Want to try first? Take a short free practice with no account.",
+  title: "Free BCBA Mock Exam Questions & Practice Questions | Behavior School",
+  description: "Free full-length BCBA mock exam questions: 185-question mock in Behavior Study Tools. Free account required before you start. Instant scoring, detailed explanations & performance analytics. Want to try free BCBA practice questions first? Take a short free practice with no account.",
   robots: {
     index: true,
     follow: true,
@@ -61,8 +61,8 @@ export const metadata: Metadata = {
     canonical: "https://study.behaviorschool.com/free-mock-exam/"
   },
   openGraph: {
-    title: "Free BCBA Mock Exam | Behavior School",
-    description: "FREE full-length BCBA mock exam. Instant scoring + detailed explanations. Comprehensive practice for behavior analysts preparing for certification.",
+    title: "Free BCBA Mock Exam Questions & Practice Questions | Behavior School",
+    description: "Free full-length BCBA mock exam questions. Instant scoring + detailed explanations. Comprehensive practice for behavior analysts preparing for certification.",
     url: "https://study.behaviorschool.com/free-mock-exam/",
     siteName: "Behavior School",
     images: [
@@ -78,8 +78,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free BCBA Mock Exam | Behavior School",
-    description: "Professional BCBA mock exam with 185 realistic questions. Complete 4-hour simulation, instant results, detailed explanations.",
+    title: "Free BCBA Mock Exam Questions & Practice Questions | Behavior School",
+    description: "Professional BCBA mock exam questions: 185 realistic questions. Complete 4-hour simulation, instant results, detailed explanations.",
     images: ["/optimized/og-image.webp"],
   },
 };
@@ -118,12 +118,12 @@ export default function BCBAMockPracticeTestPage() {
             </div>
 
             <h1 className="text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-6 leading-tight">
-              Master the BCBA Exam with
-              <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent"> Realistic Mock Tests</span>
+              Free BCBA Mock Exam
+              <span className="bg-gradient-to-r from-blue-600 to-emerald-600 bg-clip-text text-transparent"> Questions & Practice Questions</span>
             </h1>
 
             <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Build confidence, identify weak areas, and perfect your test-taking strategy with our comprehensive BCBA mock practice tests. Experience the real exam before exam day.
+              Build confidence, identify weak areas, and perfect your test-taking strategy with realistic BCBA mock exam questions and BCBA exam practice questions. Experience the real exam before exam day.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

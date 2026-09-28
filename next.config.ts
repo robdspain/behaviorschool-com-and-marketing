@@ -183,6 +183,16 @@ const nextConfig: NextConfig = {
         destination: '/bcba-readiness-quiz',
         permanent: true,
       },
+      {
+        source: '/free-practice',
+        destination: freePracticeUrl,
+        permanent: true,
+      },
+      {
+        source: '/free-practice/',
+        destination: freePracticeUrl,
+        permanent: true,
+      },
 
       // -- Competitor Comparison Canonicals --
       {
