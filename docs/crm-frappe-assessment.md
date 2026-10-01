@@ -2,9 +2,9 @@
 
 Date checked: 1 October 2026.
 
-Recommendation: keep the Behavior School CRM in Convex and borrow five specific Frappe ideas. Do not migrate to Frappe CRM, and do not run a hybrid.
+Recommendation: keep the Behavior School CRM in Convex and borrow five specific Frappe ideas. Do not migrate to Frappe CRM, and do not run a hybrid. Section 6 recommends the same kind of decision for email: keep the current Resend, Mailgun, and Convex newsletter senders, and do not add Mautic.
 
-This is an assessment only. No application code was changed. Prices below are the figures published on the cited Frappe pages that day. This note does not invent a VPS bill, a Twilio bill, a contact count, or a revenue outcome. Day figures in the feature list are engineering estimates from the files named, not a delivery schedule.
+This is an assessment only. No application code was changed. Prices below are the figures published on the cited pages on 1 October 2026. This note does not invent a VPS bill, a Twilio bill, a contact count, or a revenue outcome. Day figures are engineering estimates from the files named, not a delivery schedule.
 
 ## 1. What we have
 
@@ -221,6 +221,111 @@ Each estimate is engineering time from the files named. It is not a promise abou
 
 Leave these Frappe features alone for now: Twilio, Exotel, WhatsApp, assignment rotation, Facebook and Instagram lead ads, and ERPNext. They need extra vendors or a second product, and they do not fix the discovery-to-Stripe path.
 
+## 6. Mautic for email campaigns
+
+### How campaigns and lifecycle mail work today
+
+`docs/EMAIL_SYSTEM_COMPLETE.md` is not in this repository. The closest written maps are `Docs/newsletter-system.md`, `Docs/EMAIL_BRAND_VOICE.md`, `LISTMONK_NEWSLETTER_CAMPAIGN_SETUP.md`, and `src/lib/email-marketing-catalog.ts`. No application source calls n8n. The only `n8n` string in the tree is an integrity hash in `package-lock.json`.
+
+`Docs/newsletter-system.md` says the Convex-backed School BCBA Research Brief workspace at `/admin/newsletter` is the only active newsletter manager, and that the old Supabase and Listmonk manager has been retired. The same file keeps an older note that a production check on 3 July 2026 found Listmonk `configured:false` and the Supabase and Mailgun newsletter status at 0 subscribers, 0 lists, and 0 campaigns. The catalog still labels The Weekly Research Brief as `Listmonk broadcasts`. Those two documents disagree. The code that public signup uses is the Convex path.
+
+| Job | What actually sends | Where it lives |
+| --- | --- | --- |
+| Research brief signup | Convex action `newsletterActions:requestSubscription` on the delivery deployment (`precious-clownfish-797` unless `NEWSLETTER_CONVEX_URL` overrides it) | `src/lib/convex-newsletter.ts`, `/api/newsletter`, `/api/newsletter/subscribe` |
+| Research brief editing and send records | Convex admin calls with `NEWSLETTER_CONVEX_ADMIN_TOKEN` | `src/lib/newsletter-admin.ts`, `/admin/newsletter` |
+| Optional Resend contact mirror | Resend Contacts API, into `RESEND_SUBSCRIBERS_SEGMENT_ID` or `RESEND_AUDIENCE_ID` | `upsertNewsletterSubscriber` in `src/lib/resend.ts` |
+| Transformation Program drip | Five queued steps in Convex, sent by the Resend emails API. Delays are day 0, 1, 3, 5, and 7. A Netlify function calls `/api/transformation-program/nurture/process` with a shared secret. | `convex/transformationNurture.ts`, `src/lib/transformation-nurture.ts` |
+| Discovery checkout follow-up | One Mailgun template after a logged call | `src/app/api/admin/crm/discovery-calls/[id]/follow-up/route.ts` |
+| Signup notification | Mailgun, using a Convex `emailTemplates` row, to `NOTIFICATION_EMAIL` | `src/app/api/signup/route.ts` |
+| Payment link and masterclass certificate | Mailgun | `src/app/api/admin/send-payment-link/route.ts`, `src/lib/masterclass/certificate-service.ts` |
+| Welcome, marketing, newsletter helper, transactional, IEP checklist, contact form | Resend emails API from `src/lib/email.ts` | Callers across API routes |
+| CalABA, observations beta, tool signup, FBA tool, hold-my-spot, support | Resend emails API, sometimes also a Resend contact | The matching routes under `src/app/api` |
+| Legacy list campaigns | Supabase tables `nm_campaigns`, `nm_queue`, and `nm_subscribers`, then Mailgun, with a click wrapper and an open pixel | `src/lib/nm-mail.ts`. The newsletter doc says this manager is retired. |
+| Listmonk | Client code still in `src/lib/listmonk.ts` and `src/lib/newsletter.ts` | Newsletter doc says it is not the live source of truth. |
+
+The catalog marks two sequences live: Behavior Study Tools (`Study app nurture + Resend`) and the Transformation Program (`Resend`). The four Study Tools steps exist as copy in `src/lib/email-marketing-catalog.ts`. No sender in this repository reads `behaviorStudyToolsSequence`. Supervision is marked manual. Behavior School core templates are marked manual. Upcoming products are marked planned. The Weekly Research Brief is marked manual.
+
+From addresses in `src/lib/resend.ts` use `updates.behaviorschool.com` (`noreply@`, `rob@`, and `support@`). Reply-to for Rob's mail is `rob@behaviorschool.com`.
+
+There is no visual campaign builder, no A/B test, no website tracking pixel, and no points model that changes a send. The CRM `leadScore` field is a stored number, set at create time, and it does not drive email.
+
+### What Mautic adds
+
+Mautic 8 docs, checked 1 October 2026, describe the pieces this repo builds by hand:
+
+- Segments are static or dynamic lists of contacts. Dynamic membership is recalculated by cron from filters, including points. Docs: [Managing Segments](https://docs.mautic.org/en/8.0/segments/manage_segments.html).
+- The campaign builder starts from a segment or a form. Decisions include device, asset download, form submit, and page visit. Conditions include tags, segments, points, and field values. Actions include send email, change points, and change segments. Delays are part of the graph. Docs: [Campaigns overview](https://docs.mautic.org/en/8.0/campaigns/campaigns_overview.html) and [Using the Campaign Builder](https://docs.mautic.org/en/8.0/campaigns/campaign_builder.html).
+- Drip is that builder, not a separate product. A wait, then an email, then a branch if the contact did not visit a page, is a campaign.
+- Lead scoring is Points. Form submit actions can add, subtract, multiply, or divide points. Point triggers can move a contact into a segment. Docs: [Forms](https://docs.mautic.org/en/8.0/components/forms.html) and the points trigger section of the segments doc.
+- Forms are campaign forms or standalone forms, with progressive profiling and submit actions. They can be embedded.
+- Landing pages are a Mautic component, including drafts when `page_draft_enabled` is set. Docs: [Landing Pages](https://docs.mautic.org/en/8.0/components/landing_pages.html).
+- Tracking is a JavaScript snippet or a tracking pixel on your site, plus an email open pixel Mautic inserts. The contact doc says the script is preferred over the pixel, and that logged-in Mautic users are not tracked. Docs: [Managing Contacts](https://docs.mautic.org/en/8.0/contacts/manage_contacts.html) and [configuration settings](https://docs.mautic.org/en/8.0/configuration/settings.html).
+- A/B tests apply to segment emails. You set the winner rule, such as read rate or click rate, a wait (the doc's default is 24 hours), and a test slice (the doc's default is 10 percent). The rest of the segment gets the winner. Docs: [Emails](https://docs.mautic.org/en/8.0/channels/emails.html).
+
+Template emails are the repeatable campaign messages. Segment emails are the one-send-per-contact broadcasts.
+
+### Hosting and published prices
+
+The software download is free. [Mautic's download page](https://mautic.org/download/) says it will stay free to download and use, and it says not to install it on cheap shared hosting. It tells you to use a virtual private server or a dedicated server, and to be ready for the command line, Apache or nginx, MySQL or MariaDB, PHP, and cron. [The install doc](https://docs.mautic.org/en/8.0/getting_started/how_to_install_mautic.html) requires PHP `max_execution_time` of at least 240 seconds. Mautic does not publish a VPS price. This note does not add one.
+
+[Cron jobs](https://docs.mautic.org/en/8.0/configuration/cron_jobs.html) are mandatory for segment updates, campaign actions, and queued or scheduled mail. That page says you add them yourself.
+
+Managed hosting on [Mautic's own managed page](https://mautic.org/start-using-mautic/managed-mautic/) is sold by Dropsolid, named there as the official trials and hosting partner. Figures on that page:
+
+- Essential, from €247.50 per month when billed annually, or €275 per month when billed quarterly. Shared hosting, email service included, up to 50,000 emails a month, up to 50,000 contacts, up to 100 emails a minute.
+- Professional, from €1,237 per month. Dedicated hosting, dedicated IP, from 50,000 emails and 50,000 contacts a month, up to 2,000 emails a minute.
+- Enterprise, custom pricing, up to 6 million emails a month and up to 4,000 emails a minute.
+- No per-user fee on those plans.
+- Setup and migration fees are not listed. The FAQ says they vary by partner.
+
+[Mautic's comparison with ActiveCampaign](https://mautic.org/mautic-vs-activecampaign/) repeats "managed Mautic from €247.50 per month" and says the price driver is infrastructure and email volume, not contacts.
+
+Those Dropsolid plans include their email service. Bringing Resend or SES instead is the self-host or Enterprise "custom email provider" case, not the Essential bundle.
+
+### Deliverability if Mautic sends through Resend or SES
+
+Mautic does not own a sending reputation. [Email settings](https://docs.mautic.org/en/8.0/configuration/settings.html) say SMTP is the default transport, configured as a Symfony mailer DSN. The example form is `smtp://user:pass@smtp.example.com:port`. The install wizard can also pick a listed provider or "Other SMTP Server."
+
+Resend's SMTP settings, from [Send emails with SMTP](https://resend.com/docs/send-with-smtp), are host `smtp.resend.com`, username `resend`, password equal to the API key, and ports 465 or 2465 for implicit TLS, or 587, 2587, or 25 for STARTTLS. Mautic's settings doc says to avoid port 25. A Mautic DSN would look like `smtp://resend:API_KEY@smtp.resend.com:587`. Mail sent that way shows up in Resend's emails table, and Resend's API rate limit still applies.
+
+[Resend's email types doc](https://resend.com/docs/email-types) separates the products. A transactional plan sends through the API, the CLI, or SMTP. A marketing plan sends Broadcasts from the dashboard or the Broadcast API, with Resend doing the queue, throttle, and schedule. Mautic campaign mail over SMTP would not be a Resend Broadcast. It would not use Resend segments, the Resend unsubscribe page, or broadcast analytics. It would be a stream of individual SMTP messages on the transactional side of the account. This repo already sends the Transformation drip that way, one Resend API call per step, without Mautic.
+
+Amazon SES can be the SMTP server in that same "Other SMTP Server" slot. SES also has an API. A Mautic maintainer's note on [GitHub issue 13181](https://github.com/mautic/mautic/issues/13181) says Mautic 5 dropped the old Amazon SMTP picker, and that SES API sending needs `composer require symfony/amazon-mailer` and a `ses+api` DSN, or plain SMTP credentials from Amazon. The API path is faster. Bounce feedback is not included in plain SMTP. That issue says you read bounces from a mailbox, or you add a plugin and an SNS callback. [Amazon SES pricing](https://aws.amazon.com/ses/pricing/), read 1 October 2026, lists à la carte outbound email at $0.10 per 1,000 emails, plus $0.12 per GB of attachment data. The Essentials plan on that page is $0.16 per 1,000 for the first 10 million emails in a month. Dedicated IPs are a separate line. This note does not pick a plan or estimate a monthly SES bill, because this repo does not record send volume.
+
+Using either transport means the domain that signs the mail (`updates.behaviorschool.com` today) needs SPF, DKIM, and DMARC at that provider. Mautic does not replace that DNS work.
+
+### Operational burden
+
+Self-host means PHP, a web server, MySQL or MariaDB, disk for the contact and hit tables, backups, upgrades, and the cron set. Segment and campaign sends stop when cron stops. The download page says shared hosting is a bad fit because of resource limits and missing control over config.
+
+Managed Essential removes that server work and caps you at the published 50,000 contacts and 50,000 emails, on Dropsolid's included mail service. Custom fields for payment path, urgency, and fit, plus a webhook back to Convex when a drip converts, are integration work on top of the hosting fee. Enterprise is the plan that lists custom email provider support.
+
+### License
+
+`LICENSE.txt` on the `7.x` branch says "Mautic is released under the GPL v3" and "GNU General Public License ... version 3." The file is at [github.com/mautic/mautic/blob/7.x/LICENSE.txt](https://github.com/mautic/mautic/blob/7.x/LICENSE.txt). The GitHub API on 1 October 2026 did not return an SPDX id (`NOASSERTION`). The license file is the clearer source.
+
+GPL-3.0 is not the AGPL. Frappe CRM, in section 2, is AGPL-3.0, which has a network-use source obligation. GPL-3.0's copyleft is triggered by distribution of the program, not by someone merely using your unmodified server over the web. Running Mautic for Behavior School's own campaigns is the ordinary self-host case described on [mautic.org/download](https://mautic.org/download/). Shipping a modified Mautic, or a plugin that is a derivative work, to someone else requires offering that source under the GPL. This is not legal advice.
+
+The license file also says "Mautic" is a trademark of the Mautic project. Do not put it in a product name.
+
+### Mautic next to Frappe, and whether we need both
+
+They overlap on the person record and on one-to-one email. They do not do the same job.
+
+Frappe CRM is the sales desk: leads, deals, kanban, call logging, and email on that record. Mautic is the campaign desk: segments, timed branches, points, forms, landing pages, and open and click tracking. Mautic's campaign overview says a campaign can push a contact into a CRM. That is an integration, not one product.
+
+Section 4 already says not to adopt Frappe. Adding Mautic as well would mean three systems for one operator: Convex for the Stripe ledger and the site, Frappe for the deal, and Mautic for the drip. The Transformation path would be copied into both new tools. We do not need both. We do not need either one to send the mail we send today.
+
+### Recommendation
+
+Keep the current senders. Do not install Mautic.
+
+The live lifecycle mail is one five-step Resend drip, a few transactional Resend and Mailgun letters, and a separate Convex newsletter for the research brief. Mautic's builder, A/B tests, and tracking matter when many campaigns are being edited by a marketer who should not edit TypeScript. That volume is not what this repository contains. The catalog's other sequences are manual, shared, or planned, and the Study Tools steps are not wired to a sender here.
+
+The Dropsolid floor that includes mail is €247.50 per month. A self-host adds a PHP and MySQL service and a cron dependency beside Convex. Pointing Mautic at Resend SMTP would also bypass the Broadcast product Resend already offers for marketing mail.
+
+Effort for this path is no migration. The nurture worker already skips a step when the contact status is `customer` or the enrollment is not `active`. Leave the section 5 CRM work as the email-adjacent build. A Mautic install that replaces the five-step drip, imports contacts, embeds a form or a webhook, and keeps Stripe and the research brief in Convex is about 10 days of engineering, plus the hosting line above, and it still leaves Mailgun and Resend in place for transactional mail. That day figure is an estimate from the files named, not a schedule.
+
 ## Sources
 
 - Frappe CRM repository README: https://github.com/frappe/crm
@@ -241,3 +346,21 @@ Leave these Frappe features alone for now: Twilio, Exotel, WhatsApp, assignment 
 - Frappe REST API: https://docs.frappe.io/framework/user/en/api/rest
 - Frappe webhooks: https://docs.frappe.io/framework/user/en/guides/integration/webhooks
 - Frappe WhatsApp app linked from the CRM README: https://github.com/shridarpatil/frappe_whatsapp
+- Mautic download and self-host guidance: https://mautic.org/download/
+- Mautic managed plans (Dropsolid): https://mautic.org/start-using-mautic/managed-mautic/
+- Mautic pricing comparison: https://mautic.org/mautic-vs-activecampaign/
+- Mautic GPL-3.0 license file: https://github.com/mautic/mautic/blob/7.x/LICENSE.txt
+- Mautic install requirements note: https://docs.mautic.org/en/8.0/getting_started/how_to_install_mautic.html
+- Mautic cron jobs: https://docs.mautic.org/en/8.0/configuration/cron_jobs.html
+- Mautic email transport settings: https://docs.mautic.org/en/8.0/configuration/settings.html
+- Mautic segments: https://docs.mautic.org/en/8.0/segments/manage_segments.html
+- Mautic campaigns: https://docs.mautic.org/en/8.0/campaigns/campaigns_overview.html
+- Mautic campaign builder: https://docs.mautic.org/en/8.0/campaigns/campaign_builder.html
+- Mautic forms: https://docs.mautic.org/en/8.0/components/forms.html
+- Mautic landing pages: https://docs.mautic.org/en/8.0/components/landing_pages.html
+- Mautic contacts and tracking: https://docs.mautic.org/en/8.0/contacts/manage_contacts.html
+- Mautic emails and A/B tests: https://docs.mautic.org/en/8.0/channels/emails.html
+- Mautic 5 SES transport note: https://github.com/mautic/mautic/issues/13181
+- Resend SMTP: https://resend.com/docs/send-with-smtp
+- Resend transactional and marketing email types: https://resend.com/docs/email-types
+- Amazon SES pricing: https://aws.amazon.com/ses/pricing/
