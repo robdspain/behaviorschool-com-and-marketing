@@ -92,7 +92,7 @@ export function PrivacyCompliantAnalytics({ gaId }: AnalyticsProps) {
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex-1">
               <p className="text-sm">
-                Optional analytics stays off until you accept. We use it to see which pages and tools are useful. Sessions and form entries are not recorded.
+                Optional analytics stays off until you accept. We use it to see which pages and tools are useful. Sessions are not recorded, and form inputs are masked.
                 <a 
                   href="/privacy"
                   className="text-emerald-400 hover:text-emerald-300 underline ml-1"

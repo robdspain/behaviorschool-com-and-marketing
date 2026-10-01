@@ -62,9 +62,9 @@ export default function PrivacyPage() {
               We may use trusted service providers for hosting, analytics, email delivery,
               payments, authentication, support, and product operations. These providers are used
               only as needed to operate and improve our services. Product analytics uses PostHog
-              after you accept the on-site analytics banner. That analytics records page views and
-              clicks on links and buttons. It does not record sessions, and it does not send form
-              entries or student information. Admin pages are excluded.
+              after you accept the on-site analytics banner. That analytics records page views,
+              including movement between pages, and on-page interactions. It does not record
+              sessions. Form inputs are masked, and admin pages are excluded.
             </p>
           </section>
 
@@ -73,8 +73,9 @@ export default function PrivacyPage() {
             <p className="mt-3">
               You can unsubscribe from marketing emails using the link in those emails. The analytics
               banner lets you accept or decline optional product analytics, and that choice is stored
-              in this browser. You may also contact us to request access, correction, or deletion of
-              personal information when applicable.
+              in this browser. If you accept, PostHog may set an analytics cookie. You may also
+              contact us to request access, correction, or deletion of personal information when
+              applicable.
             </p>
           </section>
 
