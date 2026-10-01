@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Script from "next/script";
+import posthog from "posthog-js";
+import { readAnalyticsConsent, writeAnalyticsConsent } from "@/lib/analytics-consent";
+import { initPostHog } from "@/lib/posthog-client";
 
 interface AnalyticsProps {
   gaId?: string;
@@ -12,10 +15,11 @@ export function PrivacyCompliantAnalytics({ gaId }: AnalyticsProps) {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
-    // Check if user has already made a choice
-    const storedConsent = localStorage.getItem("analytics-consent");
-    if (storedConsent) {
-      setConsent(storedConsent === "true");
+    const storedConsent = readAnalyticsConsent();
+    if (storedConsent === "granted") {
+      setConsent(true);
+    } else if (storedConsent === "denied") {
+      setConsent(false);
     } else {
       // Show banner after a short delay to not interrupt initial page load
       const timer = setTimeout(() => setShowBanner(true), 2000);
@@ -26,7 +30,8 @@ export function PrivacyCompliantAnalytics({ gaId }: AnalyticsProps) {
   const acceptAnalytics = () => {
     setConsent(true);
     setShowBanner(false);
-    localStorage.setItem("analytics-consent", "true");
+    writeAnalyticsConsent(true);
+    initPostHog();
     
     // Initialize GA with privacy settings
     if (gaId && typeof window !== "undefined") {
@@ -41,7 +46,10 @@ export function PrivacyCompliantAnalytics({ gaId }: AnalyticsProps) {
   const declineAnalytics = () => {
     setConsent(false);
     setShowBanner(false);
-    localStorage.setItem("analytics-consent", "false");
+    writeAnalyticsConsent(false);
+    if (posthog.__loaded) {
+      posthog.opt_out_capturing();
+    }
     
     // Disable analytics
     if (typeof window !== "undefined") {
@@ -84,7 +92,7 @@ export function PrivacyCompliantAnalytics({ gaId }: AnalyticsProps) {
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex-1">
               <p className="text-sm">
-                We use privacy-focused analytics to improve your experience. No personal data is collected or shared.
+                Optional analytics stays off until you accept. We use it to see which pages and tools are useful. Sessions and form entries are not recorded.
                 <a 
                   href="/privacy"
                   className="text-emerald-400 hover:text-emerald-300 underline ml-1"

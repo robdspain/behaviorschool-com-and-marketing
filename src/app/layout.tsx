@@ -203,8 +203,7 @@ export default function RootLayout({
         {/* DNS prefetch for additional performance */}
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
         <link rel="dns-prefetch" href="//googletagmanager.com" />
-
-        <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-Z3XWL488ZP"} />
+        <link rel="dns-prefetch" href="//us.i.posthog.com" />
 
         {/* Google Ads tag (gtag.js) - Deferred for better performance */}
         <Script
@@ -299,6 +298,7 @@ export default function RootLayout({
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:text-slate-900 focus:px-4 focus:py-2 focus:rounded focus:shadow">
           Skip to content
         </a>
+        <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-Z3XWL488ZP"} />
         <Providers>
         <ToastProvider>
           <div className="min-h-screen flex flex-col w-full max-w-full">
