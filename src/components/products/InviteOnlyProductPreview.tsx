@@ -32,8 +32,8 @@ export function InviteOnlyProductPreview({
       </div>
       <div className="p-3">
         <p className="text-sm font-semibold text-white">{title}</p>
-        <p className="mt-2 text-[11px] leading-5 text-white/60">{description}</p>
-        <div className="mt-3 rounded-md border border-white/10 bg-white/5 p-2.5 text-[10px] text-white/55">
+        <p className="mt-2 text-[14px] leading-5 text-white/60">{description}</p>
+        <div className="mt-3 rounded-md border border-white/10 bg-white/5 p-2.5 text-[14px] text-white/55">
           Concept preview only. Not available for public signup today.
         </div>
       </div>

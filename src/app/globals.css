@@ -52,49 +52,37 @@
     --ring: 160 100% 20%; /* Darker ring color for better focus visibility */
     --radius: 0.5rem;
     
-    /* Brand Color System - Option 1: Subtle & Warm Neutrals */
-    --bs-section-odd: #F8F4E9;    /* Warm beige/aged paper for alternating sections */
-    --bs-section-even: #FFFFFF;   /* Pure white for alternating sections */
-    --bs-section-even-alt: #FAFAFA; /* Very light grey alternative */
-    
-    /* Behavior School Brand Colors */
+    /* Brand Color System */
+    /* Keep existing aliases */
     --bs-primary: #1F4D3F;
     --bs-primary-dark: #123628;
-    --bs-accent: #E4B63D;
-    --bs-background: #FBFAF6;
-    --bs-text: #171F1D;
-    --bs-text-light: #5C5449;
-
-    /* 2026 Chalkboard Palette */
-    --bs-chalk-dark: #0B3528;
-    --bs-chalk-mid: #1F4D3F;
-    --bs-parchment: #FBFAF6;
-    --bs-parchment-mid: #F2EEE6;
-    --bs-parchment-deep: #DDD2C3;
     --bs-gold: #E4B63D;
-    --bs-gold-light: #F0CC69;
     --bs-ink: #171F1D;
-    --bs-ink-mid: #5C5449;
-    --bs-ink-light: #7C756B;
-    --bs-border: #DDD2C3;
-    
-    /* Behavior Study Tools variables */
-    --quiz-background: #FAFBFC;
-    --quiz-primary: #2E7D5A;
-    --quiz-primary-dark: #1B584E;
-    --quiz-secondary: #2563EB;
-    --quiz-accent: #E65100;
-    --quiz-text: #1F2937;
-    --quiz-text-secondary: #6B7280;
-    --quiz-muted: #6B7280;
-    --quiz-correct: #2E7D32;
-    --quiz-incorrect: #C62828;
-    --quiz-warning: #E65100;
-    --quiz-info: #0288D1;
-    --quiz-surface: #FFFFFF;
-    --quiz-surface-secondary: #F8FAFC;
-    --quiz-border: #E5E7EB;
-    --quiz-border-light: #F3F4F6;
+    --bs-parchment: #FBFAF6;
+
+    /* 2026-10 locked palette. Only these hexes. */
+    --bs-cream: #f4efe5;        /* page canvas */
+    --bs-paper: #fbfaf6;        /* cards, panels (alias of --bs-parchment) */
+    --bs-forest: #1f4d3f;       /* alias of --bs-primary */
+    --bs-forest-dark: #123628;  /* alias of --bs-primary-dark */
+    /* --bs-gold: #e4b63d; is already defined */
+    /* --bs-ink: #171f1d; is already defined */
+    --bs-secondary: #365548;    /* supporting text. On paper or cream ONLY */
+    --bs-hairline: #d9cdb8;     /* decorative dividers only (1.50:1, not a control boundary) */
+    --bs-forest-wash: #e8efe9;
+    --bs-oak-wash: #f1e6d3;
+
+    /* AAA interaction tokens */
+    --radius: 0.5rem;                         /* 8px, all controls */
+    --bs-radius-card: 0.75rem;                /* 12px cards */
+    --bs-control-min-h: 44px;
+    --bs-cta-min-h: 52px;                     /* hero and band primary CTA */
+    --bs-focus-ring-width: 3px;
+    --bs-focus-offset: 2px;
+    --bs-focus-on-light: #1f4d3f;             /* 9.17 on paper, 8.36 on cream */
+    --bs-focus-on-dark: #e4b63d;              /* 6.98 on #123628, 5.05 on #1f4d3f */
+    --bs-control-border: #365548;             /* inputs, outline buttons on light: 7.89 on paper */
+    --bs-text-min: 0.875rem;                  /* 14px floor for any text */
   }
 
   .dark {
@@ -124,6 +112,17 @@
   * {
     @apply border-border;
   }
+
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline: var(--bs-focus-ring-width) solid var(--bs-focus-on-light);
+    outline-offset: var(--bs-focus-offset);
+  }
+  .bs-on-dark :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible { outline-color: var(--bs-focus-on-dark); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -270,61 +269,7 @@
     aspect-ratio: attr(width) / attr(height);
   }
 
-  /* Accessibility: Fix contrast ratio issues */
-  .bg-emerald-600 {
-    /* WCAG AA compliant emerald that works with white text (contrast ratio 4.5:1) */
-    background-color: #047857 !important; /* emerald-700 equivalent */
-  }
-
-  .hover\:bg-emerald-700:hover {
-    /* Darker shade for hover state */
-    background-color: #065f46 !important; /* emerald-800 equivalent */
-  }
-
-  .focus\:bg-emerald-700:focus {
-    /* Same as hover for consistency */
-    background-color: #065f46 !important; /* emerald-800 equivalent */
-  }
-
-  /* Ensure sufficient contrast for emerald text on light backgrounds */
-  .text-emerald-600 {
-    color: #047857 !important; /* Use darker emerald-700 instead */
-  }
-
-  /* Fix any other emerald contrast issues */
-  .border-emerald-600 {
-    border-color: #047857 !important;
-  }
-
-  .ring-emerald-600 {
-    --tw-ring-color: #047857 !important;
-  }
-
-  /* Enhanced focus states for better accessibility */
-  .focus\:ring-emerald-600:focus {
-    --tw-ring-color: #047857 !important;
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color) !important;
-  }
-
-  /* Ensure all emerald buttons meet contrast requirements */
-  button.bg-emerald-600,
-  a.bg-emerald-600 {
-    background-color: #047857 !important;
-    color: white !important;
-  }
-
-  button.bg-emerald-600:hover,
-  a.bg-emerald-600:hover {
-    background-color: #065f46 !important;
-  }
-
-  button.bg-emerald-600:focus,
-  a.bg-emerald-600:focus {
-    background-color: #065f46 !important;
-    outline: 2px solid #047857 !important;
-    outline-offset: 2px !important;
-  }
-
+  
   /* TipTap Editor Styles */
   .ProseMirror {
     @apply focus:outline-none;
@@ -440,5 +385,98 @@
 
   .ProseMirror [style*="text-align: left"] {
     @apply text-left;
+  }
+}
+
+@layer components {
+  .bs-btn-primary {
+    background-color: var(--bs-gold);
+    color: var(--bs-ink);
+    font-weight: 700;
+    font-size: 16px;
+    min-height: var(--bs-cta-min-h);
+    padding: 0 24px;
+    border-radius: var(--radius);
+    box-shadow: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+  .bs-btn-primary:hover {
+    background-color: #d9a92f;
+    text-decoration: underline;
+  }
+  .bs-btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--bs-forest);
+    color: var(--bs-forest);
+    font-weight: 600;
+    min-height: 44px;
+    border-radius: 8px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+  .bs-btn-secondary:hover {
+    background-color: var(--bs-forest-wash);
+  }
+  .bs-btn-secondary--on-dark {
+    background-color: transparent;
+    border: 2px solid var(--bs-paper);
+    color: var(--bs-paper);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    min-height: 44px;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+  .bs-btn-secondary--on-dark:hover {
+    background-color: rgb(251 250 246 / 10%);
+  }
+  .bs-btn-nav {
+    background-color: var(--bs-forest);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    min-height: 44px;
+    border-radius: 8px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+  .bs-btn-nav:hover {
+    text-decoration: underline;
+  }
+  .bs-eyebrow {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bs-forest);
+  }
+  .bs-on-dark .bs-eyebrow {
+    color: var(--bs-cream);
+  }
+  .bs-link {
+    color: var(--bs-forest);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+  .bs-link:hover {
+    text-decoration-thickness: 2px;
+  }
+  /* Where it stands alone, pad to 44px */
+  .bs-link.bs-padded {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
 }

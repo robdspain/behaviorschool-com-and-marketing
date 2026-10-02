@@ -26,7 +26,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
             return (
               <div key={key}>
                 <button
-                  className="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-emerald-800 hover:text-emerald-900"
+                  className="w-full flex items-center justify-between px-3 min-h-[44px] text-base font-medium text-[#171f1d] hover:text-[#1f4d3f] hover:underline"
                   onClick={() => onToggleKey(key)}
                   aria-expanded={expanded}
                 >
@@ -41,7 +41,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
                       <Link
                         key={child.href}
                         href={child.href}
-                        className="block px-3 py-2 text-emerald-800 hover:text-emerald-900 hover:bg-emerald-50 rounded-md"
+                        className="block px-3 min-h-[44px] py-2 inline-flex items-center text-[#171f1d] font-medium hover:text-[#1f4d3f] hover:underline  rounded-md"
                         onClick={onClose}
                         target={child.external ? "_blank" : undefined}
                         rel={child.external ? "noreferrer noopener" : undefined}
@@ -58,7 +58,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
             <Link
               key={key}
               href={section.href ?? "#"}
-              className="block px-3 py-2 text-lg font-medium text-emerald-800 hover:text-emerald-900 hover:bg-emerald-50 rounded-md"
+              className="block px-3 min-h-[44px] py-2 inline-flex items-center text-lg font-medium text-[#171f1d] font-medium hover:text-[#1f4d3f] hover:underline  rounded-md"
               onClick={onClose}
               target={section.href?.startsWith("http") ? "_blank" : undefined}
               rel={section.href?.startsWith("http") ? "noreferrer noopener" : undefined}
@@ -67,18 +67,22 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
             </Link>
           );
         })}
-        <div className="px-3 pt-1">
-          <Button asChild className="w-full bg-[#1f4d3f] text-white hover:bg-[#173a30]">
-            <Link href="/transformation-program" onClick={onClose}>{TRANSFORMATION_PROGRAM.cohort.label} now open</Link>
-          </Button>
+        <div className="px-3 pt-4 pb-2 space-y-3 flex flex-col">
+          <Link 
+            href="/transformation-program"
+            className="bs-btn-secondary w-full"
+            onClick={onClose}
+          >
+            See the January cohort
+          </Link>
+          <Link
+            href="https://study.behaviorschool.com/free-mock-exam/"
+            className="bs-btn-primary w-full"
+            onClick={onClose}
+          >
+            Free mock exam
+          </Link>
         </div>
-        <Link
-          href="https://study.behaviorschool.com/free-practice/"
-          className="block px-3 py-2 text-base font-medium text-emerald-800 hover:text-emerald-900 hover:bg-emerald-50 rounded-md"
-          onClick={onClose}
-        >
-          Take Free BCBA Practice Exam
-        </Link>
       </div>
     </div>
   );

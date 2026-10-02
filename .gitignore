@@ -44,3 +44,5 @@ next-env.d.ts
 /data/newsletter-subscribers.json
 /data/accelerator-waitlist.json
 deno.lock
+
+.indexnow-cache/

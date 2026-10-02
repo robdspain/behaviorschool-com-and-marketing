@@ -24,13 +24,13 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Auto-submit sitemap to search engines after successful publish
+# IndexNow: submit changed URLs to Bing/Yandex/Seznam/Naver after each production deploy
 [[plugins]]
-  package = "netlify-plugin-submit-sitemap"
+  package = "./plugins/indexnow"
   [plugins.inputs]
-    baseUrl = "https://behaviorschool.com"
-    sitemapPath = "/sitemap.xml"
-    providers = ["google", "bing"]
+    host = "behaviorschool.com"
+    key = "a07fc6c7-3148-489c-85e2-5d82ab778569"
+    sitemapUrl = "https://behaviorschool.com/sitemap.xml"
 
 # Next.js handles routing, only redirect specific cases
 [[redirects]]

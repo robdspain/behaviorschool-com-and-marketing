@@ -143,8 +143,8 @@ const toneClasses = {
 
 export default function ProductsPage() {
   return (
-    <main className="overflow-hidden bg-[#f8f7f3] text-[#14231f]">
-      <section className="border-b border-[#173f33]/15 bg-[#123628] text-white">
+    <main className="overflow-hidden bg-[#f8f7f3] text-[var(--bs-cream)]">
+      <section className="border-b border-[var(--bs-hairline)] bg-[#123628] text-white">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 py-14 sm:px-8 lg:min-h-[610px] lg:grid-cols-[0.82fr_1.18fr] lg:px-10 lg:py-16">
           <div className="max-w-xl">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#e4b63d]">
@@ -163,7 +163,7 @@ export default function ProductsPage() {
             </div>
             <a
               href="#suite"
-              className="mt-10 inline-flex h-12 items-center gap-3 bg-[#e4b63d] px-5 font-semibold text-[#123628] transition-colors hover:bg-[#d7aa32]"
+              className="mt-10 inline-flex h-12 rounded-lg items-center gap-3 bg-[#e4b63d] px-5 font-[600] text-[#171f1d] transition-colors hover:bg-[#d7aa32]"
             >
               Explore the suite
               <ArrowDown aria-hidden="true" size={18} />
@@ -174,7 +174,7 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      <section className="border-b border-[#173f33]/15 bg-white">
+      <section className="border-b border-[var(--bs-hairline)] bg-white">
         <div className="mx-auto grid max-w-7xl gap-6 px-5 py-8 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-center lg:px-10">
           <p className="max-w-2xl text-base leading-7 text-[#51645d]">
             Start with the product that fits today. Invite-only workspaces are labeled clearly so you know what is open now and what requires an invitation.
@@ -190,11 +190,11 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      <section className="border-b border-[#173f33]/15 bg-[#f8f7f3]" aria-labelledby="study-tools-highlights">
+      <section className="border-b border-[var(--bs-hairline)] bg-[#f8f7f3]" aria-labelledby="study-tools-highlights">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
           <div className="grid gap-5 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#8b6c1f]">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#1f4d3f]">
                 Behavior Study Tools
               </p>
               <h2 id="study-tools-highlights" className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">
@@ -205,17 +205,17 @@ export default function ProductsPage() {
               The current app connects practice, planning, and progress so candidates can spend less time deciding what to study next.
             </p>
           </div>
-          <div className="mt-10 grid border-y border-[#173f33]/20 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-10 grid border-y border-[var(--bs-hairline)] sm:grid-cols-2 lg:grid-cols-5">
             {studyToolHighlights.map((highlight, index) => {
               const Icon = highlight.icon;
               return (
                 <article
                   key={highlight.title}
-                  className="border-b border-[#173f33]/15 px-0 py-6 sm:px-5 lg:border-b-0 lg:border-r last:lg:border-r-0"
+                  className="border-b border-[var(--bs-hairline)] px-0 py-6 sm:px-5 lg:border-b-0 lg:border-r last:lg:border-r-0"
                 >
                   <div className="flex items-center justify-between text-[#1f6b50]">
                     <Icon aria-hidden="true" size={20} strokeWidth={1.8} />
-                    <span className="font-mono text-xs text-[#8b6c1f]">0{index + 1}</span>
+                    <span className="font-mono text-xs text-[#1f4d3f]">0{index + 1}</span>
                   </div>
                   <h3 className="mt-5 text-lg font-semibold">{highlight.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-[#51645d]">{highlight.description}</p>
@@ -235,13 +235,13 @@ export default function ProductsPage() {
           return (
             <article
               key={product.name}
-              className={`border-b border-[#173f33]/15 ${toneClasses[product.tone]}`}
+              className={`border-b border-[var(--bs-hairline)] ${toneClasses[product.tone]}`}
             >
               <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:items-center lg:gap-20 lg:px-10 lg:py-28">
                 <div className={index % 2 === 1 ? "lg:order-2" : ""}>
                   <div className="flex items-center gap-4">
-                    <span className="font-mono text-sm text-[#8b6c1f]">{product.number}</span>
-                    <span className="h-px w-10 bg-[#173f33]/30" />
+                    <span className="font-mono text-sm text-[#1f4d3f]">{product.number}</span>
+                    <span className="h-px w-10 bg-[var(--bs-hairline)]" />
                     <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#1f6b50]">
                       Available now
                     </span>
@@ -255,7 +255,7 @@ export default function ProductsPage() {
                   <h3 className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl">
                     {product.name}
                   </h3>
-                  <p className="mt-3 text-sm font-semibold text-[#173f33]">{product.audience}</p>
+                  <p className="mt-3 text-sm font-semibold text-[#1f4d3f]">{product.audience}</p>
                   <p className="mt-6 max-w-xl text-lg leading-8 text-[#51645d]">
                     {product.description}
                   </p>
@@ -270,7 +270,7 @@ export default function ProductsPage() {
                   {product.href.startsWith("/") ? (
                     <Link
                       href={product.href}
-                      className="mt-9 inline-flex h-12 items-center gap-3 bg-[#173f33] px-5 font-semibold text-white transition-colors hover:bg-[#245846]"
+                      className="mt-9 inline-flex h-12 items-center rounded-lg gap-3 bg-[#1f4d3f] px-5 font-[600] text-white transition-colors hover:bg-[#173a30]"
                     >
                       {product.cta}
                       <ArrowRight aria-hidden="true" size={18} />
@@ -280,7 +280,7 @@ export default function ProductsPage() {
                       href={product.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-9 inline-flex h-12 items-center gap-3 bg-[#173f33] px-5 font-semibold text-white transition-colors hover:bg-[#245846]"
+                      className="mt-9 inline-flex h-12 items-center rounded-lg gap-3 bg-[#1f4d3f] px-5 font-[600] text-white transition-colors hover:bg-[#173a30]"
                     >
                       {product.cta}
                       <ArrowRight aria-hidden="true" size={18} />
@@ -289,7 +289,7 @@ export default function ProductsPage() {
                 </div>
 
                 <div className={index % 2 === 1 ? "lg:order-1" : ""}>
-                  <div className="overflow-hidden border border-[#173f33]/20 bg-white shadow-[0_28px_70px_rgba(20,35,31,0.13)]">
+                  <div className="overflow-hidden border border-[var(--bs-hairline)] bg-white shadow-[0_28px_70px_rgba(20,35,31,0.13)]">
                     {renderProductPreview(product.preview)}
                   </div>
                 </div>
@@ -299,11 +299,11 @@ export default function ProductsPage() {
         })}
       </section>
 
-      <section id="invite-only" className="bg-[#102f27] py-20 text-white sm:py-28" aria-labelledby="invite-only-heading">
+      <section id="invite-only" className="bg-[#123628] py-20 text-white sm:py-28" aria-labelledby="invite-only-heading">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
           <div className="grid gap-8 border-b border-white/15 pb-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#f3c84b]">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--bs-cream)]">
                 Product roadmap
               </p>
               <h2 id="invite-only-heading" className="mt-4 text-4xl font-semibold sm:text-5xl">
@@ -321,12 +321,12 @@ export default function ProductsPage() {
               const content = (
                 <>
                   <div className="flex items-start gap-4">
-                    <span className="mt-1 font-mono text-sm text-[#f3c84b]">0{index + 4}</span>
+                    <span className="mt-1 font-mono text-sm text-[var(--bs-cream)]">0{index + 4}</span>
                     <Icon aria-hidden="true" className="mt-0.5 text-white/72" size={22} strokeWidth={1.7} />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#f3c84b]">
-                      {product.stage} · Invite only
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--bs-cream)]">
+                      {product.stage}, invite only
                     </p>
                     <h3 className="mt-3 text-2xl font-semibold sm:text-3xl">{product.name}</h3>
                     <p className="mt-3 max-w-2xl leading-7 text-white/66">{product.description}</p>
@@ -363,17 +363,17 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      <section className="bg-[#f3c84b] py-16">
+      <section className="bg-[#123628] py-16 bs-on-dark text-[var(--bs-cream)] border-t border-[var(--bs-hairline)]">
         <div className="mx-auto flex max-w-7xl flex-col gap-7 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#173f33]">Not sure where to begin?</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#1f4d3f]">Not sure where to begin?</p>
             <h2 className="mt-3 max-w-2xl text-3xl font-semibold leading-tight text-[#14231f] sm:text-4xl">
               Tell us what you are working toward.
             </h2>
           </div>
           <Link
             href="/contact"
-            className="inline-flex h-12 w-fit items-center gap-3 bg-[#173f33] px-5 font-semibold text-white transition-colors hover:bg-[#245846]"
+            className="bs-btn-primary"
           >
             Contact BehaviorSchool
             <ArrowRight aria-hidden="true" size={18} />

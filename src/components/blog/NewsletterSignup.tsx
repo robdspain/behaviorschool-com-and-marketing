@@ -82,7 +82,7 @@ export function BlogNewsletterSignup() {
           The Weekly Research Brief
         </h3>
         <p className="text-[#FAF3E0]/80 mb-6 text-center">
-          Each week: open research, clear summaries, and one practical next step for school-based BCBAs.
+          Each week: open research, clear summaries, and one practical next step for school BCBAs.
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">

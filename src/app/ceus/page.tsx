@@ -103,7 +103,7 @@ export default function CEUsPage() {
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href={LEARNING_URL}
-              className="inline-flex min-h-12 items-center justify-center rounded-xl bg-emerald-700 px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-emerald-200 transition-colors hover:bg-emerald-800"
+              className="bs-btn-primary"
             >
               Go to Behavior School Learning
               <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
@@ -118,7 +118,7 @@ export default function CEUsPage() {
         </div>
       </section>
 
-      <section className="border-y border-slate-100 bg-slate-50 py-8">
+      <section className="border-y border-slate-100 bg-[var(--bs-cream)] py-8">
         <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-8 px-4 text-center">
           {trustItems.map((item) => (
             <div key={item.label} className="flex items-center gap-2 text-slate-600">
@@ -145,7 +145,7 @@ export default function CEUsPage() {
             {learningBenefits.map((benefit) => (
               <div
                 key={benefit.title}
-                className="rounded-2xl border border-slate-200 bg-white p-8 transition-shadow hover:shadow-lg"
+                className="rounded-[12px] border border-[var(--bs-hairline)] bg-[var(--bs-paper)] p-8 transition-shadow hover:shadow-lg"
               >
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100">
                   <benefit.icon className="h-6 w-6 text-emerald-700" aria-hidden="true" />
@@ -170,7 +170,7 @@ export default function CEUsPage() {
         </div>
       </section>
 
-      <section className="bg-slate-50 py-16 sm:py-20">
+      <section className="bg-[var(--bs-cream)] py-16 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-4 text-center text-3xl font-bold text-slate-900 sm:text-4xl">
             Related Behavior School path
@@ -183,7 +183,7 @@ export default function CEUsPage() {
           <div className="mx-auto max-w-xl">
             <Link
               href="/transformation-program"
-              className="group block rounded-2xl border border-slate-200 bg-white p-8 transition-all hover:border-emerald-200 hover:shadow-lg"
+              className="group block rounded-[12px] border border-[var(--bs-hairline)] bg-[var(--bs-paper)] p-8 transition-all hover:border-emerald-200 hover:shadow-lg"
             >
               <h3 className="mb-3 text-xl font-bold text-slate-900 group-hover:text-emerald-800">
                 School BCBA Transformation Program

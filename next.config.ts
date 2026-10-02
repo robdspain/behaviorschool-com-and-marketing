@@ -193,6 +193,21 @@ const nextConfig: NextConfig = {
         destination: freePracticeUrl,
         permanent: true,
       },
+      {
+        source: '/free-mock-exam',
+        destination: freeMockUrl,
+        permanent: true,
+      },
+      {
+        source: '/free-mock-exam/',
+        destination: freeMockUrl,
+        permanent: true,
+      },
+      {
+        source: '/free-mock-exam/:path*',
+        destination: freeMockUrl,
+        permanent: true,
+      },
 
       // -- Competitor Comparison Canonicals --
       {
