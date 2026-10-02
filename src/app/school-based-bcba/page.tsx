@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -178,7 +179,7 @@ export default function SchoolBasedBCBAPage() {
             {/* Trust Indicator */}
             <div className="flex items-center gap-2 text-sm text-slate-600">
               <Clock className="w-4 h-4" />
-              <span>Next cohort starts in 3 weeks • Limited to 25 participants</span>
+              <span>{TRANSFORMATION_PROGRAM.cohort.label}. {TRANSFORMATION_PROGRAM.cohort.seatCap} seats in this cohort.</span>
             </div>
           </div>
 
@@ -193,7 +194,7 @@ export default function SchoolBasedBCBAPage() {
               <div className="relative bg-white rounded-xl p-6 shadow-lg">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-semibold text-emerald-700">Week 1-6 Transformation</span>
+                    <span className="text-sm font-semibold text-[#1f4d3f]">six live sessions over seven weeks</span>
                     <TrendingUp className="w-5 h-5 text-emerald-600" />
                   </div>
                   <div className="space-y-3">
@@ -431,10 +432,10 @@ export default function SchoolBasedBCBAPage() {
             <div className="text-center mb-12">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-yellow-100 border border-yellow-300 mb-4">
                 <Sparkles className="w-4 h-4 text-yellow-700 mr-2" />
-                <span className="text-sm font-bold text-yellow-800 uppercase tracking-wide">6-Week Transformation</span>
+                <span className="text-sm font-bold text-yellow-800 uppercase tracking-wide">six live sessions over seven weeks</span>
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                How the 6-Week Transformation Works
+                How six live sessions over seven weeks works
               </h2>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
                 Shift from overwhelmed crisis manager to confident ethical leader with practical tools, live support, and proven systems
@@ -551,7 +552,7 @@ export default function SchoolBasedBCBAPage() {
               Ready to Lead Behavior Systems with Confidence?
             </h2>
             <p className="text-xl md:text-2xl text-emerald-100 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Join school-based BCBAs who are transforming from overwhelmed crisis managers into confident systems leaders
+              The School BCBA Systems Transformation Program is six live sessions over seven weeks for school BCBAs.
             </p>
             
             <div className="grid md:grid-cols-3 gap-6 mb-8">
@@ -561,7 +562,7 @@ export default function SchoolBasedBCBAPage() {
                 asChild
               >
                 <Link href="/transformation-program">
-                  Join the 6-Week Program
+                  Join six live sessions over seven weeks
                 </Link>
               </Button>
               

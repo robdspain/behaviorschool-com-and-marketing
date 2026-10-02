@@ -25,10 +25,15 @@ export const TRANSFORMATION_PROGRAM = {
     endFull: "February 25, 2027",
     dateRange: "January 14 to February 25, 2027",
     sessionDates: ["Jan 14", "Jan 21", "Jan 28", "Feb 11", "Feb 18", "Feb 25"],
-    sessionTime: "6:00 to 8:00 PM Pacific Time",
+    /** Thursday skipped for conference week. Display rows insert this between Jan 28 and Feb 11. */
+    skippedDate: "Feb 4, 2027",
+    sessionTime: "6 to 8 PM Pacific Time",
     scheduleLabel: "six live Thursday sessions over seven weeks (no session February 4)",
+    summaryHeadline: "Six Thursdays, Jan 14 to Feb 25, 2027",
+    summaryDetail: "6 to 8 PM Pacific Time, live online",
     seatCap: 5,
     applicationsCloseLabel: "Thursday, January 7, 2027",
+    applicationsCloseShort: "Thursday, Jan 7, 2027",
     applicationsCloseDate: "2027-01-07",
   },
   pricing: {
@@ -57,3 +62,48 @@ export const TRANSFORMATION_CHECKOUT_URL = "https://behaviorschool.com/transform
 export const TRANSFORMATION_PAYMENT_PLAN_LABEL = `${TRANSFORMATION_PROGRAM.pricing.installmentCount} payments of ${TRANSFORMATION_PROGRAM.pricing.installment} (${TRANSFORMATION_PROGRAM.pricing.installmentTotal})`;
 
 export const TRANSFORMATION_PAYMENT_PLAN_DETAIL = `${TRANSFORMATION_PROGRAM.pricing.installmentSchedule.join(" + ")}`;
+
+/** Public payment line. Does not repeat each installment amount. */
+export const TRANSFORMATION_PAYMENT_PLAN_SENTENCE = `Or ${TRANSFORMATION_PROGRAM.pricing.installmentCount} monthly payments of ${TRANSFORMATION_PROGRAM.pricing.installment} (${TRANSFORMATION_PROGRAM.pricing.stripeInstallmentTotal} total).`;
+
+export type CohortScheduleEntry = {
+  shortDate: string;
+  /** "Session 1" or "No session Feb 4" */
+  label: string;
+  /** "Session 1, Jan 14" for curriculum cards. Empty on the skipped row. */
+  curriculumLabel: string;
+  skipped: boolean;
+  ariaLabel: string;
+};
+
+/** Six sessions plus the skipped Thursday, in calendar order. */
+export function cohortScheduleEntries(): CohortScheduleEntry[] {
+  const { sessionDates, skippedDate } = TRANSFORMATION_PROGRAM.cohort;
+  const skippedShort = skippedDate.replace(/,?\s*\d{4}$/, "");
+  const entries: CohortScheduleEntry[] = [];
+  let sessionNumber = 1;
+  let skipInserted = false;
+
+  for (const shortDate of sessionDates) {
+    if (!skipInserted && shortDate.startsWith("Feb")) {
+      entries.push({
+        shortDate: skippedShort,
+        label: `No session ${skippedShort}`,
+        curriculumLabel: "",
+        skipped: true,
+        ariaLabel: `No session on ${skippedDate}`,
+      });
+      skipInserted = true;
+    }
+    entries.push({
+      shortDate,
+      label: `Session ${sessionNumber}`,
+      curriculumLabel: `Session ${sessionNumber}, ${shortDate}`,
+      skipped: false,
+      ariaLabel: `Session ${sessionNumber} on Thursday, ${shortDate}`,
+    });
+    sessionNumber += 1;
+  }
+
+  return entries;
+}

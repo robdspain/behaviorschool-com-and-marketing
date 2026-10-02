@@ -10,15 +10,9 @@ import {
 
 test("PIPE A prompts stay on the copy Rob needs to sign off", () => {
   assert.equal(CASH_FIELD_PROMPTS.employer, "Which district or organization do you support?");
-  assert.equal(CASH_FIELD_PROMPTS.role, "Are you a school-based BCBA, clinic-based BCBA, or other?");
-  assert.equal(
-    CASH_FIELD_PROMPTS.payment,
-    "How do you expect to cover the $1,997 program — self-pay, district PO, or district card?",
-  );
-  assert.equal(
-    CASH_FIELD_PROMPTS.urgency,
-    "When do you need to decide — this month, this quarter, this year, or still exploring?",
-  );
+  assert.equal(CASH_FIELD_PROMPTS.role, "Which best describes your role?");
+  assert.equal(CASH_FIELD_PROMPTS.payment, "How will you pay the $1,997 tuition?");
+  assert.equal(CASH_FIELD_PROMPTS.urgency, "When do you need to decide?");
 });
 
 test("maps legacy payer values onto canonical payment_path", () => {
@@ -32,21 +26,21 @@ test("maps legacy payer values onto canonical payment_path", () => {
 
 test("keeps a free-text role title and falls back to the enum label", () => {
   assert.equal(buildStoredRole("school_bcba", "Lead district BCBA"), "Lead district BCBA");
-  assert.equal(buildStoredRole("clinic_bcba", "  "), "Clinic-based BCBA");
+  assert.equal(buildStoredRole("clinic_bcba", "  "), "Clinic BCBA");
 });
 
 test("admin cash rows show canonical enums without inventing a role title", () => {
   assert.deepEqual(
     cashFieldRows({
       employer: "Springfield USD",
-      role: "School-based BCBA",
+      role: "School BCBA",
       roleCategory: "school_bcba",
       paymentPath: "district_po",
       urgencyWindow: "this_quarter",
     }),
     [
       { label: "Employer", value: "Springfield USD" },
-      { label: "Role", value: "School-based BCBA (school_bcba)" },
+      { label: "Role", value: "School BCBA (school_bcba)" },
       { label: "Payment path", value: "District PO (district_po)" },
       { label: "Urgency", value: "This quarter (this_quarter)" },
     ],

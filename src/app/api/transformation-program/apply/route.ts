@@ -17,10 +17,10 @@ export const dynamic = "force-dynamic";
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const THURSDAY_CAPACITY_LABELS: Record<string, string> = {
-  yes_all_sessions: "Yes, can attend all six live sessions",
-  yes_most_sessions: "Yes, can attend most sessions and will make up any miss",
-  unsure: "Unsure, schedule may conflict",
-  no: "No, cannot commit to Thursday 6 to 8 PM Pacific Time",
+  yes_all_sessions: "Yes, I can attend all six sessions",
+  yes_most_sessions: "Yes, I can attend most and will make up any I miss",
+  unsure: "Not sure yet, my schedule may conflict",
+  no: "No, I cannot attend Thursdays from 6 to 8 PM Pacific Time",
 };
 
 const APPLICATION_TAGS = [

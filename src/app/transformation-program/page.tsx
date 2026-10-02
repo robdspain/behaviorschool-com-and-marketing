@@ -1,28 +1,29 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { ArrowRight, Users, Target, CheckCircle, Calendar, FileCheck, FlaskConical, ClipboardList, BarChart3, AlertCircle } from 'lucide-react';
+import { ArrowRight, Users, Target, CheckCircle, ChevronDown, FileCheck, FlaskConical, ClipboardList, BarChart3, AlertCircle } from 'lucide-react';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from '@/lib/founder-tenure';
-import { TRANSFORMATION_PAYMENT_PLAN_LABEL, TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
+import { cohortScheduleEntries, TRANSFORMATION_PAYMENT_PLAN_SENTENCE, TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 
 const OFFER_PRICE = TRANSFORMATION_PROGRAM.pricing.payInFull;
-const PAYMENT_PLAN = TRANSFORMATION_PAYMENT_PLAN_LABEL;
+const PAYMENT_PLAN_SENTENCE = TRANSFORMATION_PAYMENT_PLAN_SENTENCE;
 const CALENDLY_LINK = TRANSFORMATION_PROGRAM.calendlyUrl;
 const DISTRICT_EMAIL_LINK = '/contact';
 
 const PROGRAM_NAME = TRANSFORMATION_PROGRAM.name;
 const COHORT_LABEL = TRANSFORMATION_PROGRAM.cohort.label;
 const COHORT_START_BADGE = TRANSFORMATION_PROGRAM.cohort.startBadge;
-const COHORT_START_FULL = TRANSFORMATION_PROGRAM.cohort.startFull;
-const COHORT_BEGINS_ON = TRANSFORMATION_PROGRAM.cohort.beginsOn;
-const COHORT_END_FULL = TRANSFORMATION_PROGRAM.cohort.endFull;
 const COHORT_DATE_RANGE = TRANSFORMATION_PROGRAM.cohort.dateRange;
-const COHORT_SESSION_DATES = TRANSFORMATION_PROGRAM.cohort.sessionDates;
 const COHORT_SESSION_TIME = TRANSFORMATION_PROGRAM.cohort.sessionTime;
+const COHORT_SUMMARY = TRANSFORMATION_PROGRAM.cohort.summaryHeadline;
+const COHORT_SUMMARY_DETAIL = TRANSFORMATION_PROGRAM.cohort.summaryDetail;
+const APPLICATIONS_CLOSE_SHORT = TRANSFORMATION_PROGRAM.cohort.applicationsCloseShort;
+const SCHEDULE_ENTRIES = cohortScheduleEntries();
+const SESSION_MODULES = SCHEDULE_ENTRIES.filter((entry) => !entry.skipped);
 const COHORT_SCHEDULE = TRANSFORMATION_PROGRAM.cohort.scheduleLabel;
 const COHORT_SCHEDULE_SENTENCE = `${COHORT_SCHEDULE.charAt(0).toUpperCase()}${COHORT_SCHEDULE.slice(1)}`;
 const COHORT_SEAT_CAP = TRANSFORMATION_PROGRAM.cohort.seatCap;
@@ -90,143 +91,144 @@ const weeklyModules = [
   },
 ];
 
+const primaryCtaClass =
+  'inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-[#e4b63d] px-6 py-3 text-base font-semibold text-[#171f1d] transition-colors hover:bg-[#d9a92f] hover:underline focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f]';
+const textLinkClass =
+  'inline-flex min-h-11 items-center text-base font-semibold text-[#1f4d3f] underline underline-offset-4 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f]';
+
+function joinDayList(days: string[]) {
+  if (days.length <= 1) return days.join('');
+  return `${days.slice(0, -1).join(', ')}, and ${days[days.length - 1]}`;
+}
+
+function cohortDatePhrase() {
+  const jan = TRANSFORMATION_PROGRAM.cohort.sessionDates
+    .filter((date) => date.startsWith('Jan '))
+    .map((date) => date.slice(4));
+  const feb = TRANSFORMATION_PROGRAM.cohort.sessionDates
+    .filter((date) => date.startsWith('Feb '))
+    .map((date) => date.slice(4));
+  return `Jan ${joinDayList(jan)}, then Feb ${joinDayList(feb)}`;
+}
+
+function CohortCard() {
+  return (
+    <div className="rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] p-6 text-[#171f1d]">
+      <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f]">
+        Next cohort: {COHORT_LABEL}
+      </p>
+      <p className="mt-3 text-[1.375rem] font-semibold leading-snug sm:text-2xl">{COHORT_SUMMARY}</p>
+      <p className="mt-1 text-base leading-snug sm:text-lg">{COHORT_SUMMARY_DETAIL}</p>
+      <ol className="mt-4 grid grid-cols-2 gap-2 lg:grid-cols-7">
+        {SCHEDULE_ENTRIES.map((entry) => (
+          <li
+            key={`${entry.shortDate}-${entry.label}`}
+            aria-label={entry.ariaLabel}
+            className={
+              entry.skipped
+                ? 'flex min-h-11 items-center justify-between gap-3 rounded-lg border border-dashed border-[#d9cdb8] bg-transparent px-3 py-2 text-sm text-[#365548] lg:block'
+                : 'flex min-h-11 items-center justify-between gap-3 rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] px-3 py-2 text-sm lg:block'
+            }
+          >
+            <span className={`font-semibold ${entry.skipped ? '' : 'text-[#1f4d3f]'}`}>Thu, {entry.shortDate}</span>
+            <span className="lg:mt-1 lg:block">{entry.label}</span>
+          </li>
+        ))}
+      </ol>
+      <div className="mt-4 grid grid-cols-1 gap-4 border-t border-[#d9cdb8] pt-4 sm:grid-cols-3">
+        <div>
+          <p className="text-sm font-semibold text-[#365548]">Tuition</p>
+          <p className="text-base font-semibold">{OFFER_PRICE}</p>
+          <p className="text-sm text-[#365548]">or 3 monthly payments of {TRANSFORMATION_PROGRAM.pricing.installment}</p>
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-[#365548]">Seats</p>
+          <p className="text-base font-semibold">{COHORT_SEAT_CAP} in this cohort</p>
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-[#365548]">Apply by</p>
+          <p className="text-base font-semibold">{APPLICATIONS_CLOSE_SHORT}</p>
+          <p className="text-sm text-[#365548]">(earlier if seats fill)</p>
+        </div>
+      </div>
+      <a href="#apply" className={`${primaryCtaClass} mt-5 w-full`}>
+        Apply for the January cohort <ArrowRight className="h-4 w-4" aria-hidden="true" />
+      </a>
+      <a href="#fit-call" className={`${textLinkClass} mt-1`}>
+        Already applied? Book a fit call
+      </a>
+    </div>
+  );
+}
+
 export default function TransformationProgramPage() {
   const founderEducationYears = getFounderEducationYears();
+  const [districtOpen, setDistrictOpen] = useState(false);
   return (
-    <div className="min-h-screen bg-white relative pt-0">
+    <div className="transformation-program min-h-screen bg-[#fbfaf6] relative pt-0">
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-[#f7f3ee]">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#e4b63d22,transparent_55%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f4d3f12_1px,transparent_1px),linear-gradient(to_bottom,#1f4d3f12_1px,transparent_1px)] bg-[size:48px_48px]" />
-        </div>
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-20 sm:pb-28">
-          <div className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-16 items-center mt-8 sm:mt-10">
-            <div className="text-center lg:text-left">
-              <motion.div
-                className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                {['Live cohort', '6 sessions', 'School BCBAs', COHORT_START_BADGE].map((item) => (
-                  <span key={item} className="px-3 py-1.5 rounded-full border border-[#1f4d3f]/20 bg-white text-xs font-semibold text-[#1f4d3f] uppercase tracking-wide">
-                    {item}
-                  </span>
-                ))}
-              </motion.div>
-              <motion.h1
-                className="text-4xl sm:text-5xl lg:text-6xl font-semibold text-[#1a1a1a] leading-tight mb-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                {PROGRAM_NAME}
-              </motion.h1>
-              <motion.p
-                className="text-2xl sm:text-3xl font-semibold text-[#1a1a1a] leading-tight mb-6"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.15 }}
-              >
-                You Became a BCBA to Help Kids.{' '}
-                <span className="text-[#1f4d3f]">Not to Drown in Paperwork.</span>
-              </motion.p>
-              <motion.p
-                className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                Build a practical assessment-to-intervention system for the school caseload you manage now.
-              </motion.p>
-              <motion.div
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <a
-                  href="#apply"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-[#1f4d3f] hover:bg-[#123628] text-white font-semibold text-sm px-8 py-3 transition-colors"
-                >
-                  Apply for a seat <ArrowRight className="w-4 h-4" />
-                </a>
-                <a
-                  href="#fit-call"
-                  className="inline-flex items-center justify-center rounded-full border border-[#1f4d3f]/40 bg-white hover:bg-[#1f4d3f]/5 text-[#1f4d3f] font-semibold text-sm px-8 py-3 transition-colors"
-                >
-                  Already applied? Book a Fit Call
-                </a>
-              </motion.div>
-              <p className="mt-4 text-sm text-slate-500 max-w-xl mx-auto lg:mx-0">
-                Apply first. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit.
-              </p>
-            </div>
-
+      <section className="relative overflow-hidden bg-[#f4efe5]">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12 sm:pb-16">
+          <div className="flex flex-col">
             <motion.div
-              className="relative max-w-[520px] mx-auto lg:ml-auto"
-              initial={{ opacity: 0, y: 20 }}
+              className="order-1 mb-4 hidden flex-wrap items-center gap-2 lg:flex"
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.4 }}
             >
-              <div className="relative rounded-[1.75rem] p-3 bg-white border border-[#1f4d3f]/10 shadow-lg">
-                <div className="relative rounded-[1.5rem] overflow-hidden aspect-[4/3] bg-[#f1f5f9]">
-                  <Image
-                    src="/optimized/Hero/11D67BC4-55A4-4549-A776-84E87EDED35F.webp"
-                    alt="School BCBA systems in action"
-                    width={640}
-                    height={480}
-                    className="h-full w-full object-cover"
-                    priority
-                  />
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Cohort dates callout — stacked full-width body; seats pill never shares a row that can crush dates */}
-        <div className="max-w-2xl mx-auto px-4 mt-14">
-          <div className="rounded-2xl bg-white p-5 sm:p-6 shadow-sm border border-[#1f4d3f]/10">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between mb-4">
-              <div className="flex items-center gap-2 min-w-0">
-                <Calendar className="w-4 h-4 text-[#1f4d3f] flex-shrink-0" aria-hidden="true" />
-                <span className="text-[#1f4d3f] font-semibold text-xs uppercase tracking-widest">
-                  Next Cohort, {COHORT_LABEL}
-                </span>
-              </div>
-              <p className="self-start inline-flex items-center rounded-full bg-[#1f4d3f]/5 border border-[#1f4d3f]/10 px-3 py-1.5 text-[#1f4d3f] text-sm font-semibold whitespace-nowrap">
-                {COHORT_SEAT_CAP} seats
-              </p>
-            </div>
-            <p className="w-full text-[#1a1a1a] font-semibold text-sm sm:text-base mb-2 leading-snug">
-              {COHORT_START_FULL} &middot; {COHORT_SESSION_TIME}
-            </p>
-            <div className="w-full flex flex-wrap gap-x-3 gap-y-1 mb-2">
-              {COHORT_SESSION_DATES.map((d) => (
-                <span key={d} className="text-[#1f4d3f] font-semibold text-sm">
-                  {d}
+              {['Live online', '6 sessions', 'School BCBAs', COHORT_START_BADGE].map((item) => (
+                <span key={item} className="rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] px-3 py-1.5 text-sm font-semibold uppercase tracking-wide text-[#1f4d3f]">
+                  {item}
                 </span>
               ))}
-            </div>
-            <p className="w-full text-slate-600 text-sm mb-4 leading-relaxed">
-              {COHORT_SCHEDULE_SENTENCE}.
-            </p>
-            <p className="w-full text-slate-500 text-xs leading-relaxed">
-              Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first.
-            </p>
+            </motion.div>
+            <motion.h1
+              className="order-1 mb-4 max-w-[18ch] text-balance text-[32px] font-semibold leading-[1.15] text-[#171f1d] sm:text-5xl"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+            >
+              {PROGRAM_NAME}
+            </motion.h1>
+            <motion.div className="order-2 mt-2 lg:order-4" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
+              <CohortCard />
+            </motion.div>
+            <motion.p
+              className="order-3 mt-6 text-lg font-semibold leading-snug text-[#171f1d] lg:order-2 lg:mt-0"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+            >
+              You became a BCBA to help kids. Not to drown in paperwork.
+            </motion.p>
+            <motion.p
+              className="order-4 mt-3 max-w-2xl text-base leading-relaxed text-[#365548] lg:order-3"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.15 }}
+            >
+              Build a practical assessment-to-intervention system for the school caseload you manage now. Apply first. After we review your application, we schedule a fit call.
+            </motion.p>
+          </div>
+          <div className="relative mt-8 overflow-hidden rounded-lg border border-[#d9cdb8]">
+            <Image
+              src="/optimized/Hero/11D67BC4-55A4-4549-A776-84E87EDED35F.webp"
+              alt="School BCBA systems in action"
+              width={1200}
+              height={480}
+              className="h-48 w-full object-cover sm:h-64"
+            />
           </div>
         </div>
       </section>
 
       {/* Pain Points Section */}
-      <section className="py-20 sm:py-28 bg-white">
+      <section className="py-20 sm:py-28 bg-[#fbfaf6]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">The Reality</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-4">Sound Familiar?</h2>
-          <p className="text-slate-600 text-center mb-14 text-lg leading-relaxed max-w-2xl mx-auto">These are the real problems school BCBAs bring to this program.</p>
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">The Reality</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#171f1d] mb-4">Sound Familiar?</h2>
+          <p className="text-[#365548] text-center mb-14 text-lg leading-relaxed max-w-2xl mx-auto">These are the real problems school BCBAs bring to this program.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { pain: "High-volume referral decisions", sub: "Use a tiered routing process before committing to a full assessment." },
@@ -238,17 +240,17 @@ export default function TransformationProgramPage() {
             ].map((item, i) => (
               <motion.div
                 key={i}
-                className="rounded-xl bg-white border border-gray-200 p-6"
+                className="rounded-lg bg-[#fbfaf6] border border-[#d9cdb8] p-6"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.07 }}
               >
                 <div className="flex gap-3 mb-3">
-                  <AlertCircle className="w-5 h-5 text-[#e4b63d] flex-shrink-0 mt-0.5" />
-                  <p className="text-[#1a1a1a] font-semibold leading-snug text-sm">{item.pain}</p>
+                  <AlertCircle className="w-5 h-5 text-[#1f4d3f] flex-shrink-0 mt-0.5" />
+                  <p className="text-[#171f1d] font-semibold leading-snug text-base">{item.pain}</p>
                 </div>
-                <p className="text-slate-500 text-sm leading-relaxed">{item.sub}</p>
+                <p className="text-[#365548] text-base leading-relaxed">{item.sub}</p>
               </motion.div>
             ))}
           </div>
@@ -256,11 +258,11 @@ export default function TransformationProgramPage() {
       </section>
 
       {/* Who This Is For */}
-      <section className="py-20 sm:py-28 bg-[#f9f7f2]">
+      <section className="py-20 sm:py-28 bg-[#f4efe5]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Eligibility</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-4">Who This Program Is For</h2>
-          <p className="text-center text-slate-600 mb-12 text-lg leading-relaxed">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Eligibility</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#171f1d] mb-4">Who This Program Is For</h2>
+          <p className="text-center text-[#365548] mb-12 text-lg leading-relaxed">
             {COHORT_SCHEDULE_SENTENCE} for practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings.
           </p>
           <div className="grid sm:grid-cols-2 gap-5">
@@ -268,74 +270,73 @@ export default function TransformationProgramPage() {
               "You are a certified BCBA working in a K-12 school or district role",
               "You have a current caseload or systems problem you want to rebuild",
               "You can attend live Thursday sessions from 6 to 8 PM Pacific Time",
-              "You will bring real work to apply between sessions, including share-outs in later weeks",
+              "You will bring real work to apply between sessions, including share-outs in later sessions",
               "You want tools you can use the next day, not theory you'll forget in a week",
               "You are ready to do the work, not just watch videos and get a certificate",
             ].map((item, i) => (
-              <div key={i} className="flex items-start gap-3 p-5 rounded-xl bg-white border border-gray-200">
+              <div key={i} className="flex items-start gap-3 p-5 rounded-lg bg-[#fbfaf6] border border-[#d9cdb8]">
                 <CheckCircle className="w-5 h-5 text-[#1f4d3f] flex-shrink-0 mt-0.5" />
-                <p className="text-slate-700 text-sm leading-relaxed">{item}</p>
+                <p className="text-[#171f1d] text-base leading-relaxed">{item}</p>
               </div>
             ))}
           </div>
-          <div className="mt-8 rounded-xl border border-[#e4b63d]/30 bg-[#e4b63d]/5 p-5 space-y-3">
-            <p className="text-[#1a1a1a] text-sm text-center leading-relaxed">
+          <div className="mt-8 rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] p-5 space-y-3">
+            <p className="text-[#171f1d] text-base text-center leading-relaxed">
               Who it is not for: RBTs, BCaBAs who are not yet certified, general-ed staff, and clinic-only BCBAs without a school role.
             </p>
-            <p className="text-[#1a1a1a] text-sm text-center leading-relaxed">
-              {COHORT_SEAT_CAP} seats for the {COHORT_LABEL}. Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
+            <p className="text-[#171f1d] text-base text-center leading-relaxed">
+              {COHORT_SEAT_CAP} seats in this cohort. Apply by {APPLICATIONS_CLOSE_LABEL}. Applications may close earlier if all {COHORT_SEAT_CAP} seats fill. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
             </p>
           </div>
         </div>
       </section>
 
       {/* Weekly Breakdown */}
-      <section id="curriculum" className="py-20 sm:py-28 bg-white scroll-mt-24">
+      <section id="curriculum" className="py-20 sm:py-28 bg-[#fbfaf6] scroll-mt-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Six live sessions</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-4">What You&apos;ll Build Each Session</h2>
-            <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">Each session is mapped to a specific pain point and ends with a deliverable you can use immediately.</p>
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">The six-session curriculum</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#171f1d] mb-4">What You&apos;ll Build Each Session</h2>
+            <p className="text-[#365548] text-lg max-w-2xl mx-auto leading-relaxed">Each session is mapped to a specific pain point and ends with a deliverable you can use immediately.</p>
           </div>
 
           <div className="space-y-6">
-            {weeklyModules.map((mod) => (
+            {weeklyModules.map((mod, index) => (
               <motion.div
                 key={mod.week}
-                className="bg-white rounded-xl border border-gray-200 overflow-hidden"
+                className="bg-[#fbfaf6] rounded-lg border border-[#d9cdb8] overflow-hidden"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-80px' }}
               >
                 <div className="flex flex-col md:flex-row">
-                  <div className="bg-[#1f4d3f] text-white flex items-center justify-center md:flex-col gap-2 md:gap-1 px-6 py-4 md:py-8 md:w-24 flex-shrink-0">
-                    <span className="text-xs text-white/70 uppercase font-semibold tracking-widest">Week</span>
-                    <span className="text-3xl font-bold leading-none">{mod.week}</span>
+                  <div className="bg-[#1f4d3f] text-[#fbfaf6] flex items-center px-6 py-4 md:w-56 flex-shrink-0">
+                    <span className="text-base font-semibold">{SESSION_MODULES[index]?.curriculumLabel}</span>
                   </div>
                   <div className="p-6 md:p-8 flex-1 min-w-0">
                     <div className="flex items-start gap-3 mb-5">
-                      <div className="w-10 h-10 rounded-lg bg-[#1f4d3f]/10 flex items-center justify-center flex-shrink-0">
+                      <div className="w-11 h-11 rounded-lg bg-[#1f4d3f]/10 flex items-center justify-center flex-shrink-0">
                         <mod.icon className="w-5 h-5 text-[#1f4d3f]" />
                       </div>
-                      <h3 className="text-xl font-bold text-[#1a1a1a] leading-tight mt-1.5">{mod.title}</h3>
+                      <h3 className="text-xl font-bold text-[#171f1d] leading-tight mt-1.5">{mod.title}</h3>
                     </div>
                     <div className="grid md:grid-cols-3 gap-4">
-                      <div className="rounded-lg bg-[#e4b63d]/5 border border-[#e4b63d]/15 p-4">
-                        <p className="text-xs font-semibold text-[#1f4d3f] uppercase tracking-widest mb-2">The Challenge</p>
-                        <p className="text-[#1a1a1a] text-sm leading-relaxed">{mod.pain}</p>
+                      <div className="rounded-lg bg-[#f4efe5] border border-[#d9cdb8] p-4">
+                        <p className="text-sm font-semibold text-[#1f4d3f] uppercase tracking-widest mb-2">The Challenge</p>
+                        <p className="text-[#171f1d] text-base leading-relaxed">{mod.pain}</p>
                       </div>
-                      <div className="rounded-lg bg-[#f9f7f2] border border-gray-200 p-4">
-                        <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">What You Build</p>
-                        <p className="text-slate-700 text-sm leading-relaxed">{mod.build}</p>
+                      <div className="rounded-lg bg-[#f4efe5] border border-[#d9cdb8] p-4">
+                        <p className="text-sm font-semibold text-[#365548] uppercase tracking-widest mb-2">What You Build</p>
+                        <p className="text-[#171f1d] text-base leading-relaxed">{mod.build}</p>
                       </div>
-                      <div className="rounded-lg bg-[#1f4d3f]/5 border border-[#1f4d3f]/10 p-4">
-                        <p className="text-xs font-semibold text-[#1f4d3f] uppercase tracking-widest mb-2">Your Deliverable</p>
-                        <p className="text-slate-700 text-sm leading-relaxed">{mod.deliverable}</p>
+                      <div className="rounded-lg bg-[#f4efe5] border border-[#d9cdb8] p-4">
+                        <p className="text-sm font-semibold text-[#1f4d3f] uppercase tracking-widest mb-2">Your Deliverable</p>
+                        <p className="text-[#171f1d] text-base leading-relaxed">{mod.deliverable}</p>
                       </div>
                     </div>
-                    <div className="mt-5 border-t border-gray-200 pt-4">
-                      <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">Learning Objectives</p>
-                      <ul className="space-y-2 text-sm leading-relaxed text-slate-700">
+                    <div className="mt-5 border-t border-[#d9cdb8] pt-4">
+                      <p className="text-sm font-semibold text-[#365548] uppercase tracking-widest mb-2">Learning Objectives</p>
+                      <ul className="space-y-2 text-base leading-relaxed text-[#171f1d]">
                         {mod.objectives.map((objective) => <li key={objective} className="flex gap-2"><CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-[#1f4d3f]" />{objective}</li>)}
                       </ul>
                     </div>
@@ -347,11 +348,11 @@ export default function TransformationProgramPage() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-28 bg-[#f9f7f2]">
+      <section className="py-20 sm:py-28 bg-[#f4efe5]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Learning CE Information</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-8">What Each Live Session Includes</h2>
-          <div className="space-y-4 text-slate-700 text-sm sm:text-base leading-relaxed">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Learning CE Information</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#171f1d] mb-8">What Each Live Session Includes</h2>
+          <div className="space-y-4 text-[#171f1d] text-base leading-relaxed">
             <p>Each live online session is scheduled for {COHORT_SESSION_TIME} and includes 75 documented instructional minutes. It is structured for 1.5 Learning CEUs after verified attendance and active participation.</p>
             <p><strong>Instructor:</strong> Rob Spain, BCBA, IBA. <strong>Affiliation disclosure:</strong> No relevant financial affiliation or conflict of interest to disclose.</p>
             <p><strong>Provider listing:</strong> Behavior School, Provider OP-26-12729. The BACB does not endorse or approve individual events. Learning CE documentation is issued only after provider authorization is independently confirmed in the BACB registry.</p>
@@ -361,13 +362,13 @@ export default function TransformationProgramPage() {
       </section>
 
       {/* Outcomes Section */}
-      <section id="outcomes" className="py-20 sm:py-28 bg-[#1f4d3f] text-white scroll-mt-24">
+      <section id="outcomes" className="on-forest py-20 sm:py-28 bg-[#1f4d3f] text-[#fbfaf6] scroll-mt-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d] mb-3">Outcomes</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">What You Will Build</h2>
-            <p className="text-white/70 text-lg mb-2 max-w-2xl mx-auto leading-relaxed">Build concrete assessment, implementation, and review tools during the six-session program.</p>
-            <p className="text-white/50 text-base">Applied tools and structured decision processes, not just new ideas.</p>
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#f4efe5] mb-3">Outcomes</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#fbfaf6] mb-4">What You Will Build</h2>
+            <p className="text-[#fbfaf6] text-lg mb-2 max-w-2xl mx-auto leading-relaxed">Build concrete assessment, implementation, and review tools during the six-session program.</p>
+            <p className="text-[#fbfaf6] text-base">Applied tools and structured decision processes, not just new ideas.</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
@@ -380,14 +381,14 @@ export default function TransformationProgramPage() {
             ].map((outcome, i) => (
               <motion.div
                 key={i}
-                className="flex items-start gap-3 bg-white/5 border border-white/10 rounded-xl p-5"
+                className="flex items-start gap-3 bg-white/5 border border-white/10 rounded-lg p-5"
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
               >
                 <CheckCircle className="w-5 h-5 text-[#e4b63d] flex-shrink-0 mt-0.5" />
-                <p className="text-white text-sm leading-relaxed">{outcome}</p>
+                <p className="text-[#fbfaf6] text-base leading-relaxed">{outcome}</p>
               </motion.div>
             ))}
           </div>
@@ -395,11 +396,11 @@ export default function TransformationProgramPage() {
       </section>
 
       {/* Who This Is For */}
-      <section className="py-20 sm:py-28 bg-white">
+      <section className="py-20 sm:py-28 bg-[#fbfaf6]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Who This Is For</p>
-            <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Who This Is For</p>
+            <p className="text-[#171f1d] text-lg leading-relaxed">
               The {PROGRAM_NAME} is for school BCBAs who want a clearer way to connect assessment, intervention, staff implementation, and research approaches to functional behavior assessment in the classroom. Participants bring real work to apply between sessions and share progress in later sessions.
             </p>
           </div>
@@ -407,32 +408,32 @@ export default function TransformationProgramPage() {
       </section>
 
       {/* About Rob */}
-      <section className="py-20 sm:py-28 bg-[#f9f7f2]">
+      <section className="py-20 sm:py-28 bg-[#f4efe5]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Your Instructor</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-8">Rob Spain, BCBA, IBA</h2>
-          <div className="text-left space-y-4 text-slate-600 text-base leading-relaxed">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Your Instructor</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#171f1d] mb-8">Rob Spain, BCBA, IBA</h2>
+          <div className="text-left space-y-4 text-[#365548] text-base leading-relaxed">
             <p>Rob Spain is a BCBA and IBA with {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}. Learning CE documentation will not be issued until the instructor qualification and expertise record has been verified for the event.</p>
           </div>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             {['BCBA', 'IBA', 'School Practice'].map((item) => (
-              <span key={item} className="px-4 py-2 rounded-full bg-white border border-[#1f4d3f]/15 text-[#1f4d3f] text-sm font-semibold">{item}</span>
+              <span key={item} className="inline-flex min-h-11 items-center px-4 rounded-lg bg-[#fbfaf6] border border-[#d9cdb8] text-[#1f4d3f] text-sm font-semibold">{item}</span>
             ))}
           </div>
         </div>
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="py-20 sm:py-28 bg-white scroll-mt-24">
+      <section id="faq" className="py-20 sm:py-28 bg-[#fbfaf6] scroll-mt-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Common Questions</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#1a1a1a] mb-14">Frequently Asked Questions</h2>
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Common Questions</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#171f1d] mb-14">Frequently Asked Questions</h2>
           <FAQAccordion items={[
-            { question: "When does the next cohort start?", answer: `The ${COHORT_LABEL} begins ${COHORT_BEGINS_ON}. ${COHORT_SCHEDULE_SENTENCE}, ${COHORT_SESSION_TIME}, ending ${COHORT_END_FULL}.` },
-            { question: "How many seats are available?", answer: `There are ${COHORT_SEAT_CAP} seats for the ${COHORT_LABEL}. Applications close when seats fill or by ${APPLICATIONS_CLOSE_LABEL}, whichever comes first.` },
+            { question: "When does the next cohort start?", answer: `The ${COHORT_LABEL} meets live online on six Thursdays from ${COHORT_SESSION_TIME}: ${cohortDatePhrase()}. There is no session on Feb 4. Apply by ${APPLICATIONS_CLOSE_LABEL}.` },
+            { question: "How many seats are available?", answer: `There are ${COHORT_SEAT_CAP} seats in this cohort. Apply by ${APPLICATIONS_CLOSE_LABEL}. Applications may close earlier if all ${COHORT_SEAT_CAP} seats fill.` },
             { question: "What is the order of operations to enroll?", answer: "Apply first using the application form on this page. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit. Fit Call booking is for applicants already in review." },
             { question: "Who is this program for?", answer: "Practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings from 6 to 8 PM Pacific Time. It is not for RBTs, BCaBAs who are not yet certified, general-ed staff, or clinic-only BCBAs without a school role." },
-            { question: "What participation is expected between sessions?", answer: "Bring real work from your school setting to apply between sessions. Later weeks include share-outs on the systems you are rebuilding." },
+            { question: "What participation is expected between sessions?", answer: "Bring real work from your school setting to apply between sessions. Later sessions include share-outs on the systems you are rebuilding." },
             { question: "What if I miss a live session?", answer: "Use the Learning dashboard for the posted session materials and participation requirements. Contact support if you cannot attend so the available completion options can be reviewed." },
             { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
             { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork." },
@@ -444,87 +445,80 @@ export default function TransformationProgramPage() {
       </section>
 
       {/* Enroll */}
-      <section id="enroll" className="py-20 sm:py-28 bg-[#e8f0eb] text-[#1a1a1a] scroll-mt-24">
+      <section id="enroll" className="py-20 sm:py-28 bg-[#f4efe5] text-[#171f1d] scroll-mt-24">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Enrollment</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-4">Apply for a seat in the {COHORT_LABEL}</h2>
-          <p className="text-slate-600 text-sm mb-3">{COHORT_LABEL} · {COHORT_SCHEDULE} · School BCBAs only · {COHORT_SEAT_CAP} seats</p>
-          <p className="text-slate-700 text-lg mb-3 max-w-xl mx-auto leading-relaxed">
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Enrollment</p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#171f1d] mb-4">Apply for the {COHORT_LABEL}</h2>
+          <p className="text-[#365548] text-base mb-3">Six live Thursdays. School BCBAs only. {COHORT_SEAT_CAP} seats in this cohort. {OFFER_PRICE}.</p>
+          <p className="text-[#171f1d] text-lg mb-3 max-w-xl mx-auto leading-relaxed">
             Apply first. Fit calls are scheduled after application review. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
           </p>
-          <p className="text-slate-600 text-sm mb-6 max-w-xl mx-auto leading-relaxed">
-            Applications close when seats fill or by {APPLICATIONS_CLOSE_LABEL}, whichever comes first.
+          <p className="text-[#365548] text-base mb-6 max-w-xl mx-auto leading-relaxed">
+            Apply by {APPLICATIONS_CLOSE_LABEL}. Applications may close earlier if all {COHORT_SEAT_CAP} seats fill.
           </p>
-          <p className="text-[#1f4d3f] font-bold text-2xl mb-8">
+          <p className="text-[#171f1d] font-bold text-2xl mb-4">
             {OFFER_PRICE} tuition
           </p>
+          <p className="text-[#365548] text-base mb-8">{PAYMENT_PLAN_SENTENCE}</p>
 
-          <a
-            href="#apply"
-            className="block w-full rounded-full bg-[#1f4d3f] hover:bg-[#123628] text-white font-bold text-lg py-4 px-8 text-center transition-colors mb-4"
-          >
-            Apply for a seat
+          <a href="#apply" className={`${primaryCtaClass} mb-4 w-full`}>
+            Apply for the January cohort
           </a>
 
-          <p id="fit-call" className="scroll-mt-24 text-slate-600 text-sm mb-4">
-            Already applied and in review?{' '}
+          <p id="fit-call" className="scroll-mt-24 mb-4">
             <a
               href={CALENDLY_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#1f4d3f] font-semibold underline underline-offset-2"
+              className={textLinkClass}
             >
-              Book a Fit Call
+              Already applied? Book a fit call
             </a>
           </p>
 
-          <p className="text-slate-600 text-sm mb-2">
-            Payment plan available: <span className="text-[#1f4d3f] font-semibold">{PAYMENT_PLAN}</span>
-            {' '}({TRANSFORMATION_PROGRAM.pricing.installmentSchedule.join(', ')}).
-          </p>
-
-          <p className="text-slate-500 text-xs mb-4">
+          <p className="text-[#365548] text-base mb-4">
             District PO or invoice needed?{' '}
-            <a href={DISTRICT_EMAIL_LINK} className="text-[#1f4d3f] font-semibold underline underline-offset-2">
+            <a href={DISTRICT_EMAIL_LINK} className="font-semibold text-[#1f4d3f] underline underline-offset-4">
               Contact us
             </a>
           </p>
-          <p className="text-slate-500 text-xs mb-12">
+          <p className="text-[#365548] text-base mb-12">
             Refund policy: five calendar days from payment. After that, cohort seats are committed and non-refundable except where required by law.
           </p>
 
-          <details className="text-left bg-white rounded-xl border border-[#1f4d3f]/15 overflow-hidden">
-            <summary className="cursor-pointer px-6 py-4 font-semibold text-slate-700 text-sm flex items-center justify-between list-none">
+          <details
+            className="text-left bg-[#fbfaf6] rounded-lg border border-[#d9cdb8] overflow-hidden"
+            onToggle={(event) => setDistrictOpen(event.currentTarget.open)}
+          >
+            <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-3 px-6 py-3 text-base font-semibold text-[#171f1d]">
               <span>Getting district approval? We can help.</span>
-              <span className="text-slate-400 text-xs">tap to expand</span>
+              <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#365548]">
+                <ChevronDown className={`h-4 w-4 transition-transform ${districtOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
+                {districtOpen ? 'Hide' : 'Show'}
+              </span>
             </summary>
-            <div className="px-6 pb-6 border-t border-[#1f4d3f]/10 pt-4 space-y-4">
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Many BCBAs have their district cover this as professional development. Here&apos;s what you need:
+            <div className="space-y-4 border-t border-[#d9cdb8] px-6 pb-6 pt-4">
+              <p className="text-base leading-relaxed text-[#365548]">
+                Many BCBAs have their district cover this as professional development. Here is what you need:
               </p>
-              <p className="flex items-start gap-3 p-3 rounded-lg border border-[#1f4d3f]/10 bg-[#1f4d3f]/5 text-sm text-slate-700 leading-relaxed">
-                <FileCheck className="w-4 h-4 flex-shrink-0 text-[#1f4d3f] mt-0.5" />
+              <p className="flex items-start gap-3 rounded-lg border border-[#d9cdb8] bg-[#f4efe5] p-3 text-base leading-relaxed text-[#171f1d]">
+                <FileCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#1f4d3f]" />
                 Need current district paperwork? Contact us for the current program description, invoice, and payment documentation.
               </p>
-              <p className="text-xs text-slate-500">
+              <p className="text-base text-[#365548]">
                 Need a W-9, purchase order, or invoice?{' '}
-                <a href={DISTRICT_EMAIL_LINK} className="text-[#1f4d3f] font-semibold underline underline-offset-2">
+                <a href={DISTRICT_EMAIL_LINK} className="font-semibold text-[#1f4d3f] underline underline-offset-4">
                   Contact us
                 </a>{' '}
-                and we&apos;ll send the paperwork. Seats are held once a signed PO or written district payment approval is received.
+                and we will send the paperwork. Seats are held once a signed PO or written district payment approval is received.
               </p>
-              <div className="bg-[#f9f7f2] rounded-lg border border-[#1f4d3f]/10 p-4">
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Copy and forward to your supervisor</p>
-                <div className="bg-white border border-[#1f4d3f]/15 rounded-lg p-4 text-xs text-slate-700 leading-relaxed font-mono whitespace-pre-line select-all">{`Subject: PD Approval Request, ${PROGRAM_NAME}
+              <div className="rounded-lg border border-[#d9cdb8] bg-[#f4efe5] p-4">
+                <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-[#365548]">Copy and forward to your supervisor</p>
+                <div className="select-all whitespace-pre-line rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] p-4 font-mono text-sm leading-relaxed text-[#171f1d]">{`Subject: PD Approval Request, ${PROGRAM_NAME}
 
-I'd like to attend the ${PROGRAM_NAME}, ${COHORT_SCHEDULE}, led by Rob Spain, BCBA.
+I'd like to attend the ${PROGRAM_NAME}, led by Rob Spain, BCBA.
 
-This program addresses three problems directly:
-1. Assessment and FBA quality: builds a replicable, legally defensible process I can apply across my caseload.
-2. Staff implementation: structured training that reduces re-intervention time and improves consistency.
-3. Classroom FA: confirm the EO with research-supported formats before the team invests in a plan.
-
-${COHORT_SCHEDULE_SENTENCE}, ${COHORT_SESSION_TIME}, ${COHORT_DATE_RANGE}. Cost: ${OFFER_PRICE}.
+6 live sessions on Thursdays, ${COHORT_SESSION_TIME}, ${COHORT_DATE_RANGE} (no session February 4). Cost: ${OFFER_PRICE}.
 Details: behaviorschool.com/transformation-program`}</div>
               </div>
             </div>

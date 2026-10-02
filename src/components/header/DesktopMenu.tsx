@@ -28,13 +28,13 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
               transition={{ duration: 0.2 }}
             >
               <motion.button
-                className="inline-flex items-center gap-1 px-3 py-2 text-sm xl:text-base font-medium text-emerald-700 focus:outline-none relative rounded-lg"
+                className="relative inline-flex min-h-11 items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-[#1f4d3f] xl:text-base"
                 aria-haspopup="menu"
                 aria-expanded={openKey === key}
                 whileHover={{ 
                   scale: 1.1,
-                  backgroundColor: "rgba(16, 185, 129, 0.08)",
-                  color: "#065f46"
+                  backgroundColor: "rgba(31, 77, 63, 0.08)",
+                  color: "#1f4d3f"
                 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.3 }}
@@ -47,7 +47,7 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
                   <ChevronDown className="size-4" />
                 </motion.div>
                 <motion.div
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-600"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#1f4d3f]"
                   initial={{ scaleX: 0 }}
                   whileHover={{ scaleX: 1 }}
                   transition={{ duration: 0.2 }}
@@ -81,19 +81,19 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
           >
             <Link
               href={section.href ?? "#"}
-              className="px-3 py-2 text-sm xl:text-base font-medium text-emerald-700 relative block rounded-lg whitespace-nowrap"
+              className="relative block min-h-11 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-[#1f4d3f] xl:text-base"
               target={section.href?.startsWith("http") ? "_blank" : undefined}
               rel={section.href?.startsWith("http") ? "noreferrer noopener" : undefined}
             >
               <motion.div
-                className="absolute inset-0 bg-emerald-100/50 rounded-lg"
+                className="absolute inset-0 bg-[#f4efe5] rounded-lg"
                 initial={{ opacity: 0 }}
                 whileHover={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
               />
               <span className="relative z-10">{section.label}</span>
               <motion.div
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-600 rounded-full"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#1f4d3f] rounded-lg"
                 initial={{ scaleX: 0 }}
                 whileHover={{ scaleX: 1 }}
                 transition={{ duration: 0.3 }}

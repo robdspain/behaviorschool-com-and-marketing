@@ -62,22 +62,22 @@ export function NewsletterSignup() {
   };
 
   return (
-    <div id="newsletter" className="bg-gradient-to-br from-emerald-50 to-blue-50 border-2 border-emerald-200 rounded-2xl p-8 my-12">
+    <div id="newsletter" className="my-12 rounded-lg border border-[#d9cdb8] bg-[#f4efe5] p-8">
       <div className="max-w-2xl mx-auto text-center">
-        <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Mail className="w-8 h-8 text-emerald-600" />
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-[#fbfaf6]">
+          <Mail className="h-8 w-8 text-[#1f4d3f]" />
         </div>
         
-        <h3 className="text-2xl font-bold text-slate-900 mb-3">
+        <h3 className="text-2xl font-bold text-[#171f1d] mb-3">
           The Weekly Research Brief
         </h3>
         
-        <p className="text-slate-700 mb-6">
-          Open research, clear summaries, and practical next steps for school-based BCBAs, delivered each week.
+        <p className="text-[#365548] mb-6">
+          Open research, clear summaries, and practical next steps for school BCBAs, delivered each week.
         </p>
 
         {status === 'success' ? (
-          <div className="bg-emerald-100 border border-emerald-300 text-emerald-800 px-6 py-4 rounded-lg">
+          <div className="rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] px-6 py-4 text-[#171f1d]">
             <p>{message}</p>
             {submittedEmail && !message.startsWith('You are already subscribed') ? (
               <button
@@ -103,12 +103,12 @@ export function NewsletterSignup() {
               placeholder="Enter your email"
               required
               disabled={status === 'loading'}
-              className="flex-1 px-4 py-3 border-2 border-slate-300 rounded-lg focus:outline-none focus:border-emerald-500 disabled:opacity-50"
+              className="min-h-12 flex-1 rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] px-4 py-3 text-base text-[#171f1d] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f] disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="px-6 py-3 bg-emerald-600 text-white font-semibold rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+              className="min-h-12 whitespace-nowrap rounded-lg bg-[#1f4d3f] px-6 py-3 font-semibold text-[#fbfaf6] transition-colors hover:bg-[#123628] disabled:cursor-not-allowed disabled:opacity-50"
             >
               {status === 'loading' ? 'Sending...' : 'Send me the weekly brief'}
             </button>
@@ -119,7 +119,7 @@ export function NewsletterSignup() {
           <p className="text-red-600 text-sm mt-3">{message}</p>
         )}
 
-        <p className="text-xs text-slate-600 mt-4">
+        <p className="mt-4 text-sm text-[#365548]">
           Free. One email each week. Confirm your email to join. Unsubscribe anytime.
         </p>
       </div>

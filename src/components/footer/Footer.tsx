@@ -16,7 +16,7 @@ export function Footer() {
             href="https://x.com/behavior_school"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center text-[#365548] transition-colors hover:text-[#171f1d]"
             aria-label="Follow Behavior School on X"
           >
             <Twitter size={24} />
@@ -25,7 +25,7 @@ export function Footer() {
             href="https://bsky.app/profile/behaviorschool.bsky.social"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center text-[#365548] transition-colors hover:text-[#171f1d]"
             aria-label="Follow Behavior School on Bluesky"
           >
             <Image src="/icons/bluesky.svg" alt="Bluesky" width={24} height={24} />
@@ -34,7 +34,7 @@ export function Footer() {
             href="https://www.youtube.com/@BehaviorSchool"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center text-[#365548] transition-colors hover:text-[#171f1d]"
             aria-label="Subscribe to Behavior School on YouTube"
           >
             <Youtube size={24} />
@@ -43,7 +43,7 @@ export function Footer() {
             href="https://www.instagram.com/behaviorschool"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center text-[#365548] transition-colors hover:text-[#171f1d]"
             aria-label="Follow Behavior School on Instagram"
           >
             <Instagram size={24} />
@@ -52,7 +52,7 @@ export function Footer() {
             href="https://www.facebook.com/profile.php?id=61564836345571"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center text-[#365548] transition-colors hover:text-[#171f1d]"
             aria-label="Like Behavior School on Facebook"
           >
             <Facebook size={24} />
@@ -61,7 +61,7 @@ export function Footer() {
             href="https://www.linkedin.com/company/behavior-school/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center text-[#365548] transition-colors hover:text-[#171f1d]"
             aria-label="Connect with Behavior School on LinkedIn"
           >
             <Linkedin size={24} />
@@ -107,89 +107,89 @@ export function Footer() {
       <div className="border-t border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 text-center text-sm">
-            <Link href="/products" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/products" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               Tools
             </Link>
-            <Link href="/free-tools" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/free-tools" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               Free School Behavior Tools
             </Link>
-            <Link href="/resources" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/resources" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               Resources
             </Link>
-            <Link href="/ceus" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/ceus" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               BCBA CEUs
             </Link>
-            <Link href="/about" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/about" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               About
             </Link>
-            <Link href="/faq" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/faq" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               FAQ
             </Link>
-            <Link href="https://study.behaviorschool.com/free-practice/" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="https://study.behaviorschool.com/free-practice/" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               BCBA Exam Prep
             </Link>
-            <Link href="https://study.behaviorschool.com/free-practice/" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="https://study.behaviorschool.com/free-practice/" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               Free BCBA Practice Exam
             </Link>
-            <Link href="/bcba-readiness-quiz" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/bcba-readiness-quiz" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               BCBA Readiness Check
             </Link>
-            <Link href="https://study.behaviorschool.com/free-practice/" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="https://study.behaviorschool.com/free-practice/" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               BCBA 6th Edition Questions
             </Link>
-            <Link href="/bcba-exam-weak-areas" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/bcba-exam-weak-areas" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               BCBA Weak Areas
             </Link>
-            <Link href="/ai-for-behavior-analysts" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/ai-for-behavior-analysts" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               AI for Behavior Analysts
             </Link>
-            <Link href="https://study.behaviorschool.com/free-mock-exam/" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="https://study.behaviorschool.com/free-mock-exam/" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               BCBA Practice Exam
             </Link>
-            <Link href="https://study.behaviorschool.com/free-practice/" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="https://study.behaviorschool.com/free-practice/" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               BCBA Test Questions
             </Link>
-            <Link href="https://study.behaviorschool.com/free-mock-exam/" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="https://study.behaviorschool.com/free-mock-exam/" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               Free BCBA Mock Exam
             </Link>
-            <Link href="/school-bcba/interview-questions" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/school-bcba/interview-questions" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               School BCBA Interview Questions
             </Link>
-            <Link href="/functional-behavior-assessment-guide" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/functional-behavior-assessment-guide" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               FBA Guide
             </Link>
-            <Link href="/behavior-intervention-plan-examples" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/behavior-intervention-plan-examples" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               BIP Examples
             </Link>
-            <Link href="/iep-behavior-goal-examples" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/iep-behavior-goal-examples" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               IEP Goal Examples
             </Link>
             <Link
               href="https://study.behaviorschool.com/contact"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-gray-900 transition-colors"
+              className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]"
             >
               Contact Us
             </Link>
-            <Link href="/ferpa-compliance" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/ferpa-compliance" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               FERPA Compliance
             </Link>
-            <Link href="/privacy" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/privacy" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/terms" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               Terms of Service
             </Link>
             <Link
               href="https://behaviorschool.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-gray-900 transition-colors"
+              className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]"
             >
               Behavior School
             </Link>
-            <Link href="/blog" className="text-gray-600 hover:text-gray-900 transition-colors">
+            <Link href="/blog" className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]">
               Blog
             </Link>
           </div>
