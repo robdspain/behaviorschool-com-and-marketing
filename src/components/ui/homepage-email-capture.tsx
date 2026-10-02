@@ -99,7 +99,7 @@ export function HomepageEmailCapture() {
                       placeholder="your.email@example.com"
                       required
                       disabled={status === 'loading'}
-                      className="w-full pl-10 pr-4 h-[44px] border border-[#365548] rounded-lg focus:outline-none focus:border-[#1f4d3f] focus:ring-1 focus:ring-[#1f4d3f] disabled:opacity-50 text-base bg-white text-[var(--bs-ink)]"
+                      className="w-full pl-10 pr-4 h-[44px] border border-[#365548] rounded-lg focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f] disabled:opacity-50 text-base bg-white text-[var(--bs-ink)]"
                     />
                   </div>
                   <button

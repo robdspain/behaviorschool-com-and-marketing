@@ -144,10 +144,10 @@ const toneClasses = {
 export default function ProductsPage() {
   return (
     <main className="overflow-hidden bg-[#f8f7f3] text-[var(--bs-ink)]">
-      <section className="border-b border-[var(--bs-hairline)] bg-[#123628] text-white">
+      <section className="bs-on-dark border-b border-[var(--bs-hairline)] bg-[#123628] text-white">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 py-14 sm:px-8 lg:min-h-[610px] lg:grid-cols-[0.82fr_1.18fr] lg:px-10 lg:py-16">
           <div className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#e4b63d]">
+            <p className="text-[14px] font-semibold uppercase tracking-[0.24em] text-[#e4b63d]">
               One connected offering
             </p>
             <h1 className="mt-5 text-5xl font-semibold leading-[1.02] sm:text-6xl lg:text-7xl">
@@ -179,11 +179,11 @@ export default function ProductsPage() {
           <p className="max-w-2xl text-base leading-7 text-[#365548]">
             Start with the product that fits today. Invite-only workspaces are labeled clearly so you know what is open now and what requires an invitation.
           </p>
-          <div className="flex flex-wrap gap-5 text-xs font-semibold uppercase tracking-[0.16em]">
-            <span className="inline-flex items-center gap-2 text-[#1f6b50]">
+          <div className="flex flex-wrap gap-5 text-[14px] font-semibold uppercase tracking-[0.16em]">
+            <span className="inline-flex items-center gap-2 text-[#365548]">
               <span className="h-2 w-2 rounded-full bg-[#1f8a61]" /> Available now
             </span>
-            <span className="inline-flex items-center gap-2 text-[#6b7280]">
+            <span className="inline-flex items-center gap-2 text-[#365548]">
               <span className="h-2 w-2 rounded-full bg-[#94a3b8]" /> Invite only
             </span>
           </div>
@@ -194,7 +194,7 @@ export default function ProductsPage() {
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-10 lg:py-20">
           <div className="grid gap-5 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#1f4d3f]">
+              <p className="text-[14px] font-semibold uppercase tracking-[0.2em] text-[#1f4d3f]">
                 Behavior Study Tools
               </p>
               <h2 id="study-tools-highlights" className="mt-3 text-3xl font-semibold leading-tight sm:text-4xl">
@@ -213,9 +213,9 @@ export default function ProductsPage() {
                   key={highlight.title}
                   className="border-b border-[var(--bs-hairline)] px-0 py-6 sm:px-5 lg:border-b-0 lg:border-r last:lg:border-r-0"
                 >
-                  <div className="flex items-center justify-between text-[#1f6b50]">
+                  <div className="flex items-center justify-between text-[#365548]">
                     <Icon aria-hidden="true" size={20} strokeWidth={1.8} />
-                    <span className="font-mono text-xs text-[#1f4d3f]">0{index + 1}</span>
+                    <span className="font-mono text-[14px] text-[#1f4d3f]">0{index + 1}</span>
                   </div>
                   <h3 className="mt-5 text-lg font-semibold">{highlight.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-[#365548]">{highlight.description}</p>
@@ -242,11 +242,11 @@ export default function ProductsPage() {
                   <div className="flex items-center gap-4">
                     <span className="font-mono text-sm text-[#1f4d3f]">{product.number}</span>
                     <span className="h-px w-10 bg-[var(--bs-hairline)]" />
-                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#1f6b50]">
+                    <span className="text-[14px] font-semibold uppercase tracking-[0.2em] text-[#365548]">
                       Available now
                     </span>
                   </div>
-                  <div className="mt-8 flex items-center gap-3 text-[#1f6b50]">
+                  <div className="mt-8 flex items-center gap-3 text-[#365548]">
                     <Icon aria-hidden="true" size={21} strokeWidth={1.8} />
                     <span className="text-sm font-semibold uppercase tracking-[0.14em]">
                       {product.stage}
@@ -299,11 +299,11 @@ export default function ProductsPage() {
         })}
       </section>
 
-      <section id="invite-only" className="bg-[#123628] py-20 text-white sm:py-28" aria-labelledby="invite-only-heading">
+      <section id="invite-only" className="bs-on-dark bg-[#123628] py-20 text-white sm:py-28" aria-labelledby="invite-only-heading">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
           <div className="grid gap-8 border-b border-white/15 pb-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[var(--bs-cream)]">
+              <p className="text-[14px] font-semibold uppercase tracking-[0.22em] text-[var(--bs-cream)]">
                 Product roadmap
               </p>
               <h2 id="invite-only-heading" className="mt-4 text-4xl font-semibold sm:text-5xl">
@@ -325,7 +325,7 @@ export default function ProductsPage() {
                     <Icon aria-hidden="true" className="mt-0.5 text-white/72" size={22} strokeWidth={1.7} />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--bs-cream)]">
+                    <p className="text-[14px] font-semibold uppercase tracking-[0.18em] text-[var(--bs-cream)]">
                       {product.stage}, invite only
                     </p>
                     <h3 className="mt-3 text-2xl font-semibold sm:text-3xl">{product.name}</h3>
@@ -366,7 +366,7 @@ export default function ProductsPage() {
       <section className="bg-[#123628] py-16 bs-on-dark text-[var(--bs-cream)] border-t border-[var(--bs-hairline)]">
         <div className="mx-auto flex max-w-7xl flex-col gap-7 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--bs-cream)]">Not sure where to begin?</p>
+            <p className="text-[14px] font-semibold uppercase tracking-[0.2em] text-[var(--bs-cream)]">Not sure where to begin?</p>
             <h2 className="mt-3 max-w-2xl text-3xl font-semibold leading-tight text-white sm:text-4xl">
               Tell us what you are working toward.
             </h2>

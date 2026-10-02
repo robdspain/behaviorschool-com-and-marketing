@@ -26,7 +26,7 @@ export function InviteOnlyProductPreview({
           <Lock className="h-3.5 w-3.5" aria-hidden="true" />
           <Icon className="h-3.5 w-3.5" aria-hidden="true" />
         </div>
-        <span className="inline-flex items-center gap-1 bg-white/10 px-2 py-0.5 text-[8px] font-semibold uppercase tracking-[0.12em] text-white/70">
+        <span className="inline-flex items-center gap-1 bg-white/10 px-2 py-0.5 text-[14px] font-semibold uppercase tracking-[0.12em] text-white/70">
           <Bell className="h-3 w-3" aria-hidden="true" /> Invite only
         </span>
       </div>

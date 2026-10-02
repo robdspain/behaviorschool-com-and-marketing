@@ -229,7 +229,7 @@ export default function CEUsPage() {
           </ul>
           <Link
             href="/bacb-ace-provider"
-            className="inline-flex items-center font-semibold text-[#123628] hover:text-[var(--bs-ink)]"
+            className="inline-flex min-h-[44px] items-center font-semibold text-[#123628] hover:text-[var(--bs-ink)]"
           >
             View ACE provider details
             <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
@@ -237,7 +237,7 @@ export default function CEUsPage() {
         </div>
       </section>
 
-      <section className="bg-[var(--bs-forest-dark)] py-16">
+      <section className="bs-on-dark bg-[var(--bs-forest-dark)] py-16">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl">
             Start earning CEUs on Behavior School Learning

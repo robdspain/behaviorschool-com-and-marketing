@@ -41,7 +41,7 @@ export default function SupervisorsPage() {
             <div className="inline-flex items-center gap-2 border border-[#1f4d3f]/20 bg-white px-3 py-2 text-sm font-bold uppercase tracking-[0.14em] text-[#1f4d3f]">
               <Bell className="h-4 w-4" aria-hidden="true" /> Coming soon
             </div>
-            <h1 className="mt-7 max-w-3xl text-5xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">
+            <h1 className="mt-7 max-w-3xl text-[40px] font-semibold sm:text-5xl leading-[1.04] sm:text-6xl lg:text-7xl">
               Supervision work, organized in one place.
             </h1>
             <p className="mt-7 max-w-2xl text-lg leading-8 text-[#365548] sm:text-xl">

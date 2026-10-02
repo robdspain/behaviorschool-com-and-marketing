@@ -83,7 +83,6 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
             <Link
               href={section.href ?? "#"}
               className="px-3 min-h-[44px] inline-flex items-center justify-center text-sm xl:text-base font-medium text-[#171f1d] hover:text-[#1f4d3f] relative rounded-lg whitespace-nowrap"
-              target={section.href?.startsWith("http") ? "_blank" : undefined}
               rel={section.href?.startsWith("http") ? "noreferrer noopener" : undefined}
             >
               <motion.div

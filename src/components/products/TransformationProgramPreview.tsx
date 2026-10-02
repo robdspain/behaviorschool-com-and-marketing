@@ -19,10 +19,10 @@ export function TransformationProgramPreview({
       aria-label="School BCBA Transformation Program preview"
     >
       <div className="flex h-10 items-center justify-between border-b border-[#173f33]/12 bg-[#f4f2ec] px-4">
-        <span className="text-[14px] font-semibold uppercase tracking-[0.16em] text-[#51645d]">
+        <span className="text-[14px] font-semibold uppercase tracking-[0.16em] text-[#365548]">
           Live cohort program
         </span>
-        <span className="text-[14px] font-semibold uppercase tracking-[0.16em] text-[#1f6b50]">
+        <span className="text-[14px] font-semibold uppercase tracking-[0.16em] text-[#365548]">
           Live product view
         </span>
       </div>
@@ -38,7 +38,7 @@ export function TransformationProgramPreview({
           ))}
         </div>
         <h3 className="mt-4 text-lg font-semibold leading-snug text-[#123628]">{name}</h3>
-        <p className="mt-2 flex items-center gap-2 text-[14px] text-[#51645d]">
+        <p className="mt-2 flex items-center gap-2 text-[14px] text-[#365548]">
           <CalendarDays className="h-3.5 w-3.5 text-[#1f4d3f]" aria-hidden="true" />
           {cohort.startFull} - {cohort.sessionTime.replace("PT", "Pacific Time")}
         </p>
@@ -53,18 +53,18 @@ export function TransformationProgramPreview({
           ))}
         </div>
         <div className="mt-4 rounded-lg border border-[#1f4d3f]/10 bg-white p-4">
-          <p className="text-[14px] font-semibold uppercase tracking-[0.14em] text-[#51645d]">
+          <p className="text-[14px] font-semibold uppercase tracking-[0.14em] text-[#365548]">
             Program investment
           </p>
           <p className="mt-1 text-2xl font-bold text-[#123628]">{pricing.payInFull}</p>
-          <p className="mt-1 text-[14px] text-[#51645d]">
+          <p className="mt-1 text-[14px] text-[#365548]">
             Payment plan: {TRANSFORMATION_PAYMENT_PLAN_LABEL}
           </p>
         </div>
         {showLink && (
           <Link
             href="/transformation-program"
-            className="mt-4 inline-flex w-full items-center justify-center rounded-md bg-[#1f4d3f] px-4 py-2.5 text-[14px] font-bold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#123628]"
+            className="mt-4 inline-flex min-h-[44px] w-full items-center justify-center rounded-md bg-[#1f4d3f] px-4 py-2.5 text-[14px] font-bold uppercase tracking-[0.08em] text-white transition-colors hover:bg-[#123628]"
           >
             View program details
           </Link>

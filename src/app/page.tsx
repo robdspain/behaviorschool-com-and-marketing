@@ -62,7 +62,8 @@ export default function Home() {
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <Hero
         eyebrow="Behavior School"
-        title="Systems training for school BCBAs"
+        title="Systems training for"
+        highlight="school BCBAs"
         subtitle="The School BCBA Systems Transformation Program is six live online sessions where you build the FBA, BIP, data, and staff training systems your caseload runs on. Next cohort starts Thursday, January 14, 2027. 5 seats."
         primaryCta={{ href: "/transformation-program", label: "See the Transformation Program" }}
         secondaryCta={{ href: "https://study.behaviorschool.com/free-mock-exam/", label: "Or take the free BCBA mock exam" }}
@@ -97,43 +98,6 @@ export default function Home() {
         </div>
       </section>
       )}
-
-      {/* ─── HIGH-INTENT BCBA PRACTICE PATH ───────────────────────── */}
-      <section className="border-y border-[var(--bs-hairline)] bg-[var(--bs-forest-wash)] py-10">
-        <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">
-          <div>
-            <p className="bs-eyebrow">
-              Free BCBA Exam Prep
-            </p>
-            <h2 className="mt-2 text-2xl font-bold text-[var(--bs-ink)] sm:text-3xl">
-              Start with a free Quick domain check (9 questions), instant score, and rationales.
-            </h2>
-            <div className="mt-4 grid gap-2 text-sm font-medium text-[var(--bs-secondary)] sm:grid-cols-3">
-              {["No credit card", "Score immediately", "Know what to study next"].map((item) => (
-                <div key={item} className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 flex-none text-emerald-700" />
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-col gap-3 justify-center">
-            <Link
-              href="https://study.behaviorschool.com/free-practice/"
-              className="bs-btn-secondary"
-            >
-              Start the 9-question check
-              <ArrowRight size={16} />
-            </Link>
-            <Link
-              href="https://study.behaviorschool.com/free-mock-exam/"
-              className="bs-link bs-padded justify-center"
-            >
-              Or take the free 185-question mock exam
-            </Link>
-          </div>
-        </div>
-      </section>
 
       {/* ─── WHAT WE OFFER ────────────────────────────────────────── */}
       <section className="py-20 sm:py-28 bg-[var(--bs-cream)]">
@@ -306,6 +270,43 @@ export default function Home() {
           </div>
         </section>
       )}
+
+      {/* ─── HIGH-INTENT BCBA PRACTICE PATH ───────────────────────── */}
+      <section className="border-y border-[var(--bs-hairline)] bg-[var(--bs-forest-wash)] py-10">
+        <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">
+          <div>
+            <p className="bs-eyebrow">
+              Free BCBA Exam Prep
+            </p>
+            <h2 className="mt-2 text-2xl font-bold text-[var(--bs-ink)] sm:text-3xl">
+              Start with a free Quick domain check (9 questions), instant score, and rationales.
+            </h2>
+            <div className="mt-4 grid gap-2 text-sm font-medium text-[var(--bs-secondary)] sm:grid-cols-3">
+              {["No credit card", "Score immediately", "Know what to study next"].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 flex-none text-emerald-700" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-3 justify-center">
+            <Link
+              href="https://study.behaviorschool.com/free-practice/"
+              className="bs-btn-secondary"
+            >
+              Start the 9-question check
+              <ArrowRight size={16} />
+            </Link>
+            <Link
+              href="https://study.behaviorschool.com/free-mock-exam/"
+              className="bs-link bs-padded justify-center"
+            >
+              Or take the free 185-question mock exam
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <HomepageEmailCapture />
 

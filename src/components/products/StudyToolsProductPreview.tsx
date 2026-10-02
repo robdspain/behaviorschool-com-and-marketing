@@ -35,11 +35,11 @@ export function StudyToolsProductPreview({
               className="h-5 w-5 rounded object-cover"
               aria-hidden="true"
             />
-            <span className="text-[14px] font-semibold uppercase tracking-[0.16em] text-[#51645d]">
+            <span className="text-[14px] font-semibold uppercase tracking-[0.16em] text-[#365548]">
               Behavior Study Tools
             </span>
           </div>
-          <span className="text-[14px] font-semibold uppercase tracking-[0.16em] text-[#1f6b50]">
+          <span className="text-[14px] font-semibold uppercase tracking-[0.16em] text-[#365548]">
             Live product view
           </span>
         </div>
@@ -55,7 +55,7 @@ export function StudyToolsProductPreview({
       <div className="absolute left-0 top-6 w-[42%] rotate-[-4deg]">
         <PreviewCard label="Dashboard">
           <div className="space-y-3 p-3">
-            <p className="text-[14px] font-semibold uppercase tracking-[0.14em] text-[#51645d]">
+            <p className="text-[14px] font-semibold uppercase tracking-[0.14em] text-[#365548]">
               Welcome back
             </p>
             <p className="text-[14px] font-bold text-[#123628]">Today&apos;s study desk</p>
@@ -68,7 +68,7 @@ export function StudyToolsProductPreview({
                 Start 5-question block
               </span>
             </div>
-            <div className="grid grid-cols-3 gap-2 text-[14px] text-[#51645d]">
+            <div className="grid grid-cols-3 gap-2 text-[14px] text-[#365548]">
               <div>
                 <p className="font-semibold text-[#123628]">Streak</p>
                 <p>9 days</p>
@@ -95,7 +95,7 @@ export function StudyToolsProductPreview({
       <div className="absolute right-0 top-16 z-10 w-[34%] rotate-[3deg] opacity-90">
         <PreviewCard label="Quiz / Plan">
           <div className="space-y-2 p-3">
-            <p className="text-[14px] font-semibold uppercase tracking-[0.14em] text-[#51645d]">
+            <p className="text-[14px] font-semibold uppercase tracking-[0.14em] text-[#365548]">
               Recommended next
             </p>
             <p className="text-[14px] font-semibold text-[#123628]">
@@ -140,12 +140,12 @@ function PreviewCard({
             Behavior Study Tools
           </span>
         </div>
-        <span className="text-[8px] font-semibold uppercase tracking-[0.12em] text-[#1f6b50]">
+        <span className="text-[14px] font-semibold uppercase tracking-[0.12em] text-[#365548]">
           Live product UI
         </span>
       </div>
       {children}
-      <div className="border-t border-[#173f33]/10 bg-[#f8f7f3] px-3 py-1.5 text-center text-[14px] font-bold uppercase tracking-[0.16em] text-[#51645d]">
+      <div className="border-t border-[#173f33]/10 bg-[#f8f7f3] px-3 py-1.5 text-center text-[14px] font-bold uppercase tracking-[0.16em] text-[#365548]">
         {label}
       </div>
     </div>

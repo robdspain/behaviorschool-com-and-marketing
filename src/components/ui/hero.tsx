@@ -47,14 +47,14 @@ export function Hero({
         <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-20 items-center">
 
           {/* Text Content */}
-          <div className="space-y-10 z-10">
-            <div className="space-y-6">
+          <div className="z-10 flex flex-col gap-6 sm:gap-8">
+            <div className="contents">
               {eyebrow && (
-                <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 fill-mode-both">
+                <div className="hidden sm:block animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 fill-mode-both">
                   <Badge
                     variant="outline"
                     className={cn(
-                      "inline-flex items-center px-4 min-h-[44px] rounded-lg text-[14px] font-[600]",
+                      "hidden sm:inline-flex items-center px-4 min-h-[44px] rounded-lg text-[14px] font-[600]",
                       variant === 'brand'
                         ? 'text-[#f4efe5] border border-[rgb(244,239,229,0.3)]'
                         : 'text-[#1f4d3f] border border-[#365548]'
@@ -76,20 +76,20 @@ export function Hero({
                 )}>{title}</span>
 
                 {highlight && (
-                  <span className={cn(
+                  <>{" "}<span className={cn(
                     "inline-block pb-2",
                     variant === 'brand'
                       ? 'text-[#e4b63d]'
                       : 'text-[#1f4d3f]'
                   )}>
                     {highlight}
-                  </span>
+                  </span></>
                 )}
               </h1>
 
               {subtitle && (
                 <p className={cn(
-                  "animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both",
+                  "order-3 sm:order-2 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both",
                   "leading-relaxed max-w-2xl",
                   variant === 'brand' ? 'text-[#f4efe5] font-[400] text-[20px] sm:text-[22px]' : 'text-[var(--bs-secondary)] font-[400] text-[20px] sm:text-[22px]'
                 )}>
@@ -98,7 +98,7 @@ export function Hero({
               )}
             </div>
 
-            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500 fill-mode-both flex flex-col items-start gap-4 mt-8">
+            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500 fill-mode-both order-2 sm:order-3 flex flex-col items-start gap-4 sm:mt-2">
               <Link 
                 href={primaryCta.href}
                 className={variant === 'brand' ? 'bs-btn-primary text-[18px]' : 'bs-btn-primary text-[18px]'}

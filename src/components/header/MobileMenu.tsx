@@ -61,7 +61,6 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
               href={section.href ?? "#"}
               className="block px-3 min-h-[44px] py-2 flex w-full items-center text-lg font-medium text-[#171f1d] font-medium hover:text-[#1f4d3f] hover:underline  rounded-md"
               onClick={onClose}
-              target={section.href?.startsWith("http") ? "_blank" : undefined}
               rel={section.href?.startsWith("http") ? "noreferrer noopener" : undefined}
             >
               {section.label}

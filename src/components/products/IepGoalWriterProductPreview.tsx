@@ -17,16 +17,16 @@ export function IepGoalWriterProductPreview({ className = "" }: IepGoalWriterPro
       aria-label="IEP Behavior Goal Writer product preview"
     >
       <div className="flex h-10 items-center justify-between border-b border-[#173f33]/12 bg-[#f4f2ec] px-4">
-        <span className="text-[14px] font-semibold uppercase tracking-[0.16em] text-[#51645d]">
+        <span className="text-[14px] font-semibold uppercase tracking-[0.16em] text-[#365548]">
           Free tool - No login required
         </span>
-        <span className="text-[14px] font-semibold uppercase tracking-[0.16em] text-[#1f6b50]">
+        <span className="text-[14px] font-semibold uppercase tracking-[0.16em] text-[#365548]">
           Live product view
         </span>
       </div>
       <div className="p-4">
         <h3 className="text-base font-bold text-[#123628]">IEP Behavior Goal Writer</h3>
-        <p className="mt-1 text-[14px] leading-5 text-[#51645d]">
+        <p className="mt-1 text-[14px] leading-5 text-[#365548]">
           Build a measurable behavior goal from student-specific baseline, context, supports, and
           data-collection details.
         </p>
@@ -38,7 +38,7 @@ export function IepGoalWriterProductPreview({ className = "" }: IepGoalWriterPro
               className={`rounded-full px-2.5 py-1 text-[14px] font-semibold ${
                 index === 0
                   ? "bg-[#1f4d3f] text-white"
-                  : "border border-[#173f33]/15 bg-white text-[#51645d]"
+                  : "border border-[#173f33]/15 bg-white text-[#365548]"
               }`}
             >
               {index + 1}. {step}
@@ -53,20 +53,20 @@ export function IepGoalWriterProductPreview({ className = "" }: IepGoalWriterPro
           <div className="mt-3 grid gap-3 sm:grid-cols-2">
             <label className="block">
               <span className="text-[14px] font-semibold text-[#263b34]">Annual goal date</span>
-              <span className="mt-1 block rounded-md border border-[#173f33]/15 bg-white px-3 py-2 text-[14px] text-[#51645d]">
+              <span className="mt-1 block rounded-md border border-[#173f33]/15 bg-white px-3 py-2 text-[14px] text-[#365548]">
                 2026-06-01
               </span>
             </label>
             <label className="block">
               <span className="text-[14px] font-semibold text-[#263b34]">Student name</span>
-              <span className="mt-1 block rounded-md border border-[#173f33]/15 bg-white px-3 py-2 text-[14px] text-[#51645d]">
+              <span className="mt-1 block rounded-md border border-[#173f33]/15 bg-white px-3 py-2 text-[14px] text-[#365548]">
                 Student initials only
               </span>
             </label>
           </div>
           <label className="mt-3 block">
             <span className="text-[14px] font-semibold text-[#263b34]">Target behavior</span>
-            <span className="mt-1 block rounded-md border border-[#173f33]/15 bg-white px-3 py-2 text-[14px] text-[#51645d]">
+            <span className="mt-1 block rounded-md border border-[#173f33]/15 bg-white px-3 py-2 text-[14px] text-[#365548]">
               On-task behavior during independent work
             </span>
           </label>
