@@ -61,13 +61,13 @@ export default function Home() {
         <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d]">
-              School BCBA Transformation Program
+              School BCBA Systems Transformation Program
             </p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl">
               {TRANSFORMATION_PROGRAM.cohort.label} now open: build FBA, BIP, staff training, and caseload systems.
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-white/70">
-              A 6-week live cohort for school BCBAs who need repeatable systems, not another binder of theory. {TRANSFORMATION_PROGRAM.cohort.startFull}. Small cohorts.
+              {`${TRANSFORMATION_PROGRAM.cohort.scheduleLabel.charAt(0).toUpperCase()}${TRANSFORMATION_PROGRAM.cohort.scheduleLabel.slice(1)}`} for school BCBAs who need repeatable systems, not another binder of theory. {TRANSFORMATION_PROGRAM.cohort.startFull}. Small cohorts.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">

@@ -582,7 +582,7 @@ export function ABCWizard() {
         transition={{ delay: 0.8 }}
         className="bg-gradient-to-br from-[#1a4731] to-[#2d6b4f] text-white rounded-xl p-6 print:hidden shadow-lg"
       >
-        <p className="text-sm font-medium mb-1 text-green-200">School BCBA Transformation Program</p>
+        <p className="text-sm font-medium mb-1 text-green-200">School BCBA Systems Transformation Program</p>
         <p className="text-lg font-bold mb-1">
           Want to implement this with your whole team?
         </p>

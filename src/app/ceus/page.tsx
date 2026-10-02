@@ -176,7 +176,7 @@ export default function CEUsPage() {
             Related Behavior School path
           </h2>
           <p className="mx-auto mb-10 max-w-2xl text-center text-lg text-slate-600">
-            Learning is the CEU platform. The Transformation Program is an
+            Learning is the CEU platform. The School BCBA Systems Transformation Program is an
             optional live cohort, not the main continuing education catalog.
           </p>
 
@@ -186,7 +186,7 @@ export default function CEUsPage() {
               className="group block rounded-2xl border border-slate-200 bg-white p-8 transition-all hover:border-emerald-200 hover:shadow-lg"
             >
               <h3 className="mb-3 text-xl font-bold text-slate-900 group-hover:text-emerald-800">
-                School BCBA Transformation Program
+                School BCBA Systems Transformation Program
               </h3>
               <p className="mb-6 leading-relaxed text-slate-600">
                 A live cohort for school BCBAs who want repeatable systems for

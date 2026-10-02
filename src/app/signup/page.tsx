@@ -109,8 +109,8 @@ export default function SignupPage() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "ContactPage",
-              name: "School BCBA Transformation System Signup",
-              description: "Apply for the School BCBA Transformation System and schedule a consultation call.",
+              name: "School BCBA Systems Transformation Program Signup",
+              description: "Apply for the School BCBA Systems Transformation Program and schedule a consultation call.",
               url: "https://behaviorschool.com/signup",
               inLanguage: "en",
               isPartOf: {
@@ -137,7 +137,7 @@ export default function SignupPage() {
               </div>
               <h2 className="text-3xl font-bold text-slate-900 mb-4">Application Submitted Successfully!</h2>
               <p className="text-lg text-slate-700 mb-4">
-                Thank you for your interest in the <strong>School BCBA Transformation System</strong>.
+                Thank you for your interest in the <strong>School BCBA Systems Transformation Program</strong>.
               </p>
               <p className="text-slate-600 mb-6">
                 Let&apos;s get you scheduled for a consultation call right now! Pick a time that works best for you below.
@@ -207,8 +207,8 @@ export default function SignupPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ContactPage",
-            name: "School BCBA Transformation System Signup",
-            description: "Apply for the School BCBA Transformation System and schedule a consultation call.",
+            name: "School BCBA Systems Transformation Program Signup",
+            description: "Apply for the School BCBA Systems Transformation Program and schedule a consultation call.",
             url: "https://behaviorschool.com/signup",
             inLanguage: "en",
             isPartOf: {
@@ -225,7 +225,7 @@ export default function SignupPage() {
           <div className="flex items-center justify-between">
             <Breadcrumbs 
               items={[
-                { label: "School BCBA Transformation System", href: "/transformation-program" },
+                { label: "School BCBA Systems Transformation Program", href: "/transformation-program" },
                 { label: "Registration" }
               ]}
             />
@@ -247,10 +247,10 @@ export default function SignupPage() {
           >
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-slate-900 mb-4">
-                Apply for the School BCBA Transformation System
+                Apply for the School BCBA Systems Transformation Program
               </h1>
               <p className="text-slate-600">
-                Apply for the six-week program focused on assessment, intervention, implementation, and systems work in schools.
+                Apply for the School BCBA Systems Transformation Program: six live Thursday sessions over seven weeks (no session February 4), focused on assessment, intervention, implementation, and systems work in schools.
               </p>
             </div>
 
@@ -396,7 +396,7 @@ export default function SignupPage() {
               </button>
 
               <p className="text-xs text-slate-500 text-center">
-                By submitting this form, you agree to receive communications about the School BCBA Transformation System. 
+                By submitting this form, you agree to receive communications about the School BCBA Systems Transformation Program. 
                 We respect your privacy and will never share your information.
               </p>
             </form>
@@ -449,7 +449,7 @@ export default function SignupPage() {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5" />
-                  <span>6-week comprehensive program</span>
+                  <span>Six live Thursday sessions over seven weeks (no session February 4)</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5" />

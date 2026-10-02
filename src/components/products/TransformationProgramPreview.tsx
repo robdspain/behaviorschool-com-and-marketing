@@ -16,7 +16,7 @@ export function TransformationProgramPreview({
   return (
     <div
       className={`overflow-hidden border border-[#173f33]/20 bg-white ${className}`}
-      aria-label="School BCBA Transformation Program preview"
+      aria-label="School BCBA Systems Transformation Program preview"
     >
       <div className="flex h-10 items-center justify-between border-b border-[#173f33]/12 bg-[#f4f2ec] px-4">
         <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-[#51645d]">
@@ -28,7 +28,7 @@ export function TransformationProgramPreview({
       </div>
       <div className="bg-[#f7f3ee] p-4">
         <div className="flex flex-wrap gap-2">
-          {["Live cohort", "6 weeks", "School BCBAs", cohort.startBadge].map((tag) => (
+          {["Live cohort", "6 sessions", "School BCBAs", cohort.startBadge].map((tag) => (
             <span
               key={tag}
               className="rounded-full border border-[#1f4d3f]/20 bg-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-[#1f4d3f]"
@@ -41,6 +41,9 @@ export function TransformationProgramPreview({
         <p className="mt-2 flex items-center gap-2 text-xs text-[#51645d]">
           <CalendarDays className="h-3.5 w-3.5 text-[#1f4d3f]" aria-hidden="true" />
           {cohort.startFull} · {cohort.sessionTime}
+        </p>
+        <p className="mt-2 text-xs leading-relaxed text-[#51645d]">
+          {`${cohort.scheduleLabel.charAt(0).toUpperCase()}${cohort.scheduleLabel.slice(1)}`}.
         </p>
         <div className="mt-3 flex flex-wrap gap-2">
           {cohort.sessionDates.map((date) => (

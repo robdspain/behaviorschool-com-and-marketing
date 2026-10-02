@@ -17,13 +17,13 @@ interface FAQCategory {
 
 const faqData: FAQCategory[] = [
   {
-    title: "About the Transformation Program",
+    title: "About the School BCBA Systems Transformation Program",
     items: [
       {
-        question: "What is the School BCBA Transformation System?",
+        question: "What is the School BCBA Systems Transformation Program?",
         answer: (
           <>
-            The <Link href="/transformation-program" className="text-emerald-600 hover:text-emerald-700 underline">School BCBA Transformation System</Link> is our comprehensive training program designed specifically for school-based BCBAs. It combines evidence-based training, live coaching, practical implementation tools, and a supportive community to help you become confident and effective in your school-based practice.
+            The <Link href="/transformation-program" className="text-emerald-600 hover:text-emerald-700 underline">School BCBA Systems Transformation Program</Link> is six live Thursday sessions over seven weeks (no session February 4) for school BCBAs. It combines evidence-based training, live coaching, practical implementation tools, and a supportive community to help you become confident and effective in school practice.
           </>
         )
       },

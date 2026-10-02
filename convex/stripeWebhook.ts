@@ -162,7 +162,7 @@ export const stripeWebhook = httpAction(async (ctx, request) => {
         stripeSubscriptionId: subscriptionId,
         paymentLinkId: asString(object.payment_link),
         checkoutOption,
-        productName: asString(metadata.product) || "School BCBA Transformation Program",
+        productName: asString(metadata.product) || "School BCBA Systems Transformation Program",
         lineItemDescriptions: [],
         // Confirmed October public tuition sticker: $1,997.
         contractValueCents: 199700,
@@ -175,12 +175,12 @@ export const stripeWebhook = httpAction(async (ctx, request) => {
           firstName,
           lastName,
           stripeSessionId: sessionId,
-          productName: asString(metadata.product) || "School BCBA Transformation Program",
+          productName: asString(metadata.product) || "School BCBA Systems Transformation Program",
           purchasedAt: occurredAt,
         });
         await ctx.runMutation(internal.transformationNurture.markConvertedByEmail, {
           email,
-          reason: "Transformation Program purchase completed in Stripe.",
+          reason: "School BCBA Systems Transformation Program purchase completed in Stripe.",
         });
       }
 

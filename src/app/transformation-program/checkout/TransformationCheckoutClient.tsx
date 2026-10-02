@@ -90,7 +90,7 @@ export function TransformationCheckoutClient() {
       >
         <header className="mx-auto max-w-3xl text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f]">Private enrollment checkout</p>
-          <h1 className="mt-3 text-3xl font-bold text-[#123628] sm:text-4xl">School BCBA Transformation Program</h1>
+          <h1 className="mt-3 text-3xl font-bold text-[#123628] sm:text-4xl">{TRANSFORMATION_PROGRAM.name}</h1>
           <div className="mt-5 flex flex-wrap justify-center gap-3 text-sm text-slate-700">
             <span className="inline-flex items-center gap-2 rounded-full border border-[#1f4d3f]/15 bg-white px-4 py-2">
               <CalendarDays className="h-4 w-4 text-[#1f4d3f]" aria-hidden="true" />
@@ -128,7 +128,7 @@ export function TransformationCheckoutClient() {
             <ul className="mt-6 space-y-3 text-sm text-slate-700">
               <li className="flex gap-2">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#1f4d3f]" aria-hidden="true" />
-                Includes the 6-week live cohort and program materials.
+                Includes {TRANSFORMATION_PROGRAM.cohort.scheduleLabel} and program materials.
               </li>
               <li className="flex gap-2">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#1f4d3f]" aria-hidden="true" />

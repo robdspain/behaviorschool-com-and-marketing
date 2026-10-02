@@ -2,7 +2,7 @@
 # /// script
 # dependencies = ["reportlab>=4.0"]
 # ///
-"""Generate the public Transformation Program documentation packet."""
+"""Generate the public School BCBA Systems Transformation Program documentation packet."""
 
 from pathlib import Path
 
@@ -152,7 +152,7 @@ def build_packet():
         rightMargin=RIGHT,
         topMargin=TOP,
         bottomMargin=BOTTOM,
-        title="School BCBA Transformation Program - Professional Development Documentation Packet",
+        title="School BCBA Systems Transformation Program - Professional Development Documentation Packet",
         author="Behavior School LLC",
         subject="Program curriculum, participation, pricing, and district purchasing documentation",
     )
@@ -161,11 +161,11 @@ def build_packet():
 
     story = [
         Paragraph("BEHAVIOR SCHOOL | SMALL-COHORT PROGRAM", styles["Eyebrow"]),
-        Paragraph("School BCBA<br/>Transformation Program", styles["Display"]),
+        Paragraph("School BCBA Systems<br/>Transformation Program", styles["Display"]),
         Paragraph("Professional Development Documentation Packet", styles["Subtitle"]),
         Paragraph("Program abstract", styles["H2Green"]),
         Paragraph(
-            "This six-week applied professional-development cohort prepares certified BCBAs to make school-based assessment and implementation decisions across student, staff, team, and system levels. The curriculum addresses referral triage, functional-hypothesis testing, school-relevant functional-analysis formats, ACT-informed contextual assessment, evidence-to-intervention alignment, and implementation through school teams.",
+            "This cohort of six live Thursday sessions over seven weeks (no session February 4) prepares certified school BCBAs to make school-based assessment and implementation decisions across student, staff, team, and system levels. The curriculum addresses referral triage, functional-hypothesis testing, school-relevant functional-analysis formats, ACT-informed contextual assessment, evidence-to-intervention alignment, and implementation through school teams.",
             styles["BodyPacket"],
         ),
         Paragraph(
@@ -174,12 +174,12 @@ def build_packet():
         ),
         Spacer(1, 8),
         info_table([
-            ("Format", "Six live weekly sessions"),
-            ("Schedule", "Current cohort dates and meeting times are confirmed before enrollment"),
+            ("Format", "Six live Thursday sessions over seven weeks (no session February 4)"),
+            ("Schedule", "January 14, 21, and 28, and February 11, 18, and 25, 2027, 6:00 to 8:00 PM Pacific Time. No session February 4."),
             ("Audience", "Certified BCBAs working in or entering K-12 school practice"),
             ("Cohort", "Small cohort"),
             ("Pay in full", "$1,997"),
-            ("Payment plan", "Three automatic monthly payments of $697 ($2,091 total)"),
+            ("Payment plan", "Three automatic monthly payments of $665.67 ($1,997.01 total)"),
             ("District billing", "Purchase orders and invoice payments accepted"),
         ]),
         Spacer(1, 14),
@@ -192,8 +192,8 @@ def build_packet():
         Paragraph("Live sessions are recorded and made available in the student portal within 24 hours.", styles["BodyPacket"]),
         PageBreak(),
         Paragraph("PROGRAM CURRICULUM", styles["Eyebrow"]),
-        Paragraph("Six weeks of applied decision-making", styles["H1Green"]),
-        Paragraph("Each week begins with a recurring school-practice problem and connects the methods to work in the participant's current setting.", styles["BodyPacket"]),
+        Paragraph("Six live Thursday sessions", styles["H1Green"]),
+        Paragraph("Each session begins with a recurring school-practice problem and connects the methods to work in the participant's current setting. Sessions run over seven weeks, with no session February 4.", styles["BodyPacket"]),
         module_row("01", "From referral to assessment decision", "Build a repeatable way to clarify the concern, review context, and select an assessment path proportionate to the case."),
         module_row("02", "Testing the functional hypothesis before the BIP", "Examine how testing a functional hypothesis can clarify intervention selection before BIP development, including when experimental analysis is warranted and feasible."),
         module_row("03", "School-based functional analysis formats", "Study brief, trial-based, latency, precursor, and analog FA, then select and plan around school constraints, safety, assent, and authorization."),
@@ -214,9 +214,9 @@ def build_packet():
             Paragraph("Not every student requires a functional analysis. Any analysis must fit the practitioner's competence, role, authorization, safety planning, assent practices, and local requirements.", styles["BodyPacket"]),
         ]),
         PageBreak(),
-        Paragraph("WEEKLY LEARNING OBJECTIVES", styles["Eyebrow"]),
+        Paragraph("SESSION LEARNING OBJECTIVES", styles["Eyebrow"]),
         Paragraph("Assessment decisions and hypothesis testing", styles["H1Green"]),
-        Paragraph("By the end of each weekly session, participants will be able to complete the objectives listed for that topic within the boundaries of their role and competence.", styles["BodyPacket"]),
+        Paragraph("By the end of each live session, participants will be able to complete the objectives listed for that topic within the boundaries of their role and competence.", styles["BodyPacket"]),
         objective_block(
             "01",
             "From referral to assessment decision",
@@ -248,7 +248,7 @@ def build_packet():
             ],
         ),
         PageBreak(),
-        Paragraph("WEEKLY LEARNING OBJECTIVES", styles["Eyebrow"]),
+        Paragraph("SESSION LEARNING OBJECTIVES", styles["Eyebrow"]),
         Paragraph("Context, intervention, and systems leadership", styles["H1Green"]),
         objective_block(
             "04",
@@ -285,7 +285,7 @@ def build_packet():
         Paragraph("Documentation for supervisors and purchasing offices", styles["H1Green"]),
         Paragraph("Applied work", styles["H2Green"]),
         Paragraph(
-            "Participants apply each week's work directly to a student, staff member, team, or system when appropriate and permitted. Participants define a testable functional hypothesis for a current case and decide whether and how it could be tested safely and feasibly. They also use a school-based FA planning guide, ACT-informed contextual assessment map, evidence-to-intervention check, staff training and fidelity routine, and caseload review system.",
+            "Participants apply each session's work directly to a student, staff member, team, or system when appropriate and permitted. Participants define a testable functional hypothesis for a current case and decide whether and how it could be tested safely and feasibly. They also use a school-based FA planning guide, ACT-informed contextual assessment map, evidence-to-intervention check, staff training and fidelity routine, and caseload review system.",
             styles["BodyPacket"],
         ),
         Paragraph("Instructor", styles["H2Green"]),
@@ -295,9 +295,9 @@ def build_packet():
         Spacer(1, 10),
         info_table([
             ("Vendor", "Behavior School LLC"),
-            ("Program", "School BCBA Transformation Program"),
+            ("Program", "School BCBA Systems Transformation Program"),
             ("Tuition", "$1,997 per participant"),
-            ("Payment plan", "Three automatic monthly payments of $697 ($2,091 total)"),
+            ("Payment plan", "Three automatic monthly payments of $665.67 ($1,997.01 total)"),
             ("Contact", "Rob Spain, BCBA - rob@behaviorschool.com"),
             ("Website", "behaviorschool.com/transformation-program"),
             ("W-9", "Available upon request"),
@@ -347,8 +347,8 @@ def build_packet():
         [
             [Paragraph("DESCRIPTION", styles["Label"]), Paragraph("SCHEDULE", styles["Label"]), Paragraph("AMOUNT", styles["Label"])],
             [
-                Paragraph("<b>School BCBA Transformation Program</b><br/>Six live weekly professional-development sessions for certified BCBAs. Includes live instruction, session recordings, eligible Learning CEUs, and program materials.", styles["BodyPacket"]),
-                Paragraph("Confirmed before enrollment", styles["BodyPacket"]),
+                Paragraph("<b>School BCBA Systems Transformation Program</b><br/>Six live Thursday sessions over seven weeks (no session February 4) for certified school BCBAs. Includes live instruction, session recordings, eligible Learning CEUs, and program materials.", styles["BodyPacket"]),
+                Paragraph("Jan 14, 21, 28 and Feb 11, 18, 25, 2027. No session February 4.", styles["BodyPacket"]),
                 Paragraph("$1,997.00", styles["BodyPacket"]),
             ],
             [Paragraph("<b>Total due</b>", styles["BodyPacket"]), "", Paragraph("<b>$1,997.00</b>", styles["BodyPacket"])],

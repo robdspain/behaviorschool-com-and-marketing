@@ -138,7 +138,7 @@ function ApplicationForm() {
     <div className="mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-slate-50 p-7 shadow-sm md:p-12">
       <div className="text-center mb-8">
         <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3">
-          Apply for a seat
+          Apply for the {TRANSFORMATION_PROGRAM.name}
         </h2>
         <p className="text-slate-600 text-base">
           {TRANSFORMATION_PROGRAM.cohort.label} · {TRANSFORMATION_PROGRAM.cohort.seatCap} seats · Applications close when seats fill or by {TRANSFORMATION_PROGRAM.cohort.applicationsCloseLabel}, whichever comes first.
@@ -215,14 +215,14 @@ function ApplicationForm() {
           </div>
           <div>
             <label htmlFor="thursdayCapacity" className="block text-sm font-semibold text-slate-700 mb-1">
-              Can you attend Thursday sessions, 6–8 PM Pacific Time?
+              Can you attend Thursday sessions, 6 to 8 PM Pacific Time?
             </label>
             <select id="thursdayCapacity" name="thursdayCapacity" required className={fieldClass}>
               <option value="">Select one</option>
-              <option value="yes_all_sessions">Yes — I can attend all six live sessions</option>
-              <option value="yes_most_sessions">Yes — I can attend most sessions and will make up any miss</option>
-              <option value="unsure">Unsure — schedule may conflict</option>
-              <option value="no">No — I cannot commit to Thursday 6–8 PM Pacific Time</option>
+              <option value="yes_all_sessions">Yes, I can attend all six live sessions</option>
+              <option value="yes_most_sessions">Yes, I can attend most sessions and will make up any miss</option>
+              <option value="unsure">Unsure, schedule may conflict</option>
+              <option value="no">No, I cannot commit to Thursday 6 to 8 PM Pacific Time</option>
             </select>
           </div>
           <div>

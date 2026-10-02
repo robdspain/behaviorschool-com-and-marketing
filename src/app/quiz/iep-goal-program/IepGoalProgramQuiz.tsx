@@ -404,8 +404,7 @@ export function IepGoalProgramQuiz() {
                               <span className="font-medium text-[#123628]">
                                 Priority Access (optional)
                               </span>
-                              — first notice when the next School BCBA
-                              Transformation Program cohort opens. Includes
+                              , first notice when the next School BCBA Systems Transformation Program cohort opens. Includes
                               occasional program updates; unsubscribe anytime.
                             </span>
                           </label>
@@ -441,7 +440,7 @@ export function IepGoalProgramQuiz() {
               {!savedPriorityAccess && emailSent && (
                 <div className="mt-6 rounded-2xl bg-[#1F4D3F] px-6 py-6 text-white">
                   <h3 className="text-lg font-bold leading-snug">
-                    Want Priority Access to the Transformation Program?
+                    Want Priority Access to the School BCBA Systems Transformation Program?
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-[#d7e4df]">
                     Optional — get first notice when the next live School BCBA
@@ -476,7 +475,7 @@ export function IepGoalProgramQuiz() {
               {savedPriorityAccess && (
                 <p className="mt-6 inline-flex items-center gap-2 rounded-xl bg-[#1F4D3F]/10 px-4 py-3 text-sm font-medium text-[#123628]">
                   <CheckCircle2 className="h-4 w-4 text-[#1F4D3F]" />
-                  You are on the Transformation Program Priority Access list.
+                  You are on the School BCBA Systems Transformation Program Priority Access list.
                 </p>
               )}
 

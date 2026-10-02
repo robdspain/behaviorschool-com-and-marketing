@@ -465,7 +465,7 @@ export default function ACTMatrixBuilder() {
               Want to apply ACT frameworks systematically to your whole caseload?
             </h3>
             <p style={{ color: "#a7d4b8", marginBottom: 24, fontSize: "0.95rem" }}>
-              The School BCBA Transformation Program begins {TRANSFORMATION_PROGRAM.cohort.startFull}. Tuition is {TRANSFORMATION_PROGRAM.pricing.payInFull}.
+              The School BCBA Systems Transformation Program begins {TRANSFORMATION_PROGRAM.cohort.startFull}. Tuition is {TRANSFORMATION_PROGRAM.pricing.payInFull}.
             </p>
             <a
               href="/transformation-program"

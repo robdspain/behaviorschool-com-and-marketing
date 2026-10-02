@@ -302,7 +302,7 @@ export async function POST(request: NextRequest) {
       const confirmSubject = `${firstName}, I received your application`;
       const confirmText = `Hi ${firstName},
 
-Thanks for applying to the School BCBA Transformation System. I received your application and will review it.
+Thanks for applying to the School BCBA Systems Transformation Program. I received your application and will review it.
 
 NEXT STEP: Schedule your consultation call
 
@@ -317,7 +317,7 @@ What to expect on the call:
 This is a 15-minute conversation to make sure the program fits what you need.
 
 Rob Spain
-Creator, School BCBA Transformation System
+Creator, School BCBA Systems Transformation Program
 Behavior School`;
 
       const confirmHtml = `
@@ -340,7 +340,7 @@ Behavior School`;
           <tr>
             <td style="padding: 40px;">
               <p style="margin: 0 0 20px; font-size: 18px; color: #0f172a;">Hi ${firstName},</p>
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">Thanks for applying to the <strong>School BCBA Transformation System</strong>. I received your application and will review it.</p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">Thanks for applying to the <strong>School BCBA Systems Transformation Program</strong>. I received your application and will review it.</p>
               <div style="background-color: #f0fdf4; border-left: 4px solid #10b981; padding: 16px; margin: 24px 0;">
                 <p style="margin: 0; font-size: 16px; color: #166534; font-weight: 600;">NEXT STEP: Schedule your consultation call</p>
               </div>
@@ -365,7 +365,7 @@ Behavior School`;
             <td style="padding: 0 40px 40px;">
               <div style="border-top: 1px solid #e2e8f0; padding-top: 24px;">
                 <p style="margin: 0 0 4px; font-size: 16px; color: #0f172a; font-weight: 600;">Rob Spain</p>
-                <p style="margin: 0; font-size: 14px; color: #64748b;">Creator, School BCBA Transformation System<br>Behavior School</p>
+                <p style="margin: 0; font-size: 14px; color: #64748b;">Creator, School BCBA Systems Transformation Program<br>Behavior School</p>
               </div>
             </td>
           </tr>
@@ -449,7 +449,7 @@ Behavior School`;
       const followUpSubject = `${firstName}, next step for your School BCBA application`;
       const followUpText = `Hi ${firstName},
 
-I just saw your application for the School BCBA Transformation System come through.
+I just saw your application for the School BCBA Systems Transformation Program come through.
 
 The next useful step is a short fit call. We can talk through what is hard right now, what you want to change, and whether the program is the right tool for that.
 
@@ -462,7 +462,7 @@ If you haven't already scheduled, book a time that works for you here:
 https://calendly.com/robspain/behavior-school-transformation-system-phone-call
 
 Rob Spain
-Creator, School BCBA Transformation System
+Creator, School BCBA Systems Transformation Program
 Behavior School`;
 
       const followUpHtml = `
@@ -490,7 +490,7 @@ Behavior School`;
             <td style="padding: 40px;">
               <p style="margin: 0 0 20px; font-size: 18px; color: #0f172a;">Hi ${firstName},</p>
 
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I just saw your application for the <strong>School BCBA Transformation System</strong> come through.</p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I just saw your application for the <strong>School BCBA Systems Transformation Program</strong> come through.</p>
 
               <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">The next useful step is a short fit call. We can talk through what is hard right now, what you want to change, and whether the program is the right tool for that.</p>
 
@@ -520,7 +520,7 @@ Behavior School`;
             <td style="padding: 0 40px 40px;">
               <div style="border-top: 1px solid #e2e8f0; padding-top: 24px;">
                 <p style="margin: 0 0 4px; font-size: 16px; color: #0f172a; font-weight: 600;">Rob Spain</p>
-                <p style="margin: 0; font-size: 14px; color: #64748b;">Creator, School BCBA Transformation System<br>Behavior School</p>
+                <p style="margin: 0; font-size: 14px; color: #64748b;">Creator, School BCBA Systems Transformation Program<br>Behavior School</p>
               </div>
             </td>
           </tr>
@@ -601,7 +601,7 @@ Behavior School`;
       const reminder24Subject = `${firstName}, did you want to talk through the program?`;
       const reminder24Text = `Hi ${firstName},
 
-I wanted to follow up on your School BCBA Transformation System application.
+I wanted to follow up on your School BCBA Systems Transformation Program application.
 
 I did not see a fit call scheduled yet. No problem if now is not the right time.
 
@@ -614,7 +614,7 @@ If you have a question before booking, reply here.
 
 Talk soon,
 Rob Spain
-Creator, School BCBA Transformation System`;
+Creator, School BCBA Systems Transformation Program`;
 
       const reminder24Html = `
 <!DOCTYPE html>
@@ -636,7 +636,7 @@ Creator, School BCBA Transformation System`;
           <tr>
             <td style="padding: 40px;">
               <p style="margin: 0 0 20px; font-size: 18px; color: #0f172a;">Hi ${firstName},</p>
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I wanted to follow up on your School BCBA Transformation System application.</p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I wanted to follow up on your School BCBA Systems Transformation Program application.</p>
               <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I did not see a fit call scheduled yet. No problem if now is not the right time.</p>
               <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">If you do want to talk it through, the call is 15 minutes. We can look at what you are trying to change and whether the program makes sense.</p>
               <table width="100%" cellpadding="0" cellspacing="0" style="margin: 32px 0;">
@@ -654,7 +654,7 @@ Creator, School BCBA Transformation System`;
               <div style="border-top: 1px solid #e2e8f0; padding-top: 24px;">
                 <p style="margin: 0 0 8px; font-size: 16px; color: #0f172a; font-weight: 600;">Talk soon,</p>
                 <p style="margin: 0 0 4px; font-size: 16px; color: #0f172a; font-weight: 600;">Rob Spain</p>
-                <p style="margin: 0; font-size: 14px; color: #64748b;">Creator, School BCBA Transformation System</p>
+                <p style="margin: 0; font-size: 14px; color: #64748b;">Creator, School BCBA Systems Transformation Program</p>
               </div>
             </td>
           </tr>
@@ -725,7 +725,7 @@ Creator, School BCBA Transformation System`;
       const systems48Subject = `${firstName}, thinking about systems after your application`;
       const caseStudy48Text = `Hi ${firstName},
 
-I wanted to follow up with one more thought after your School BCBA Transformation System application.
+I wanted to follow up with one more thought after your School BCBA Systems Transformation Program application.
 
 The program is built around a practical question:
 
@@ -739,7 +739,7 @@ https://calendly.com/robspain/behavior-school-transformation-system-phone-call
 We can talk through what is hard right now, what you need, and whether the program is actually a fit.
 
 Rob Spain
-Creator, School BCBA Transformation System
+Creator, School BCBA Systems Transformation Program
 
 P.S. If you have a question before booking, you can reply to this email.`;
 
@@ -763,7 +763,7 @@ P.S. If you have a question before booking, you can reply to this email.`;
           <tr>
             <td style="padding: 40px;">
               <p style="margin: 0 0 20px; font-size: 18px; color: #0f172a;">Hi ${firstName},</p>
-              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I wanted to follow up with one more thought after your School BCBA Transformation System application.</p>
+              <p style="margin: 0 0 20px; font-size: 16px; color: #334155;">I wanted to follow up with one more thought after your School BCBA Systems Transformation Program application.</p>
               <p style="margin: 0 0 10px; font-size: 16px; color: #334155;">The program is built around a practical question: what systems would make your school-based BCBA role more sustainable and easier to explain to teachers and administrators?</p>
               <div style="background-color: #f0fdf4; border-left: 4px solid #10b981; padding: 20px; margin: 24px 0;">
                 <p style="margin: 0 0 12px; font-size: 16px; color: #166534; font-weight: 600;">That includes things like:</p>
@@ -792,7 +792,7 @@ P.S. If you have a question before booking, you can reply to this email.`;
             <td style="padding: 0 40px 40px;">
               <div style="border-top: 1px solid #e2e8f0; padding-top: 24px;">
                 <p style="margin: 0 0 4px; font-size: 16px; color: #0f172a; font-weight: 600;">Rob Spain</p>
-                <p style="margin: 0; font-size: 14px; color: #64748b;">Creator, School BCBA Transformation System</p>
+                <p style="margin: 0; font-size: 14px; color: #64748b;">Creator, School BCBA Systems Transformation Program</p>
               </div>
             </td>
           </tr>
