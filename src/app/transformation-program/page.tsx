@@ -114,11 +114,31 @@ function cohortDatePhrase() {
 function CohortCard() {
   return (
     <div className="rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] p-6 text-[#171f1d]">
-      <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f]">
-        Next cohort: {COHORT_LABEL}
-      </p>
+      <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f]">Next cohort: {COHORT_LABEL.replace(/ cohort$/i, '')}</p>
       <p className="mt-3 text-[1.375rem] font-semibold leading-snug sm:text-2xl">{COHORT_SUMMARY}</p>
       <p className="mt-1 text-base leading-snug sm:text-lg">{COHORT_SUMMARY_DETAIL}</p>
+      <div className="mt-4 grid grid-cols-3 gap-3 border-t border-[#d9cdb8] pt-4">
+        <div>
+          <p className="text-sm font-semibold text-[#365548]">Tuition</p>
+          <p className="text-base font-semibold">{OFFER_PRICE}</p>
+          <p className="text-sm text-[#365548]">or 3 monthly payments of {TRANSFORMATION_PROGRAM.pricing.installment}</p>
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-[#365548]">Seats</p>
+          <p className="text-base font-semibold">{COHORT_SEAT_CAP} in this cohort</p>
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-[#365548]">Apply by</p>
+          <p className="text-base font-semibold">{APPLICATIONS_CLOSE_SHORT}</p>
+          <p className="text-sm text-[#365548]">earlier if seats fill</p>
+        </div>
+      </div>
+      <a href="#apply" className={`${primaryCtaClass} mt-4 w-full`}>
+        Apply for the January cohort <ArrowRight className="h-4 w-4" aria-hidden="true" />
+      </a>
+      <a href="#fit-call" className={`${textLinkClass} mt-1`}>
+        Already applied? Book a fit call
+      </a>
       <ol className="mt-4 grid grid-cols-2 gap-2 lg:grid-cols-7">
         {SCHEDULE_ENTRIES.map((entry) => (
           <li
@@ -135,28 +155,6 @@ function CohortCard() {
           </li>
         ))}
       </ol>
-      <div className="mt-4 grid grid-cols-1 gap-4 border-t border-[#d9cdb8] pt-4 sm:grid-cols-3">
-        <div>
-          <p className="text-sm font-semibold text-[#365548]">Tuition</p>
-          <p className="text-base font-semibold">{OFFER_PRICE}</p>
-          <p className="text-sm text-[#365548]">or 3 monthly payments of {TRANSFORMATION_PROGRAM.pricing.installment}</p>
-        </div>
-        <div>
-          <p className="text-sm font-semibold text-[#365548]">Seats</p>
-          <p className="text-base font-semibold">{COHORT_SEAT_CAP} in this cohort</p>
-        </div>
-        <div>
-          <p className="text-sm font-semibold text-[#365548]">Apply by</p>
-          <p className="text-base font-semibold">{APPLICATIONS_CLOSE_SHORT}</p>
-          <p className="text-sm text-[#365548]">(earlier if seats fill)</p>
-        </div>
-      </div>
-      <a href="#apply" className={`${primaryCtaClass} mt-5 w-full`}>
-        Apply for the January cohort <ArrowRight className="h-4 w-4" aria-hidden="true" />
-      </a>
-      <a href="#fit-call" className={`${textLinkClass} mt-1`}>
-        Already applied? Book a fit call
-      </a>
     </div>
   );
 }
@@ -184,12 +182,14 @@ export default function TransformationProgramPage() {
               ))}
             </motion.div>
             <motion.h1
-              className="order-1 mb-4 max-w-[18ch] text-balance text-[32px] font-semibold leading-[1.15] text-[#171f1d] sm:text-5xl"
+              className="order-1 mb-4 text-[32px] font-semibold leading-[1.15] text-[#171f1d] sm:text-5xl"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
             >
-              {PROGRAM_NAME}
+              <span className="block">School BCBA Systems</span>
+              <span className="block">Transformation</span>
+              <span className="block">Program</span>
             </motion.h1>
             <motion.div className="order-2 mt-2 lg:order-4" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
               <CohortCard />
@@ -478,7 +478,7 @@ export default function TransformationProgramPage() {
 
           <p className="text-[#365548] text-base mb-4">
             District PO or invoice needed?{' '}
-            <a href={DISTRICT_EMAIL_LINK} className="font-semibold text-[#1f4d3f] underline underline-offset-4">
+            <a href={DISTRICT_EMAIL_LINK} className={textLinkClass}>
               Contact us
             </a>
           </p>
@@ -507,7 +507,7 @@ export default function TransformationProgramPage() {
               </p>
               <p className="text-base text-[#365548]">
                 Need a W-9, purchase order, or invoice?{' '}
-                <a href={DISTRICT_EMAIL_LINK} className="font-semibold text-[#1f4d3f] underline underline-offset-4">
+                <a href={DISTRICT_EMAIL_LINK} className={textLinkClass}>
                   Contact us
                 </a>{' '}
                 and we will send the paperwork. Seats are held once a signed PO or written district payment approval is received.
