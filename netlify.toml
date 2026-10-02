@@ -58,6 +58,25 @@
   status = 301
   force = true
 
+# Free mock exam lives on Study: one 301 hop for slash and no-slash forms
+[[redirects]]
+  from = "/free-mock-exam"
+  to = "https://study.behaviorschool.com/free-mock-exam/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/free-mock-exam/"
+  to = "https://study.behaviorschool.com/free-mock-exam/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/free-mock-exam/*"
+  to = "https://study.behaviorschool.com/free-mock-exam/"
+  status = 301
+  force = true
+
 # Handle old URLs if any
 [[redirects]]
   from = "/old-page"
