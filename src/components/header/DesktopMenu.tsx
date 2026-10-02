@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, MotionConfig } from "framer-motion";
 import { Dropdown } from "./Dropdown";
 import { menuSections } from "./config";
 
@@ -13,6 +13,7 @@ type Props = {
 
 export function DesktopMenu({ openKey, onOpen }: Props) {
   return (
+    <MotionConfig reducedMotion="user">
     <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
       {menuSections.map((section) => {
         const hasChildren = !!section.children?.length;
@@ -103,6 +104,7 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
         );
       })}
     </div>
+    </MotionConfig>
   );
 }
 

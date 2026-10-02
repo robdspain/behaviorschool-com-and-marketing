@@ -175,7 +175,7 @@ export default function RootLayout({
         alternateName: ["Behavior School", "BehaviorSchool.com"],
         url: SITE_URL,
         inLanguage: "en-US",
-        description: "Behavior School provides BCBA exam prep, supervision tools, IEP goal resources, behavior plan tools, and professional development for school-based behavior analysts.",
+        description: "Behavior School provides BCBA exam prep, supervision tools, IEP goal resources, behavior plan tools, and professional development for school BCBAs and behavior analysts.",
         publisher: {
           "@id": `${SITE_URL}/#organization`
         }

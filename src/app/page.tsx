@@ -4,6 +4,7 @@ import Image from "next/image";
 import { BrainCircuit, GraduationCap, ArrowRight, CheckCircle2 } from "lucide-react";
 import { getPublishedPosts } from "@/lib/blog";
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/founder-tenure";
+import { SHOW_COHORT_BAND } from "@/lib/feature-flags";
 import { Hero } from "@/components/ui/hero";
 import { HomepageEmailCapture } from "@/components/ui/homepage-email-capture";
 import { FAQAccordion } from "@/components/ui/faq-accordion";
@@ -18,8 +19,6 @@ const HOME_FAQ_ITEMS = [
 ];
 
 
-// Flip to true after Transformation PR #115 merges with the January cohort data.
-const SHOW_COHORT_BAND = false;
 
 export const metadata: Metadata = {
   title: "Behavior School | Free BCBA Mock Exam and School BCBA Tools",

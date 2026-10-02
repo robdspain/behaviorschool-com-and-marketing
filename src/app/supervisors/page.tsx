@@ -38,7 +38,7 @@ export default function SupervisorsPage() {
       <section className="border-b border-[#1f4d3f]/10 bg-[var(--bs-cream)]">
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-16 pt-14 sm:px-8 sm:pb-24 sm:pt-20 lg:grid-cols-[0.88fr_1.12fr] lg:gap-16 lg:px-12 lg:pt-24">
           <div>
-            <div className="inline-flex items-center gap-2 border border-[#1f4d3f]/20 bg-white px-3 py-2 text-xs font-bold uppercase tracking-[0.14em] text-[#1f4d3f]">
+            <div className="inline-flex items-center gap-2 border border-[#1f4d3f]/20 bg-white px-3 py-2 text-sm font-bold uppercase tracking-[0.14em] text-[#1f4d3f]">
               <Bell className="h-4 w-4" aria-hidden="true" /> Coming soon
             </div>
             <h1 className="mt-7 max-w-3xl text-5xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">
@@ -58,7 +58,7 @@ export default function SupervisorsPage() {
           <div className="relative mx-auto w-full max-w-2xl">
             <div className="absolute -inset-5 rounded-[2rem] bg-[#d8b64c]/20 blur-2xl" aria-hidden="true" />
             <div className="relative overflow-hidden rounded-[12px] border border-[var(--bs-hairline)] bg-[var(--bs-paper)] p-3 shadow-[0_24px_70px_rgba(31,77,63,0.16)]">
-              <div className="flex items-center justify-between border-b border-[#1f4d3f]/10 px-3 pb-3 text-xs font-bold uppercase tracking-[0.14em] text-[#1f4d3f]">
+              <div className="flex items-center justify-between border-b border-[#1f4d3f]/10 px-3 pb-3 text-sm font-bold uppercase tracking-[0.14em] text-[#1f4d3f]">
                 <span>Supervision workspace</span>
                 <span className="bg-[var(--bs-gold)] px-2 py-1 text-[var(--bs-ink)] font-[700] rounded">Concept preview</span>
               </div>

@@ -176,7 +176,7 @@ export default function ProductsPage() {
 
       <section className="border-b border-[var(--bs-hairline)] bg-white">
         <div className="mx-auto grid max-w-7xl gap-6 px-5 py-8 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-center lg:px-10">
-          <p className="max-w-2xl text-base leading-7 text-[#51645d]">
+          <p className="max-w-2xl text-base leading-7 text-[#365548]">
             Start with the product that fits today. Invite-only workspaces are labeled clearly so you know what is open now and what requires an invitation.
           </p>
           <div className="flex flex-wrap gap-5 text-xs font-semibold uppercase tracking-[0.16em]">
@@ -201,7 +201,7 @@ export default function ProductsPage() {
                 Five tools that keep BCBA prep moving.
               </h2>
             </div>
-            <p className="max-w-2xl text-base leading-7 text-[#51645d] lg:justify-self-end">
+            <p className="max-w-2xl text-base leading-7 text-[#365548] lg:justify-self-end">
               The current app connects practice, planning, and progress so candidates can spend less time deciding what to study next.
             </p>
           </div>
@@ -218,7 +218,7 @@ export default function ProductsPage() {
                     <span className="font-mono text-xs text-[#1f4d3f]">0{index + 1}</span>
                   </div>
                   <h3 className="mt-5 text-lg font-semibold">{highlight.title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-[#51645d]">{highlight.description}</p>
+                  <p className="mt-2 text-sm leading-6 text-[#365548]">{highlight.description}</p>
                 </article>
               );
             })}
@@ -256,7 +256,7 @@ export default function ProductsPage() {
                     {product.name}
                   </h3>
                   <p className="mt-3 text-sm font-semibold text-[#1f4d3f]">{product.audience}</p>
-                  <p className="mt-6 max-w-xl text-lg leading-8 text-[#51645d]">
+                  <p className="mt-6 max-w-xl text-lg leading-8 text-[#365548]">
                     {product.description}
                   </p>
                   <ul className="mt-7 grid gap-3 text-sm text-[#263b34] sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
@@ -310,7 +310,7 @@ export default function ProductsPage() {
                 Invite only
               </h2>
             </div>
-            <p className="max-w-2xl text-lg leading-8 text-white/68 lg:justify-self-end">
+            <p className="max-w-2xl text-lg leading-8 text-[var(--bs-cream)] lg:justify-self-end">
               These workspaces belong to the same suite, but they are not open for public account creation. Each link leads to an honest preview and request-access page.
             </p>
           </div>
@@ -329,9 +329,9 @@ export default function ProductsPage() {
                       {product.stage}, invite only
                     </p>
                     <h3 className="mt-3 text-2xl font-semibold sm:text-3xl">{product.name}</h3>
-                    <p className="mt-3 max-w-2xl leading-7 text-white/66">{product.description}</p>
+                    <p className="mt-3 max-w-2xl leading-7 text-[var(--bs-cream)]">{product.description}</p>
                   </div>
-                  <span className="inline-flex items-center gap-2 font-semibold text-white lg:justify-self-end">
+                  <span className="inline-flex min-h-[44px] items-center gap-2 font-semibold text-white lg:justify-self-end">
                     {product.cta}
                     <ArrowRight aria-hidden="true" size={18} />
                   </span>
@@ -366,7 +366,7 @@ export default function ProductsPage() {
       <section className="bg-[#123628] py-16 bs-on-dark text-[var(--bs-cream)] border-t border-[var(--bs-hairline)]">
         <div className="mx-auto flex max-w-7xl flex-col gap-7 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#e4b63d]">Not sure where to begin?</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--bs-cream)]">Not sure where to begin?</p>
             <h2 className="mt-3 max-w-2xl text-3xl font-semibold leading-tight text-white sm:text-4xl">
               Tell us what you are working toward.
             </h2>

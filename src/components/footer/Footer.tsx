@@ -94,7 +94,7 @@ export function Footer() {
             </Link>
             <div>
               <p className="text-sm font-bold text-[#365548]">
-                <Link href="/bacb-ace-provider" className="transition-colors hover:text-[var(--bs-ink)] hover:underline">
+                <Link href="/bacb-ace-provider" className="inline-flex min-h-[44px] items-center transition-colors hover:text-[var(--bs-ink)] hover:underline">
                   BACB ACE Provider: Behavior School LLC
                 </Link>
               </p>

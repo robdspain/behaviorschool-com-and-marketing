@@ -37,7 +37,7 @@ export default function PricingPage() {
           </article>
 
           <article className="rounded-xl border-[2px] border-[var(--bs-forest)] bg-[var(--bs-paper)] p-6 relative">
-            <span className="absolute -top-3 left-6 rounded-full bg-[#e4b63d] px-3 py-1 text-sm font-semibold text-[#123628]">Featured</span>
+            <span className="absolute -top-3 left-6 rounded-lg bg-[#e4b63d] px-3 py-1 text-sm font-semibold text-[#171f1d]">Featured</span>
             <h2 className="text-xl font-bold text-[#123628]">Transformation Program</h2>
             <p className="mt-1 text-[#365548] text-sm">Six live sessions for school BCBAs</p>
             <p className="mt-5 text-[var(--bs-ink)]xl font-bold text-[#123628]">$1,997</p>

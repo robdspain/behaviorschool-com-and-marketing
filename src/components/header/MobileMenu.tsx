@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { menuSections } from "./config";
+import { SHOW_COHORT_BAND } from "@/lib/feature-flags";
 import { Button } from "@/components/ui/button";
 import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
@@ -68,6 +69,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
           );
         })}
         <div className="px-3 pt-4 pb-2 space-y-3 flex flex-col">
+          {SHOW_COHORT_BAND && (
           <Link 
             href="/transformation-program"
             className="bs-btn-secondary w-full"
@@ -75,6 +77,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
           >
             See the January cohort
           </Link>
+          )}
           <Link
             href="https://study.behaviorschool.com/free-mock-exam/"
             className="bs-btn-primary w-full"

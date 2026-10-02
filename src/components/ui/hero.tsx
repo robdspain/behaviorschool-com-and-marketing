@@ -99,7 +99,7 @@ export function Hero({
             <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500 fill-mode-both flex flex-col items-start gap-4 mt-8">
               <Link 
                 href={primaryCta.href}
-                className={variant === 'brand' ? 'bs-btn-primary' : 'bs-btn-primary'}
+                className={variant === 'brand' ? 'bs-btn-primary text-[18px]' : 'bs-btn-primary text-[18px]'}
               >
                 {primaryCta.label}
               </Link>

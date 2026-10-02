@@ -94,7 +94,7 @@ export default function CEUsPage() {
             CEUs &amp; Professional Development{" "}
             <span className="text-[#1f4d3f]">for BCBAs</span>
           </h1>
-          <p className="mx-auto mb-10 max-w-3xl text-xl text-slate-600">
+          <p className="mx-auto mb-10 max-w-3xl text-xl text-[#365548]">
             Behavior School Learning is the place for BCBA CEUs, continuing
             education, and certificates for school behavior analysts. Enroll
             in live or on-demand courses, complete verified CEU requirements, and
@@ -121,7 +121,7 @@ export default function CEUsPage() {
       <section className="border-y border-slate-100 bg-[var(--bs-cream)] py-8">
         <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-8 px-4 text-center">
           {trustItems.map((item) => (
-            <div key={item.label} className="flex items-center gap-2 text-slate-600">
+            <div key={item.label} className="flex items-center gap-2 text-[#365548]">
               <item.icon className="h-5 w-5 text-[#1f4d3f]" aria-hidden="true" />
               <span className="text-sm font-medium">{item.label}</span>
             </div>
@@ -135,7 +135,7 @@ export default function CEUsPage() {
             <h2 className="mb-4 text-3xl font-bold text-slate-900 sm:text-4xl">
               What you get on Behavior School Learning
             </h2>
-            <p className="mx-auto max-w-2xl text-lg text-slate-600">
+            <p className="mx-auto max-w-2xl text-lg text-[#365548]">
               Continuing education built for school BCBAs: live cohorts, on-demand
               learning, verified completion, and certificates you can keep.
             </p>
@@ -153,7 +153,7 @@ export default function CEUsPage() {
                 <h3 className="mb-3 text-2xl font-bold text-slate-900">
                   {benefit.title}
                 </h3>
-                <p className="leading-relaxed text-slate-600">{benefit.description}</p>
+                <p className="leading-relaxed text-[#365548]">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -161,7 +161,7 @@ export default function CEUsPage() {
           <div className="mt-12 text-center">
             <Link
               href={LEARNING_URL}
-              className="inline-flex items-center text-lg font-semibold text-[#123628] hover:text-[var(--bs-ink)]"
+              className="inline-flex min-h-[44px] items-center text-lg font-semibold text-[#123628] hover:text-[var(--bs-ink)]"
             >
               Browse current CEU courses
               <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
@@ -175,7 +175,7 @@ export default function CEUsPage() {
           <h2 className="mb-4 text-center text-3xl font-bold text-slate-900 sm:text-4xl">
             Related Behavior School path
           </h2>
-          <p className="mx-auto mb-10 max-w-2xl text-center text-lg text-slate-600">
+          <p className="mx-auto mb-10 max-w-2xl text-center text-lg text-[#365548]">
             Learning is the CEU platform. The Transformation Program is an
             optional live cohort, not the main continuing education catalog.
           </p>
@@ -188,7 +188,7 @@ export default function CEUsPage() {
               <h3 className="mb-3 text-xl font-bold text-slate-900 group-hover:text-[#123628]">
                 School BCBA Transformation Program
               </h3>
-              <p className="mb-6 leading-relaxed text-slate-600">
+              <p className="mb-6 leading-relaxed text-[#365548]">
                 A live cohort for school BCBAs who want repeatable systems for
                 assessment, intervention, and staff implementation. Continuing
                 education details are listed with the program.
@@ -207,7 +207,7 @@ export default function CEUsPage() {
           <h2 className="mb-4 text-3xl font-bold text-slate-900">
             BACB Authorized Continuing Education
           </h2>
-          <p className="mx-auto mb-8 max-w-2xl text-lg text-slate-600">
+          <p className="mx-auto mb-8 max-w-2xl text-lg text-[#365548]">
             Behavior School LLC is a BACB Authorized Continuing Education
             Provider. Course listings on Learning identify available credit,
             completion requirements, and documentation for each opportunity.
