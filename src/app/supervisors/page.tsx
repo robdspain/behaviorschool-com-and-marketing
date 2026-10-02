@@ -44,7 +44,7 @@ export default function SupervisorsPage() {
             <h1 className="mt-7 max-w-3xl text-5xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">
               Supervision work, organized in one place.
             </h1>
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-[#59645f] sm:text-xl">
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-[#365548] sm:text-xl">
               BehaviorSchool is developing a shared workspace for supervisors and supervisees to organize fieldwork documentation, review progress, and prepare required records. Public account creation and hour tracking are not available yet.
             </p>
             <a
@@ -72,7 +72,7 @@ export default function SupervisorsPage() {
                   className="aspect-[4/3] w-full object-cover"
                 />
               </div>
-              <div className="grid gap-2 px-1 pb-1 pt-3 text-sm text-[#59645f] sm:grid-cols-3">
+              <div className="grid gap-2 px-1 pb-1 pt-3 text-sm text-[#365548] sm:grid-cols-3">
                 <span className="border-l-2 border-[#d8b64c] pl-2">Document review</span>
                 <span className="border-l-2 border-[#d8b64c] pl-2">Progress discussion</span>
                 <span className="border-l-2 border-[#d8b64c] pl-2">Record preparation</span>
@@ -87,7 +87,7 @@ export default function SupervisorsPage() {
           <div className="max-w-3xl">
             <p className="bs-eyebrow">In development</p>
             <h2 className="mt-4 text-3xl font-semibold sm:text-5xl">What the team is planning</h2>
-            <p className="mt-5 text-lg leading-8 text-[#59645f]">
+            <p className="mt-5 text-lg leading-8 text-[#365548]">
               These are planned areas of development, not currently available product features. Details may change as the platform is built and reviewed.
             </p>
           </div>
@@ -97,7 +97,7 @@ export default function SupervisorsPage() {
               <article key={title} className="min-h-56 border-b border-r border-[var(--bs-hairline)] p-7 sm:p-9">
                 <Icon className="h-7 w-7 text-[#1f4d3f]" strokeWidth={1.7} aria-hidden="true" />
                 <h3 className="mt-6 text-xl font-semibold">{title}</h3>
-                <p className="mt-3 leading-7 text-[#59645f]">{description}</p>
+                <p className="mt-3 leading-7 text-[#365548]">{description}</p>
               </article>
             ))}
           </div>
@@ -109,7 +109,7 @@ export default function SupervisorsPage() {
           <ShieldCheck className="h-8 w-8 shrink-0 text-[#1f4d3f]" strokeWidth={1.7} aria-hidden="true" />
           <div className="max-w-3xl">
             <h2 className="text-2xl font-semibold">Continue using your current approved process</h2>
-            <p className="mt-3 leading-7 text-[#59645f]">
+            <p className="mt-3 leading-7 text-[#365548]">
               Until the workspace is available, continue using current BACB requirements, official forms, and your organization&apos;s approved documentation and record-retention procedures.
             </p>
           </div>

@@ -51,36 +51,28 @@ export function HomepageEmailCapture() {
   };
 
   return (
-    <section className="py-16 sm:py-20 bg-gradient-to-br from-emerald-50 via-white to-blue-50">
+    <section className="py-16 sm:py-20 bg-[var(--bs-cream)]">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-emerald-100">
-          {/* Decorative background pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0" style={{
-              backgroundImage: 'radial-gradient(circle at 1px 1px, rgb(16, 185, 129) 1px, transparent 0)',
-              backgroundSize: '40px 40px'
-            }}></div>
-          </div>
-
+        <div className="relative bg-[var(--bs-paper)] rounded-[12px] border border-[var(--bs-hairline)] overflow-hidden">
           <div className="relative p-8 sm:p-12 text-center">
             {/* Icon */}
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl mb-6 shadow-lg">
-              <Sparkles className="w-8 h-8 text-white" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-[#1f4d3f]/10 rounded-2xl mb-6">
+              <Sparkles className="w-8 h-8 text-[#1f4d3f]" />
             </div>
 
             {/* Heading */}
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--bs-ink)] mb-4">
               The Weekly Research Brief
             </h2>
-            <p className="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
-              Open research, clear summaries, and practical next steps for school-based BCBAs, delivered each week.
+            <p className="text-lg text-[#365548] mb-8 max-w-2xl mx-auto">
+              Open research, clear summaries, and practical next steps for school BCBAs, delivered each week.
             </p>
 
             {status === 'success' ? (
-              <div className="bg-emerald-50 border-2 border-emerald-200 rounded-xl px-6 py-4 max-w-md mx-auto">
+              <div className="bg-[var(--bs-forest-wash)] border border-[#365548] rounded-xl px-6 py-4 max-w-md mx-auto">
                 <div className="flex items-center gap-3">
-                <CheckCircle className="w-6 h-6 text-emerald-600 flex-shrink-0" />
-                <p className="text-emerald-800 font-medium">{message}</p>
+                <CheckCircle className="w-6 h-6 text-[#1f4d3f] flex-shrink-0" />
+                <p className="text-[#1f4d3f] font-medium">{message}</p>
                 </div>
                 {!alreadySubscribed ? (
                   <button
@@ -89,7 +81,7 @@ export function HomepageEmailCapture() {
                       setStatus('idle');
                       setMessage('');
                     }}
-                    className="mt-3 text-sm font-semibold text-emerald-800 underline underline-offset-4"
+                    className="mt-3 text-sm font-semibold text-[#1f4d3f] underline underline-offset-4"
                   >
                     Request a fresh confirmation link
                   </button>
@@ -99,7 +91,7 @@ export function HomepageEmailCapture() {
               <form onSubmit={handleSubmit} className="max-w-md mx-auto">
                 <div className="flex flex-col sm:flex-row gap-3">
                   <div className="relative flex-1">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-[#365548]" />
                     <input
                       type="email"
                       value={email}
@@ -107,13 +99,13 @@ export function HomepageEmailCapture() {
                       placeholder="your.email@example.com"
                       required
                       disabled={status === 'loading'}
-                      className="w-full pl-10 pr-4 py-4 border-2 border-slate-300 rounded-xl focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/10 disabled:opacity-50 text-base"
+                      className="w-full pl-10 pr-4 h-[44px] border border-[#365548] rounded-lg focus:outline-none focus:border-[#1f4d3f] focus:ring-1 focus:ring-[#1f4d3f] disabled:opacity-50 text-base bg-white text-[var(--bs-ink)]"
                     />
                   </div>
                   <button
                     type="submit"
                     disabled={status === 'loading'}
-                    className="px-8 py-4 bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-700 hover:to-emerald-600 text-white font-semibold rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 active:translate-y-0"
+                    className="bs-btn-nav h-[44px] whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {status === 'loading' ? 'Sending...' : 'Send me the weekly brief'}
                   </button>
@@ -123,25 +115,25 @@ export function HomepageEmailCapture() {
                   <p className="text-red-600 text-sm mt-3">{message}</p>
                 )}
 
-                <p className="text-xs text-slate-500 mt-4">
+                <p className="text-sm text-[#365548] mt-4">
                   Free. One email each week. Confirm your email to join. Unsubscribe anytime.
                 </p>
               </form>
             )}
 
             {/* Trust indicators */}
-            <div className="mt-8 pt-8 border-t border-slate-200">
-              <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-600">
+            <div className="mt-8 pt-8 border-t border-[var(--bs-hairline)]">
+              <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-[#365548]">
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-600" />
+                  <CheckCircle className="w-4 h-4 text-[#1f4d3f]" />
                   <span>Free forever</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-600" />
+                  <CheckCircle className="w-4 h-4 text-[#1f4d3f]" />
                   <span>No spam</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-600" />
+                  <CheckCircle className="w-4 h-4 text-[#1f4d3f]" />
                   <span>Unsubscribe anytime</span>
                 </div>
               </div>

@@ -143,7 +143,7 @@ const toneClasses = {
 
 export default function ProductsPage() {
   return (
-    <main className="overflow-hidden bg-[#f8f7f3] text-[var(--bs-cream)]">
+    <main className="overflow-hidden bg-[#f8f7f3] text-[var(--bs-ink)]">
       <section className="border-b border-[var(--bs-hairline)] bg-[#123628] text-white">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 py-14 sm:px-8 lg:min-h-[610px] lg:grid-cols-[0.82fr_1.18fr] lg:px-10 lg:py-16">
           <div className="max-w-xl">
@@ -366,8 +366,8 @@ export default function ProductsPage() {
       <section className="bg-[#123628] py-16 bs-on-dark text-[var(--bs-cream)] border-t border-[var(--bs-hairline)]">
         <div className="mx-auto flex max-w-7xl flex-col gap-7 px-5 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-10">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#1f4d3f]">Not sure where to begin?</p>
-            <h2 className="mt-3 max-w-2xl text-3xl font-semibold leading-tight text-[#14231f] sm:text-4xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#e4b63d]">Not sure where to begin?</p>
+            <h2 className="mt-3 max-w-2xl text-3xl font-semibold leading-tight text-white sm:text-4xl">
               Tell us what you are working toward.
             </h2>
           </div>

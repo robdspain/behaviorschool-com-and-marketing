@@ -41,7 +41,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
                       <Link
                         key={child.href}
                         href={child.href}
-                        className="block px-3 min-h-[44px] py-2 inline-flex items-center text-[#171f1d] font-medium hover:text-[#1f4d3f] hover:underline  rounded-md"
+                        className="block px-3 min-h-[44px] py-2 flex w-full items-center text-[#171f1d] font-medium hover:text-[#1f4d3f] hover:underline  rounded-md"
                         onClick={onClose}
                         target={child.external ? "_blank" : undefined}
                         rel={child.external ? "noreferrer noopener" : undefined}
@@ -58,7 +58,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
             <Link
               key={key}
               href={section.href ?? "#"}
-              className="block px-3 min-h-[44px] py-2 inline-flex items-center text-lg font-medium text-[#171f1d] font-medium hover:text-[#1f4d3f] hover:underline  rounded-md"
+              className="block px-3 min-h-[44px] py-2 flex w-full items-center text-lg font-medium text-[#171f1d] font-medium hover:text-[#1f4d3f] hover:underline  rounded-md"
               onClick={onClose}
               target={section.href?.startsWith("http") ? "_blank" : undefined}
               rel={section.href?.startsWith("http") ? "noreferrer noopener" : undefined}
@@ -80,7 +80,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
             className="bs-btn-primary w-full"
             onClick={onClose}
           >
-            Free mock exam
+            Take the free BCBA mock exam
           </Link>
         </div>
       </div>

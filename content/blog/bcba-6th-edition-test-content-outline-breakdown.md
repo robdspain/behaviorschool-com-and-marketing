@@ -19,7 +19,7 @@ meta_description: "Review the BCBA 6th Edition Test Content Outline, including 9
 
 If you're preparing for the BCBA exam, you're studying the **6th Edition Test Content Outline (TCO)** - and knowing exactly what's on it, how it's weighted, and which domains eat the most exam questions is the difference between a focused study plan and wasted hours.
 
-This guide breaks down every domain of the BCBA 6th Edition TCO, gives you the exam weights, tells you which tasks are highest-yield, and flags which sections catch school-based BCBAs off guard.
+This guide breaks down every domain of the BCBA 6th Edition TCO, gives you the exam weights, tells you which tasks are highest-yield, and flags which sections catch school BCBAs off guard.
 
 > **Download the official source:** [BCBA Test Content Outline (6th ed.)](https://www.bacb.com/wp-content/uploads/2022/01/BCBA-6th-Edition-Test-Content-Outline-240903-a.pdf) - free PDF directly from BACB.
 
@@ -356,7 +356,7 @@ In 2025, 51% of first-time BCBA candidates passed and 23% of retake candidates p
 
 ## Summary
 
-The BCBA Test Content Outline (6th ed.) organizes 175 scored exam questions across 9 domains and 104 tasks. Domain G (Behavior-Change Procedures) has the most questions (25, 14%), followed closely by Concepts and Principles (24, 14%), Behavior Assessment (23, 13%), and Ethical and Professional Issues (22, 13%). For school-based BCBAs, the biggest hidden risks are Domain D (Experimental Design) and Domain E (Ethics) - both require deliberate study beyond everyday practice.
+The BCBA Test Content Outline (6th ed.) organizes 175 scored exam questions across 9 domains and 104 tasks. Domain G (Behavior-Change Procedures) has the most questions (25, 14%), followed closely by Concepts and Principles (24, 14%), Behavior Assessment (23, 13%), and Ethical and Professional Issues (22, 13%). For school BCBAs, the biggest hidden risks are Domain D (Experimental Design) and Domain E (Ethics) - both require deliberate study beyond everyday practice.
 
 **Next steps:**
 - [Take a free BCBA practice exam by domain](https://study.behaviorschool.com/free-practice/)

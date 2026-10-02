@@ -17,6 +17,10 @@ const HOME_FAQ_ITEMS = [
   { question: "Who built Behavior School?", answer: "Rob Spain, M.S., BCBA, IBA, a school BCBA, built Behavior School for the daily work of school behavior analysts." },
 ];
 
+
+// Flip to true after Transformation PR #115 merges with the January cohort data.
+const SHOW_COHORT_BAND = false;
+
 export const metadata: Metadata = {
   title: "Behavior School | Free BCBA Mock Exam and School BCBA Tools",
   description:
@@ -65,7 +69,8 @@ export default function Home() {
         variant="brand"
       />
 
-      {/* ─── SEPTEMBER COHORT CTA ────────────────────────────────── */}
+      {/* ─── COHORT CTA: hidden until Transformation PR #115 (January cohort data) merges ─── */}
+      {SHOW_COHORT_BAND && (
       <section className="border-y border-[var(--bs-hairline)] bg-[var(--bs-forest-dark)] py-10 text-[var(--bs-cream)] bs-on-dark">
         <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">
           <div>
@@ -91,6 +96,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       {/* ─── HIGH-INTENT BCBA PRACTICE PATH ───────────────────────── */}
       <section className="border-y border-[var(--bs-hairline)] bg-[var(--bs-forest-wash)] py-10">
@@ -119,7 +125,12 @@ export default function Home() {
               Start the 9-question check
               <ArrowRight size={16} />
             </Link>
-            
+            <Link
+              href="https://study.behaviorschool.com/free-mock-exam/"
+              className="bs-link bs-padded justify-center"
+            >
+              Or take the free 185-question mock exam
+            </Link>
           </div>
         </div>
       </section>
@@ -166,10 +177,13 @@ export default function Home() {
               </p>
               <div className="mt-6 grid gap-2 text-sm">
                 <Link href="https://study.behaviorschool.com/free-mock-exam/" className="bs-link bs-padded">
-                  Free mock exam <ArrowRight size={14} />
+                  Free 185-question BCBA mock exam (free account) <ArrowRight size={14} />
                 </Link>
                 <Link href="https://study.behaviorschool.com/free-practice/" className="bs-link bs-padded">
-                  9-question check <ArrowRight size={14} />
+                  Free Quick domain check (9 questions, no account) <ArrowRight size={14} />
+                </Link>
+                <Link href="https://behaviorstudytools.com/" className="bs-link bs-padded">
+                  About Behavior Study Tools, the BCBA exam prep app <ArrowRight size={14} />
                 </Link>
               </div>
             </div>
@@ -247,7 +261,7 @@ export default function Home() {
               </div>
               <Link
                 href="/blog"
-                className="hidden sm:bs-link bs-padded"
+                className="hidden sm:inline-flex bs-link bs-padded"
               >
                 View all posts <ArrowRight size={14} />
               </Link>

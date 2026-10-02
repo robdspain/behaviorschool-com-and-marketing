@@ -151,6 +151,13 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-emerald-500: #1f4d3f;
+  --color-emerald-600: #1f4d3f;
+  --color-emerald-700: #123628;
+  --color-emerald-800: #123628;
+  --color-emerald-50: #e8efe9;
+  --color-emerald-100: #e8efe9;
+  --color-emerald-200: #d9cdb8;
 }
 
 @layer utilities {

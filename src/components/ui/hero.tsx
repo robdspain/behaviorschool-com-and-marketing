@@ -39,38 +39,6 @@ export function Hero({
     >
       {/* Dynamic Background Elements - 2026 Aesthetic */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {isDark ? (
-          <>
-            {/* Dark mode abstract gradients */}
-            <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[70%] rounded-full bg-emerald-600/20 blur-[120px] mix-blend-screen animate-pulse duration-[8000ms]" />
-            <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[80%] rounded-full bg-blue-600/20 blur-[150px] mix-blend-screen animate-pulse duration-[10000ms] delay-1000" />
-
-            {/* Neo-brutalist grid */}
-            <div
-              className="absolute inset-0 opacity-[0.03]"
-              style={{
-                backgroundImage: 'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
-                backgroundSize: '40px 40px'
-              }}
-            />
-          </>
-        ) : (
-          <>
-            {/* Light mode vibrant gradients with glassmorphism feel */}
-            <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[60%] rounded-full bg-emerald-300/40 blur-[100px] animate-pulse duration-[8000ms]" />
-            <div className="absolute bottom-[-10%] right-[-5%] w-[50%] h-[70%] rounded-full bg-teal-300/30 blur-[120px] animate-pulse duration-[12000ms] delay-500" />
-            <div className="absolute top-[20%] right-[10%] w-[30%] h-[40%] rounded-full bg-blue-200/40 blur-[80px] animate-pulse duration-[10000ms] delay-1000" />
-
-            {/* Subtle dot matrix */}
-            <div
-              className="absolute inset-0 opacity-[0.4]"
-              style={{
-                backgroundImage: 'radial-gradient(circle at 1px 1px, #cbd5e1 1px, transparent 0)',
-                backgroundSize: '32px 32px'
-              }}
-            />
-          </>
-        )}
       </div>
 
       <div className="relative max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
@@ -136,7 +104,7 @@ export function Hero({
                 {primaryCta.label}
               </Link>
               <Link 
-                href="/free-practice/"
+                href="https://study.behaviorschool.com/free-practice/"
                 className={cn("bs-link bs-padded", variant === 'brand' ? 'text-[var(--bs-paper)]' : '')}
               >
                 Or try 9 questions first, no account
@@ -161,7 +129,7 @@ export function Hero({
               <div className="relative rounded-xl overflow-hidden aspect-[4/3]">
                 <Image
                   src="/optimized/Hero/Hero-group1-optimized.webp"
-                  alt="School-based BCBAs collaborating"
+                  alt="Three educators in a classroom smiling while they review a laptop"
                   width={1920}
                   height={1080}
                   className="object-cover transition-transform duration-1000 group-hover:scale-105 h-full w-full"

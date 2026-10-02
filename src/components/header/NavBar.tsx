@@ -47,7 +47,7 @@ export function NavBar() {
                 href="https://study.behaviorschool.com/free-mock-exam/"
                 className="bs-btn-nav"
               >
-                Free mock exam
+                Free BCBA Mock Exam
               </Link>
             </div>
           </div>
