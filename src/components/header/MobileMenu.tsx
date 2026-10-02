@@ -79,11 +79,11 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
           </Link>
           )}
           <Link
-            href="https://study.behaviorschool.com/free-mock-exam/"
+            href="/transformation-program"
             className="bs-btn-primary w-full"
             onClick={onClose}
           >
-            Take the free BCBA mock exam
+            Transformation Program
           </Link>
         </div>
       </div>

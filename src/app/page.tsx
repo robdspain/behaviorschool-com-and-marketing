@@ -11,6 +11,7 @@ import { FAQAccordion } from "@/components/ui/faq-accordion";
 import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 const HOME_FAQ_ITEMS = [
+  { question: "What is the School BCBA Systems Transformation Program?", answer: "A live online training for school BCBAs. Over six Thursday sessions, January 14 to February 25, 2027, from 6 to 8 PM Pacific Time, you build assessment, FBA, BIP, data, and staff training systems. Apply by January 7, 2027." },
   { question: "What is Behavior School?", answer: "Behavior School provides BCBA exam prep, live training, Learning CEUs, and practical tools for school BCBAs and behavior analysts in K-12 schools. It is a BACB Authorized Continuing Education Provider." },
   { question: "Is the BCBA mock exam free?", answer: "Yes. The full 185-question BCBA mock exam is free with a free account, no credit card. The 9-question Quick domain check needs no account." },
   { question: "How many questions are on the free BCBA mock exam?", answer: "The full mock has 185 timed questions, the same length as the BCBA exam, and is aligned to the BCBA 6th Edition Test Content Outline. Your score and domain breakdown appear when you finish." },
@@ -21,16 +22,16 @@ const HOME_FAQ_ITEMS = [
 
 
 export const metadata: Metadata = {
-  title: "Behavior School | Free BCBA Mock Exam and School BCBA Tools",
+  title: "School BCBA Systems Training | Behavior School",
   description:
-    "Free 185-question BCBA mock exam (6th Edition), a free 9-question Quick domain check, and tools for school BCBAs. Built by a school BCBA.",
+    "Behavior School trains school BCBAs to build FBA, BIP, data, and staff training systems. Apply for the School BCBA Systems Transformation Program.",
   alternates: {
     canonical: "https://behaviorschool.com",
   },
   openGraph: {
-    title: "Behavior School | Free BCBA Mock Exam and School BCBA Tools",
+    title: "School BCBA Systems Training | Behavior School",
     description:
-      "Free 185-question BCBA mock exam (6th Edition), a free 9-question Quick domain check, and tools for school BCBAs. Built by a school BCBA.",
+      "Behavior School trains school BCBAs to build FBA, BIP, data, and staff training systems. Apply for the School BCBA Systems Transformation Program.",
     type: "website",
     url: "https://behaviorschool.com",
     images: [
@@ -44,9 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Behavior School | Free BCBA Mock Exam and School BCBA Tools",
+    title: "School BCBA Systems Training | Behavior School",
     description:
-      "Free 185-question BCBA mock exam (6th Edition), a free 9-question Quick domain check, and tools for school BCBAs. Built by a school BCBA.",
+      "Behavior School trains school BCBAs to build FBA, BIP, data, and staff training systems. Apply for the School BCBA Systems Transformation Program.",
     images: ["/optimized/og-image.webp"],
   },
 };
@@ -61,10 +62,10 @@ export default function Home() {
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <Hero
         eyebrow="Behavior School"
-        title="Free BCBA exam prep and tools for "
-        highlight="school BCBAs"
-        subtitle="Take a free 185-question BCBA mock exam aligned to the 6th Edition Test Content Outline, or start with a free 9-question Quick domain check. Behavior School also offers live training, Learning CEUs, and tools for FBAs, behavior plans, and IEP goals, built by Rob Spain, M.S., BCBA, IBA."
-        primaryCta={{ href: "https://study.behaviorschool.com/free-mock-exam/", label: "Take the free BCBA mock exam" }}
+        title="Systems training for school BCBAs"
+        subtitle="The School BCBA Systems Transformation Program is six live online sessions where you build the FBA, BIP, data, and staff training systems your caseload runs on. Next cohort starts Thursday, January 14, 2027. 5 seats."
+        primaryCta={{ href: "/transformation-program", label: "See the Transformation Program" }}
+        secondaryCta={{ href: "https://study.behaviorschool.com/free-mock-exam/", label: "Or take the free BCBA mock exam" }}
         variant="brand"
       />
 

@@ -39,15 +39,9 @@ export function NavBar() {
             <div className="flex items-center gap-6">
               <Link
                 href="/transformation-program"
-                className="bs-link bs-padded font-[600]"
-              >
-                Transformation Program
-              </Link>
-              <Link
-                href="https://study.behaviorschool.com/free-mock-exam/"
                 className="bs-btn-nav"
               >
-                Free BCBA Mock Exam
+                Transformation Program
               </Link>
             </div>
           </div>

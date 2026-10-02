@@ -14,6 +14,7 @@ type HeroProps = {
   highlight?: string;
   subtitle?: string;
   primaryCta?: { href: string; label: string };
+  secondaryCta?: { href: string; label: string };
   variant?: 'light' | 'dark' | 'brand';
 };
 
@@ -24,6 +25,7 @@ export function Hero({
   highlight,
   subtitle,
   primaryCta = { href: "https://study.behaviorschool.com/free-practice/", label: "Get Started" },
+  secondaryCta = { href: "https://study.behaviorschool.com/free-practice/", label: "Or try 9 questions first, no account" },
   variant = 'light',
 }: HeroProps) {
   const isDark = variant === 'dark' || variant === 'brand';
@@ -104,10 +106,10 @@ export function Hero({
                 {primaryCta.label}
               </Link>
               <Link 
-                href="https://study.behaviorschool.com/free-practice/"
+                href={secondaryCta.href}
                 className={cn("bs-link bs-padded", variant === 'brand' ? 'text-[var(--bs-paper)]' : '')}
               >
-                Or try 9 questions first, no account
+                {secondaryCta.label}
               </Link>
             </div>
           </div>

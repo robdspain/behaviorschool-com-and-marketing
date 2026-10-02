@@ -126,7 +126,7 @@ export default function RootLayout({
           height: 512
         },
         image: `${SITE_URL}/optimized/og-image.webp`,
-        description: "Professional development, BCBA exam prep, and practical tools for school BCBAs and behavior analysts in K-12 schools.",
+        description: "Behavior School runs the School BCBA Systems Transformation Program and provides BCBA exam prep, supervision tools, IEP goal resources, behavior plan tools, and professional development for school BCBAs and behavior analysts.",
         foundingDate: "2020",
         contactPoint: {
           "@type": "ContactPoint",
@@ -175,7 +175,7 @@ export default function RootLayout({
         alternateName: ["Behavior School", "BehaviorSchool.com"],
         url: SITE_URL,
         inLanguage: "en-US",
-        description: "Behavior School provides BCBA exam prep, supervision tools, IEP goal resources, behavior plan tools, and professional development for school BCBAs and behavior analysts.",
+        description: "Behavior School runs the School BCBA Systems Transformation Program and provides BCBA exam prep, supervision tools, IEP goal resources, behavior plan tools, and professional development for school BCBAs and behavior analysts.",
         publisher: {
           "@id": `${SITE_URL}/#organization`
         }
