@@ -26,14 +26,14 @@ export function InviteOnlyProductPreview({
           <Lock className="h-3.5 w-3.5" aria-hidden="true" />
           <Icon className="h-3.5 w-3.5" aria-hidden="true" />
         </div>
-        <span className="inline-flex items-center gap-1 bg-white/10 px-2 py-0.5 text-[14px] font-semibold uppercase tracking-[0.12em] text-white/70">
+        <span className="inline-flex items-center gap-1 bg-white/10 px-2 py-0.5 text-[14px] font-semibold uppercase tracking-[0.12em] text-[#f1e6d3]">
           <Bell className="h-3 w-3" aria-hidden="true" /> Invite only
         </span>
       </div>
       <div className="p-3">
         <p className="text-sm font-semibold text-white">{title}</p>
-        <p className="mt-2 text-[14px] leading-5 text-white/60">{description}</p>
-        <div className="mt-3 rounded-md border border-white/10 bg-white/5 p-2.5 text-[14px] text-white/55">
+        <p className="mt-2 text-[14px] leading-5 text-[#f1e6d3]">{description}</p>
+        <div className="mt-3 rounded-md border border-white/10 bg-white/5 p-2.5 text-[14px] text-[#f1e6d3]">
           Concept preview only. Not available for public signup today.
         </div>
       </div>

@@ -147,7 +147,7 @@ export default function ProductsPage() {
       <section className="bs-on-dark border-b border-[var(--bs-hairline)] bg-[#123628] text-white">
         <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 py-14 sm:px-8 lg:min-h-[610px] lg:grid-cols-[0.82fr_1.18fr] lg:px-10 lg:py-16">
           <div className="max-w-xl">
-            <p className="text-[14px] font-semibold uppercase tracking-[0.24em] text-[#e4b63d]">
+            <p className="text-[14px] font-semibold uppercase tracking-[0.24em] text-[#f1e6d3]">
               One connected offering
             </p>
             <h1 className="mt-5 text-5xl font-semibold leading-[1.02] sm:text-6xl lg:text-7xl">

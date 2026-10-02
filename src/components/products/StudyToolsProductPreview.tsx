@@ -61,7 +61,7 @@ export function StudyToolsProductPreview({
             <p className="text-[14px] font-bold text-[#123628]">Today&apos;s study desk</p>
             <div className="rounded-lg bg-[#123628] p-3 text-white">
               <p className="text-[14px] font-semibold">Review measurement decisions</p>
-              <p className="mt-1 text-[14px] text-white/70">
+              <p className="mt-1 text-[14px] text-[#f1e6d3]">
                 Start the next 5-question block in Domain B.
               </p>
               <span className="mt-3 inline-flex rounded-md bg-[#e4b63d] px-2.5 py-1 text-[14px] font-bold text-[#123628]">
@@ -156,7 +156,7 @@ function ResultsPanel({ compact = false }: { compact?: boolean }) {
   return (
     <div className={`${compact ? "p-3" : "p-4"} bg-[#123628] text-white`}>
       <div className="flex items-center justify-between">
-        <p className="text-[14px] font-semibold uppercase tracking-[0.14em] text-white/60">Results</p>
+        <p className="text-[14px] font-semibold uppercase tracking-[0.14em] text-[#f1e6d3]">Results</p>
         <span className="rounded-full bg-white/10 px-2 py-0.5 text-[14px] font-semibold">BCBA</span>
       </div>
       <div className={`mt-3 grid gap-2 ${compact ? "grid-cols-2" : "grid-cols-4"}`}>
@@ -167,20 +167,20 @@ function ResultsPanel({ compact = false }: { compact?: boolean }) {
           { label: "Mastered", value: "18" },
         ].map((stat) => (
           <div key={stat.label} className="rounded-md border border-white/10 bg-white/5 px-2 py-2">
-            <p className="text-[14px] uppercase tracking-[0.1em] text-white/55">{stat.label}</p>
-            <p className="text-sm font-bold text-[#e4b63d]">{stat.value}</p>
+            <p className="text-[14px] uppercase tracking-[0.1em] text-[#f1e6d3]">{stat.label}</p>
+            <p className="text-sm font-bold text-[#f1e6d3]">{stat.value}</p>
           </div>
         ))}
       </div>
-      <p className="mt-4 text-[14px] font-semibold uppercase tracking-[0.14em] text-white/60">
+      <p className="mt-4 text-[14px] font-semibold uppercase tracking-[0.14em] text-[#f1e6d3]">
         Domain performance
       </p>
       <div className={`mt-2 space-y-2 ${compact ? "max-h-36 overflow-hidden" : ""}`}>
         {domainRows.slice(0, compact ? 5 : domainRows.length).map((row) => (
           <div key={row.label}>
-            <div className="flex justify-between text-[14px] text-white/80">
+            <div className="flex justify-between text-[14px] text-[#f1e6d3]">
               <span className="truncate pr-2">{row.label}</span>
-              <span className="font-semibold text-[#e4b63d]">{row.value}%</span>
+              <span className="font-semibold text-[#f1e6d3]">{row.value}%</span>
             </div>
             <div className="mt-1 h-1.5 rounded-full bg-white/10">
               <div

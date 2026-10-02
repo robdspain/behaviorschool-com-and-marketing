@@ -51,7 +51,7 @@ export function BlogNewsletterSignup() {
 
   if (status === 'success') {
     return (
-      <div id="newsletter" className="scroll-mt-24 bg-[#1E3A34] rounded-lg p-8 my-8">
+      <div id="newsletter" className="bs-on-dark scroll-mt-24 bg-[#1E3A34] rounded-lg p-8 my-8">
         <div className="max-w-2xl mx-auto text-center">
           <h3 className="text-2xl font-bold text-[#FAF3E0] mb-2">
             {alreadySubscribed ? 'You are already subscribed.' : 'One more step'}
@@ -76,7 +76,7 @@ export function BlogNewsletterSignup() {
   }
 
   return (
-    <div id="newsletter" className="scroll-mt-24 bg-[#1E3A34] rounded-lg p-8 my-8">
+    <div id="newsletter" className="bs-on-dark scroll-mt-24 bg-[#1E3A34] rounded-lg p-8 my-8">
       <div className="max-w-2xl mx-auto">
         <h3 className="text-2xl font-bold text-[#FAF3E0] mb-2 text-center">
           The Weekly Research Brief
