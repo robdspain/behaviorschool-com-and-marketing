@@ -41,7 +41,7 @@ test("admin cash rows show canonical enums without inventing a role title", () =
     [
       { label: "Employer", value: "Springfield USD" },
       { label: "Role", value: "School BCBA (school_bcba)" },
-      { label: "Payment path", value: "District PO (district_po)" },
+      { label: "Payment path", value: "District purchase order (district_po)" },
       { label: "Urgency", value: "This quarter (this_quarter)" },
     ],
   );

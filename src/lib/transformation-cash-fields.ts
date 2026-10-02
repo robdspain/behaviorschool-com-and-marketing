@@ -22,7 +22,7 @@ export const ROLE_CATEGORY_LABELS: Record<RoleCategory, string> = {
 
 export const PAYMENT_PATH_LABELS: Record<PaymentPath, string> = {
   self_pay: "Self-pay",
-  district_po: "District PO",
+  district_po: "District purchase order",
   district_card: "District card",
   unknown: "Not sure yet",
 };

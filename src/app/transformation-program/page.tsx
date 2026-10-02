@@ -34,7 +34,7 @@ const weeklyModules = [
   {
     week: 1,
     title: "Assessment Architecture",
-    pain: 'Managing FBA referrals without a clear triage system.',
+    pain: 'Managing functional behavior assessment referrals without a clear triage system.',
     build: "A tiered assessment framework, plus a scalable intake process that filters behavioral concerns by severity level to route each student to the appropriate level of assessment, without burning you out.",
     deliverable: "Your personal assessment decision tree, intake form, and referral routing guide.",
     objectives: ["Design a tiered assessment routing process for a school caseload.", "Apply decision rules to select assessment intensity using referral data.", "Evaluate an assessment intake workflow for feasibility and ethical fit in a school system."],
@@ -44,26 +44,26 @@ const weeklyModules = [
     week: 2,
     title: "Data Collection Systems",
     pain: 'Data systems that do not consistently support decisions across staff and students.',
-    build: "A standardized data collection toolkit built for your specific caseload, in formats RBTs will actually use consistently.",
-    deliverable: "Master data sheet library covering frequency, duration, interval, and ABC recording.",
+    build: "A standardized data collection toolkit built for your specific caseload, in formats Registered Behavior Technicians will actually use consistently.",
+    deliverable: "Master data sheet library covering frequency, duration, interval, and antecedent-behavior-consequence recording.",
     objectives: ["Select data systems that match behavior dimensions and decision needs.", "Design implementation supports that improve staff data fidelity.", "Evaluate a data toolkit for reliability, usability, and decision utility."],
     icon: BarChart3,
   },
   {
     week: 3,
-    title: "FBA to Hypothesis",
+    title: "Functional Behavior Assessment to Hypothesis",
     pain: 'Functional hypotheses that are difficult to defend or test in a school setting.',
-    build: "A hypothesis generation process with function verification steps you can defend in any IEP meeting.",
-    deliverable: "Your own FBA narrative template with built-in quality checks.",
-    objectives: ["Synthesize indirect and direct assessment data into testable hypotheses.", "Apply function-verification decision rules to ambiguous school cases.", "Critique an FBA narrative for evidentiary sufficiency and contextual fit."],
+    build: "A hypothesis generation process with function verification steps you can defend in any Individualized Education Program meeting.",
+    deliverable: "Your own functional behavior assessment narrative template with built-in quality checks.",
+    objectives: ["Synthesize indirect and direct assessment data into testable hypotheses.", "Apply function-verification decision rules to ambiguous school cases.", "Critique a functional behavior assessment narrative for evidentiary sufficiency and contextual fit."],
     icon: Target,
   },
   {
     week: 4,
-    title: "BIP Design by Function",
+    title: "Behavior Intervention Plan Design by Function",
     pain: 'Intervention plans that do not clearly follow from assessment findings.',
     build: "Function-matched intervention menus for attention, escape, tangible, and automatic reinforcement.",
-    deliverable: "BIP template library organized by behavioral function.",
+    deliverable: "Behavior intervention plan template library organized by behavioral function.",
     objectives: ["Design function-matched intervention components from assessment findings.", "Differentiate intervention selections across common behavioral functions.", "Evaluate a behavior intervention plan for functional coherence and implementability."],
     icon: FileCheck,
   },
@@ -71,7 +71,7 @@ const weeklyModules = [
     week: 5,
     title: "Implementation and Staff Training",
     pain: 'A gap between a written plan and consistent staff implementation.',
-    build: "A 1-page implementation guide and fidelity checklist for each BIP, so everyone on your team knows exactly what to do.",
+    build: "A 1-page implementation guide and fidelity checklist for each behavior intervention plan, so everyone on your team knows exactly what to do.",
     deliverable: "Staff communication plans.",
     objectives: ["Design a staff implementation protocol for a function-based behavior plan.", "Apply performance-feedback procedures to improve treatment integrity.", "Evaluate fidelity data to determine whether a plan or implementation support needs revision."],
     icon: Users,
@@ -79,13 +79,13 @@ const weeklyModules = [
   {
     week: 6,
     title: "School-Based Functional Analysis",
-    pain: "Teams write BIPs from ABC notes alone, then the plan fails when staff run it without you.",
-    build: "A classroom FA decision path across research-supported formats, with printable data sheets and a multielement graph workflow so you confirm the EO before the team invests in a plan.",
-    deliverable: "One de-identified school-safe FA (or realistic simulation): data sheet, multielement graph, and a two-sentence interpretation.",
+    pain: "Teams write behavior intervention plans from antecedent-behavior-consequence notes alone, then the plan fails when staff run it without you.",
+    build: "A classroom functional analysis decision path across research-supported formats, with printable data sheets and a multielement graph workflow so you confirm the establishing operation before the team invests in a plan.",
+    deliverable: "One de-identified school-safe functional analysis (or realistic simulation): data sheet, multielement graph, and a two-sentence interpretation.",
     objectives: [
-      "Explain why descriptive ABC assessment alone can misidentify function, and when an experimental analysis is warranted.",
-      "Select a classroom-appropriate FA format based on risk, setting, and schedule.",
-      "Record FA data on a printable data sheet, graph it as a multielement design, and state whether responding is differentiated.",
+      "Explain why descriptive antecedent-behavior-consequence assessment alone can misidentify function, and when an experimental analysis is warranted.",
+      "Select a classroom-appropriate functional analysis format based on risk, setting, and schedule.",
+      "Record functional analysis data on a printable data sheet, graph it as a multielement design, and state whether responding is differentiated.",
     ],
     icon: FlaskConical,
   },
@@ -236,7 +236,7 @@ export default function TransformationProgramPage() {
               { pain: "Unclear functional hypotheses", sub: "Organize indirect and direct assessment data into testable decisions." },
               { pain: "Plans that do not generalize to implementation", sub: "Connect assessment findings to practical, function-matched supports." },
               { pain: "Limited staff implementation support", sub: "Build protocols, training, and fidelity checks around the plan." },
-              { pain: "BIPs built on unverified function", sub: "Confirm the EO with a classroom FA before the team invests in a plan." },
+              { pain: "Behavior intervention plans built on unverified function", sub: "Confirm the establishing operation with a classroom functional analysis before the team invests in a plan." },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -267,7 +267,7 @@ export default function TransformationProgramPage() {
           </p>
           <div className="grid sm:grid-cols-2 gap-5">
             {[
-              "You are a certified BCBA working in a K-12 school or district role",
+              "You are a certified BCBA working in a kindergarten through 12th grade school or district role",
               "You have a current caseload or systems problem you want to rebuild",
               "You can attend live Thursday sessions from 6 to 8 PM Pacific Time",
               "You will bring real work to apply between sessions, including share-outs in later sessions",
@@ -282,7 +282,7 @@ export default function TransformationProgramPage() {
           </div>
           <div className="mt-8 rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] p-5 space-y-3">
             <p className="text-[#171f1d] text-base text-center leading-relaxed">
-              Who it is not for: RBTs, BCaBAs who are not yet certified, general-ed staff, and clinic-only BCBAs without a school role.
+              Who it is not for: Registered Behavior Technicians, Board Certified Assistant Behavior Analysts who are not yet certified, general education staff, and clinic-only BCBAs without a school role.
             </p>
             <p className="text-[#171f1d] text-base text-center leading-relaxed">
               {COHORT_SEAT_CAP} seats in this cohort. Apply by {APPLICATIONS_CLOSE_LABEL}. Applications may close earlier if all {COHORT_SEAT_CAP} seats fill. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
@@ -350,13 +350,13 @@ export default function TransformationProgramPage() {
 
       <section className="py-20 sm:py-28 bg-[#f4efe5]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Learning CE Information</p>
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Learning Continuing Education Information</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#171f1d] mb-8">What Each Live Session Includes</h2>
           <div className="space-y-4 text-[#171f1d] text-base leading-relaxed">
-            <p>Each live online session is scheduled for {COHORT_SESSION_TIME} and includes 75 documented instructional minutes. It is structured for 1.5 Learning CEUs after verified attendance and active participation.</p>
-            <p><strong>Instructor:</strong> Rob Spain, BCBA, IBA. <strong>Affiliation disclosure:</strong> No relevant financial affiliation or conflict of interest to disclose.</p>
-            <p><strong>Provider listing:</strong> Behavior School, Provider OP-26-12729. The BACB does not endorse or approve individual events. Learning CE documentation is issued only after provider authorization is independently confirmed in the BACB registry.</p>
-            <p><strong>Online event description published:</strong> {ONLINE_EVENT_DESCRIPTION_PUBLISHED}. Feedback is offered after each session, and CE documentation is issued no later than 45 days after verified completion.</p>
+            <p>Each live online session is scheduled for {COHORT_SESSION_TIME} and includes 75 documented instructional minutes. It is structured for 1.5 Learning continuing education units after verified attendance and active participation.</p>
+            <p><strong>Instructor:</strong> Rob Spain, BCBA, International Behavior Analyst. <strong>Affiliation disclosure:</strong> No relevant financial affiliation or conflict of interest to disclose.</p>
+            <p><strong>Provider listing:</strong> Behavior School, Provider OP-26-12729. The Behavior Analyst Certification Board does not endorse or approve individual events. Learning continuing education documentation is issued only after provider authorization is independently confirmed in the Behavior Analyst Certification Board registry.</p>
+            <p><strong>Online event description published:</strong> {ONLINE_EVENT_DESCRIPTION_PUBLISHED}. Feedback is offered after each session, and continuing education documentation is issued no later than 45 days after verified completion.</p>
           </div>
         </div>
       </section>
@@ -374,10 +374,10 @@ export default function TransformationProgramPage() {
             {[
               "A tiered assessment framework for every student on your caseload",
               "Full referral system",
-              "FBA templates with built-in quality checks you can stand behind in any IEP meeting",
-              "Function-matched BIP templates organized by behavioral function",
+              "Functional behavior assessment templates with built-in quality checks you can stand behind in any Individualized Education Program meeting",
+              "Function-matched behavior intervention plan templates organized by behavioral function",
               "Staff communication plans",
-              "A classroom FA workflow across research-supported formats: printable data sheet and multielement graph",
+              "A classroom functional analysis workflow across research-supported formats: printable data sheet and multielement graph",
             ].map((outcome, i) => (
               <motion.div
                 key={i}
@@ -411,12 +411,12 @@ export default function TransformationProgramPage() {
       <section className="py-20 sm:py-28 bg-[#f4efe5]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Your Instructor</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#171f1d] mb-8">Rob Spain, BCBA, IBA</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#171f1d] mb-8">Rob Spain, BCBA, International Behavior Analyst</h2>
           <div className="text-left space-y-4 text-[#365548] text-base leading-relaxed">
-            <p>Rob Spain is a BCBA and IBA with {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}. Learning CE documentation will not be issued until the instructor qualification and expertise record has been verified for the event.</p>
+            <p>Rob Spain is a BCBA and International Behavior Analyst with {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}. Learning continuing education documentation will not be issued until the instructor qualification and expertise record has been verified for the event.</p>
           </div>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            {['BCBA', 'IBA', 'School Practice'].map((item) => (
+            {['BCBA', 'International Behavior Analyst', 'School Practice'].map((item) => (
               <span key={item} className="inline-flex min-h-11 items-center px-4 rounded-lg bg-[#fbfaf6] border border-[#d9cdb8] text-[#1f4d3f] text-sm font-semibold">{item}</span>
             ))}
           </div>
@@ -432,14 +432,14 @@ export default function TransformationProgramPage() {
             { question: "When does the next cohort start?", answer: `The ${COHORT_LABEL} meets live online on six Thursdays from ${COHORT_SESSION_TIME}: ${cohortDatePhrase()}. There is no session on Feb 4. Apply by ${APPLICATIONS_CLOSE_LABEL}.` },
             { question: "How many seats are available?", answer: `There are ${COHORT_SEAT_CAP} seats in this cohort. Apply by ${APPLICATIONS_CLOSE_LABEL}. Applications may close earlier if all ${COHORT_SEAT_CAP} seats fill.` },
             { question: "What is the order of operations to enroll?", answer: "Apply first using the application form on this page. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit. Fit Call booking is for applicants already in review." },
-            { question: "Who is this program for?", answer: "Practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings from 6 to 8 PM Pacific Time. It is not for RBTs, BCaBAs who are not yet certified, general-ed staff, or clinic-only BCBAs without a school role." },
+            { question: "Who is this program for?", answer: "Practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings from 6 to 8 PM Pacific Time. It is not for Registered Behavior Technicians, Board Certified Assistant Behavior Analysts who are not yet certified, general education staff, or clinic-only BCBAs without a school role." },
             { question: "What participation is expected between sessions?", answer: "Bring real work from your school setting to apply between sessions. Later sessions include share-outs on the systems you are rebuilding." },
             { question: "What if I miss a live session?", answer: "Use the Learning dashboard for the posted session materials and participation requirements. Contact support if you cannot attend so the available completion options can be reviewed." },
             { question: "What is the refund window?", answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law." },
             { question: "Can my district pay for this?", answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork." },
             { question: "Is a W-9 available?", answer: "Yes, available on request. Contact us and we'll send it same day." },
             { question: "Do you offer bulk enrollment for districts?", answer: "Yes. Contact us via the fit call link after applying, or through the contact form, to discuss district group pricing." },
-            { question: "How are Learning CEUs documented?", answer: "Each session is structured for 1.5 Learning CEUs after verified attendance and active participation. Provider registry status is confirmed before documentation is issued, and documentation is issued within 45 days of verified completion." },
+            { question: "How are continuing education units documented?", answer: "Each session is structured for 1.5 Learning continuing education units after verified attendance and active participation. Provider registry status is confirmed before documentation is issued, and documentation is issued within 45 days of verified completion." },
           ]} />
         </div>
       </section>
@@ -477,7 +477,7 @@ export default function TransformationProgramPage() {
           </p>
 
           <p className="text-[#365548] text-base mb-4">
-            District PO or invoice needed?{' '}
+            District purchase order or invoice needed?{' '}
             <a href={DISTRICT_EMAIL_LINK} className={textLinkClass}>
               Contact us
             </a>
@@ -510,11 +510,11 @@ export default function TransformationProgramPage() {
                 <a href={DISTRICT_EMAIL_LINK} className={textLinkClass}>
                   Contact us
                 </a>{' '}
-                and we will send the paperwork. Seats are held once a signed PO or written district payment approval is received.
+                and we will send the paperwork. Seats are held once a signed purchase order or written district payment approval is received.
               </p>
               <div className="rounded-lg border border-[#d9cdb8] bg-[#f4efe5] p-4">
                 <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-[#365548]">Copy and forward to your supervisor</p>
-                <div className="select-all whitespace-pre-line rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] p-4 font-mono text-sm leading-relaxed text-[#171f1d]">{`Subject: PD Approval Request, ${PROGRAM_NAME}
+                <div className="select-all whitespace-pre-line rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] p-4 font-mono text-sm leading-relaxed text-[#171f1d]">{`Subject: Professional Development Approval Request, ${PROGRAM_NAME}
 
 I'd like to attend the ${PROGRAM_NAME}, led by Rob Spain, BCBA.
 

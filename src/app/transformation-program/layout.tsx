@@ -6,11 +6,11 @@ const scheduleSentence = `${TRANSFORMATION_PROGRAM.cohort.scheduleLabel.charAt(0
 
 export const metadata: Metadata = {
   title: `${programName} | Behavior School`,
-  description: `${scheduleSentence} for certified school BCBAs in K-12 school or district settings. Build assessment judgment, school-adapted functional analysis, ACT-informed tools, and systems leadership.`,
+  description: `${scheduleSentence} for certified school BCBAs in kindergarten through 12th grade school or district settings. Build assessment judgment, school-adapted functional analysis, acceptance and commitment training-informed tools, and systems leadership.`,
   alternates: { canonical: '/transformation-program' },
   openGraph: {
     title: programName,
-    description: `${scheduleSentence} for certified school BCBAs in K-12 settings. Build assessment judgment, functional analysis, intervention alignment, and implementation systems.`,
+    description: `${scheduleSentence} for certified school BCBAs in kindergarten through 12th grade settings. Build assessment judgment, functional analysis, intervention alignment, and implementation systems.`,
     url: '/transformation-program',
     type: 'website',
     siteName: 'Behavior School',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: programName,
-    description: `${scheduleSentence} for certified school BCBAs in K-12 school or district settings.`,
+    description: `${scheduleSentence} for certified school BCBAs in kindergarten through 12th grade school or district settings.`,
     images: ['/optimized/Course/course-hero.webp'],
   },
 };
@@ -30,17 +30,17 @@ export default function TransformationProgramLayout({ children }: { children: Re
     '@context': 'https://schema.org',
     '@type': 'Course',
     name: programName,
-    description: `${scheduleSentence} for certified school BCBAs covering assessment decisions, school-adapted functional analysis, ACT-informed assessment, intervention alignment, and team implementation in K-12 settings.`,
+    description: `${scheduleSentence} for certified school BCBAs covering assessment decisions, school-adapted functional analysis, acceptance and commitment training-informed assessment, intervention alignment, and team implementation in kindergarten through 12th grade settings.`,
     provider: { '@type': 'EducationalOrganization', name: 'Behavior School', url: siteUrl },
-    instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, IBA' },
+    instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, International Behavior Analyst' },
     courseMode: 'online',
     timeRequired: 'P7W',
     coursePrerequisites: 'BCBA certification',
-    audience: { '@type': 'EducationalAudience', audienceType: 'Certified BCBAs working in K-12 schools or districts' },
+    audience: { '@type': 'EducationalAudience', audienceType: 'Certified BCBAs working in kindergarten through 12th grade schools or districts' },
     teaches: [
       'School assessment decisions',
       'School-adapted functional analysis',
-      'ACT-informed functional assessment',
+      'Acceptance and commitment training-informed functional assessment',
       'Evidence-to-intervention alignment',
       'Staff training and implementation systems',
     ],
@@ -49,7 +49,7 @@ export default function TransformationProgramLayout({ children }: { children: Re
       courseMode: 'online',
       startDate: TRANSFORMATION_PROGRAM.cohort.startDate,
       endDate: TRANSFORMATION_PROGRAM.cohort.endDate,
-      instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, IBA' },
+      instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, International Behavior Analyst' },
       offers: { '@type': 'Offer', price: String(TRANSFORMATION_PROGRAM.pricing.payInFullCents / 100), priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
     },
   };

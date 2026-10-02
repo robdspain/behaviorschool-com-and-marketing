@@ -256,7 +256,7 @@ function ApplicationForm() {
               name="systemToRebuild"
               required
               rows={3}
-              placeholder="Example: referral triage, FBA narrative quality, staff fidelity checks, caseload review cadence"
+              placeholder="Example: referral triage, functional behavior assessment narrative quality, staff fidelity checks, caseload review cadence"
               className={`${fieldClass} resize-y`}
             />
           </div>
