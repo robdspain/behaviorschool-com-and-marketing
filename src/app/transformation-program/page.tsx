@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { m as motion, LazyMotion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowRight, Users, Target, CheckCircle, ChevronDown, FileCheck, FlaskConical, ClipboardList, BarChart3, AlertCircle } from 'lucide-react';
 import { W9RequestForm } from '@/components/transformation/W9RequestForm';
@@ -9,6 +9,8 @@ import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from '@/lib/founder-tenure';
 import { cohortCompactDateLine, keepMonthAndDayTogether, TRANSFORMATION_PAYMENT_PLAN_SENTENCE, TRANSFORMATION_PROGRAM, TRANSFORMATION_SESSION_TITLES, TRANSFORMATION_W9_FAQ_ANSWER, transformationProgramFaqItems, W9_REQUEST_ANCHOR } from '@/lib/transformation-program';
+
+const loadMotionFeatures = () => import('@/components/header/motion-features').then((mod) => mod.default);
 
 const OFFER_PRICE = TRANSFORMATION_PROGRAM.pricing.payInFull;
 const PAYMENT_PLAN_SENTENCE = TRANSFORMATION_PAYMENT_PLAN_SENTENCE;
@@ -149,32 +151,28 @@ export default function TransformationProgramPage() {
   const founderEducationYears = getFounderEducationYears();
   const [districtOpen, setDistrictOpen] = useState(false);
   return (
+    <LazyMotion features={loadMotionFeatures}>
     <div className="transformation-program min-h-screen bg-[#fbfaf6] relative pt-0">
 
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-[#f4efe5]">
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-12 sm:pb-16">
           <div className="flex flex-col">
-            <motion.div
-              className="order-1 mb-4 hidden flex-wrap items-center gap-2 lg:flex"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-            >
+            <div className="order-1 mb-4 hidden flex-wrap items-center gap-2 lg:flex">
               {['Live online', '6 sessions', 'School BCBAs', keepMonthAndDayTogether(COHORT_START_BADGE)].map((item) => (
                 <span key={item} className="rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] px-3 py-1.5 text-sm font-semibold uppercase tracking-wide text-[#1f4d3f]">
                   {item}
                 </span>
               ))}
-            </motion.div>
+            </div>
             <h1 className="order-1 mb-4 text-[32px] font-semibold leading-[1.15] text-[#171f1d] sm:text-5xl">
               <span className="block">School BCBA Systems</span>
               <span className="block">Transformation</span>
               <span className="block">Program</span>
             </h1>
-            <motion.div className="order-2 mt-2 lg:order-4" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, delay: 0.05 }}>
+            <div className="order-2 mt-2 lg:order-4">
               <CohortCard />
-            </motion.div>
+            </div>
             <p className="order-3 mt-6 text-lg font-semibold leading-snug text-[#171f1d] lg:order-2 lg:mt-0">
               You became a BCBA to help kids. Not to drown in paperwork.
             </p>
@@ -188,6 +186,7 @@ export default function TransformationProgramPage() {
               alt="Four educators reviewing a tablet and a laptop together at a table, with a chalkboard graph and the Behavior School wordmark"
               width={1200}
               height={480}
+              sizes="(max-width: 768px) 100vw, 662px"
               className="h-48 w-full object-cover sm:h-64"
             />
           </div>
@@ -492,5 +491,6 @@ Details: behaviorschool.com/transformation-program`}</div>
       <ProgramApplication />
 
     </div>
+    </LazyMotion>
   );
 }
