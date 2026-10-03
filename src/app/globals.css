@@ -1,4 +1,22 @@
 @import "tailwindcss";
+/* Scan the Next.js app only. Sibling trees are not part of this stylesheet. */
+@source not "../../Docs";
+@source not "../../RELEASE_NOTES";
+@source not "../../act-goal-assistant";
+@source not "../../audit-reports";
+@source not "../../behaviorschool-frontend";
+@source not "../../convex";
+@source not "../../listmonk";
+@source not "../../netlify";
+@source not "../../private";
+@source not "../../public";
+@source not "../../scripts";
+@source not "../../skills";
+@source not "../../sql";
+@source not "../../supabase";
+@source not "../../test-results";
+@source not "../../tests";
+@source not "../../week1-emergency-fixes";
 @custom-variant dark (&:is(.dark *));
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-animate";
