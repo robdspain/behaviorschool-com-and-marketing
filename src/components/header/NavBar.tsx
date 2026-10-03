@@ -44,6 +44,7 @@ export function NavBar() {
             <div className="flex items-center gap-3">
               <Link
                 href="/transformation-program"
+                aria-label={`${TRANSFORMATION_PROGRAM.name}, ${TRANSFORMATION_PROGRAM.cohort.label}`}
                 className="inline-flex min-h-11 items-center justify-center rounded-lg px-3 text-sm font-semibold text-[#1f4d3f] underline underline-offset-4"
               >
                 {TRANSFORMATION_PROGRAM.cohort.label}

@@ -70,6 +70,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
           <Link
             href="/transformation-program"
             onClick={onClose}
+            aria-label={`${TRANSFORMATION_PROGRAM.name}, ${TRANSFORMATION_PROGRAM.cohort.label}`}
             className="flex min-h-11 items-center rounded-lg px-3 text-base font-semibold text-[#1f4d3f] underline underline-offset-4"
           >
             {TRANSFORMATION_PROGRAM.cohort.label}

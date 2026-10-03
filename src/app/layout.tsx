@@ -70,6 +70,7 @@ export const metadata: Metadata = {
     title: "BehaviorSchool | Tools & Resources for School BCBAs",
     description: "Free AI-powered tools for school BCBAs — FBA generator, BIP builder, IEP goal writer, and more. Built by a BCBA for the reality of school practice.",
     url: "https://behaviorschool.com",
+    type: "website",
     siteName: "Behavior School",
     locale: "en_US",
     images: [
@@ -271,8 +272,6 @@ export default function RootLayout({
         <meta name="distribution" content="global" />
         <meta name="language" content="en" />
         <meta name="content-language" content="en-US" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
 
         {/* E-A-T Enhancement Meta Tags */}
         <meta name="expertise" content="Applied Behavior Analysis, School-Based Behavior Support, BCBA Certification" />

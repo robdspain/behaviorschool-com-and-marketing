@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
@@ -66,6 +67,13 @@ export default function Page() {
             <span className="text-emerald-800"> function</span>.
           </p>
         </div>
+        <p className="mt-5 text-sm leading-relaxed text-slate-700">
+          School BCBAs who want live practice on these steps can look at{" "}
+          <Link href="/transformation-program" className="font-semibold text-emerald-800 underline underline-offset-4">
+            school BCBA training on FBA and BIP systems
+          </Link>
+          .
+        </p>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border border-slate-200 p-5">
             <h3 className="font-semibold text-slate-950">Example hypothesis</h3>
