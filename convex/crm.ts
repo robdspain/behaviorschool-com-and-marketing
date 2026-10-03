@@ -313,7 +313,7 @@ export const recordTransformationApplication = mutation({
     const emailLower = normalizeEmail(args.email);
     const existing = await getContactByEmailLower(ctx, emailLower);
     const employer = args.employer.trim();
-    const applicationNotes = `Transformation Program application\nBCBA certification number: ${args.bcbaCertNumber || "Not provided"}\n\nApplicant context:\n${args.currentChallenges}`;
+    const applicationNotes = `School BCBA Systems Transformation Program application\nBCBA certification number: ${args.bcbaCertNumber || "Not provided"}\n\nApplicant context:\n${args.currentChallenges}`;
     const applicationTags = ["transformation-program", "transformation-application", "school-bcba-program", "pipe_a_apply"];
     const cashFields = {
       organization: employer,
@@ -373,7 +373,7 @@ export const recordTransformationApplication = mutation({
     await insertActivity(ctx, {
       contactId,
       activityType: "transformation_application",
-      subject: "Transformation Program application received",
+      subject: "School BCBA Systems Transformation Program application received",
       body: args.currentChallenges,
       metadata: {
         marketingConsent: args.marketingConsent,
@@ -891,7 +891,7 @@ export const recordTransformationPurchase = internalMutation({
       contactId,
       dealId,
       activityType: "purchase",
-      subject: `Transformation Program purchase recorded - ${args.amountDisplay}`,
+      subject: `School BCBA Systems Transformation Program purchase recorded - ${args.amountDisplay}`,
       body: note,
       metadata: {
         stripeEventId: args.stripeEventId,
@@ -964,7 +964,7 @@ export const recordTransformationSubscriptionPayment = internalMutation({
     await insertActivity(ctx, {
       contactId: contact._id,
       activityType: "subscription_payment",
-      subject: `Transformation Program installment paid - $${amount.toFixed(2)}`,
+      subject: `School BCBA Systems Transformation Program installment paid - $${amount.toFixed(2)}`,
       body: `Stripe invoice ${args.stripeInvoiceId} was paid for subscription ${args.stripeSubscriptionId}.`,
       metadata: {
         stripeEventId: args.stripeEventId,
@@ -1022,7 +1022,7 @@ export const recordTransformationPaymentFailure = internalMutation({
     await insertActivity(ctx, {
       contactId: contact._id,
       activityType: "subscription_payment_failed",
-      subject: "Transformation Program installment payment failed",
+      subject: "School BCBA Systems Transformation Program installment payment failed",
       body: `Stripe invoice ${args.stripeInvoiceId} could not be collected for subscription ${args.stripeSubscriptionId}.`,
       metadata: {
         stripeEventId: args.stripeEventId,

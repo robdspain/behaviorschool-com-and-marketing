@@ -1,5 +1,6 @@
 import { api, getConvexClient } from "@/lib/convex";
 import { RESEND_FROM_ROB, RESEND_REPLY_TO_ROB } from "@/lib/resend";
+import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 export const TRANSFORMATION_CALENDLY_URL =
   "https://calendly.com/robspain/behavior-school-transformation-system-phone-call";
@@ -73,7 +74,7 @@ function wrapEmail(opts: { title: string; bodyText: string; buttonHref?: string;
               ${textToHtml(opts.bodyText)}
               ${button}
               <p style="margin:28px 0 0;font-size:16px;line-height:1.6;color:#334155;">Rob Spain, BCBA, IBA<br>Behavior School</p>
-              <p style="margin:24px 0 0;font-size:12px;line-height:1.5;color:#94a3b8;">You are receiving this because you requested information about the School BCBA Transformation Program. Reply to this email if you want me to stop following up.</p>
+              <p style="margin:24px 0 0;font-size:12px;line-height:1.5;color:#94a3b8;">You are receiving this because you requested information about the School BCBA Systems Transformation Program. Reply to this email if you want me to stop following up.</p>
             </td>
           </tr>
         </table>
@@ -120,7 +121,7 @@ One thing I have learned in school systems: the BCBA often becomes the person wh
 
 The referral comes in with thin data. The FBA clock is already running. The plan has to make sense to staff who were not part of the assessment. Then the BCBA is expected to keep the whole thing moving.
 
-That is the work we address in the Transformation Program. We build a repeatable process from referral to assessment, from hypothesis to BIP, and from the written plan to what staff actually do.
+That is the work we address in the School BCBA Systems Transformation Program. We build a repeatable process from referral to assessment, from hypothesis to BIP, and from the written plan to what staff actually do.
 
 If this is the part of your job that keeps spilling into nights and weekends, book a call and tell me what is happening in your setting.`;
       return {
@@ -137,7 +138,7 @@ If this is the part of your job that keeps spilling into nights and weekends, bo
     case 2: {
       const bodyText = `Hi ${name},
 
-Here is what we actually work on during the six weeks:
+Here is what we actually work on across ${TRANSFORMATION_PROGRAM.cohort.scheduleLabel}:
 
 - A cleaner intake and triage process, so every referral does not start from zero.
 
@@ -149,12 +150,12 @@ Here is what we actually work on during the six weeks:
 
 - Practical routines for staff training, fidelity checks, progress review, and caseload management.
 
-This is working time, not six weeks of slides. If you want to compare it with your current caseload, book a call and we can talk it through.`;
+This is working time, not a run of slides. If you want to compare it with your current caseload, book a call and we can talk it through.`;
       return {
         subject: email.subject,
         text: `${bodyText}\n\n${TRANSFORMATION_CALENDLY_URL}`,
         html: wrapEmail({
-          title: "What we actually work on for six weeks",
+          title: "What we actually work on in six live Thursday sessions",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Book a fit call",
@@ -171,7 +172,7 @@ The packet includes the program description, curriculum, learning objectives, bi
 Packet:
 ${TRANSFORMATION_PACKET_URL}
 
-Here is a straightforward approval request you can use: "I would like to attend this six-week professional development cohort because it directly addresses FBA quality, BIP implementation, staff training, and caseload systems in schools."
+Here is a straightforward approval request you can use: "I would like to attend this cohort of ${TRANSFORMATION_PROGRAM.cohort.scheduleLabel} because it directly addresses FBA quality, BIP implementation, staff training, and caseload systems in schools."
 
 If your director or business office needs different wording, reply with what they asked for. I will help you write it.`;
       return {
@@ -188,7 +189,7 @@ If your director or business office needs different wording, reply with what the
     default: {
       const bodyText = `Hi ${name},
 
-I do not want to keep filling your inbox, so this is my last note about the October cohort.
+I do not want to keep filling your inbox, so this is my last note about the January cohort.
 
 If the program might help, book a short call. I want to hear about your setting before I tell you to enroll.
 
@@ -202,7 +203,7 @@ If now is not the right time, you do not need to do anything. I will stop follow
         subject: email.subject,
         text: bodyText,
         html: wrapEmail({
-          title: "Should we talk about the October cohort?",
+          title: "Should we talk about the January cohort?",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Book a fit call",

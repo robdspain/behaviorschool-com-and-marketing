@@ -153,7 +153,7 @@ export default function SchoolBCBAContent() {
               Read the school BCBA systems articles behind these tools.
             </h2>
             <p className="mt-3 max-w-3xl text-slate-700 leading-relaxed">
-              BehaviorSchool gives you the tools. Robspain.com is where Rob writes about school BCBA role clarity, PBIS implementation, FBA/BIP triage, and the systems leadership model behind the Transformation Program.
+              BehaviorSchool gives you the tools. Robspain.com is where Rob writes about school BCBA role clarity, PBIS implementation, FBA/BIP triage, and the systems leadership model behind the School BCBA Systems Transformation Program.
             </p>
             <div className="mt-6 grid gap-3 md:grid-cols-2">
               <a className="rounded-xl border border-emerald-200 bg-white p-4 font-semibold text-emerald-800 hover:border-emerald-400 hover:text-emerald-950" href="https://robspain.com/bcba-in-schools/">
@@ -166,7 +166,7 @@ export default function SchoolBCBAContent() {
                 Why FBA/BIP requests need a system
               </a>
               <a className="rounded-xl border border-emerald-200 bg-white p-4 font-semibold text-emerald-800 hover:border-emerald-400 hover:text-emerald-950" href="https://robspain.com/transformation-program/">
-                School BCBA Transformation Program
+                School BCBA Systems Transformation Program
               </a>
             </div>
           </div>
@@ -212,7 +212,7 @@ export default function SchoolBCBAContent() {
                 Ready to Transform Your School BCBA Practice?
               </h2>
               <p className="text-xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-                Join our 6-week transformation program designed specifically to help school BCBAs lead with confidence.
+                Join the School BCBA Systems Transformation Program: six live Thursday sessions over seven weeks (no session February 4), designed for school BCBAs.
               </p>
               <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white text-lg px-10 py-7 font-bold rounded-2xl shadow-xl shadow-red-900/20 transition-all transform hover:scale-105">
                 <Link href="/transformation-program">

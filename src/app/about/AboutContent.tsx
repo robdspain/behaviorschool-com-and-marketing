@@ -314,7 +314,7 @@ export default function AboutContent() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Transformation Program */}
+            {/* School BCBA Systems Transformation Program */}
             <motion.div 
               className="bg-white rounded-2xl p-8 shadow-xl border-t-4 border-red-500"
               whileHover={{ y: -5 }}
@@ -323,9 +323,9 @@ export default function AboutContent() {
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-red-50 text-red-700 text-xs font-bold rounded-full mb-4 uppercase tracking-wider">
                 Founder&apos;s Pick
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">Transformation Program</h3>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">School BCBA Systems Transformation Program</h3>
               <p className="text-slate-600 mb-8 leading-relaxed">
-                The complete 6-week operating system for school BCBAs. Stop firefighting and start leading with systems that work.
+                Six live Thursday sessions over seven weeks (no session February 4) for school BCBAs. Stop firefighting and start leading with systems that work.
               </p>
               <Link
                 href="/transformation-program"

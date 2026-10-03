@@ -42,21 +42,21 @@ function WaitlistForm() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-slate-50 p-7 shadow-sm md:p-12">
+    <div className="mx-auto max-w-2xl rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] p-7 shadow-sm md:p-12">
       <div className="text-center mb-8">
-        <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3">
+        <h2 className="text-2xl md:text-3xl font-black text-[#171f1d] mb-3">
           Join the waitlist for the next cohort
         </h2>
-        <p className="text-slate-600 text-base">
+        <p className="text-[#365548] text-base">
           The current cohort is full or closed. Leave your email and we will notify you when the next cohort opens.
         </p>
       </div>
 
       {status === 'success' ? (
         <div className="flex flex-col items-center gap-4 py-8 text-center">
-          <CheckCircle className="w-12 h-12 text-emerald-500" />
-          <p className="text-slate-800 font-semibold text-lg">You&rsquo;re on the waitlist</p>
-          <p className="text-slate-500 text-sm">We&rsquo;ll notify you when the next cohort opens.</p>
+          <CheckCircle className="w-12 h-12 text-[#1f4d3f]" />
+          <p className="text-[#171f1d] font-semibold text-lg">You are on the waitlist</p>
+          <p className="text-[#365548] text-base">We will notify you when the next cohort opens.</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
@@ -65,12 +65,12 @@ function WaitlistForm() {
             name="email"
             required
             autoComplete="email"
-            className="min-h-11 flex-1 rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f4d3f] focus:border-transparent"
+            className="min-h-12 flex-1 rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] px-4 py-3 text-[#171f1d] text-base focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f]"
           />
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="min-h-11 rounded-xl bg-[#1f4d3f] px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#123628] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1f4d3f] disabled:opacity-60 whitespace-nowrap"
+            className="min-h-12 rounded-lg bg-[#e4b63d] px-6 py-3 text-base font-bold text-[#171f1d] transition-colors hover:bg-[#d9a92f] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f] disabled:opacity-60 whitespace-nowrap"
           >
             {status === 'loading' ? 'Submitting…' : 'Notify Me'}
           </button>
@@ -132,66 +132,66 @@ function ApplicationForm() {
   }
 
   const fieldClass =
-    'min-h-11 w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f4d3f] focus:border-transparent';
+    'min-h-12 w-full rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] px-4 py-3 text-base text-[#171f1d] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f]';
 
   return (
-    <div className="mx-auto max-w-2xl rounded-2xl border border-slate-200 bg-slate-50 p-7 shadow-sm md:p-12">
+    <div className="mx-auto max-w-2xl rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] p-7 shadow-sm md:p-12">
       <div className="text-center mb-8">
-        <h2 className="text-2xl md:text-3xl font-black text-slate-900 mb-3">
-          Apply for a seat
+        <h2 className="text-2xl md:text-3xl font-black text-[#171f1d] mb-3">
+          Apply for the {TRANSFORMATION_PROGRAM.name}
         </h2>
-        <p className="text-slate-600 text-base">
-          {TRANSFORMATION_PROGRAM.cohort.label} · {TRANSFORMATION_PROGRAM.cohort.seatCap} seats · Applications close when seats fill or by {TRANSFORMATION_PROGRAM.cohort.applicationsCloseLabel}, whichever comes first.
+        <p className="text-[#365548] text-base">
+          {TRANSFORMATION_PROGRAM.cohort.label}. {TRANSFORMATION_PROGRAM.cohort.seatCap} seats in this cohort. Apply by {TRANSFORMATION_PROGRAM.cohort.applicationsCloseLabel}. Applications may close earlier if all {TRANSFORMATION_PROGRAM.cohort.seatCap} seats fill.
         </p>
-        <p className="text-slate-500 text-sm mt-3">
+        <p className="text-[#365548] text-base mt-3">
           Apply first. After review, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit.
         </p>
       </div>
 
       {status === 'success' ? (
         <div className="flex flex-col items-center gap-4 py-8 text-center">
-          <CheckCircle className="w-12 h-12 text-emerald-500" />
-          <p className="text-slate-800 font-semibold text-lg">Application received</p>
-          <p className="text-slate-500 text-sm max-w-md">
-            We&rsquo;ll review your application and respond within two business days. If you are already in review and ready to schedule, book your fit call below.
+          <CheckCircle className="w-12 h-12 text-[#1f4d3f]" />
+          <p className="text-[#171f1d] font-semibold text-lg">Application received</p>
+          <p className="text-[#365548] text-base max-w-md">
+            We will review your application and respond within two business days. If you are already in review and ready to schedule, book your fit call below.
           </p>
           <a
             href={TRANSFORMATION_PROGRAM.calendlyUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center justify-center rounded-xl border border-[#1f4d3f]/40 bg-white px-6 py-3 text-sm font-bold text-[#1f4d3f] transition-colors hover:bg-[#1f4d3f]/5"
+            className="inline-flex min-h-11 items-center text-base font-semibold text-[#1f4d3f] underline underline-offset-4"
           >
-            Book a Fit Call
+            Already applied? Book a fit call
           </a>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="fullName" className="block text-sm font-semibold text-slate-700 mb-1">Full Name</label>
+            <label htmlFor="fullName" className="block text-base font-semibold text-[#171f1d] mb-1">Full Name</label>
             <input id="fullName" name="fullName" type="text" required autoComplete="name" className={fieldClass} />
           </div>
-          <label className="flex items-start gap-3 rounded-xl border border-slate-200 bg-white p-4 text-sm leading-6 text-slate-600">
+          <label className="flex min-h-11 items-start gap-3 rounded-lg border border-[#d9cdb8] bg-[#f4efe5] p-4 text-base leading-6 text-[#365548]">
             <input
               name="marketingConsent"
               type="checkbox"
-              className="mt-1 h-4 w-4 rounded border-slate-300 text-[#1f4d3f] focus:ring-[#1f4d3f]"
+              className="mt-1 size-6 rounded border-[#d9cdb8] text-[#1f4d3f] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f]"
             />
             <span>
               Send me occasional program updates and school BCBA resources. I can unsubscribe at any time.
             </span>
           </label>
           <div>
-            <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-1">Email Address</label>
+            <label htmlFor="email" className="block text-base font-semibold text-[#171f1d] mb-1">Email Address</label>
             <input id="email" name="email" type="email" required autoComplete="email" className={fieldClass} />
           </div>
           <div>
-            <label htmlFor="employer" className="block text-sm font-semibold text-slate-700 mb-1">
+            <label htmlFor="employer" className="block text-base font-semibold text-[#171f1d] mb-1">
               {CASH_FIELD_PROMPTS.employer}
             </label>
             <input id="employer" name="employer" type="text" required autoComplete="organization" className={fieldClass} />
           </div>
           <div>
-            <label htmlFor="roleCategory" className="block text-sm font-semibold text-slate-700 mb-1">
+            <label htmlFor="roleCategory" className="block text-base font-semibold text-[#171f1d] mb-1">
               {CASH_FIELD_PROMPTS.role}
             </label>
             <select id="roleCategory" name="roleCategory" required className={fieldClass}>
@@ -202,31 +202,31 @@ function ApplicationForm() {
             </select>
           </div>
           <div>
-            <label htmlFor="currentRole" className="block text-sm font-semibold text-slate-700 mb-1">
-              Current Role / Title <span className="text-slate-400 font-normal">(optional)</span>
+            <label htmlFor="currentRole" className="block text-base font-semibold text-[#171f1d] mb-1">
+              Current Role / Title <span className="text-[#365548] font-normal">(optional)</span>
             </label>
             <input id="currentRole" name="currentRole" type="text" autoComplete="organization-title" className={fieldClass} />
           </div>
           <div>
-            <label htmlFor="bcbaCertNumber" className="block text-sm font-semibold text-slate-700 mb-1">
-              BCBA Certification # <span className="text-slate-400 font-normal">(optional)</span>
+            <label htmlFor="bcbaCertNumber" className="block text-base font-semibold text-[#171f1d] mb-1">
+              BCBA Certification # <span className="text-[#365548] font-normal">(optional)</span>
             </label>
             <input id="bcbaCertNumber" name="bcbaCertNumber" type="text" className={fieldClass} />
           </div>
           <div>
-            <label htmlFor="thursdayCapacity" className="block text-sm font-semibold text-slate-700 mb-1">
-              Can you attend Thursday sessions, 6–8 PM Pacific Time?
+            <label htmlFor="thursdayCapacity" className="block text-base font-semibold text-[#171f1d] mb-1">
+              Can you attend Thursday sessions from 6 to 8 PM Pacific Time?
             </label>
             <select id="thursdayCapacity" name="thursdayCapacity" required className={fieldClass}>
               <option value="">Select one</option>
-              <option value="yes_all_sessions">Yes — I can attend all six live sessions</option>
-              <option value="yes_most_sessions">Yes — I can attend most sessions and will make up any miss</option>
-              <option value="unsure">Unsure — schedule may conflict</option>
-              <option value="no">No — I cannot commit to Thursday 6–8 PM Pacific Time</option>
+              <option value="yes_all_sessions">Yes, I can attend all six sessions</option>
+              <option value="yes_most_sessions">Yes, I can attend most and will make up any I miss</option>
+              <option value="unsure">Not sure yet, my schedule may conflict</option>
+              <option value="no">No, I cannot attend Thursdays from 6 to 8 PM Pacific Time</option>
             </select>
           </div>
           <div>
-            <label htmlFor="payer" className="block text-sm font-semibold text-slate-700 mb-1">
+            <label htmlFor="payer" className="block text-base font-semibold text-[#171f1d] mb-1">
               {CASH_FIELD_PROMPTS.payment}
             </label>
             <select id="payer" name="payer" required className={fieldClass}>
@@ -237,7 +237,7 @@ function ApplicationForm() {
             </select>
           </div>
           <div>
-            <label htmlFor="urgencyWindow" className="block text-sm font-semibold text-slate-700 mb-1">
+            <label htmlFor="urgencyWindow" className="block text-base font-semibold text-[#171f1d] mb-1">
               {CASH_FIELD_PROMPTS.urgency}
             </label>
             <select id="urgencyWindow" name="urgencyWindow" required className={fieldClass}>
@@ -248,7 +248,7 @@ function ApplicationForm() {
             </select>
           </div>
           <div>
-            <label htmlFor="systemToRebuild" className="block text-sm font-semibold text-slate-700 mb-1">
+            <label htmlFor="systemToRebuild" className="block text-base font-semibold text-[#171f1d] mb-1">
               What specific system would you rebuild during the cohort?
             </label>
             <textarea
@@ -256,12 +256,12 @@ function ApplicationForm() {
               name="systemToRebuild"
               required
               rows={3}
-              placeholder="Example: referral triage, FBA narrative quality, staff fidelity checks, caseload review cadence"
+              placeholder="Example: referral triage, functional behavior assessment narrative quality, staff fidelity checks, caseload review cadence"
               className={`${fieldClass} resize-y`}
             />
           </div>
           <div>
-            <label htmlFor="whyJoin" className="block text-sm font-semibold text-slate-700 mb-1">
+            <label htmlFor="whyJoin" className="block text-base font-semibold text-[#171f1d] mb-1">
               Why do you want to join, and what caseload or systems problem are you bringing?
             </label>
             <textarea
@@ -275,7 +275,7 @@ function ApplicationForm() {
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="min-h-12 w-full rounded-xl bg-[#1f4d3f] px-6 py-4 text-base font-bold text-white transition-colors hover:bg-[#123628] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1f4d3f] disabled:opacity-60"
+            className="min-h-12 w-full rounded-lg bg-[#e4b63d] px-6 py-4 text-base font-bold text-[#171f1d] transition-colors hover:bg-[#d9a92f] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f] disabled:opacity-60"
           >
             {status === 'loading' ? 'Submitting…' : 'Submit Application'}
           </button>
@@ -293,7 +293,7 @@ function ApplicationForm() {
 
 export function ProgramApplication() {
   return (
-    <section id="apply" className="scroll-mt-24 bg-white py-20 sm:py-28">
+    <section id="apply" className="scroll-mt-24 bg-[#fbfaf6] py-20 sm:py-28">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {isCohortOpen ? <ApplicationForm /> : <WaitlistForm />}
       </div>

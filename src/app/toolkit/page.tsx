@@ -83,13 +83,13 @@ export default function ToolkitPage() {
              <div className="relative z-10">
                <h2 className="text-3xl font-bold text-white mb-6">Get the Full Operating System</h2>
                <p className="text-slate-300 mb-8 text-lg">
-                 The toolkit is just the beginning. Join the Transformation Program to learn how to implement these systems school-wide.
+                 The toolkit is just the beginning. Join the School BCBA Systems Transformation Program to learn how to implement these systems school-wide.
                </p>
                <Link 
                  href="/transformation-program"
                  className="inline-flex items-center px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg transition-all"
                >
-                 View Transformation Program
+                 View School BCBA Systems Transformation Program
                </Link>
              </div>
           </div>

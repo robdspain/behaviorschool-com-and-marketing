@@ -79,7 +79,7 @@ export default function TransformationMarketingPage() {
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-col justify-between gap-4 border-b border-slate-200 pb-6 sm:flex-row sm:items-end">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f]">Transformation Program</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f]">School BCBA Systems Transformation Program</p>
             <h1 className="mt-2 text-3xl font-semibold text-slate-950">Marketing readiness</h1>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600">
               Work only from documented consent and clear program interest. This dashboard does not send email.

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -22,8 +23,8 @@ import {
 } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "School-Based BCBA Transformation System | Behavior School",
-  description: "Lead school behavior systems, reduce burnout, and scale MTSS/PBIS supports with a 6-week BCBA transformation program and free tools.",
+  title: "School BCBA Systems Transformation Program | Behavior School",
+  description: "Lead school behavior systems, reduce burnout, and scale MTSS/PBIS supports with the School BCBA Systems Transformation Program (six live Thursday sessions over seven weeks, no session February 4) and free tools.",
   robots: {
     index: true,
     follow: true,
@@ -52,8 +53,8 @@ export const metadata: Metadata = {
     "school BCBA transformation"
   ],
   openGraph: {
-    title: "School-Based BCBA Transformation System | Behavior School",
-    description: "Learn how to lead behavior systems, reduce burnout, and scale MTSS & PBIS supports with our 6-week BCBA transformation program.",
+    title: "School BCBA Systems Transformation Program | Behavior School",
+    description: "Learn how to lead behavior systems, reduce burnout, and scale MTSS and PBIS supports with the School BCBA Systems Transformation Program: six live Thursday sessions over seven weeks (no session February 4).",
     url: "https://behaviorschool.com/school-bcba",
     siteName: "Behavior School",
     images: [
@@ -61,7 +62,7 @@ export const metadata: Metadata = {
         url: "/optimized/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "School-Based BCBA Transformation System",
+        alt: "School BCBA Systems Transformation Program",
       },
     ],
     locale: "en_US",
@@ -69,8 +70,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "School-Based BCBA Transformation System | Behavior School",
-    description: "Learn how to lead behavior systems, reduce burnout, and scale MTSS & PBIS supports with our 6-week BCBA transformation program.",
+    title: "School BCBA Systems Transformation Program | Behavior School",
+    description: "Learn how to lead behavior systems, reduce burnout, and scale MTSS and PBIS supports with the School BCBA Systems Transformation Program: six live Thursday sessions over seven weeks (no session February 4).",
     images: ["/optimized/og-image.webp"],
   },
   alternates: {
@@ -91,7 +92,7 @@ export default function SchoolBasedBCBAPage() {
         <div className="container mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Sparkles className="w-5 h-5 text-yellow-300" />
-            <span className="font-semibold">Transform Your School BCBA Practice in 6 Weeks</span>
+            <span className="font-semibold">School BCBA Systems Transformation Program</span>
           </div>
           <Button 
             size="sm" 
@@ -125,7 +126,7 @@ export default function SchoolBasedBCBAPage() {
             {/* Main Headline */}
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight">
-                School-Based BCBA <span className="text-emerald-700">Transformation System</span>
+                School BCBA Systems <span className="text-emerald-700">Transformation Program</span>
               </h1>
               <p className="text-2xl md:text-3xl font-semibold text-slate-700">
                 From Crisis Manager to Systems Leader
@@ -135,7 +136,7 @@ export default function SchoolBasedBCBAPage() {
             {/* Value Props - Quick Wins */}
             <div className="space-y-3">
               {[
-                "6-week transformation program with live cohort support",
+                "Six live Thursday sessions over seven weeks (no session February 4)",
                 "BehaviorSchool Goal Writing System and Behavior Plan Writer",
                 "Evidence-based systems aligned with MTSS & PBIS",
                 "Reduce burnout while scaling your impact district-wide"
@@ -178,7 +179,7 @@ export default function SchoolBasedBCBAPage() {
             {/* Trust Indicator */}
             <div className="flex items-center gap-2 text-sm text-slate-600">
               <Clock className="w-4 h-4" />
-              <span>Next cohort starts in 3 weeks • Limited to 25 participants</span>
+              <span>{TRANSFORMATION_PROGRAM.cohort.label}. {TRANSFORMATION_PROGRAM.cohort.seatCap} seats in this cohort.</span>
             </div>
           </div>
 
@@ -193,7 +194,7 @@ export default function SchoolBasedBCBAPage() {
               <div className="relative bg-white rounded-xl p-6 shadow-lg">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-semibold text-emerald-700">Week 1-6 Transformation</span>
+                    <span className="text-sm font-semibold text-[#1f4d3f]">six live sessions over seven weeks</span>
                     <TrendingUp className="w-5 h-5 text-emerald-600" />
                   </div>
                   <div className="space-y-3">
@@ -424,17 +425,17 @@ export default function SchoolBasedBCBAPage() {
         </div>
       </section>
 
-      {/* 6-Week Transformation System - Infographic Style */}
+      {/* School BCBA Systems Transformation Program - Infographic Style */}
       <section className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-yellow-100 border border-yellow-300 mb-4">
                 <Sparkles className="w-4 h-4 text-yellow-700 mr-2" />
-                <span className="text-sm font-bold text-yellow-800 uppercase tracking-wide">6-Week Transformation</span>
+                <span className="text-sm font-bold text-yellow-800 uppercase tracking-wide">six live sessions over seven weeks</span>
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                How the 6-Week Transformation Works
+                How six live sessions over seven weeks works
               </h2>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
                 Shift from overwhelmed crisis manager to confident ethical leader with practical tools, live support, and proven systems
@@ -551,7 +552,7 @@ export default function SchoolBasedBCBAPage() {
               Ready to Lead Behavior Systems with Confidence?
             </h2>
             <p className="text-xl md:text-2xl text-emerald-100 mb-12 max-w-3xl mx-auto leading-relaxed">
-              Join school-based BCBAs who are transforming from overwhelmed crisis managers into confident systems leaders
+              The School BCBA Systems Transformation Program is six live sessions over seven weeks for school BCBAs.
             </p>
             
             <div className="grid md:grid-cols-3 gap-6 mb-8">
@@ -561,7 +562,7 @@ export default function SchoolBasedBCBAPage() {
                 asChild
               >
                 <Link href="/transformation-program">
-                  Join the 6-Week Program
+                  Join six live sessions over seven weeks
                 </Link>
               </Button>
               
@@ -635,7 +636,7 @@ export default function SchoolBasedBCBAPage() {
                   color: "purple"
                 },
                 {
-                  question: "How does the 6-Week Transformation System help?",
+                  question: "How does the School BCBA Systems Transformation Program help?",
                   answer: "The program provides ethical leadership frameworks, practical tools for scaling MTSS/PBIS, ACT-based stress resilience skills, supervision and coaching systems, teacher training scripts, and ongoing peer support to shift from crisis management to systems leadership.",
                   color: "orange"
                 },
@@ -687,8 +688,8 @@ export default function SchoolBasedBCBAPage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebPage",
-            "name": "School-Based BCBA Transformation System",
-            "description": "Learn how to lead behavior systems, reduce burnout, and scale MTSS & PBIS supports with our 6-week BCBA transformation program.",
+            "name": "School BCBA Systems Transformation Program",
+            "description": "Learn how to lead behavior systems, reduce burnout, and scale MTSS and PBIS supports with the School BCBA Systems Transformation Program: six live Thursday sessions over seven weeks (no session February 4).",
             "url": "https://behaviorschool.com/school-bcba",
             "breadcrumb": {
               "@type": "BreadcrumbList",
@@ -736,7 +737,7 @@ export default function SchoolBasedBCBAPage() {
                 },
                 {
                   "@type": "Question",
-                  "name": "How does the 6-Week Transformation System help?",
+                  "name": "How does the School BCBA Systems Transformation Program help?",
                   "acceptedAnswer": {
                     "@type": "Answer",
                     "text": "The program provides ethical leadership frameworks, practical tools for scaling MTSS/PBIS, ACT-based stress resilience skills, supervision and coaching systems, teacher training scripts, and ongoing peer support to shift from crisis management to systems leadership."
@@ -772,14 +773,14 @@ export default function SchoolBasedBCBAPage() {
             },
             "offers": {
               "@type": "Course",
-              "name": "6-Week School BCBA Transformation System",
+              "name": "School BCBA Systems Transformation Program",
               "description": "Transform from crisis manager to systems leader with practical tools, live cohort support, and proven behavior support systems",
               "provider": {
                 "@type": "EducationalOrganization",
                 "name": "Behavior School"
               },
               "educationalCredentialAwarded": "16 BACB CEUs",
-              "timeRequired": "P6W"
+              "timeRequired": "P7W"
             }
           }),
         }}

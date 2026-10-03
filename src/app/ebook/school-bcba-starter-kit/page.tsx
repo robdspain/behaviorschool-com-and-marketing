@@ -229,7 +229,7 @@ export default function SchoolBCBAStarterKitPage() {
             Want the Complete System?
           </h2>
           <p className="text-xl text-emerald-100 mb-8">
-            The Transformation Program gives you everything in this kit, plus live coaching, 
+            The School BCBA Systems Transformation Program gives you everything in this kit, plus live coaching, 
             a full playbook, and a community of school BCBAs.
           </p>
           <Link

@@ -70,7 +70,7 @@ async function runMigration() {
       is_active: true,
       body_text: `Hi ${'\${firstName}'},
 
-Thank you for applying to the School BCBA Transformation System!
+Thank you for applying to the School BCBA Systems Transformation Program!
 
 Your application has been received and we're reviewing it now.
 
@@ -86,7 +86,7 @@ On this call, we'll:
 
 Talk soon,
 Rob Spain
-School BCBA Transformation System`,
+School BCBA Systems Transformation Program`,
       body_html: `<!DOCTYPE html>
 <html>
 <head>
@@ -105,7 +105,7 @@ School BCBA Transformation System`,
 Hi \${firstName}! 👋
 </h1>
 <p style="margin: 0 0 20px 0; font-size: 16px; color: #475569; line-height: 1.6;">
-Thank you for applying to the <strong>School BCBA Transformation System</strong>!
+Thank you for applying to the <strong>School BCBA Systems Transformation Program</strong>!
 </p>
 <p style="margin: 0 0 30px 0; font-size: 16px; color: #475569; line-height: 1.6;">
 Your application has been received and we're reviewing it now.
@@ -162,7 +162,7 @@ Talk soon,
 </p>
 <p style="margin: 0; font-size: 16px; color: #0f172a; font-weight: 600;">
 Rob Spain<br>
-<span style="font-size: 14px; color: #64748b; font-weight: normal;">School BCBA Transformation System</span>
+<span style="font-size: 14px; color: #64748b; font-weight: normal;">School BCBA Systems Transformation Program</span>
 </p>
 </td>
 </tr>
@@ -195,7 +195,7 @@ Why schedule now?
 Looking forward to speaking with you!
 
 Rob Spain
-School BCBA Transformation System`,
+School BCBA Systems Transformation Program`,
       body_html: `<!DOCTYPE html>
 <html>
 <head>
@@ -255,7 +255,7 @@ Looking forward to speaking with you!
 </p>
 <p style="margin: 0; font-size: 16px; color: #0f172a; font-weight: 600;">
 Rob Spain<br>
-<span style="font-size: 14px; color: #64748b; font-weight: normal;">School BCBA Transformation System</span>
+<span style="font-size: 14px; color: #64748b; font-weight: normal;">School BCBA Systems Transformation Program</span>
 </p>
 </td>
 </tr>
@@ -294,7 +294,7 @@ This call is:
 Don't wait - schedule now before spots fill up.
 
 Rob Spain
-School BCBA Transformation System
+School BCBA Systems Transformation Program
 
 P.S. If you have any questions before scheduling, just reply to this email. I'm here to help!`,
       body_html: `<!DOCTYPE html>
@@ -383,7 +383,7 @@ This call is:
 </table>
 <p style="margin: 0 0 10px 0; font-size: 16px; color: #475569;">
 Rob Spain<br>
-<span style="font-size: 14px; color: #64748b;">School BCBA Transformation System</span>
+<span style="font-size: 14px; color: #64748b;">School BCBA Systems Transformation Program</span>
 </p>
 <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #fef9c3; border-radius: 8px; margin: 20px 0 0 0;">
 <tr>
@@ -420,7 +420,7 @@ Sound familiar?
 
 Here's what changed for her:
 
-BEFORE the School BCBA Transformation System:
+BEFORE the School BCBA Systems Transformation Program:
 • Working until 8pm most nights
 • Spending weekends on paperwork
 • Reactive crisis management
@@ -453,7 +453,7 @@ On this call, I'll show you:
 This is your moment. Don't let it pass.
 
 Rob Spain
-School BCBA Transformation System
+School BCBA Systems Transformation Program
 
 P.S. This is the last email in the sequence. If you don't schedule now, you'll miss this opportunity to transform your practice. I hope to speak with you soon!`,
       body_html: `<!DOCTYPE html>
@@ -583,7 +583,7 @@ This is your moment. Don't let it pass.
 </table>
 <p style="margin: 0 0 10px 0; font-size: 16px; color: #475569;">
 Rob Spain<br>
-<span style="font-size: 14px; color: #64748b;">School BCBA Transformation System</span>
+<span style="font-size: 14px; color: #64748b;">School BCBA Systems Transformation Program</span>
 </p>
 <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #fef9c3; border-radius: 8px; margin: 20px 0 0 0;">
 <tr>

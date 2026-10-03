@@ -38,12 +38,12 @@ export default function PricingPage() {
 
           <article className="rounded-2xl border-2 border-[#e4b63d] bg-white p-6 relative">
             <span className="absolute -top-3 left-6 rounded-full bg-[#e4b63d] px-3 py-1 text-xs font-semibold text-[#123628]">Featured</span>
-            <h2 className="text-xl font-bold text-[#123628]">Transformation Program</h2>
-            <p className="mt-1 text-slate-600 text-sm">6-week live cohort for school BCBAs</p>
+            <h2 className="text-xl font-bold text-[#123628]">School BCBA Systems Transformation Program</h2>
+            <p className="mt-1 text-slate-600 text-sm">Six live Thursday sessions over seven weeks (no session February 4) for school BCBAs</p>
             <p className="mt-5 text-3xl font-bold text-[#123628]">$1,997</p>
             <p className="mt-1 text-sm font-semibold text-slate-600">Payment plan: 3 × $665.67 ($1,997.01 total)</p>
             <ul className="mt-5 space-y-2 text-sm text-slate-700">
-              <li>Live weekly coaching</li>
+              <li>Live Thursday sessions</li>
               <li>Templates and implementation systems</li>
               <li>District-ready documentation support</li>
             </ul>
@@ -84,7 +84,7 @@ export default function PricingPage() {
 
         <div className="mt-10 text-center">
           <Link href="/transformation-program" className="text-sm font-semibold text-[#1f4d3f] underline underline-offset-4">
-            Need details before you decide? Read the full Transformation Program page.
+            Need details before you decide? Read the full School BCBA Systems Transformation Program page.
           </Link>
         </div>
       </div>

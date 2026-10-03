@@ -27,9 +27,9 @@ const TRANSFORMATION_TAGS = [
 export const sequenceSteps = [
   { step: 0, delayDays: 0, subject: "Here is the district packet you asked for" },
   { step: 1, delayDays: 1, subject: "The part of school BCBA work nobody owns" },
-  { step: 2, delayDays: 3, subject: "What we actually work on for six weeks" },
+  { step: 2, delayDays: 3, subject: "What we actually work on in six live Thursday sessions" },
   { step: 3, delayDays: 5, subject: "Need help getting district approval?" },
-  { step: 4, delayDays: 7, subject: "Should we talk about the October cohort?" },
+  { step: 4, delayDays: 7, subject: "Should we talk about the January cohort?" },
 ] as const;
 
 function nowIso() {

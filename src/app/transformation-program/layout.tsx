@@ -1,22 +1,25 @@
 import type { Metadata } from 'next';
 import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 
+const programName = TRANSFORMATION_PROGRAM.name;
+const scheduleSentence = `${TRANSFORMATION_PROGRAM.cohort.scheduleLabel.charAt(0).toUpperCase()}${TRANSFORMATION_PROGRAM.cohort.scheduleLabel.slice(1)}`;
+
 export const metadata: Metadata = {
-  title: 'School BCBA Transformation Program | Behavior School',
-  description: 'A six-week live cohort for certified school BCBAs in K-12 school or district settings. Build assessment judgment, school-adapted functional analysis, ACT-informed tools, and systems leadership.',
+  title: `${programName} | Behavior School`,
+  description: `${scheduleSentence} for certified school BCBAs in kindergarten through 12th grade school or district settings. Build assessment judgment, school-adapted functional analysis, acceptance and commitment training-informed tools, and systems leadership.`,
   alternates: { canonical: '/transformation-program' },
   openGraph: {
-    title: 'School BCBA Transformation Program',
-    description: 'A six-week live cohort for certified school BCBAs in K-12 settings. Build assessment judgment, functional analysis, intervention alignment, and implementation systems.',
+    title: programName,
+    description: `${scheduleSentence} for certified school BCBAs in kindergarten through 12th grade settings. Build assessment judgment, functional analysis, intervention alignment, and implementation systems.`,
     url: '/transformation-program',
     type: 'website',
     siteName: 'Behavior School',
-    images: [{ url: '/optimized/Course/course-hero.webp', width: 1200, height: 630, alt: 'School BCBA Transformation Program' }],
+    images: [{ url: '/optimized/Course/course-hero.webp', width: 1200, height: 630, alt: programName }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'School BCBA Transformation Program',
-    description: 'A six-week live cohort for certified school BCBAs in K-12 school or district settings.',
+    title: programName,
+    description: `${scheduleSentence} for certified school BCBAs in kindergarten through 12th grade school or district settings.`,
     images: ['/optimized/Course/course-hero.webp'],
   },
 };
@@ -26,18 +29,18 @@ export default function TransformationProgramLayout({ children }: { children: Re
   const courseJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Course',
-    name: 'School BCBA Transformation Program',
-    description: 'A six-week live cohort for certified school BCBAs covering assessment decisions, school-adapted functional analysis, ACT-informed assessment, intervention alignment, and team implementation in K-12 settings.',
+    name: programName,
+    description: `${scheduleSentence} for certified school BCBAs covering assessment decisions, school-adapted functional analysis, acceptance and commitment training-informed assessment, intervention alignment, and team implementation in kindergarten through 12th grade settings.`,
     provider: { '@type': 'EducationalOrganization', name: 'Behavior School', url: siteUrl },
-    instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, IBA' },
+    instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, International Behavior Analyst' },
     courseMode: 'online',
-    timeRequired: 'P6W',
+    timeRequired: 'P7W',
     coursePrerequisites: 'BCBA certification',
-    audience: { '@type': 'EducationalAudience', audienceType: 'Certified BCBAs working in K-12 schools or districts' },
+    audience: { '@type': 'EducationalAudience', audienceType: 'Certified BCBAs working in kindergarten through 12th grade schools or districts' },
     teaches: [
       'School assessment decisions',
       'School-adapted functional analysis',
-      'ACT-informed functional assessment',
+      'Acceptance and commitment training-informed functional assessment',
       'Evidence-to-intervention alignment',
       'Staff training and implementation systems',
     ],
@@ -46,7 +49,7 @@ export default function TransformationProgramLayout({ children }: { children: Re
       courseMode: 'online',
       startDate: TRANSFORMATION_PROGRAM.cohort.startDate,
       endDate: TRANSFORMATION_PROGRAM.cohort.endDate,
-      instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, IBA' },
+      instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, International Behavior Analyst' },
       offers: { '@type': 'Offer', price: String(TRANSFORMATION_PROGRAM.pricing.payInFullCents / 100), priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
     },
   };

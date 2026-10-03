@@ -44,13 +44,13 @@ export function NavBar() {
             <div className="flex items-center gap-3">
               <Link
                 href="/transformation-program"
-                className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#1f4d3f] px-5 py-2 text-sm font-semibold text-white transition hover:bg-[#123628]"
+                className="inline-flex min-h-11 items-center justify-center rounded-lg px-3 text-sm font-semibold text-[#1f4d3f] underline underline-offset-4"
               >
-                {TRANSFORMATION_PROGRAM.cohort.label} Open
+                {TRANSFORMATION_PROGRAM.cohort.label}
               </Link>
               <Link
                 href="https://study.behaviorschool.com/free-practice/"
-                className="inline-flex min-h-11 items-center justify-center rounded-md border border-[#1f4d3f]/30 px-4 py-2 text-sm font-semibold text-[#1f4d3f] transition hover:bg-[#f2eee6]"
+                className="inline-flex min-h-11 items-center justify-center rounded-lg border border-[#d9cdb8] px-4 py-2 text-sm font-semibold text-[#1f4d3f] transition hover:bg-[#f4efe5]"
               >
                 Free BCBA Exam
               </Link>
@@ -62,7 +62,7 @@ export function NavBar() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileOpen(!isMobileOpen)}
-              className="text-emerald-700 hover:text-emerald-800 p-2"
+              className="inline-flex min-h-11 min-w-11 items-center justify-center text-[#1f4d3f] hover:text-[#123628]"
               aria-label="Toggle menu"
               aria-expanded={isMobileOpen}
             >

@@ -42,7 +42,7 @@ export function SchoolBcbasTransformationCta({
       <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
         <div className="max-w-2xl">
           <p className={dark ? "text-xs font-bold uppercase tracking-widest text-[#e4b63d]" : "text-xs font-bold uppercase tracking-widest text-emerald-700"}>
-            School BCBA Transformation Program
+            School BCBA Systems Transformation Program
           </p>
           <h2 className={dark ? "mt-2 text-2xl font-bold text-white" : "mt-2 text-2xl font-bold text-slate-950"}>
             {TRANSFORMATION_PROGRAM.cohort.label} now open for school BCBAs.

@@ -9,20 +9,20 @@ export type UrgencyWindow = (typeof URGENCY_WINDOWS)[number];
 /** Exact apply-form prompts. Rob signs off on these before merge. */
 export const CASH_FIELD_PROMPTS = {
   employer: "Which district or organization do you support?",
-  role: "Are you a school-based BCBA, clinic-based BCBA, or other?",
-  payment: "How do you expect to cover the $1,997 program — self-pay, district PO, or district card?",
-  urgency: "When do you need to decide — this month, this quarter, this year, or still exploring?",
+  role: "Which best describes your role?",
+  payment: "How will you pay the $1,997 tuition?",
+  urgency: "When do you need to decide?",
 } as const;
 
 export const ROLE_CATEGORY_LABELS: Record<RoleCategory, string> = {
-  school_bcba: "School-based BCBA",
-  clinic_bcba: "Clinic-based BCBA",
+  school_bcba: "School BCBA",
+  clinic_bcba: "Clinic BCBA",
   other: "Other",
 };
 
 export const PAYMENT_PATH_LABELS: Record<PaymentPath, string> = {
   self_pay: "Self-pay",
-  district_po: "District PO",
+  district_po: "District purchase order",
   district_card: "District card",
   unknown: "Not sure yet",
 };

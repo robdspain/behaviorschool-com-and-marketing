@@ -81,8 +81,8 @@ export function BlogNewsletterSignup() {
         <h3 className="text-2xl font-bold text-[#FAF3E0] mb-2 text-center">
           The Weekly Research Brief
         </h3>
-        <p className="text-[#FAF3E0]/80 mb-6 text-center">
-          Each week: open research, clear summaries, and one practical next step for school-based BCBAs.
+        <p className="mb-6 text-center text-base text-[#FAF3E0]">
+          Each week: open research, clear summaries, and one practical next step for school BCBAs.
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
