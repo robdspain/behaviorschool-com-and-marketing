@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const updatedDate = "June 26, 2026";
+const updatedDate = "October 1, 2026";
 
 export default function PrivacyPage() {
   return (
@@ -61,16 +61,21 @@ export default function PrivacyPage() {
             <p className="mt-3">
               We may use trusted service providers for hosting, analytics, email delivery,
               payments, authentication, support, and product operations. These providers are used
-              only as needed to operate and improve our services.
+              only as needed to operate and improve our services. Product analytics uses PostHog
+              after you accept the on-site analytics banner. That analytics records page views,
+              including movement between pages, and on-page interactions. It does not record
+              sessions. Form inputs are masked, and admin pages are excluded.
             </p>
           </section>
 
           <section>
             <h2 className="text-2xl font-semibold text-slate-950">Your Choices</h2>
             <p className="mt-3">
-              You can unsubscribe from marketing emails using the link in those emails. You may
-              also contact us to request access, correction, or deletion of personal information
-              when applicable.
+              You can unsubscribe from marketing emails using the link in those emails. The analytics
+              banner lets you accept or decline optional product analytics, and that choice is stored
+              in this browser. If you accept, PostHog may set an analytics cookie. You may also
+              contact us to request access, correction, or deletion of personal information when
+              applicable.
             </p>
           </section>
 

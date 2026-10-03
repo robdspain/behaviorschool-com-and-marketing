@@ -1,4 +1,12 @@
 import * as Sentry from '@sentry/nextjs';
+import { readAnalyticsConsent } from '@/lib/analytics-consent';
+import { initPostHog } from '@/lib/posthog-client';
+
+// Returning visitors who already accepted analytics can be tracked immediately.
+// Everyone else waits for the banner so PostHog does not set cookies or call home.
+if (readAnalyticsConsent() === 'granted') {
+  initPostHog();
+}
 
 Sentry.init({
   dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
