@@ -343,12 +343,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       url: 'https://behaviorschool.com/about'
     },
     publisher: {
-      '@type': 'Organization',
-      name: 'BehaviorSchool',
-      logo: {
-        '@type': 'ImageObject',
-        url: 'https://behaviorschool.com/behavior-school-icon.png'
-      }
+      '@id': 'https://behaviorschool.com/#organization'
     }
   };
   

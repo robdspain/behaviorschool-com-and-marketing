@@ -85,32 +85,32 @@ export default function CEUsPage() {
         <Breadcrumbs items={[{ label: "CEUs & Professional Development" }]} />
       </div>
 
-      <section className="relative overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-slate-50 py-16 sm:py-24">
+      <section className="relative overflow-hidden bg-gradient-to-br bg-[var(--bs-cream)] py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <span className="mb-6 inline-block rounded-full bg-emerald-100 px-4 py-1.5 text-sm font-medium text-emerald-800">
+          <span className="mb-6 inline-block rounded-full bg-[#1f4d3f]/10 px-4 py-1.5 text-sm font-medium text-[#123628]">
             Behavior School Learning
           </span>
           <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
             CEUs &amp; Professional Development{" "}
-            <span className="text-emerald-700">for BCBAs</span>
+            <span className="text-[#1f4d3f]">for BCBAs</span>
           </h1>
-          <p className="mx-auto mb-10 max-w-3xl text-xl text-slate-600">
+          <p className="mx-auto mb-10 max-w-3xl text-xl text-[#365548]">
             Behavior School Learning is the place for BCBA CEUs, continuing
-            education, and certificates for school-based behavior analysts. Enroll
+            education, and certificates for school behavior analysts. Enroll
             in live or on-demand courses, complete verified CEU requirements, and
             keep every certificate in one account.
           </p>
           <div className="flex flex-col justify-center gap-4 sm:flex-row">
             <Link
               href={LEARNING_URL}
-              className="inline-flex min-h-12 items-center justify-center rounded-xl bg-emerald-700 px-8 py-4 text-lg font-semibold text-white shadow-lg shadow-emerald-200 transition-colors hover:bg-emerald-800"
+              className="bs-btn-primary"
             >
               Go to Behavior School Learning
               <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
             </Link>
             <Link
               href={LEARNING_URL}
-              className="inline-flex min-h-12 items-center justify-center rounded-xl border-2 border-emerald-200 bg-white px-8 py-4 text-lg font-semibold text-emerald-800 transition-colors hover:border-emerald-300 hover:bg-emerald-50"
+              className="inline-flex min-h-12 items-center justify-center rounded-xl border-2 border-[#365548] bg-white px-8 py-4 text-lg font-semibold text-[#123628] transition-colors hover:border-[#1f4d3f] hover:bg-[var(--bs-cream)]"
             >
               Browse CEU courses
             </Link>
@@ -118,11 +118,11 @@ export default function CEUsPage() {
         </div>
       </section>
 
-      <section className="border-y border-slate-100 bg-slate-50 py-8">
+      <section className="border-y border-slate-100 bg-[var(--bs-cream)] py-8">
         <div className="mx-auto flex max-w-5xl flex-wrap justify-center gap-8 px-4 text-center">
           {trustItems.map((item) => (
-            <div key={item.label} className="flex items-center gap-2 text-slate-600">
-              <item.icon className="h-5 w-5 text-emerald-700" aria-hidden="true" />
+            <div key={item.label} className="flex items-center gap-2 text-[#365548]">
+              <item.icon className="h-5 w-5 text-[#1f4d3f]" aria-hidden="true" />
               <span className="text-sm font-medium">{item.label}</span>
             </div>
           ))}
@@ -135,7 +135,7 @@ export default function CEUsPage() {
             <h2 className="mb-4 text-3xl font-bold text-slate-900 sm:text-4xl">
               What you get on Behavior School Learning
             </h2>
-            <p className="mx-auto max-w-2xl text-lg text-slate-600">
+            <p className="mx-auto max-w-2xl text-lg text-[#365548]">
               Continuing education built for school BCBAs: live cohorts, on-demand
               learning, verified completion, and certificates you can keep.
             </p>
@@ -145,15 +145,15 @@ export default function CEUsPage() {
             {learningBenefits.map((benefit) => (
               <div
                 key={benefit.title}
-                className="rounded-2xl border border-slate-200 bg-white p-8 transition-shadow hover:shadow-lg"
+                className="rounded-[12px] border border-[var(--bs-hairline)] bg-[var(--bs-paper)] p-8 transition-shadow hover:shadow-lg"
               >
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100">
-                  <benefit.icon className="h-6 w-6 text-emerald-700" aria-hidden="true" />
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-[#1f4d3f]/10">
+                  <benefit.icon className="h-6 w-6 text-[#1f4d3f]" aria-hidden="true" />
                 </div>
                 <h3 className="mb-3 text-2xl font-bold text-slate-900">
                   {benefit.title}
                 </h3>
-                <p className="leading-relaxed text-slate-600">{benefit.description}</p>
+                <p className="leading-relaxed text-[#365548]">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -161,7 +161,7 @@ export default function CEUsPage() {
           <div className="mt-12 text-center">
             <Link
               href={LEARNING_URL}
-              className="inline-flex items-center text-lg font-semibold text-emerald-800 hover:text-emerald-900"
+              className="inline-flex min-h-[44px] items-center text-lg font-semibold text-[#123628] hover:text-[var(--bs-ink)]"
             >
               Browse current CEU courses
               <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
@@ -170,12 +170,12 @@ export default function CEUsPage() {
         </div>
       </section>
 
-      <section className="bg-slate-50 py-16 sm:py-20">
+      <section className="bg-[var(--bs-cream)] py-16 sm:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-4 text-center text-3xl font-bold text-slate-900 sm:text-4xl">
             Related Behavior School path
           </h2>
-          <p className="mx-auto mb-10 max-w-2xl text-center text-lg text-slate-600">
+          <p className="mx-auto mb-10 max-w-2xl text-center text-lg text-[#365548]">
             Learning is the CEU platform. The School BCBA Systems Transformation Program is an
             optional live cohort, not the main continuing education catalog.
           </p>
@@ -183,17 +183,17 @@ export default function CEUsPage() {
           <div className="mx-auto max-w-xl">
             <Link
               href="/transformation-program"
-              className="group block rounded-2xl border border-slate-200 bg-white p-8 transition-all hover:border-emerald-200 hover:shadow-lg"
+              className="group block rounded-[12px] border border-[var(--bs-hairline)] bg-[var(--bs-paper)] p-8 transition-all hover:border-[#365548] hover:shadow-lg"
             >
-              <h3 className="mb-3 text-xl font-bold text-slate-900 group-hover:text-emerald-800">
+              <h3 className="mb-3 text-xl font-bold text-slate-900 group-hover:text-[#123628]">
                 School BCBA Systems Transformation Program
               </h3>
-              <p className="mb-6 leading-relaxed text-slate-600">
+              <p className="mb-6 leading-relaxed text-[#365548]">
                 A live cohort for school BCBAs who want repeatable systems for
                 assessment, intervention, and staff implementation. Continuing
                 education details are listed with the program.
               </p>
-              <span className="inline-flex items-center font-semibold text-emerald-800 group-hover:translate-x-1">
+              <span className="inline-flex items-center font-semibold text-[#123628] group-hover:translate-x-1">
                 View program
                 <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </span>
@@ -207,7 +207,7 @@ export default function CEUsPage() {
           <h2 className="mb-4 text-3xl font-bold text-slate-900">
             BACB Authorized Continuing Education
           </h2>
-          <p className="mx-auto mb-8 max-w-2xl text-lg text-slate-600">
+          <p className="mx-auto mb-8 max-w-2xl text-lg text-[#365548]">
             Behavior School LLC is a BACB Authorized Continuing Education
             Provider. Course listings on Learning identify available credit,
             completion requirements, and documentation for each opportunity.
@@ -220,7 +220,7 @@ export default function CEUsPage() {
             ].map((item) => (
               <li key={item} className="flex items-start gap-3">
                 <CheckCircle2
-                  className="mt-0.5 h-5 w-5 flex-none text-emerald-700"
+                  className="mt-0.5 h-5 w-5 flex-none text-[#1f4d3f]"
                   aria-hidden="true"
                 />
                 <span>{item}</span>
@@ -229,7 +229,7 @@ export default function CEUsPage() {
           </ul>
           <Link
             href="/bacb-ace-provider"
-            className="inline-flex items-center font-semibold text-emerald-800 hover:text-emerald-900"
+            className="inline-flex min-h-[44px] items-center font-semibold text-[#123628] hover:text-[var(--bs-ink)]"
           >
             View ACE provider details
             <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
@@ -237,18 +237,18 @@ export default function CEUsPage() {
         </div>
       </section>
 
-      <section className="bg-emerald-800 py-16">
+      <section className="bs-on-dark bg-[var(--bs-forest-dark)] py-16">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl">
             Start earning CEUs on Behavior School Learning
           </h2>
-          <p className="mb-8 text-xl text-emerald-100">
+          <p className="mb-8 text-xl text-[var(--bs-cream)]">
             Browse live and on-demand continuing education, then keep your
             certificates in one Learning account.
           </p>
           <Link
             href={LEARNING_URL}
-            className="inline-flex min-h-12 items-center justify-center rounded-xl bg-white px-8 py-4 text-lg font-semibold text-emerald-800 shadow-lg transition-colors hover:bg-emerald-50"
+            className="inline-flex min-h-12 items-center justify-center rounded-xl bg-white px-8 py-4 text-lg font-semibold text-[#123628] shadow-lg transition-colors hover:bg-[var(--bs-cream)]"
           >
             Go to Behavior School Learning
             <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />

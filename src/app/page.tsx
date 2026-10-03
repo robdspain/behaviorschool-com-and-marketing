@@ -4,21 +4,34 @@ import Image from "next/image";
 import { BrainCircuit, GraduationCap, ArrowRight, CheckCircle2 } from "lucide-react";
 import { getPublishedPosts } from "@/lib/blog";
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from "@/lib/founder-tenure";
+import { SHOW_COHORT_BAND } from "@/lib/feature-flags";
 import { Hero } from "@/components/ui/hero";
 import { HomepageEmailCapture } from "@/components/ui/homepage-email-capture";
+import { FAQAccordion } from "@/components/ui/faq-accordion";
 import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
+const HOME_FAQ_ITEMS = [
+  { question: "What is the School BCBA Systems Transformation Program?", answer: "A live online training for school BCBAs. Over six Thursday sessions, January 14 to February 25, 2027, from 6 to 8 PM Pacific Time, you build assessment, FBA, BIP, data, and staff training systems. Apply by January 7, 2027." },
+  { question: "What is Behavior School?", answer: "Behavior School provides BCBA exam prep, live training, Learning CEUs, and practical tools for school BCBAs and behavior analysts in K-12 schools. It is a BACB Authorized Continuing Education Provider." },
+  { question: "Is the BCBA mock exam free?", answer: "Yes. The full 185-question BCBA mock exam is free with a free account, no credit card. The 9-question Quick domain check needs no account." },
+  { question: "How many questions are on the free BCBA mock exam?", answer: "The full mock has 185 timed questions, the same length as the BCBA exam, and is aligned to the BCBA 6th Edition Test Content Outline. Your score and domain breakdown appear when you finish." },
+  { question: "What is Behavior Study Tools?", answer: "Behavior Study Tools is Behavior School's BCBA exam prep app at study.behaviorschool.com. It includes practice questions, timed mock exams, an exam-date pacing guide, and domain-level results, and it works in a phone or computer browser." },
+  { question: "Who built Behavior School?", answer: "Rob Spain, M.S., BCBA, IBA, a school BCBA, built Behavior School for the daily work of school behavior analysts." },
+];
+
+
+
 export const metadata: Metadata = {
-  title: "Behavior School | Free BCBA Mock Exam & School BCBA Tools",
+  title: "School BCBA Systems Training | Behavior School",
   description:
-    "Free BCBA mock exam (185 questions, 6th Edition) plus school BCBA tools for IEP goals, supervision, and exam prep. Built by a school BCBA.",
+    "Behavior School trains school BCBAs to build FBA, BIP, data, and staff training systems. Apply for the School BCBA Systems Transformation Program.",
   alternates: {
     canonical: "https://behaviorschool.com",
   },
   openGraph: {
-    title: "Behavior School | Free BCBA Mock Exam & School BCBA Tools",
+    title: "School BCBA Systems Training | Behavior School",
     description:
-      "Free BCBA mock exam (185 questions, 6th Edition) plus school BCBA tools for IEP goals, supervision, and exam prep. Built by a school BCBA.",
+      "Behavior School trains school BCBAs to build FBA, BIP, data, and staff training systems. Apply for the School BCBA Systems Transformation Program.",
     type: "website",
     url: "https://behaviorschool.com",
     images: [
@@ -26,15 +39,15 @@ export const metadata: Metadata = {
         url: "/optimized/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "BehaviorSchool tools and resources for school BCBAs",
+        alt: "Behavior School: BCBA exam prep and tools for school BCBAs",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Behavior School | Free BCBA Mock Exam & School BCBA Tools",
+    title: "School BCBA Systems Training | Behavior School",
     description:
-      "Free BCBA mock exam (185 questions, 6th Edition) plus school BCBA tools for IEP goals, supervision, and exam prep. Built by a school BCBA.",
+      "Behavior School trains school BCBAs to build FBA, BIP, data, and staff training systems. Apply for the School BCBA Systems Transformation Program.",
     images: ["/optimized/og-image.webp"],
   },
 };
@@ -44,23 +57,25 @@ export default function Home() {
   const founderEducationYears = getFounderEducationYears();
 
   return (
-    <main className="min-h-screen bg-white text-gray-900">
+    <main className="min-h-screen bg-[var(--bs-cream)] text-[var(--bs-ink)]">
 
       {/* ─── HERO ─────────────────────────────────────────────────── */}
       <Hero
-        eyebrow="The Modern Toolkit"
-        title="Everything a Behavior Analyst "
-        highlight="Actually Needs"
-        subtitle="AI-powered tools, exam prep, and continuing education designed from the ground up to meet the real-world needs of BCBAs, RBTs, and school behavior professionals."
-        primaryCta={{ href: "https://study.behaviorschool.com/free-practice/", label: "Start free Quick domain check" }}
+        eyebrow="Behavior School"
+        title="Systems training for"
+        highlight="school BCBAs"
+        subtitle="The School BCBA Systems Transformation Program is six live online sessions where you build the FBA, BIP, data, and staff training systems your caseload runs on. Next cohort starts Thursday, January 14, 2027. 5 seats."
+        primaryCta={{ href: "/transformation-program", label: "See the Transformation Program" }}
+        secondaryCta={{ href: "https://study.behaviorschool.com/free-mock-exam/", label: "Or take the free BCBA mock exam" }}
         variant="brand"
       />
 
-      {/* ─── SEPTEMBER COHORT CTA ────────────────────────────────── */}
-      <section className="border-y border-[#1f4d3f]/10 bg-[#123628] py-10 text-white">
+      {/* ─── COHORT CTA: hidden until Transformation PR #115 (January cohort data) merges ─── */}
+      {SHOW_COHORT_BAND && (
+      <section className="border-y border-[var(--bs-hairline)] bg-[var(--bs-forest-dark)] py-10 text-[var(--bs-cream)] bs-on-dark">
         <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#e4b63d]">
+            <p className="bs-eyebrow bs-on-dark">
               School BCBA Systems Transformation Program
             </p>
             <h2 className="mt-2 text-2xl font-bold sm:text-3xl">
@@ -73,105 +88,66 @@ export default function Home() {
           <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
             <Link
               href={`/transformation-program?utm_source=homepage&utm_medium=hero_band&utm_campaign=${TRANSFORMATION_PROGRAM.cohort.id}`}
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#e4b63d] px-6 py-3 text-sm font-bold text-[#123628] shadow-lg transition hover:bg-[#d7aa32]"
+              className="bs-btn-secondary--on-dark"
             >
-              Apply for the {TRANSFORMATION_PROGRAM.cohort.label}
+              See the January cohort
               <ArrowRight size={16} />
             </Link>
-            <Link
-              href="/transformation-program"
-              className="inline-flex items-center justify-center rounded-lg border border-white/25 px-6 py-3 text-sm font-bold text-white transition hover:bg-white/10"
-            >
-              See the training path
-            </Link>
+            
           </div>
         </div>
       </section>
-
-      {/* ─── HIGH-INTENT BCBA PRACTICE PATH ───────────────────────── */}
-      <section className="border-y border-emerald-100 bg-emerald-50/70 py-10">
-        <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f]">
-              Free BCBA Exam Prep
-            </p>
-            <h2 className="mt-2 text-2xl font-bold text-gray-950 sm:text-3xl">
-              Start with a free Quick domain check (9 questions), instant score, and rationales.
-            </h2>
-            <div className="mt-4 grid gap-2 text-sm font-medium text-gray-700 sm:grid-cols-3">
-              {["No credit card", "Score immediately", "Know what to study next"].map((item) => (
-                <div key={item} className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 flex-none text-emerald-700" />
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-          <Link
-            href="https://study.behaviorschool.com/free-practice/"
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#1f4d3f] px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-[#173a30]"
-          >
-            Start Quick domain check
-            <ArrowRight size={16} />
-          </Link>
-        </div>
-      </section>
+      )}
 
       {/* ─── WHAT WE OFFER ────────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-gray-50">
+      <section className="py-20 sm:py-28 bg-[var(--bs-cream)]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">
+            <p className="bs-eyebrow mb-3">
               What We Offer
             </p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--bs-ink)]">
               Everything a behavior professional needs
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {/* Card 1 — Pro */}
-            <div className="bg-white rounded-xl border border-gray-200 p-8 flex flex-col">
+            {/* Card 1 - Pro */}
+            <div className="bg-[var(--bs-paper)] rounded-[12px] border border-[var(--bs-hairline)] p-8 flex flex-col">
               <div className="w-12 h-12 rounded-lg bg-[#1f4d3f]/10 flex items-center justify-center mb-6">
                 <BrainCircuit className="text-[#1f4d3f]" size={24} strokeWidth={1.75} />
               </div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-2">Invite only</p>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">BehaviorSchool Pro</h3>
-              <p className="text-gray-600 leading-relaxed flex-1">
+              <p className="bs-eyebrow mb-2">Invite only</p>
+              <h3 className="text-xl font-bold text-[var(--bs-ink)] mb-3">BehaviorSchool Pro</h3>
+              <p className="text-[var(--bs-secondary)] leading-relaxed flex-1">
                 An invite-only workspace in development for school FBA and BIP drafting, IEP goals, and student plan exports. Public account creation is not available.
               </p>
               <Link
                 href="/pro"
-                className="inline-flex items-center gap-1.5 mt-6 text-sm font-semibold text-[#1f4d3f] hover:underline"
+                className="bs-link bs-padded mt-6"
               >
                 View invite-only access <ArrowRight size={14} />
               </Link>
             </div>
 
-            {/* Card 2 — Exam Prep */}
-            <div className="bg-white rounded-xl border border-gray-200 p-8 flex flex-col">
+            {/* Card 2 - Exam Prep */}
+            <div className="bg-[var(--bs-paper)] rounded-[12px] border border-[var(--bs-hairline)] p-8 flex flex-col">
               <div className="w-12 h-12 rounded-lg bg-[#1f4d3f]/10 flex items-center justify-center mb-6">
                 <GraduationCap className="text-[#1f4d3f]" size={24} strokeWidth={1.75} />
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">BCBA Exam Prep</h3>
-              <p className="text-gray-600 leading-relaxed flex-1">
+              <h3 className="text-xl font-bold text-[var(--bs-ink)] mb-3">BCBA Exam Prep</h3>
+              <p className="text-[var(--bs-secondary)] leading-relaxed flex-1">
                 Start with free BCBA practice questions, then move into mock exams, detailed analytics, and adaptive study paths.
               </p>
               <div className="mt-6 grid gap-2 text-sm">
-                <Link href="https://study.behaviorschool.com/free-practice/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
-                  Free Quick domain check (9 questions) <ArrowRight size={14} />
+                <Link href="https://study.behaviorschool.com/free-mock-exam/" className="bs-link bs-padded">
+                  Free 185-question BCBA mock exam (free account) <ArrowRight size={14} />
                 </Link>
-                <Link href="https://study.behaviorschool.com/free-practice/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
-                  BCBA exam prep <ArrowRight size={14} />
+                <Link href="https://study.behaviorschool.com/free-practice/" className="bs-link bs-padded">
+                  Free Quick domain check (9 questions, no account) <ArrowRight size={14} />
                 </Link>
-                <Link href="https://study.behaviorschool.com/free-mock-exam/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
-                  BCBA practice exam <ArrowRight size={14} />
-                </Link>
-                <Link href="https://study.behaviorschool.com/free-practice/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
-                  Sample BCBA exam questions <ArrowRight size={14} />
-                </Link>
-                <Link href="https://study.behaviorschool.com/free-mock-exam/" className="inline-flex items-center gap-1.5 font-semibold text-[#1f4d3f] hover:underline">
-                  BCBA mock exam free <ArrowRight size={14} />
+                <Link href="https://behaviorstudytools.com/" className="bs-link bs-padded">
+                  About Behavior Study Tools, the BCBA exam prep app <ArrowRight size={14} />
                 </Link>
               </div>
             </div>
@@ -180,8 +156,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ─── FAQ ──────────────────────────────────────────────────── */}
+      <section className="py-20 sm:py-28 bg-[var(--bs-cream)] border-b border-gray-100">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--bs-ink)]">
+              Frequently asked questions
+            </h2>
+          </div>
+          <FAQAccordion items={HOME_FAQ_ITEMS} />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": HOME_FAQ_ITEMS.map((f) => ({
+                "@type": "Question",
+                "name": f.question,
+                "acceptedAnswer": { "@type": "Answer", "text": f.answer }
+              }))
+            }) }}
+          />
+        </div>
+      </section>
+
       {/* ─── ABOUT / TRUST ────────────────────────────────────────── */}
-      <section className="py-20 sm:py-28 bg-white">
+      <section className="py-20 sm:py-28 bg-[var(--bs-cream)]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-center">
             <div className="flex-shrink-0">
@@ -196,13 +196,13 @@ export default function Home() {
               </div>
             </div>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">
+              <p className="bs-eyebrow mb-3">
                 Built by a BCBA, for BCBAs
               </p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
+              <h2 className="text-2xl sm:text-3xl font-bold text-[var(--bs-ink)] mb-4">
                 Rob Spain, M.S., BCBA, IBA
               </h2>
-              <p className="text-gray-600 leading-relaxed text-lg">
+              <p className="text-[var(--bs-secondary)] leading-relaxed text-lg">
                 BehaviorSchool was founded by Rob Spain, M.S., BCBA, IBA, a practicing school BCBA. Every tool, course, and question is designed from the ground up to meet the real-world needs of professionals in the field.
               </p>
             </div>
@@ -212,20 +212,20 @@ export default function Home() {
 
       {/* ─── BLOG ─────────────────────────────────────────────────── */}
       {recentPosts.length > 0 && (
-        <section className="py-20 sm:py-28 bg-gray-50">
+        <section className="py-20 sm:py-28 bg-[var(--bs-cream)]">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-end justify-between mb-12">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">
+                <p className="bs-eyebrow mb-3">
                   From the Blog
                 </p>
-                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
+                <h2 className="text-3xl sm:text-4xl font-bold text-[var(--bs-ink)]">
                   Latest Articles
                 </h2>
               </div>
               <Link
                 href="/blog"
-                className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-[#1f4d3f] hover:underline"
+                className="hidden sm:inline-flex bs-link bs-padded"
               >
                 View all posts <ArrowRight size={14} />
               </Link>
@@ -233,25 +233,25 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {recentPosts.map((post) => (
-                <article key={post.slug} className="bg-white rounded-xl border border-gray-200 p-7 flex flex-col">
-                  <time className="text-xs text-gray-400 font-medium mb-3 block">
+                <article key={post.slug} className="bg-[var(--bs-paper)] rounded-[12px] border border-[var(--bs-hairline)] p-7 flex flex-col">
+                  <time className="text-[14px] text-[#365548] font-[500] mb-3 block">
                     {new Date(post.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
                     })}
                   </time>
-                  <h3 className="text-lg font-bold text-gray-900 mb-3 leading-snug">
+                  <h3 className="text-lg font-bold text-[var(--bs-ink)] mb-3 leading-snug">
                     {post.title}
                   </h3>
                   {post.excerpt && (
-                    <p className="text-gray-600 text-sm leading-relaxed flex-1 line-clamp-3">
+                    <p className="text-[var(--bs-secondary)] text-sm leading-relaxed flex-1 line-clamp-3">
                       {post.excerpt}
                     </p>
                   )}
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-1.5 mt-5 text-sm font-semibold text-[#1f4d3f] hover:underline"
+                    className="bs-link bs-padded mt-5"
                   >
                     Read More<span className="sr-only"> about {post.title}</span> <ArrowRight size={14} />
                   </Link>
@@ -262,7 +262,7 @@ export default function Home() {
             <div className="mt-10 sm:hidden text-center">
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#1f4d3f] hover:underline"
+                className="bs-link bs-padded"
               >
                 View all posts <ArrowRight size={14} />
               </Link>
@@ -271,15 +271,52 @@ export default function Home() {
         </section>
       )}
 
+      {/* ─── HIGH-INTENT BCBA PRACTICE PATH ───────────────────────── */}
+      <section className="border-y border-[var(--bs-hairline)] bg-[var(--bs-forest-wash)] py-10">
+        <div className="mx-auto grid max-w-6xl items-center gap-6 px-4 sm:px-6 lg:grid-cols-[1fr_auto] lg:px-8">
+          <div>
+            <p className="bs-eyebrow">
+              Free BCBA Exam Prep
+            </p>
+            <h2 className="mt-2 text-2xl font-bold text-[var(--bs-ink)] sm:text-3xl">
+              Start with a free Quick domain check (9 questions), instant score, and rationales.
+            </h2>
+            <div className="mt-4 grid gap-2 text-sm font-medium text-[var(--bs-secondary)] sm:grid-cols-3">
+              {["No credit card", "Score immediately", "Know what to study next"].map((item) => (
+                <div key={item} className="flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 flex-none text-emerald-700" />
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-col gap-3 justify-center">
+            <Link
+              href="https://study.behaviorschool.com/free-practice/"
+              className="bs-btn-secondary"
+            >
+              Start the 9-question check
+              <ArrowRight size={16} />
+            </Link>
+            <Link
+              href="https://study.behaviorschool.com/free-mock-exam/"
+              className="bs-link bs-padded justify-center"
+            >
+              Or take the free 185-question mock exam
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <HomepageEmailCapture />
 
       {/* ─── CREATOR BIO ──────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-white border-t border-gray-100">
+      <section className="py-16 sm:py-20 bg-[var(--bs-cream)] border-t border-gray-100">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f] mb-4">
+          <p className="bs-eyebrow mb-4">
             From a BCBA in the Field, For You
           </p>
-          <p className="text-gray-600 leading-relaxed text-lg">
+          <p className="text-[var(--bs-secondary)] leading-relaxed text-lg">
             Behavior School and its suite of tools were created by Rob Spain, a Board Certified Behavior Analyst (BCBA) with {founderEducationYears} years in education since {FOUNDER_EDUCATION_START_LABEL}. The platform is designed around practical workflows for behavior analysts working with students, staff, and school systems. Learn more about Rob&apos;s work at{" "}
             <a
               href="https://robspain.com"

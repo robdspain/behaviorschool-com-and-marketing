@@ -119,7 +119,7 @@ export function SeoArticlePage({
       </section>
 
       <section className="container mx-auto px-6 pb-14">
-        <div className={heroVisual ? "grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_460px]" : "max-w-4xl"}>
+        <div className={heroVisual ? "grid grid-cols-[minmax(0,1fr)] items-center gap-10 lg:grid-cols-[minmax(0,1fr)_460px]" : "max-w-4xl"}>
           <div className="max-w-4xl">
             <div className="mb-5 inline-flex rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-semibold text-emerald-700">
               {eyebrow}
@@ -286,7 +286,7 @@ export function SeoArticlePage({
         </div>
       </section>
 
-      <section className="container mx-auto grid max-w-7xl gap-8 px-6 pb-16 lg:grid-cols-[1fr_320px]">
+      <section className="container mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)] gap-8 px-6 pb-16 lg:grid-cols-[minmax(0,1fr)_320px]">
         <article className="space-y-6">
           {sections.map((section) => (
             <section

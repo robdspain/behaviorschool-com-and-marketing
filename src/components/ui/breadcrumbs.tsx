@@ -47,7 +47,7 @@ export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
             {item.href ? (
               <Link 
                 href={item.href}
-                className="hover:text-emerald-700 transition-colors flex items-center"
+                className="hover:text-emerald-700 transition-colors flex items-center min-h-[44px]"
               >
                 {index === 0 && <Home className="h-4 w-4 mr-1" />}
                 {item.label}

@@ -19,7 +19,7 @@ meta_description: "Review the BCBA 6th Edition Test Content Outline, including 9
 
 If you're preparing for the BCBA exam, you're studying the **6th Edition Test Content Outline (TCO)** - and knowing exactly what's on it, how it's weighted, and which domains eat the most exam questions is the difference between a focused study plan and wasted hours.
 
-This guide breaks down every domain of the BCBA 6th Edition TCO, gives you the exam weights, tells you which tasks are highest-yield, and flags which sections catch school-based BCBAs off guard.
+This guide breaks down every domain of the BCBA 6th Edition TCO, gives you the exam weights, tells you which tasks are highest-yield, and flags which sections catch school BCBAs off guard.
 
 > **Download the official source:** [BCBA Test Content Outline (6th ed.)](https://www.bacb.com/wp-content/uploads/2022/01/BCBA-6th-Edition-Test-Content-Outline-240903-a.pdf) - free PDF directly from BACB.
 
@@ -291,7 +291,7 @@ Domain I has 19 questions (11%) in the 6th edition, up from 17 (10%) in the 5th.
 
 ---
 
-## What This Means for School-Based BCBAs
+## What This Means for school BCBAs
 
 If you work in schools, you have an advantage on the BCBA exam - and some blind spots.
 
@@ -315,7 +315,7 @@ If you work in schools, you have an advantage on the BCBA exam - and some blind 
 4. **Practice IOA calculations.** Measurement (Domain C) has math questions. Do them with paper before exam day.
 5. **Do domain-specific practice questions.** After studying each domain, hit practice questions targeting it specifically.
 
-> Ready to practice by domain? [Behavior Study Tools](https://study.behaviorschool.com/free-practice/) generates unlimited domain-specific practice questions for the 6th Edition TCO - so you can drill Domain G until it sticks.
+> Ready to practice by domain? [Take the free 185-question BCBA mock exam](https://study.behaviorschool.com/free-mock-exam/) to see your score by 6th Edition domain, or start with the [free 9-question Quick domain check](https://study.behaviorschool.com/free-practice/).
 
 ---
 
@@ -332,29 +332,35 @@ Different parts of the 6th Edition outline call for different practice formats:
 
 ## Frequently Asked Questions
 
-**Is the BCBA exam still based on the 6th Edition TCO in 2026?**
+### Is the BCBA exam still based on the 6th Edition TCO in 2026?
+
 Yes. The BCBA exam has been based on the BCBA Test Content Outline (6th ed.) since January 1, 2025, and the BACB says there are currently no upcoming changes to the exam or the outline, including with the 2027 requirement changes.
 
-**How many questions are on the BCBA exam?**
+### How many questions are on the BCBA exam?
+
 185 total: 175 scored and 10 unscored pilot questions, in 4 hours. Answer every question as if it counts.
 
-**What is the passing score for the BCBA exam?**
+### What is the passing score for the BCBA exam?
+
 The BACB sets the passing score with the modified Angoff method, and exam forms are statistically equated, so the number correct needed can vary by form. Scaled scores appear on score reports; the BACB's current pages don't publish a specific scaled passing score.
 
-**How long do I have to take the BCBA exam?**
+### How long do I have to take the BCBA exam?
+
 4 hours for the full exam.
 
-**What percentage of people pass the BCBA exam on the first try?**
+### What percentage of people pass the BCBA exam on the first try?
+
 In 2025, 51% of first-time BCBA candidates passed and 23% of retake candidates passed. First-time rates were 54% to 56% in 2022 to 2024 (BACB).
 
 ---
 
 ## Summary
 
-The BCBA Test Content Outline (6th ed.) organizes 175 scored exam questions across 9 domains and 104 tasks. Domain G (Behavior-Change Procedures) has the most questions (25, 14%), followed closely by Concepts and Principles (24, 14%), Behavior Assessment (23, 13%), and Ethical and Professional Issues (22, 13%). For school-based BCBAs, the biggest hidden risks are Domain D (Experimental Design) and Domain E (Ethics) - both require deliberate study beyond everyday practice.
+The BCBA Test Content Outline (6th ed.) organizes 175 scored exam questions across 9 domains and 104 tasks. Domain G (Behavior-Change Procedures) has the most questions (25, 14%), followed closely by Concepts and Principles (24, 14%), Behavior Assessment (23, 13%), and Ethical and Professional Issues (22, 13%). For school BCBAs, the biggest hidden risks are Domain D (Experimental Design) and Domain E (Ethics) - both require deliberate study beyond everyday practice.
 
 **Next steps:**
 - [Take a free BCBA practice exam by domain](https://study.behaviorschool.com/free-practice/)
+- [Take the free 185-question BCBA mock exam](https://study.behaviorschool.com/free-mock-exam/)
 - [Read our BCBA exam prep study strategies guide](/blog/free-bcba-exam-prep-study-strategies)
 - [Explore Behavior Study Tools for domain-specific practice](/behavior-study-tools)
 

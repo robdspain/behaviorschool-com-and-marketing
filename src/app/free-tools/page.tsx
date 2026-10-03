@@ -211,7 +211,7 @@ export default function FreeToolsPage() {
         />
       ))}
 
-      <section className="border-b border-white/15 bg-[#0b3528] text-white">
+      <section className="bs-on-dark border-b border-white/15 bg-[#0b3528] text-white">
         <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-16 lg:px-10 lg:py-20">
           <div className="max-w-4xl">
             <nav aria-label="Breadcrumb" className="mb-8 flex flex-wrap items-center gap-2 text-sm text-white/65">

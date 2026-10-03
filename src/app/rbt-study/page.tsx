@@ -15,6 +15,7 @@ export const metadata = {
   title: "RBT Exam Prep - Practice Tests & Flashcards | BehaviorSchool",
   description:
     "Prepare for the RBT certification exam with mock exams, flashcards, SAFMEDS practice, and progress tracking. 2nd edition task list coverage.",
+  alternates: { canonical: "https://behaviorschool.com/rbt-study" },
 };
 
 export default function RBTStudyPage() {

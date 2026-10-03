@@ -14,6 +14,7 @@ type HeroProps = {
   highlight?: string;
   subtitle?: string;
   primaryCta?: { href: string; label: string };
+  secondaryCta?: { href: string; label: string };
   variant?: 'light' | 'dark' | 'brand';
 };
 
@@ -24,6 +25,7 @@ export function Hero({
   highlight,
   subtitle,
   primaryCta = { href: "https://study.behaviorschool.com/free-practice/", label: "Get Started" },
+  secondaryCta = { href: "https://study.behaviorschool.com/free-practice/", label: "Or try 9 questions first, no account" },
   variant = 'light',
 }: HeroProps) {
   const isDark = variant === 'dark' || variant === 'brand';
@@ -31,63 +33,31 @@ export function Hero({
   return (
     <section
       className={cn(
-        "relative pt-12 pb-20 lg:pt-20 lg:pb-32 overflow-hidden selection:bg-emerald-500/30",
-        variant === 'dark' ? 'bg-[#0A0A0A]' : variant === 'light' ? 'bg-[#FAFAFA]' : undefined,
+        "relative pt-12 pb-20 lg:pt-20 lg:pb-32 overflow-hidden bs-on-dark",
+        variant === 'dark' ? 'bg-[#0A0A0A]' : variant === 'light' ? 'bg-[var(--bs-cream)]' : undefined,
         className
       )}
-      style={variant === 'brand' ? { backgroundColor: '#0A1512' } : undefined}
+      style={variant === 'brand' ? { backgroundColor: '#123628' } : undefined}
     >
       {/* Dynamic Background Elements - 2026 Aesthetic */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {isDark ? (
-          <>
-            {/* Dark mode abstract gradients */}
-            <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[70%] rounded-full bg-emerald-600/20 blur-[120px] mix-blend-screen animate-pulse duration-[8000ms]" />
-            <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[80%] rounded-full bg-blue-600/20 blur-[150px] mix-blend-screen animate-pulse duration-[10000ms] delay-1000" />
-
-            {/* Neo-brutalist grid */}
-            <div
-              className="absolute inset-0 opacity-[0.03]"
-              style={{
-                backgroundImage: 'linear-gradient(to right, #ffffff 1px, transparent 1px), linear-gradient(to bottom, #ffffff 1px, transparent 1px)',
-                backgroundSize: '40px 40px'
-              }}
-            />
-          </>
-        ) : (
-          <>
-            {/* Light mode vibrant gradients with glassmorphism feel */}
-            <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[60%] rounded-full bg-emerald-300/40 blur-[100px] animate-pulse duration-[8000ms]" />
-            <div className="absolute bottom-[-10%] right-[-5%] w-[50%] h-[70%] rounded-full bg-teal-300/30 blur-[120px] animate-pulse duration-[12000ms] delay-500" />
-            <div className="absolute top-[20%] right-[10%] w-[30%] h-[40%] rounded-full bg-blue-200/40 blur-[80px] animate-pulse duration-[10000ms] delay-1000" />
-
-            {/* Subtle dot matrix */}
-            <div
-              className="absolute inset-0 opacity-[0.4]"
-              style={{
-                backgroundImage: 'radial-gradient(circle at 1px 1px, #cbd5e1 1px, transparent 0)',
-                backgroundSize: '32px 32px'
-              }}
-            />
-          </>
-        )}
       </div>
 
       <div className="relative max-w-[1400px] mx-auto px-6 sm:px-8 lg:px-12">
         <div className="grid lg:grid-cols-[1fr_1.1fr] gap-12 lg:gap-20 items-center">
 
           {/* Text Content */}
-          <div className="space-y-10 z-10">
-            <div className="space-y-6">
+          <div className="z-10 flex flex-col gap-6 sm:gap-8">
+            <div className="contents">
               {eyebrow && (
-                <div className="animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 fill-mode-both">
+                <div className="hidden sm:block animate-in fade-in slide-in-from-bottom-4 duration-700 delay-100 fill-mode-both">
                   <Badge
                     variant="outline"
                     className={cn(
-                      "inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium tracking-wide border transition-all hover:scale-105 backdrop-blur-md",
-                      isDark
-                        ? 'bg-white/5 text-emerald-300 border-white/10 hover:bg-white/10'
-                        : 'bg-white/60 text-emerald-700 border-emerald-200/50 shadow-sm hover:bg-white/80'
+                      "hidden sm:inline-flex items-center px-4 min-h-[44px] rounded-lg text-[14px] font-[600]",
+                      variant === 'brand'
+                        ? 'text-[#f4efe5] border border-[rgb(244,239,229,0.3)]'
+                        : 'text-[#1f4d3f] border border-[#365548]'
                     )}
                   >
                     <Sparkles className="w-4 h-4 mr-2" />
@@ -98,79 +68,73 @@ export function Hero({
 
               <h1 className={cn(
                 "animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200 fill-mode-both",
-                "text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem] font-extrabold tracking-tight leading-[1.05]"
+                "text-5xl sm:text-6xl lg:text-7xl xl:text-[5rem] font-[800] tracking-tight leading-[1.05]"
               )}>
                 <span className={cn(
                   "block mb-2",
-                  isDark ? 'text-white' : 'text-slate-900'
+                  variant === 'brand' ? 'text-[#f4efe5]' : 'text-[var(--bs-ink)]'
                 )}>{title}</span>
 
                 {highlight && (
-                  <span className={cn(
-                    "inline-block pb-2 text-transparent bg-clip-text bg-gradient-to-r",
-                    isDark
-                      ? 'from-emerald-400 via-teal-300 to-emerald-500 bg-[length:200%_auto] animate-gradient'
-                      : 'from-emerald-600 via-teal-500 to-emerald-600 bg-[length:200%_auto] animate-gradient'
+                  <>{" "}<span className={cn(
+                    "inline-block pb-2",
+                    variant === 'brand'
+                      ? 'text-[#e4b63d]'
+                      : 'text-[#1f4d3f]'
                   )}>
                     {highlight}
-                  </span>
+                  </span></>
                 )}
               </h1>
 
               {subtitle && (
                 <p className={cn(
-                  "animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both",
-                  "text-xl sm:text-2xl leading-relaxed max-w-2xl font-light",
-                  isDark ? 'text-slate-300' : 'text-slate-600'
+                  "order-3 sm:order-2 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300 fill-mode-both",
+                  "leading-relaxed max-w-2xl",
+                  variant === 'brand' ? 'text-[#f4efe5] font-[400] text-[20px] sm:text-[22px]' : 'text-[var(--bs-secondary)] font-[400] text-[20px] sm:text-[22px]'
                 )}>
                   {subtitle}
                 </p>
               )}
             </div>
 
-            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500 fill-mode-both flex flex-col sm:flex-row gap-5">
-              <Button
-                asChild
-                size="lg"
-                className={cn(
-                  "h-16 w-full sm:w-auto px-10 text-lg font-semibold rounded-2xl transition-all duration-300 group overflow-hidden relative",
-                  isDark
-                    ? 'bg-white text-slate-900 hover:scale-[1.02] hover:shadow-[0_0_40px_rgba(255,255,255,0.2)]'
-                    : 'bg-slate-900 text-white hover:scale-[1.02] hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]'
-                )}
+            <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500 fill-mode-both order-2 sm:order-3 flex flex-col items-start gap-4 sm:mt-2">
+              <Link 
+                href={primaryCta.href}
+                className={variant === 'brand' ? 'bs-btn-primary text-[18px]' : 'bs-btn-primary text-[18px]'}
               >
-                <Link href={primaryCta.href}>
-                  <span className="relative z-10 flex items-center">
-                    {primaryCta.label}
-                    <ArrowRight className="ml-3 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-                  </span>
-                  {/* Hover gradient effect inside button */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-emerald-500/20 to-teal-500/20" />
-                </Link>
-              </Button>
+                {primaryCta.label}
+              </Link>
+              <Link 
+                href={secondaryCta.href}
+                className={cn("bs-link bs-padded", variant === 'brand' ? 'text-[var(--bs-paper)]' : '')}
+              >
+                {secondaryCta.label}
+              </Link>
             </div>
           </div>
 
           {/* Visual Element - Glassmorphism Card */}
           <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-300 fill-mode-both lg:ml-auto w-full max-w-[600px]">
             {/* Glow behind image */}
-            <div className="absolute -inset-4 bg-gradient-to-tr from-emerald-500/30 to-blue-500/30 rounded-[2.5rem] blur-[40px] opacity-60" />
+            
 
             <div className={cn(
-              "relative z-10 rounded-[2rem] p-2 sm:p-4 backdrop-blur-xl border shadow-2xl overflow-hidden group",
-              isDark
-                ? 'bg-white/5 border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]'
-                : 'bg-white/40 border-white/60 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)]'
+              "relative z-10 rounded-xl overflow-hidden group",
+              variant === 'brand'
+                ? 'border border-[rgb(251,250,246,0.16)]'
+                : 'border border-[var(--bs-hairline)]'
             )}>
               {/* Inner shine effect */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+              
 
-              <div className="relative rounded-[1.5rem] overflow-hidden aspect-[4/3]">
+              <div className="relative rounded-xl overflow-hidden aspect-[4/3]">
                 <Image
                   src="/optimized/Hero/Hero-group1-optimized.webp"
-                  alt="School-based BCBAs collaborating"
-                  fill
-                  className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                  alt="Three educators in a classroom smiling while they review a laptop"
+                  width={1920}
+                  height={1080}
+                  className="object-cover transition-transform duration-1000 group-hover:scale-105 h-full w-full"
                   loading="eager"
                   priority={true}
                   fetchPriority="high"

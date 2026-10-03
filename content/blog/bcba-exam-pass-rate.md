@@ -12,8 +12,8 @@ tags:
   - Study Tips
   - blog
 status: published
-meta_title: "BCBA Exam Pass Rate 2025: 51% First-Time + How to Study Smarter"
-meta_description: "First-time BCBA pass rate was 51% in 2025 (BACB). See the official 2022-2025 trend, why candidates fail, and a study plan built around weak domains and timed mocks."
+meta_title: "BCBA Exam Pass Rate 2025: 51% First-Time and How to Study"
+meta_description: "BACB data: 51% of first-time BCBA candidates passed in 2025. See the 2022 to 2025 trend and a study plan built on weak domains and timed mocks."
 slug: bcba-exam-pass-rate
 keywords:
   - BCBA exam pass rate
@@ -111,11 +111,11 @@ A few patterns show up consistently among candidates who pass on the first attem
 
 ## Preparing for the BCBA Exam With the Right Practice Format
 
-[Behavior Study Tools](/behavior-study-tools) was built to address common preparation gaps. Use the [free mock exam](https://study.behaviorschool.com/free-mock-exam/) when you need exam-length feedback; that 185-question mock asks for a free account before you start. Your first step should still match the kind of data you need.
+[Behavior Study Tools](/behavior-study-tools) was built to address common preparation gaps. Use the [free 185-question BCBA mock exam](https://study.behaviorschool.com/free-mock-exam/) when you need exam-length feedback; that 185-question mock asks for a free account before you start. Your first step should still match the kind of data you need.
 
 - Start with [BCBA exam practice questions](/bcba-exam-practice-questions) when you need shorter study sessions, rationales, and daily repetition.
 - Review [sample BCBA exam questions](/bcba-test-questions) when you want to inspect wording, scenario structure, and distractor patterns.
-- Take a [free mock exam](https://study.behaviorschool.com/free-mock-exam/) when you need a timed 185-question mock for stamina and pacing. Create a free account before that mock starts.
+- Take a [free 185-question BCBA mock exam](https://study.behaviorschool.com/free-mock-exam/) when you need a timed 185-question mock for stamina and pacing. Create a free account before that mock starts.
 - Use a broader [BCBA practice exam](/bcba-practice-exam) when you need repeated exam-style review with scoring and explanations.
 
 If you are preparing for the BCBA exam or preparing to retake it, start with a full mock when you need exam-length feedback, then use the score and error patterns to decide where your preparation should be focused.

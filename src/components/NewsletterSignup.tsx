@@ -62,22 +62,22 @@ export function NewsletterSignup() {
   };
 
   return (
-    <div id="newsletter" className="my-12 rounded-lg border border-[#d9cdb8] bg-[#f4efe5] p-8">
+    <div id="newsletter" className="bg-[var(--bs-paper)] border border-[var(--bs-hairline)] rounded-xl p-8 my-12">
       <div className="max-w-2xl mx-auto text-center">
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-lg bg-[#fbfaf6]">
-          <Mail className="h-8 w-8 text-[#1f4d3f]" />
+        <div className="w-16 h-16 bg-[var(--bs-forest-wash)] rounded-full flex items-center justify-center mx-auto mb-4">
+          <Mail className="w-8 h-8 text-[#1f4d3f]" />
         </div>
         
-        <h3 className="text-2xl font-bold text-[#171f1d] mb-3">
+        <h3 className="text-2xl font-[700] text-[var(--bs-ink)] mb-3">
           The Weekly Research Brief
         </h3>
         
-        <p className="text-[#365548] mb-6">
+        <p className="text-[var(--bs-secondary)] mb-6">
           Open research, clear summaries, and practical next steps for school BCBAs, delivered each week.
         </p>
 
         {status === 'success' ? (
-          <div className="rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] px-6 py-4 text-[#171f1d]">
+          <div className="bg-[var(--bs-forest-wash)] border border-[var(--bs-forest)] text-[#1f4d3f] px-6 py-4 rounded-lg">
             <p>{message}</p>
             {submittedEmail && !message.startsWith('You are already subscribed') ? (
               <button
@@ -88,7 +88,7 @@ export function NewsletterSignup() {
                   setMessage('');
                   trackButtonClick('newsletter_confirmation_retry', 'weekly_research_brief_embedded', { source: `behaviorschool-embedded:${pathname}` });
                 }}
-                className="mt-3 text-sm font-semibold underline underline-offset-4"
+                className="mt-3 text-sm font-[600] text-[var(--bs-forest)] underline underline-offset-4 hover:decoration-2"
               >
                 Request a fresh confirmation link
               </button>
@@ -103,12 +103,12 @@ export function NewsletterSignup() {
               placeholder="Enter your email"
               required
               disabled={status === 'loading'}
-              className="min-h-12 flex-1 rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] px-4 py-3 text-base text-[#171f1d] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f] disabled:opacity-50"
+              className="flex-1 px-4 min-h-[44px] border border-[#365548] rounded-lg disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="min-h-12 whitespace-nowrap rounded-lg bg-[#1f4d3f] px-6 py-3 font-semibold text-[#fbfaf6] transition-colors hover:bg-[#123628] disabled:cursor-not-allowed disabled:opacity-50"
+              className="bs-btn-nav disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {status === 'loading' ? 'Sending...' : 'Send me the weekly brief'}
             </button>
@@ -119,7 +119,7 @@ export function NewsletterSignup() {
           <p className="text-red-600 text-sm mt-3">{message}</p>
         )}
 
-        <p className="mt-4 text-sm text-[#365548]">
+        <p className="text-sm text-[#365548] mt-4">
           Free. One email each week. Confirm your email to join. Unsubscribe anytime.
         </p>
       </div>

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   keywords: 'BehaviorSchool vs MagicSchool, MagicSchool AI alternative, IEP goal writer comparison, AI IEP tools, behavior analyst tools, MagicSchool AI review, best IEP goal generator',
   alternates: { canonical: 'https://behaviorschool.com/compare/behaviorschool-vs-magicschool' },
   openGraph: {
-    title: 'BehaviorSchool vs MagicSchool AI – IEP & Behavior Tools Comparison 2026',
+    title: 'BehaviorSchool vs MagicSchool AI - IEP & Behavior Tools Comparison 2026',
     description: 'Specialized behavior analysis tools vs generic AI education platform. Which is better for school BCBAs and special education professionals?',
     url: 'https://behaviorschool.com/compare/behaviorschool-vs-magicschool',
     siteName: 'Behavior School',
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'BehaviorSchool vs MagicSchool AI – Which Is Better for BCBAs?',
+    title: 'BehaviorSchool vs MagicSchool AI - Which Is Better for BCBAs?',
     description: 'Specialized behavior analysis vs generic AI education tools. See the full comparison.',
   },
 };
@@ -61,11 +61,11 @@ export default function BehaviorSchoolVsMagicSchool() {
         heroSubtitle="Specialized behavior analysis tools built by a BCBA, or a generic AI education platform with 80+ tools? See which is right for school-based behavior analysts."
         competitorName="MagicSchool AI"
         competitorUrl="https://magicschool.ai"
-        competitorDescription="MagicSchool AI is a popular general-purpose AI platform for K-12 educators, offering 80+ AI tools including lesson planners, quiz generators, rubric creators, and an IEP goal writer. It serves all teachers broadly and has gained significant traction with its free tier and Chrome extension. However, its IEP and behavior tools are generic — just one of dozens of tools, not a specialized solution."
+        competitorDescription="MagicSchool AI is a popular general-purpose AI platform for K-12 educators, offering 80+ AI tools including lesson planners, quiz generators, rubric creators, and an IEP goal writer. It serves all teachers broadly and has gained significant traction with its free tier and Chrome extension. However, its IEP and behavior tools are generic - just one of dozens of tools, not a specialized solution."
         behaviorSchoolAdvantages={[
           'Built by a BCBA specifically for behavior analysts',
           'ABA-grounded IEP goals (not generic education AI)',
-          'FBA-to-BIP pipeline — no competitor has this',
+          'FBA-to-BIP pipeline - no competitor has this',
           'BCBA exam prep + CEUs + tools in one platform',
           'Behavior-specific goal bank and templates',
           'Deep understanding of school-based behavior challenges',
@@ -115,13 +115,13 @@ export default function BehaviorSchoolVsMagicSchool() {
           },
         ]}
         pricing={[
-          { name: 'Free Tier', behaviorSchool: '✅ Free tools', competitor: '✅ Free (limited)' },
-          { name: 'BCBA Starter', behaviorSchool: '$19/mo', competitor: '$8.33–$12.99/mo' },
+          { name: 'Free Tier', behaviorSchool: 'Free tools', competitor: 'Free (limited)' },
+          { name: 'BCBA Starter', behaviorSchool: '$19/mo', competitor: '$8.33-$12.99/mo' },
           { name: 'IEP + Behavior Tools', behaviorSchool: 'Included in free & pro', competitor: 'Basic only (1 of 80+ tools)' },
           { name: 'BCBA Exam Prep', behaviorSchool: '$149/6mo or $199/yr', competitor: 'Not available' },
           { name: 'All-Access Bundle', behaviorSchool: '$249/yr', competitor: 'N/A' },
         ]}
-        verdict="MagicSchool AI is a great general tool for classroom teachers who want AI help with lesson plans, quizzes, and basic IEPs. But if you're a BCBA or behavior analyst working in schools, BehaviorSchool is purpose-built for you — with ABA-grounded IEP goals, behavior plan generators, exam prep, and professional development that MagicSchool simply can't match. Depth beats breadth when it comes to behavior analysis."
+        verdict="MagicSchool AI is a great general tool for classroom teachers who want AI help with lesson plans, quizzes, and basic IEPs. But if you're a BCBA or behavior analyst working in schools, BehaviorSchool is purpose-built for you - with ABA-grounded IEP goals, behavior plan generators, exam prep, and professional development that MagicSchool simply can't match. Depth beats breadth when it comes to behavior analysis."
         emailSource="compare-vs-magicschool"
         faqItems={[
           {
@@ -142,7 +142,7 @@ export default function BehaviorSchoolVsMagicSchool() {
           },
           {
             q: 'Which platform is more affordable?',
-            a: 'Both offer free tiers. For individual subscriptions, they\'re similarly priced. However, BehaviorSchool bundles BCBA exam prep, CEUs, IEP tools, and behavior plan generators together — making it significantly better value for behavior analysts.',
+            a: 'Both offer free tiers. For individual subscriptions, they\'re similarly priced. However, BehaviorSchool bundles BCBA exam prep, CEUs, IEP tools, and behavior plan generators together - making it significantly better value for behavior analysts.',
           },
         ]}
       />
