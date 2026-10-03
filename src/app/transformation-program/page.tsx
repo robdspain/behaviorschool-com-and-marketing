@@ -4,10 +4,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { ArrowRight, Users, Target, CheckCircle, ChevronDown, FileCheck, FlaskConical, ClipboardList, BarChart3, AlertCircle } from 'lucide-react';
+import { W9RequestForm } from '@/components/transformation/W9RequestForm';
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from '@/lib/founder-tenure';
-import { cohortCompactDateLine, keepMonthAndDayTogether, TRANSFORMATION_PAYMENT_PLAN_SENTENCE, TRANSFORMATION_PROGRAM, TRANSFORMATION_SESSION_TITLES, transformationProgramFaqItems } from '@/lib/transformation-program';
+import { cohortCompactDateLine, keepMonthAndDayTogether, TRANSFORMATION_PAYMENT_PLAN_SENTENCE, TRANSFORMATION_PROGRAM, TRANSFORMATION_SESSION_TITLES, TRANSFORMATION_W9_FAQ_ANSWER, transformationProgramFaqItems, W9_REQUEST_ANCHOR } from '@/lib/transformation-program';
 
 const OFFER_PRICE = TRANSFORMATION_PROGRAM.pricing.payInFull;
 const PAYMENT_PLAN_SENTENCE = TRANSFORMATION_PAYMENT_PLAN_SENTENCE;
@@ -93,6 +94,19 @@ const primaryCtaClass =
   'inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-[#e4b63d] px-6 py-3 text-base font-semibold text-[#171f1d] transition-colors hover:bg-[#d9a92f] hover:underline focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f]';
 const textLinkClass =
   'inline-flex min-h-11 items-center text-base font-semibold text-[#1f4d3f] underline underline-offset-4 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f]';
+
+function renderFaqAnswer(answer: string) {
+  if (answer !== TRANSFORMATION_W9_FAQ_ANSWER) return answer;
+  const marker = "here";
+  const index = answer.indexOf(marker);
+  return (
+    <>
+      {answer.slice(0, index)}
+      <a href={`#${W9_REQUEST_ANCHOR}`} className={textLinkClass}>here</a>
+      {answer.slice(index + marker.length)}
+    </>
+  );
+}
 
 function CohortCard() {
   return (
@@ -379,7 +393,13 @@ export default function TransformationProgramPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Common Questions</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#171f1d] mb-14">School BCBA Systems Transformation Program FAQ</h2>
-          <FAQAccordion items={transformationProgramFaqItems()} />
+          <FAQAccordion
+            items={transformationProgramFaqItems().map((item) => ({
+              question: item.question,
+              answer: renderFaqAnswer(item.answer),
+            }))}
+          />
+          <W9RequestForm />
         </div>
       </section>
 
@@ -445,9 +465,13 @@ export default function TransformationProgramPage() {
                 Need current district paperwork? Contact us for the current program description, invoice, and payment documentation.
               </p>
               <p className="text-base text-[#365548]">
-                Need a W-9, purchase order, or invoice?{' '}
+                Need a W-9?{' '}
+                <a href={`#${W9_REQUEST_ANCHOR}`} className={textLinkClass}>
+                  Request it here
+                </a>{' '}
+                and it arrives in your inbox right away. For a purchase order or invoice,{' '}
                 <a href={DISTRICT_EMAIL_LINK} className={textLinkClass}>
-                  Contact us
+                  contact us
                 </a>{' '}
                 and we will send the paperwork. Seats are held once a signed purchase order or written district payment approval is received.
               </p>
