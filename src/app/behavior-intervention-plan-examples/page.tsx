@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SeoArticlePage } from "@/components/seo/SeoArticlePage";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
@@ -59,6 +60,13 @@ export default function Page() {
     >
       <section className="rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
         <h2 className="text-2xl font-bold text-slate-950">Function-based BIP example framework</h2>
+        <p className="mt-3 text-sm leading-relaxed text-slate-700">
+          Examples are a starting point. For live practice building the assessment and plan together, see{" "}
+          <Link href="/transformation-program" className="font-semibold text-emerald-800 underline underline-offset-4">
+            school BCBA training on functional behavior assessment and behavior intervention plan systems
+          </Link>
+          .
+        </p>
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           {[
             {

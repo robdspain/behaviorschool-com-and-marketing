@@ -216,7 +216,7 @@ export default function SchoolBCBAContent() {
               </p>
               <Button asChild size="lg" className="bg-red-600 hover:bg-red-700 text-white text-lg px-10 py-7 font-bold rounded-2xl shadow-xl shadow-red-900/20 transition-all transform hover:scale-105">
                 <Link href="/transformation-program">
-                  See the Program Details
+                  See the School BCBA Systems Transformation Program
                   <ArrowRight className="ml-2 h-6 w-6" />
                 </Link>
               </Button>

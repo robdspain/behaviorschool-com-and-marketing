@@ -81,7 +81,7 @@ export default function BacbAceProviderPage() {
               <div className="flex justify-center">
                 <Image
                   src="/BACB-ACE/BACB_ACE-Logo-New.png"
-                  alt="BACB Authorized Continuing Education Provider Logo - Behavior School"
+                  alt="BACB Authorized Continuing Education Provider logo"
                   width={220}
                   height={220}
                   priority

@@ -84,7 +84,7 @@ export function Footer() {
             <Link href="/bacb-ace-provider" aria-label="BACB ACE Provider Information">
               <Image
                 src="/BACB-ACE/BACB_ACE-Logo-New.png"
-                alt="BACB Authorized Continuing Education Provider Logo - Behavior School"
+                alt="BACB Authorized Continuing Education Provider logo"
                 width={100}
                 height={100}
                 className="cursor-pointer transition-opacity hover:opacity-80"
@@ -165,7 +165,7 @@ export function Footer() {
               IEP Goal Examples
             </Link>
             <Link
-              href="https://study.behaviorschool.com/contact"
+              href="https://study.behaviorschool.com/support/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-11 items-center text-[#365548] transition-colors hover:text-[#171f1d]"
