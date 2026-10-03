@@ -14,6 +14,59 @@ export type FbaKitInput = {
   website?: unknown;
 };
 
+export type FbaKitContactInput = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: FbaKitRole;
+};
+
+export type FbaKitExistingContact = {
+  firstName?: string | null;
+  lastName?: string | null;
+  tags?: string[] | null;
+  notes?: string | null;
+  status?: string | null;
+  revenue?: number | null;
+};
+
+const FBA_KIT_NOTE = 'requested School FA starter kit (calaba-fba-20261009), consent given on the event page';
+const MAX_CRM_NOTES_LENGTH = 8000;
+
+export function buildFbaKitContactArgs(
+  existing: FbaKitExistingContact | null,
+  input: FbaKitContactInput,
+  now = new Date(),
+) {
+  const note = `${now.toISOString()}: ${FBA_KIT_NOTE}`;
+  const notes = existing?.notes ? `${existing.notes}\n${note}` : note;
+  const mergedNotes = notes.length > MAX_CRM_NOTES_LENGTH ? notes.slice(-MAX_CRM_NOTES_LENGTH) : notes;
+  const tags = Array.from(new Set([...(existing?.tags ?? []), FBA_KIT_SOURCE]));
+
+  if (existing) {
+    return {
+      firstName: existing.firstName || input.firstName,
+      lastName: existing.lastName || input.lastName,
+      email: input.email,
+      role: input.role,
+      tags,
+      notes: mergedNotes,
+    };
+  }
+
+  return {
+    firstName: input.firstName,
+    lastName: input.lastName,
+    email: input.email,
+    role: input.role,
+    status: 'lead' as const,
+    leadSource: FBA_KIT_SOURCE,
+    tags: [FBA_KIT_SOURCE],
+    notes: 'Consent: Email me the School FA starter kit. Consent recorded through the event page.',
+    revenue: 0,
+  };
+}
+
 export function validateFbaKitInput(input: FbaKitInput) {
   const name = typeof input.name === 'string' ? input.name.trim() : '';
   const email = typeof input.email === 'string' ? input.email.trim().toLowerCase() : '';

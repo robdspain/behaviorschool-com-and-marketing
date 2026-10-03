@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { api, getConvexClient } from '@/lib/convex';
 import { RESEND_FROM_SUPPORT_TRANSACTIONAL } from '@/lib/resend';
-import { FBA_KIT_DOWNLOAD_URL, FBA_KIT_SOURCE, validateFbaKitInput } from '@/lib/fba-starter-kit';
+import {
+  FBA_KIT_DOWNLOAD_URL,
+  buildFbaKitContactArgs,
+  validateFbaKitInput,
+} from '@/lib/fba-starter-kit';
 
 export const dynamic = 'force-dynamic';
 
@@ -40,17 +44,14 @@ export async function POST(request: NextRequest) {
     }
 
     const { firstName, lastName } = splitName(input.name);
-    await getConvexClient().mutation(api.crm.upsertContact, {
+    const client = getConvexClient();
+    const existing = await client.query(api.crm.getContactByEmail, { email: input.email });
+    await client.mutation(api.crm.upsertContact, buildFbaKitContactArgs(existing, {
       firstName,
       lastName,
       email: input.email,
       role: input.role,
-      status: 'lead',
-      leadSource: FBA_KIT_SOURCE,
-      tags: [FBA_KIT_SOURCE],
-      notes: 'Consent: Email me the School FA starter kit. Consent recorded through the event page.',
-      revenue: 0,
-    });
+    }));
 
     const firstNameForEmail = firstName === input.name ? '' : ` ${firstName}`;
     const subject = 'Your School FA starter kit';
