@@ -63,7 +63,7 @@ export default function Page() {
         <p className="mt-3 text-sm leading-relaxed text-slate-700">
           Examples are a starting point. For live practice building the assessment and plan together, see{" "}
           <Link href="/transformation-program" className="font-semibold text-emerald-800 underline underline-offset-4">
-            school BCBA training on FBA and BIP systems
+            school BCBA training on functional behavior assessment and behavior intervention plan systems
           </Link>
           .
         </p>

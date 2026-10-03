@@ -70,7 +70,7 @@ export default function Page() {
         <p className="mt-5 text-sm leading-relaxed text-slate-700">
           School BCBAs who want live practice on these steps can look at{" "}
           <Link href="/transformation-program" className="font-semibold text-emerald-800 underline underline-offset-4">
-            school BCBA training on FBA and BIP systems
+            school BCBA training on functional behavior assessment and behavior intervention plan systems
           </Link>
           .
         </p>

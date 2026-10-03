@@ -179,7 +179,7 @@ export default function SchoolBasedBCBAPage() {
             {/* Trust Indicator */}
             <div className="flex items-center gap-2 text-sm text-slate-600">
               <Clock className="w-4 h-4" />
-              <span>{TRANSFORMATION_PROGRAM.cohort.label}. {TRANSFORMATION_PROGRAM.cohort.seatCap} seats in this cohort.</span>
+              <span>{TRANSFORMATION_PROGRAM.cohort.label}. A few seats still remaining.</span>
             </div>
           </div>
 

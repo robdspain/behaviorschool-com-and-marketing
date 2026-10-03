@@ -7,7 +7,7 @@ import { ArrowRight, Users, Target, CheckCircle, ChevronDown, FileCheck, FlaskCo
 import { FAQAccordion } from '@/components/ui/faq-accordion';
 import { ProgramApplication } from '@/components/ProgramApplication';
 import { getFounderEducationYears, FOUNDER_EDUCATION_START_LABEL } from '@/lib/founder-tenure';
-import { cohortScheduleEntries, keepMonthAndDayTogether, TRANSFORMATION_PAYMENT_PLAN_SENTENCE, TRANSFORMATION_PROGRAM, TRANSFORMATION_SESSION_TITLES, transformationProgramFaqItems } from '@/lib/transformation-program';
+import { cohortCompactDateLine, keepMonthAndDayTogether, TRANSFORMATION_PAYMENT_PLAN_SENTENCE, TRANSFORMATION_PROGRAM, TRANSFORMATION_SESSION_TITLES, transformationProgramFaqItems } from '@/lib/transformation-program';
 
 const OFFER_PRICE = TRANSFORMATION_PROGRAM.pricing.payInFull;
 const PAYMENT_PLAN_SENTENCE = TRANSFORMATION_PAYMENT_PLAN_SENTENCE;
@@ -22,11 +22,9 @@ const COHORT_SESSION_TIME = TRANSFORMATION_PROGRAM.cohort.sessionTime;
 const COHORT_SUMMARY = TRANSFORMATION_PROGRAM.cohort.summaryHeadline;
 const COHORT_SUMMARY_DETAIL = TRANSFORMATION_PROGRAM.cohort.summaryDetail;
 const APPLICATIONS_CLOSE_SHORT = TRANSFORMATION_PROGRAM.cohort.applicationsCloseShort;
-const SCHEDULE_ENTRIES = cohortScheduleEntries();
-const SESSION_MODULES = SCHEDULE_ENTRIES.filter((entry) => !entry.skipped);
+const COMPACT_DATE_LINE = cohortCompactDateLine();
 const COHORT_SCHEDULE = TRANSFORMATION_PROGRAM.cohort.scheduleLabel;
 const COHORT_SCHEDULE_SENTENCE = `${COHORT_SCHEDULE.charAt(0).toUpperCase()}${COHORT_SCHEDULE.slice(1)}`;
-const COHORT_SEAT_CAP = TRANSFORMATION_PROGRAM.cohort.seatCap;
 const APPLICATIONS_CLOSE_LABEL = TRANSFORMATION_PROGRAM.cohort.applicationsCloseLabel;
 const ONLINE_EVENT_DESCRIPTION_PUBLISHED = 'August 11, 2026';
 
@@ -110,7 +108,8 @@ function CohortCard() {
         </div>
         <div>
           <p className="text-sm font-semibold text-[#365548]">Seats</p>
-          <p className="text-base font-semibold">{COHORT_SEAT_CAP} in this cohort</p>
+          <p className="text-base font-semibold">A few</p>
+          <p className="text-sm text-[#365548]">still remaining</p>
         </div>
         <div>
           <p className="text-sm font-semibold text-[#365548]">Apply by</p>
@@ -124,22 +123,10 @@ function CohortCard() {
       <a href="#fit-call" className={`${textLinkClass} mt-1`}>
         Already applied? Book a fit call
       </a>
-      <ol className="mt-4 grid grid-cols-1 gap-2 min-[391px]:grid-cols-2 lg:grid-cols-7">
-        {SCHEDULE_ENTRIES.map((entry) => (
-          <li
-            key={`${entry.shortDate}-${entry.label}`}
-            aria-label={entry.ariaLabel}
-            className={
-              entry.skipped
-                ? 'flex min-h-11 items-center justify-between gap-3 rounded-lg border border-dashed border-[#d9cdb8] bg-transparent px-3 py-2 text-sm text-[#365548] lg:block'
-                : 'flex min-h-11 items-center justify-between gap-3 rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] px-3 py-2 text-sm lg:block'
-            }
-          >
-            <span className={`font-semibold ${entry.skipped ? '' : 'text-[#1f4d3f]'}`}>Thu, {entry.shortDate}</span>
-            <span className="lg:mt-1 lg:block">{entry.label}</span>
-          </li>
-        ))}
-      </ol>
+      <p className="mt-4 rounded-lg border border-[#173E35] border-l-[3px] border-l-[#D6A338] bg-[#EDF6F1] px-4 py-3 text-[#121F1A]">
+        <span className="block text-sm font-semibold leading-snug">Thursdays, {COHORT_SESSION_TIME}</span>
+        <span className="mt-1 block text-sm leading-snug text-[#173E35]">{COMPACT_DATE_LINE}</span>
+      </p>
     </div>
   );
 }
@@ -178,7 +165,7 @@ export default function TransformationProgramPage() {
               You became a BCBA to help kids. Not to drown in paperwork.
             </p>
             <p className="order-4 mt-3 max-w-2xl text-base leading-relaxed text-[#365548] lg:order-3">
-              Live online training for school BCBAs in kindergarten through 12th grade schools and districts. Over six Thursday sessions, {keepMonthAndDayTogether(TRANSFORMATION_PROGRAM.cohort.dateRange)}, from {COHORT_SESSION_TIME}, you build the assessment, functional behavior assessment, behavior intervention plan, data, and staff training systems your caseload runs on.
+              Live online training for school BCBAs in kindergarten through 12th grade schools and districts. Over six Thursday sessions, {keepMonthAndDayTogether(TRANSFORMATION_PROGRAM.cohort.dateRange)}, from {COHORT_SESSION_TIME}, you build the functional behavior assessment, behavior intervention plan, data, and staff training systems your caseload runs on.
             </p>
           </div>
           <div className="relative mt-8 overflow-hidden rounded-lg border border-[#d9cdb8]">
@@ -198,7 +185,7 @@ export default function TransformationProgramPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">The Reality</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#171f1d] mb-4">Problems school BCBAs bring to this program</h2>
-          <p className="text-[#365548] text-center mb-14 text-lg leading-relaxed max-w-2xl mx-auto">These are the real problems school BCBAs bring to this program.</p>
+          <p className="text-[#365548] text-center mb-14 text-lg leading-relaxed max-w-2xl mx-auto">Each session is built around one of them.</p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { pain: "High-volume referral decisions", sub: "Use a tiered routing process before committing to a full assessment." },
@@ -233,7 +220,7 @@ export default function TransformationProgramPage() {
           <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Eligibility</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#171f1d] mb-4">Who this school BCBA training is for</h2>
           <p className="text-center text-[#365548] mb-12 text-lg leading-relaxed">
-            {COHORT_SCHEDULE_SENTENCE} for practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings. It is for school BCBAs who want a clearer way to connect assessment, intervention, staff implementation, and research approaches to functional behavior assessment in the classroom.
+            {COHORT_SCHEDULE_SENTENCE} for practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings who want a clearer way to connect assessment, intervention, staff implementation, and research-based approaches to functional behavior assessment in the classroom.
           </p>
           <div className="grid sm:grid-cols-2 gap-5">
             {[
@@ -252,10 +239,10 @@ export default function TransformationProgramPage() {
           </div>
           <div className="mt-8 rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] p-5 space-y-3">
             <p className="text-[#171f1d] text-base text-center leading-relaxed">
-              Who it is not for: Registered Behavior Technicians, Board Certified Assistant Behavior Analysts who are not yet certified, general education staff, and clinic-only BCBAs without a school role.
+              Who it is not for: Registered Behavior Technicians, Board Certified Assistant Behavior Analysts, BCBA candidates who are not yet certified, general education staff, and clinic-only BCBAs without a school role.
             </p>
             <p className="text-[#171f1d] text-base text-center leading-relaxed">
-              {COHORT_SEAT_CAP} seats in this cohort. Apply by {APPLICATIONS_CLOSE_LABEL}. Applications may close earlier if all {COHORT_SEAT_CAP} seats fill. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
+              A few seats still remaining. Apply by {APPLICATIONS_CLOSE_LABEL}. Applications may close earlier if the remaining seats fill. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
             </p>
           </div>
         </div>
@@ -287,7 +274,7 @@ export default function TransformationProgramPage() {
               >
                 <div className="flex flex-col md:flex-row">
                   <div className="bg-[#1f4d3f] text-[#fbfaf6] flex items-center px-6 py-4 md:w-56 flex-shrink-0">
-                    <span className="text-base font-semibold">{SESSION_MODULES[index]?.curriculumLabel}</span>
+                    <span className="text-base font-semibold">Session {mod.week}</span>
                   </div>
                   <div className="p-6 md:p-8 flex-1 min-w-0">
                     <div className="flex items-start gap-3 mb-5">
@@ -327,7 +314,7 @@ export default function TransformationProgramPage() {
       <section className="py-20 sm:py-28 bg-[#f4efe5]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] text-center mb-3">Learning Continuing Education Information</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#171f1d] mb-8">Live session format and learning continuing education units</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#171f1d] mb-8">Live session format and Learning continuing education units</h2>
           <div className="space-y-4 text-[#171f1d] text-base leading-relaxed">
             <p>Each live online session is scheduled for {COHORT_SESSION_TIME} and includes 75 documented instructional minutes. It is structured for 1.5 Learning continuing education units after verified attendance and active participation.</p>
             <p><strong>Instructor:</strong> Rob Spain, BCBA, International Behavior Analyst. <strong>Affiliation disclosure:</strong> No relevant financial affiliation or conflict of interest to disclose.</p>
@@ -401,12 +388,12 @@ export default function TransformationProgramPage() {
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Enrollment</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#171f1d] mb-4">Apply for the {COHORT_LABEL}</h2>
-          <p className="text-[#365548] text-base mb-3">Six live Thursdays. School BCBAs only. {COHORT_SEAT_CAP} seats in this cohort. {OFFER_PRICE}.</p>
+          <p className="text-[#365548] text-base mb-3">Six live Thursdays. School BCBAs only. A few seats still remaining. {OFFER_PRICE}.</p>
           <p className="text-[#171f1d] text-lg mb-3 max-w-xl mx-auto leading-relaxed">
             Apply first. Fit calls are scheduled after application review. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
           </p>
           <p className="text-[#365548] text-base mb-6 max-w-xl mx-auto leading-relaxed">
-            Apply by {APPLICATIONS_CLOSE_LABEL}. Applications may close earlier if all {COHORT_SEAT_CAP} seats fill.
+            Apply by {APPLICATIONS_CLOSE_LABEL}. Applications may close earlier if the remaining seats fill.
           </p>
           <p className="text-[#171f1d] font-bold text-2xl mb-4">
             {OFFER_PRICE} tuition

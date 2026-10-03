@@ -131,6 +131,28 @@ function skippedSessionLongDate(): string {
   return `${monthName} ${Number(day)}`;
 }
 
+/**
+ * Compact schedule line: "Jan 14, 21, 28, Feb 11, 18, 25, 2027 (no session Feb 4)".
+ * Month and day pairs use a non-breaking space.
+ */
+export function cohortCompactDateLine(): string {
+  const groups = new Map<string, string[]>();
+  for (const shortDate of TRANSFORMATION_PROGRAM.cohort.sessionDates) {
+    const [abbrev, day] = shortDate.split(" ");
+    const days = groups.get(abbrev) ?? [];
+    days.push(day);
+    groups.set(abbrev, days);
+  }
+  const year = TRANSFORMATION_PROGRAM.cohort.endDate.slice(0, 4);
+  const parts = [...groups.entries()].map(([abbrev, days]) => {
+    const [first, ...rest] = days;
+    const head = `${abbrev}\u00a0${first}`;
+    return rest.length > 0 ? `${head}, ${rest.join(", ")}` : head;
+  });
+  const skippedShort = TRANSFORMATION_PROGRAM.cohort.skippedDate.replace(/,?\s*\d{4}$/, "");
+  return `${parts.join(", ")}, ${year} (no session ${keepMonthAndDayTogether(skippedShort)})`;
+}
+
 /** "January 14, 21, and 28, then February 11, 18, and 25, 2027" */
 export function cohortSessionDayList(): string {
   const groups = new Map<string, string[]>();
@@ -165,16 +187,16 @@ export function transformationProgramFaqItems(): TransformationFaqItem[] {
       answer: `The ${cohort.label} meets live online on six Thursdays from ${cohort.sessionTime}: ${cohortSessionDayList()}. There is no session on ${skippedSessionLongDate()}. Apply by ${cohort.applicationsCloseLabel}.`,
     },
     {
-      question: "How many seats are available?",
-      answer: `There are ${cohort.seatCap} seats for the ${cohort.label}. Applications close when seats fill or by ${cohort.applicationsCloseLabel}, whichever comes first.`,
+      question: "Are seats still available?",
+      answer: `A few seats are still remaining in the ${cohort.label}. Applications close when seats fill or by ${cohort.applicationsCloseLabel}, whichever comes first.`,
     },
     {
       question: "What is the order of operations to enroll?",
-      answer: "Apply first using the application form on this page. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit. Fit Call booking is for applicants already in review.",
+      answer: "Apply first using the application form on this page. After we review your application, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit. Fit call booking is for applicants already in review.",
     },
     {
       question: "Who is this program for?",
-      answer: `Practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings from ${cohort.sessionTime}. It is not for Registered Behavior Technicians, Board Certified Assistant Behavior Analysts who are not yet certified, general education staff, or clinic-only BCBAs without a school role.`,
+      answer: `Practicing school BCBAs with a current caseload or systems problem and capacity to attend Thursday evenings from ${cohort.sessionTime}. It is not for Registered Behavior Technicians, Board Certified Assistant Behavior Analysts, BCBA candidates who are not yet certified, general education staff, or clinic-only BCBAs without a school role.`,
     },
     {
       question: "What participation is expected between sessions?",
@@ -287,7 +309,7 @@ export function buildTransformationCourseJsonLd(siteUrl: string) {
         teaches: [
           "School assessment decisions",
           "School-adapted functional analysis",
-          "Acceptance and commitment training-informed functional assessment",
+          "Functional behavior assessment informed by acceptance and commitment training",
           "Evidence-to-intervention alignment",
           "Staff training and implementation systems",
         ],
@@ -317,7 +339,6 @@ export function buildTransformationCourseJsonLd(siteUrl: string) {
           exceptDate: cohort.skippedIsoDate,
         },
         courseWorkload: cohort.courseWorkload,
-        maximumAttendeeCapacity: cohort.seatCap,
         instructor,
         organizer: { "@id": organizationId },
         offers: offer,
