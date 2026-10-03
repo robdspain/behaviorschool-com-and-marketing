@@ -192,7 +192,6 @@ export default function RootLayout({
       <head>
         <PerformanceMonitor />
         {/* Preconnect hints for performance */}
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link rel="preconnect" href="https://behaviorstudytools.com" />
@@ -203,23 +202,23 @@ export default function RootLayout({
 
         {/* DNS prefetch for additional performance */}
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="dns-prefetch" href="//googletagmanager.com" />
 
         <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-Z3XWL488ZP"} />
 
         {/* Google Ads tag (gtag.js) - Deferred for better performance */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-17439907778"
-          strategy="lazyOnload"
-        />
-        <Script id="google-ads-config" strategy="lazyOnload">
+        <Script id="google-ads-config" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
+            window.gtag = window.gtag || gtag;
             gtag('js', new Date());
             gtag('config', 'AW-17439907778');
           `}
         </Script>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17439907778"
+          strategy="lazyOnload"
+        />
 
         {/* Ahrefs Analytics */}
         <Script
