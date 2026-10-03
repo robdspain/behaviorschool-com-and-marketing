@@ -38,7 +38,7 @@ const eventJsonLd = {
   isAccessibleForFree: true,
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD', availability: 'https://schema.org/InStock', url: behaviorLiveUrl },
   performer: { '@type': 'Person', name: 'Rob Spain', url: 'https://robspain.com/' },
-  organizer: { '@type': 'Organization', name: 'CalABA BAE SIG' },
+  organizer: { '@type': 'Organization', name: 'California Association for Behavior Analysis (CalABA)', url: 'https://calaba.org' },
   image: [eventImage],
   url: canonical,
 };
