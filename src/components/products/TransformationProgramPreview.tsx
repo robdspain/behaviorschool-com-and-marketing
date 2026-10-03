@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { CalendarDays } from "lucide-react";
-import { TRANSFORMATION_PAYMENT_PLAN_LABEL, TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
+import { cohortScheduleEntries, TRANSFORMATION_PAYMENT_PLAN_SENTENCE, TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 type TransformationProgramPreviewProps = {
   className?: string;
@@ -16,7 +16,7 @@ export function TransformationProgramPreview({
   return (
     <div
       className={`overflow-hidden border border-[#173f33]/20 bg-white ${className}`}
-      aria-label="School BCBA Transformation Program preview"
+      aria-label="School BCBA Systems Transformation Program preview"
     >
       <div className="flex h-10 items-center justify-between border-b border-[#173f33]/12 bg-[#f4f2ec] px-4">
         <span className="text-[14px] font-semibold uppercase tracking-[0.16em] text-[#365548]">
@@ -26,9 +26,9 @@ export function TransformationProgramPreview({
           Live product view
         </span>
       </div>
-      <div className="bg-[#f7f3ee] p-4">
+      <div className="bg-[#f4efe5] p-4">
         <div className="flex flex-wrap gap-2">
-          {["Live cohort", "6 weeks", "School BCBAs", cohort.startBadge].map((tag) => (
+          {["Live online", "6 sessions", "School BCBAs", cohort.startBadge].map((tag) => (
             <span
               key={tag}
               className="rounded-full border border-[#1f4d3f]/20 bg-white px-2.5 py-1 text-[14px] font-semibold uppercase tracking-[0.08em] text-[#1f4d3f]"
@@ -40,25 +40,25 @@ export function TransformationProgramPreview({
         <h3 className="mt-4 text-lg font-semibold leading-snug text-[#123628]">{name}</h3>
         <p className="mt-2 flex items-center gap-2 text-[14px] text-[#365548]">
           <CalendarDays className="h-3.5 w-3.5 text-[#1f4d3f]" aria-hidden="true" />
-          {cohort.startFull} - {cohort.sessionTime.replace("PT", "Pacific Time")}
+          {cohort.summaryHeadline}. {cohort.summaryDetail}
         </p>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {cohort.sessionDates.map((date) => (
-            <span
-              key={date}
-              className="rounded-md border border-[#1f4d3f]/15 bg-white px-2 py-1 text-[14px] font-semibold text-[#1f4d3f]"
+        <ul className="mt-3 space-y-1">
+          {cohortScheduleEntries().map((entry) => (
+            <li
+              key={`${entry.shortDate}-${entry.label}`}
+              className={entry.skipped ? "text-sm text-[#365548]" : "text-sm font-semibold text-[#1f4d3f]"}
             >
-              {date}
-            </span>
+              Thu, {entry.shortDate}: {entry.label}
+            </li>
           ))}
-        </div>
+        </ul>
         <div className="mt-4 rounded-lg border border-[#1f4d3f]/10 bg-white p-4">
           <p className="text-[14px] font-semibold uppercase tracking-[0.14em] text-[#365548]">
             Program investment
           </p>
           <p className="mt-1 text-2xl font-bold text-[#123628]">{pricing.payInFull}</p>
           <p className="mt-1 text-[14px] text-[#365548]">
-            Payment plan: {TRANSFORMATION_PAYMENT_PLAN_LABEL}
+            {TRANSFORMATION_PAYMENT_PLAN_SENTENCE}
           </p>
         </div>
         {showLink && (

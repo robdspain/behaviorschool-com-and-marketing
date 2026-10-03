@@ -60,7 +60,7 @@ const emptyForm = (): FormState => ({
   schoolSettingNotes: "",
   callDateTime: localDateTimeValue(),
   fitAssessment: "strong_fit",
-  programDiscussed: "Transformation Program",
+  programDiscussed: "School BCBA Systems Transformation Program",
   paymentOptionDiscussed: "both",
   nextStep: "Send checkout follow-up",
   checkoutLink,
@@ -147,7 +147,7 @@ export default function DiscoveryCallsPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         recipient: call.email,
-        subject: "Transformation Program payment options",
+        subject: "School BCBA Systems Transformation Program payment options",
         checkoutLink: call.checkout_link || checkoutLink,
         firstName: call.contact_name.split(" ")[0] || "",
         sentAt: new Date().toISOString(),

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-import { motion, AnimatePresence, MotionConfig } from "framer-motion";
+import { m as motion, AnimatePresence, MotionConfig } from "framer-motion";
 import { Dropdown } from "./Dropdown";
 import { menuSections } from "./config";
 
@@ -86,7 +86,7 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
               rel={section.href?.startsWith("http") ? "noreferrer noopener" : undefined}
             >
               <motion.div
-                className="absolute inset-0 bg-emerald-100/50 rounded-lg"
+                className="absolute inset-0 bg-[#f4efe5] rounded-lg"
                 initial={{ opacity: 0 }}
                 whileHover={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}

@@ -487,3 +487,16 @@
     min-height: 44px;
   }
 }
+
+/* From main: kept in the base layer so .bs-on-dark focus rings still win. */
+@layer base {
+  /* Visible 3px focus ring. Forest on light surfaces, gold on forest sections. */
+  :focus-visible {
+    outline: 3px solid #1f4d3f;
+    outline-offset: 2px;
+  }
+
+  .on-forest :focus-visible {
+    outline-color: #e4b63d;
+  }
+}

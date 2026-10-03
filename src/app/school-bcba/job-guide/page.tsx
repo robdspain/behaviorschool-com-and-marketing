@@ -413,17 +413,17 @@ export default function Page() {
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                 <div>
                   <h2 className="text-2xl md:text-3xl font-bold mb-2">Become Interview‑Ready in 8 Weeks</h2>
-                  <p className="text-emerald-100 max-w-2xl">Join our Transformation Program for School BCBAs—coaching cycles, artifacts, and systems templates aligned to PBIS/MTSS so you can show measurable impact fast.</p>
+                  <p className="text-emerald-100 max-w-2xl">Join the School BCBA Systems Transformation Program for coaching cycles, artifacts, and systems templates aligned to PBIS/MTSS so you can show measurable impact fast.</p>
                 </div>
                 <div className="flex-shrink-0">
                   <TrackableLink
                     href="/transformation-program"
                     className="inline-block bg-white text-emerald-700 hover:bg-emerald-50 py-3 px-5 rounded-xl font-semibold transition-colors"
-                    buttonName="Explore Transformation Program"
+                    buttonName="Explore School BCBA Systems Transformation Program"
                     buttonLocation="job-guide footer CTA"
                     additionalData={{ section: "footer" }}
                   >
-                    Explore the Transformation Program →
+                    Explore the School BCBA Systems Transformation Program →
                   </TrackableLink>
                 </div>
               </div>
@@ -445,7 +445,7 @@ export default function Page() {
                   { id: "practical-prep", label: "Practical prep" },
                   { id: "advanced-talking-point", label: "Advanced talking point" },
                   { id: "references", label: "References" },
-                  { id: "cta-transformation", label: "Transformation Program" },
+                  { id: "cta-transformation", label: "School BCBA Systems Transformation Program" },
                 ]}
               />
               <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-200">
@@ -480,7 +480,7 @@ export default function Page() {
 
               <div className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-xl">
                 <h3 className="font-bold text-lg mb-2">Get Interview Ready</h3>
-                <p className="text-blue-100 text-sm mb-4">6-week program for school BCBAs</p>
+                <p className="text-blue-100 text-sm mb-4">Six live Thursday sessions over seven weeks (no session February 4) for school BCBAs</p>
                 <TrackableLink
                   href="/transformation-program"
                   className="block w-full bg-white text-blue-700 hover:bg-blue-50 py-3 px-4 rounded-xl font-semibold text-center transition-colors"

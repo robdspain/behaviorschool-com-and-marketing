@@ -6,14 +6,14 @@ const PAYMENT_TEMPLATE_NAME = "transformation_payment_link";
 const DEFAULT_PAYMENT_TEMPLATE = {
   name: PAYMENT_TEMPLATE_NAME,
   description: "Sent manually after a discovery call to provide checkout access",
-  subject: "Here is your Transformation Program payment link",
+  subject: "Here is your School BCBA Systems Transformation Program payment link",
   category: "payment",
   sendDelayMinutes: 0,
   isActive: true,
   archived: false,
   bodyText: `Hi \${firstName},
 
-Thanks for talking with me about the School BCBA Transformation Program.
+Thanks for talking with me about the School BCBA Systems Transformation Program.
 
 Here is the payment page we discussed:
 https://behaviorschool.com/transformation-program/checkout
@@ -39,7 +39,7 @@ Behavior School`,
             <td style="padding:32px;">
               <p style="margin:0 0 20px;color:#1f4d3f;font-size:13px;font-weight:700;">Behavior School</p>
               <p style="margin:0 0 16px;font-size:16px;line-height:1.6;">Hi \${firstName},</p>
-              <p style="margin:0 0 16px;font-size:16px;line-height:1.6;">Thanks for talking with me about the School BCBA Transformation Program.</p>
+              <p style="margin:0 0 16px;font-size:16px;line-height:1.6;">Thanks for talking with me about the School BCBA Systems Transformation Program.</p>
               <p style="margin:0 0 24px;font-size:16px;line-height:1.6;">Here is the payment page we discussed:</p>
               <p style="margin:0 0 24px;">
                 <a href="https://behaviorschool.com/transformation-program/checkout" style="display:inline-block;background:#059669;color:#ffffff;text-decoration:none;padding:14px 22px;border-radius:8px;font-weight:700;">Open payment page</a>
@@ -79,7 +79,10 @@ async function getTemplateByNameInternal(ctx: any, name: string) {
 async function ensurePaymentTemplate(ctx: any) {
   const existing = await getTemplateByNameInternal(ctx, PAYMENT_TEMPLATE_NAME);
   if (existing) {
-    if (existing.subject === "Your payment link for the School BCBA Transformation Program") {
+    if (
+      existing.subject === "Your payment link for the School BCBA Transformation Program" ||
+      existing.subject === "Here is your Transformation Program payment link"
+    ) {
       await ctx.db.patch(existing._id, {
         ...DEFAULT_PAYMENT_TEMPLATE,
         updatedAt: nowIso(),

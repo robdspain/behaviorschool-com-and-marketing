@@ -220,7 +220,7 @@ export default function IEPGoalWriter() {
             Want to build behavior-based IEP goals systematically, with FBAs that actually drive BIP design?
           </h3>
           <p style={{ color: "#a7d4b8", marginBottom: 24, fontSize: "0.95rem" }}>
-            The School BCBA Transformation Program begins {TRANSFORMATION_PROGRAM.cohort.startFull}. Tuition is {TRANSFORMATION_PROGRAM.pricing.payInFull}.
+            The School BCBA Systems Transformation Program begins {TRANSFORMATION_PROGRAM.cohort.startFull}. Tuition is {TRANSFORMATION_PROGRAM.pricing.payInFull}.
           </p>
           <a
             href="/transformation-program"

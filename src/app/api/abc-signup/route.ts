@@ -58,9 +58,9 @@ export async function POST(req: NextRequest) {
 </div>
 
 <h3 style="font-family:sans-serif; color:#1a4731; margin-top:32px;">If you want help building this into your school workflow</h3>
-<p>I'm running a 6-week cohort for school BCBAs beginning ${TRANSFORMATION_PROGRAM.cohort.startFull}. We work through assessment, BIP design, implementation, and team training in a structured way.</p>
+<p>I'm running the ${TRANSFORMATION_PROGRAM.name} for school BCBAs beginning ${TRANSFORMATION_PROGRAM.cohort.startFull}. We work through assessment, BIP design, implementation, and team training in a structured way.</p>
 <ul style="color:#555; font-size:15px;">
-  <li>6 sessions, weekly, 6-8 PM Pacific</li>
+  <li>${TRANSFORMATION_PROGRAM.cohort.scheduleLabel}, ${TRANSFORMATION_PROGRAM.cohort.sessionTime}</li>
   <li>${TRANSFORMATION_PROGRAM.cohort.dateRange}</li>
   <li>Small cohorts</li>
   <li>Tuition: ${TRANSFORMATION_PROGRAM.pricing.payInFull}</li>
@@ -97,7 +97,7 @@ NEXT STEP: ACT-INFORMED FBA
 https://behaviorschool.com/act-fba-bip
 
 SCHOOL BCBA TRANSFORMATION PROGRAM
-6 weeks beginning ${TRANSFORMATION_PROGRAM.cohort.startFull}. Tuition ${TRANSFORMATION_PROGRAM.pricing.payInFull}.
+${TRANSFORMATION_PROGRAM.cohort.scheduleLabel}, beginning ${TRANSFORMATION_PROGRAM.cohort.startFull}. Tuition ${TRANSFORMATION_PROGRAM.pricing.payInFull}.
 https://behaviorschool.com/transformation-program
 
 Behavior School

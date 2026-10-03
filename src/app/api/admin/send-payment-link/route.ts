@@ -117,7 +117,7 @@ export async function POST(request: NextRequest) {
           templateName: 'transformation_payment_link',
           recipientEmail,
           recipientName: firstName && lastName ? `${firstName} ${lastName}` : firstName || recipientEmail,
-          subject: 'Your Transformation Program payment link',
+          subject: 'Your School BCBA Systems Transformation Program payment link',
           status: 'failed',
           errorMessage: error instanceof Error ? error.message : 'Unknown error',
           sentBy: admin?.id,

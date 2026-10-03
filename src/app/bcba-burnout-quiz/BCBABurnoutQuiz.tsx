@@ -519,7 +519,7 @@ export function BCBABurnoutQuiz() {
             <p className="text-sm text-slate-600 mb-3">
               Fix the systems that keep you overloaded and stuck.
             </p>
-            <span className="text-emerald-700 font-semibold">Transformation Program →</span>
+            <span className="text-emerald-700 font-semibold">School BCBA Systems Transformation Program →</span>
           </a>
           <a
             href="https://community.behaviorschool.com"

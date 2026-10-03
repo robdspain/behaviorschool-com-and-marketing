@@ -54,7 +54,7 @@ export const transformationSequence: EmailSequenceStep[] = [
     timing: 'Day 0',
     title: 'District packet and fit call',
     subject: 'Here is the district packet you asked for',
-    audience: 'New Transformation Program inquiry',
+    audience: 'New School BCBA Systems Transformation Program inquiry',
     objective: 'Deliver the approval packet and make the fit call the next step.',
   },
   {
@@ -66,8 +66,8 @@ export const transformationSequence: EmailSequenceStep[] = [
   },
   {
     timing: 'Day 3',
-    title: 'Show the six-week change',
-    subject: 'What we actually work on for six weeks',
+    title: 'Show the six-session schedule',
+    subject: 'What we actually work on in six live Thursday sessions',
     audience: 'Active lead who still needs program clarity',
     objective: 'Explain the concrete workflow and practice changes.',
   },
@@ -81,7 +81,7 @@ export const transformationSequence: EmailSequenceStep[] = [
   {
     timing: 'Day 7',
     title: 'Close with a personal choice',
-    subject: 'Should we talk about the October cohort?',
+    subject: 'Should we talk about the January cohort?',
     audience: 'Active lead who has not converted',
     objective: 'Invite a real conversation and stop the automated sequence.',
   },
@@ -297,7 +297,7 @@ export const emailProducts: EmailProductDefinition[] = [
   },
   {
     id: 'transformation-program',
-    name: 'Transformation Program',
+    name: 'School BCBA Systems Transformation Program',
     audience: 'School-based BCBAs and district buyers',
     description: 'Inquiry-to-fit-call sequence with district approval and cohort enrollment support.',
     status: 'live',

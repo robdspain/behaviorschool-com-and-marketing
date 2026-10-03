@@ -1,60 +1,49 @@
 import type { Metadata } from 'next';
-import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
+import {
+  buildTransformationCourseJsonLd,
+  buildTransformationFaqJsonLd,
+  TRANSFORMATION_PROGRAM,
+} from '@/lib/transformation-program';
+
+const programName = TRANSFORMATION_PROGRAM.name;
+const { summaryHeadline, sessionTime, label } = TRANSFORMATION_PROGRAM.cohort;
+const dateSpan = summaryHeadline.replace(/^Six Thursdays, /, '');
+const metaDescription = `The ${programName}: live online training for school BCBAs. ${summaryHeadline}, ${sessionTime}.`;
+const socialDateLine = `${dateSpan}, ${sessionTime}`;
+const openGraphDescription = `Six live online Thursday sessions for school BCBAs, ${socialDateLine}. Build FBA, BIP, and staff training systems.`;
+const ogImage = '/optimized/Course/transformation-program-og-1200x630.webp';
+const ogImageAlt = `${programName}, ${label}, six live online sessions for school BCBAs`;
 
 export const metadata: Metadata = {
-  title: 'School BCBA Transformation Program | Behavior School',
-  description: 'A six-week live cohort for certified school BCBAs in K-12 school or district settings. Build assessment judgment, school-adapted functional analysis, ACT-informed tools, and systems leadership.',
+  title: `${programName} | Behavior School`,
+  description: metaDescription,
   alternates: { canonical: '/transformation-program' },
   openGraph: {
-    title: 'School BCBA Transformation Program',
-    description: 'A six-week live cohort for certified school BCBAs in K-12 settings. Build assessment judgment, functional analysis, intervention alignment, and implementation systems.',
+    title: programName,
+    description: openGraphDescription,
     url: '/transformation-program',
     type: 'website',
     siteName: 'Behavior School',
-    images: [{ url: '/optimized/Course/course-hero.webp', width: 1200, height: 630, alt: 'School BCBA Transformation Program' }],
+    images: [{ url: ogImage, width: 1200, height: 630, alt: ogImageAlt }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'School BCBA Transformation Program',
-    description: 'A six-week live cohort for certified school BCBAs in K-12 school or district settings.',
-    images: ['/optimized/Course/course-hero.webp'],
+    title: programName,
+    description: `Six live Thursday sessions for school BCBAs, ${socialDateLine}.`,
+    images: [ogImage],
   },
 };
 
 export default function TransformationProgramLayout({ children }: { children: React.ReactNode }) {
   const siteUrl = process.env.SITE_URL || process.env.NEXT_PUBLIC_SITE_URL || 'https://behaviorschool.com';
-  const courseJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Course',
-    name: 'School BCBA Transformation Program',
-    description: 'A six-week live cohort for certified school BCBAs covering assessment decisions, school-adapted functional analysis, ACT-informed assessment, intervention alignment, and team implementation in K-12 settings.',
-    provider: { '@type': 'EducationalOrganization', name: 'Behavior School', url: siteUrl },
-    instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, IBA' },
-    courseMode: 'online',
-    timeRequired: 'P6W',
-    coursePrerequisites: 'BCBA certification',
-    audience: { '@type': 'EducationalAudience', audienceType: 'Certified BCBAs working in K-12 schools or districts' },
-    teaches: [
-      'School assessment decisions',
-      'School-adapted functional analysis',
-      'ACT-informed functional assessment',
-      'Evidence-to-intervention alignment',
-      'Staff training and implementation systems',
-    ],
-    hasCourseInstance: {
-      '@type': 'CourseInstance',
-      courseMode: 'online',
-      startDate: TRANSFORMATION_PROGRAM.cohort.startDate,
-      endDate: TRANSFORMATION_PROGRAM.cohort.endDate,
-      instructor: { '@type': 'Person', name: 'Rob Spain', jobTitle: 'BCBA, IBA' },
-      offers: { '@type': 'Offer', price: String(TRANSFORMATION_PROGRAM.pricing.payInFullCents / 100), priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
-    },
-  };
+  const courseJsonLd = buildTransformationCourseJsonLd(siteUrl);
+  const faqJsonLd = buildTransformationFaqJsonLd(siteUrl);
 
   return (
     <>
       {children}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
     </>
   );
 }

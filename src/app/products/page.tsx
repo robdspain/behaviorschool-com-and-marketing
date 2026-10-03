@@ -56,7 +56,7 @@ const availableProducts = [
   {
     number: "03",
     stage: "Lead",
-    name: "Transformation Program",
+    name: "School BCBA Systems Transformation Program",
     audience: "For school BCBAs",
     description:
       "Cohort-based professional development for moving from repeated crisis response toward stronger assessment, implementation, and systems leadership.",

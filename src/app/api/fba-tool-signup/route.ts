@@ -36,9 +36,9 @@ export async function POST(req: NextRequest) {
 <p><a href="https://behaviorschool.com/act-fba-bip" style="color:#1a4731; font-weight:600;">behaviorschool.com/act-fba-bip</a></p>
 
 <h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">Want to go deeper?</h3>
-<p>If this framework fits the kind of work you are trying to do, I'm running a 6-week cohort for school BCBAs beginning ${TRANSFORMATION_PROGRAM.cohort.startFull}. We cover assessment, BIP design, implementation, and team training.</p>
+<p>If this framework fits the kind of work you are trying to do, I'm running the ${TRANSFORMATION_PROGRAM.name} for school BCBAs beginning ${TRANSFORMATION_PROGRAM.cohort.startFull}. We cover assessment, BIP design, implementation, and team training.</p>
 <ul style="color:#555; font-size:15px; line-height:2;">
-  <li>6 sessions, weekly, 6-8 PM Pacific</li>
+  <li>${TRANSFORMATION_PROGRAM.cohort.scheduleLabel}, ${TRANSFORMATION_PROGRAM.cohort.sessionTime}</li>
   <li>${TRANSFORMATION_PROGRAM.cohort.dateRange}</li>
   <li>Small cohorts</li>
   <li>Tuition: ${TRANSFORMATION_PROGRAM.pricing.payInFull}</li>
@@ -63,8 +63,8 @@ One quick question: what felt useful, and what felt clunky? Reply to this email 
 BOOKMARK THE TOOL: https://behaviorschool.com/act-fba-bip
 
 WANT TO GO DEEPER?
-School BCBA Transformation Program: 6 weeks beginning ${TRANSFORMATION_PROGRAM.cohort.startFull}.
-Weekly Thursdays, 6-8 PM Pacific. Small cohorts. Tuition ${TRANSFORMATION_PROGRAM.pricing.payInFull}.
+${TRANSFORMATION_PROGRAM.name}: ${TRANSFORMATION_PROGRAM.cohort.scheduleLabel}, beginning ${TRANSFORMATION_PROGRAM.cohort.startFull}.
+${TRANSFORMATION_PROGRAM.cohort.sessionTime}. Small cohorts. Tuition ${TRANSFORMATION_PROGRAM.pricing.payInFull}.
 https://behaviorschool.com/transformation-program
 
 Behavior School

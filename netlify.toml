@@ -39,6 +39,19 @@
   status = 301
   force = true
 
+# Consolidate the legacy school BCBA training page on the canonical program URL.
+[[redirects]]
+  from = "/school-bcba-training-program"
+  to = "/transformation-program"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/school-bcba-training-program/"
+  to = "/transformation-program"
+  status = 301
+  force = true
+
 # Retired fake free-CEU masterclass → Learning lander
 [[redirects]]
   from = "/masterclass"
@@ -88,6 +101,12 @@
   from = "/supervision"
   to = "/supervisors"
   status = 301
+
+# Point the public PDF packet back to the canonical program page.
+[[headers]]
+  for = "/transformation-program-pd-packet.pdf"
+  [headers.values]
+    Link = "<https://behaviorschool.com/transformation-program>; rel=\"canonical\""
 
 # Transformation Program nurture sequence processor - every hour
 [functions."transformation-nurture-worker"]

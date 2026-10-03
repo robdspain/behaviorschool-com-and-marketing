@@ -45,10 +45,10 @@ export async function POST(req: NextRequest) {
 
 <p>Thanks for being in the session today. Here are the links I promised.</p>
 
-<h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">The School BCBA Transformation Program</h3>
-<p>If today's content fits the work you are trying to build, I'm running a 6-week cohort beginning ${TRANSFORMATION_PROGRAM.cohort.startFull} for school BCBAs who want to implement it with their teams.</p>
+<h3 style="font-family: sans-serif; color: #1a4731; margin-top: 32px;">The School BCBA Systems Transformation Program</h3>
+<p>If today's content fits the work you are trying to build, I'm running the ${TRANSFORMATION_PROGRAM.name} beginning ${TRANSFORMATION_PROGRAM.cohort.startFull} for school BCBAs who want to implement it with their teams.</p>
 <ul style="color:#555; font-size:15px;">
-  <li>6 sessions, weekly, 6-8 PM Pacific</li>
+  <li>${TRANSFORMATION_PROGRAM.cohort.scheduleLabel}, ${TRANSFORMATION_PROGRAM.cohort.sessionTime}</li>
   <li>${TRANSFORMATION_PROGRAM.cohort.dateRange}</li>
   <li>Small cohorts</li>
   <li>Tuition: ${TRANSFORMATION_PROGRAM.pricing.payInFull}</li>
@@ -81,8 +81,8 @@ https://behaviorschool.com/act-fba-bip
 PRESENTATION REFERENCES
 https://behaviorschool.com/calaba-2026
 
-THE SCHOOL BCBA TRANSFORMATION PROGRAM
-6 weeks, weekly 6-8 PM Pacific, ${TRANSFORMATION_PROGRAM.cohort.dateRange}
+${TRANSFORMATION_PROGRAM.name.toUpperCase()}
+${TRANSFORMATION_PROGRAM.cohort.scheduleLabel}, ${TRANSFORMATION_PROGRAM.cohort.sessionTime}, ${TRANSFORMATION_PROGRAM.cohort.dateRange}
 Tuition: ${TRANSFORMATION_PROGRAM.pricing.payInFull}
 https://behaviorschool.com/transformation-program
 

@@ -17,12 +17,12 @@ function buildCheckoutEmail(firstName: string, checkoutLink: string) {
   const safeFirstName = escapeHtml(firstName || "there");
   const safeCheckoutLink = escapeHtml(checkoutLink);
 
-  const subject = "Transformation Program payment options";
+  const subject = "School BCBA Systems Transformation Program payment options";
   const text = `Hi ${firstName || "there"},
 
 Thank you again for taking the time to talk today.
 
-The payment options we discussed for the Transformation Program are here:
+The payment options we discussed for the School BCBA Systems Transformation Program are here:
 ${checkoutLink}
 
 You can use that page to choose the pay-in-full option or the three-payment option.
@@ -43,7 +43,7 @@ Behavior School`;
               <td style="padding:32px;">
                 <p style="margin:0 0 16px;font-size:16px;line-height:1.6;">Hi ${safeFirstName},</p>
                 <p style="margin:0 0 16px;font-size:16px;line-height:1.6;">Thank you again for taking the time to talk today.</p>
-                <p style="margin:0 0 24px;font-size:16px;line-height:1.6;">The payment options we discussed for the Transformation Program are here.</p>
+                <p style="margin:0 0 24px;font-size:16px;line-height:1.6;">The payment options we discussed for the School BCBA Systems Transformation Program are here.</p>
                 <p style="margin:0 0 24px;text-align:center;">
                   <a href="${safeCheckoutLink}" style="display:inline-block;background:#059669;color:#ffffff;text-decoration:none;font-weight:700;padding:14px 24px;border-radius:8px;">Open payment options</a>
                 </p>

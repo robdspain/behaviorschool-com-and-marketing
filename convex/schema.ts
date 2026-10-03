@@ -953,7 +953,7 @@ export default defineSchema({
     .index("by_created_at", ["createdAt"])
     .index("by_email_lower", ["emailLower"]),
 
-  // Quiz 01: IEP goal program check (Transformation Program lead gen)
+  // Quiz 01: IEP goal program check (School BCBA Systems Transformation Program lead gen)
   iepGoalProgramQuizResponses: defineTable({
     quizSlug: v.string(),
     quizRole: v.string(),

@@ -620,7 +620,7 @@ export default function ACTMatrixFrameworkPage() {
               <div className="bg-gradient-to-br from-emerald-600 to-blue-600 rounded-xl shadow-lg p-6 text-white">
                 <h3 className="font-bold text-xl mb-3">Master ACT-Informed Practice</h3>
                 <p className="text-emerald-100 text-sm mb-4 leading-relaxed">
-                  Learn to integrate ACT principles with behavior analysis in our School BCBA Transformation System.
+                  Learn to integrate ACT principles with behavior analysis in our School BCBA Systems Transformation Program.
                 </p>
                 <Link href="/transformation-program">
                   <button className="w-full bg-white text-emerald-700 hover:bg-emerald-50 font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">

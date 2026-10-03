@@ -24,7 +24,7 @@ export default function Page() {
       secondaryLinks={[
         { label: "School BCBA job description", href: "/school-bcba/job-description" },
         { label: "School BCBA salary", href: "/school-bcba/salary-by-state" },
-        { label: "Transformation Program", href: "/transformation-program" },
+        { label: "School BCBA Systems Transformation Program", href: "/transformation-program" },
       ]}
       sections={[
         {

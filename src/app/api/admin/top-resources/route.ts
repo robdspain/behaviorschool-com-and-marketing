@@ -20,7 +20,7 @@ export async function GET() {
       'free-bcba-practice-exam': 'Free BCBA Practice Exam',
       'practice-exam': 'Free BCBA Practice Exam',
       'act-matrix': 'ACT Matrix Guide',
-      'transformation-program': 'Transformation Program',
+      'transformation-program': 'School BCBA Systems Transformation Program',
       'study-tools': 'BCBA Study Tools',
     };
 

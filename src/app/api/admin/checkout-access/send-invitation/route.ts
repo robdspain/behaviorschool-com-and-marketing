@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
               </p>
 
               <p style="margin: 0 0 20px; color: #334155; font-size: 16px; line-height: 1.6;">
-                Your checkout access for the School BCBA Transformation Program is ready.
+                Your checkout access for the School BCBA Systems Transformation Program is ready.
               </p>
 
               <p style="margin: 0 0 30px; color: #334155; font-size: 16px; line-height: 1.6;">
@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
     const textContent = `
 Hi ${first_name || 'there'},
 
-Your checkout access for the School BCBA Transformation Program is ready.
+Your checkout access for the School BCBA Systems Transformation Program is ready.
 
 Access your checkout page here:
 ${checkoutUrl}

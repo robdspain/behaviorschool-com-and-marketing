@@ -10,13 +10,13 @@ const canonical = "https://behaviorschool.com/school-bcba-training-program";
 export const metadata: Metadata = {
   title: "School BCBA Training Program | FBA and BIP Systems",
   description:
-    "A 6-week school BCBA training program for building repeatable FBA, BIP, staff training, and caseload systems.",
+    "Six live Thursday sessions over seven weeks (no session February 4) for school BCBAs building repeatable FBA, BIP, staff training, and caseload systems.",
   alternates: { canonical },
   robots: { index: true, follow: true },
   openGraph: {
     title: "School BCBA Training Program | Behavior School",
     description:
-      "Build school BCBA systems for assessment, BIP design, staff implementation, and caseload management in a 6-week live cohort.",
+      "Build school BCBA systems for assessment, BIP design, staff implementation, and caseload management across six live Thursday sessions over seven weeks (no session February 4).",
     url: canonical,
     siteName: "Behavior School",
     type: "website",
@@ -84,7 +84,7 @@ export default function SchoolBcbaTrainingProgramPage() {
               Build school BCBA systems that survive a real caseload.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-700">
-              The School BCBA Transformation Program is a 6-week live cohort for BCBAs who need repeatable systems for FBA intake, BIP design, staff training, and progress monitoring in K-12 settings.
+              The School BCBA Systems Transformation Program is six live Thursday sessions over seven weeks (no session February 4) for school BCBAs who need repeatable systems for FBA intake, BIP design, staff training, and progress monitoring in K-12 settings.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link

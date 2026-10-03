@@ -503,7 +503,7 @@ export default function AdminSitemapPage() {
       icon: <Mail className="w-6 h-6" />,
       pages: [
         {
-          name: 'Transformation Program',
+          name: 'School BCBA Systems Transformation Program',
           path: '/transformation-program',
           description: 'Professional transformation program'
         },

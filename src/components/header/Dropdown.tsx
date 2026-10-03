@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import type { MenuLink } from "./types";
 
 type DropdownProps = {
@@ -36,7 +36,7 @@ export function Dropdown({ links, className }: DropdownProps) {
             href={link.href}
             target={link.external ? "_blank" : undefined}
             rel={link.external ? "noreferrer noopener" : undefined}
-            className="block px-4 py-2 text-sm text-slate-800 hover:bg-slate-100 transition-colors duration-200"
+            className="flex min-h-11 items-center rounded-lg px-4 py-2 text-sm text-[#171f1d] transition-colors duration-200 hover:bg-[#f4efe5]"
           >
             {link.label}
           </Link>

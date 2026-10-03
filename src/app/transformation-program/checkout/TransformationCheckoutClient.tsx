@@ -3,13 +3,12 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, CalendarDays, CheckCircle2, CreditCard, ShieldCheck } from 'lucide-react';
-import { TRANSFORMATION_PAYMENT_PLAN_LABEL, TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
+import { TRANSFORMATION_PAYMENT_PLAN_SENTENCE, TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 
 const COHORT_LABEL = TRANSFORMATION_PROGRAM.cohort.label;
 const COHORT_DATES = TRANSFORMATION_PROGRAM.cohort.dateRange;
 const FULL_PAYMENT = TRANSFORMATION_PROGRAM.pricing.payInFull;
-const PAYMENT_PLAN = TRANSFORMATION_PAYMENT_PLAN_LABEL;
-const PAYMENT_PLAN_DETAIL = TRANSFORMATION_PROGRAM.pricing.installmentSchedule.join(' + ');
+const PAYMENT_PLAN_SENTENCE = TRANSFORMATION_PAYMENT_PLAN_SENTENCE;
 const STRIPE_EQUAL_INSTALLMENT = TRANSFORMATION_PROGRAM.pricing.installment;
 const STRIPE_INSTALLMENT_TOTAL = TRANSFORMATION_PROGRAM.pricing.stripeInstallmentTotal;
 
@@ -89,8 +88,8 @@ export function TransformationCheckoutClient() {
         variants={fadeInUp}
       >
         <header className="mx-auto max-w-3xl text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-[#1f4d3f]">Private enrollment checkout</p>
-          <h1 className="mt-3 text-3xl font-bold text-[#123628] sm:text-4xl">School BCBA Transformation Program</h1>
+          <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f]">Private enrollment checkout</p>
+          <h1 className="mt-3 text-3xl font-bold text-[#123628] sm:text-4xl">{TRANSFORMATION_PROGRAM.name}</h1>
           <div className="mt-5 flex flex-wrap justify-center gap-3 text-sm text-slate-700">
             <span className="inline-flex items-center gap-2 rounded-full border border-[#1f4d3f]/15 bg-white px-4 py-2">
               <CalendarDays className="h-4 w-4 text-[#1f4d3f]" aria-hidden="true" />
@@ -128,7 +127,7 @@ export function TransformationCheckoutClient() {
             <ul className="mt-6 space-y-3 text-sm text-slate-700">
               <li className="flex gap-2">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#1f4d3f]" aria-hidden="true" />
-                Includes the 6-week live cohort and program materials.
+                Includes {TRANSFORMATION_PROGRAM.cohort.scheduleLabel} and program materials.
               </li>
               <li className="flex gap-2">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 flex-none text-[#1f4d3f]" aria-hidden="true" />
@@ -155,9 +154,8 @@ export function TransformationCheckoutClient() {
               <ShieldCheck className="h-6 w-6 flex-none text-[#1f4d3f]" aria-hidden="true" />
             </div>
             <p className="mt-8 text-4xl font-bold text-[#123628]">{STRIPE_EQUAL_INSTALLMENT}</p>
-            <p className="mt-1 text-sm font-semibold text-slate-600">{PAYMENT_PLAN}</p>
-            <p className="mt-1 text-xs text-slate-500">Schedule: {PAYMENT_PLAN_DETAIL}</p>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-base font-semibold text-[#365548]">{PAYMENT_PLAN_SENTENCE}</p>
+            <p className="mt-1 text-sm text-slate-500">
               Equal Stripe subscription amounts: {TRANSFORMATION_PROGRAM.pricing.installmentCount} × {STRIPE_EQUAL_INSTALLMENT} = {STRIPE_INSTALLMENT_TOTAL}
             </p>
             <ul className="mt-6 space-y-3 text-sm text-slate-700">
@@ -182,7 +180,7 @@ export function TransformationCheckoutClient() {
           </article>
         </section>
 
-        <p className="mx-auto mt-8 max-w-2xl text-center text-xs leading-5 text-slate-500">
+        <p className="mx-auto mt-8 max-w-2xl text-center text-sm leading-5 text-slate-500">
           Stripe processes payment details. Behavior School does not store card numbers on this site.
         </p>
       </motion.div>

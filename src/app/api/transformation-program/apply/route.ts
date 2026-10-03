@@ -17,10 +17,10 @@ export const dynamic = "force-dynamic";
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const THURSDAY_CAPACITY_LABELS: Record<string, string> = {
-  yes_all_sessions: "Yes — can attend all six live sessions",
-  yes_most_sessions: "Yes — can attend most sessions and will make up any miss",
-  unsure: "Unsure — schedule may conflict",
-  no: "No — cannot commit to Thursday 6–8 PM Pacific Time",
+  yes_all_sessions: "Yes, I can attend all six sessions",
+  yes_most_sessions: "Yes, I can attend most and will make up any I miss",
+  unsure: "Not sure yet, my schedule may conflict",
+  no: "No, I cannot attend Thursdays from 6 to 8 PM Pacific Time",
 };
 
 const APPLICATION_TAGS = [
@@ -70,7 +70,7 @@ function buildApplicantContext(args: {
       paymentPath: args.paymentPath,
       urgencyWindow: args.urgencyWindow,
     }),
-    `Thursday 6–8 PM Pacific Time capacity: ${thursdayLabel}`,
+    `Thursday 6 to 8 PM Pacific Time capacity: ${thursdayLabel}`,
     `System to rebuild: ${args.systemToRebuild}`,
     "",
     "Applicant context:",
@@ -156,7 +156,7 @@ export async function POST(request: NextRequest) {
       applicationContactId = application.contactId;
     } catch (applicationError) {
       console.error("Transformation application CRM mutation error:", applicationError);
-      const legacyNotes = `Transformation Program application\nBCBA certification number: ${bcbaCertNumber || "Not provided"}\n\n${currentChallenges}`;
+      const legacyNotes = `School BCBA Systems Transformation Program application\nBCBA certification number: ${bcbaCertNumber || "Not provided"}\n\n${currentChallenges}`;
       const legacyContact = {
         firstName,
         lastName,
@@ -193,7 +193,7 @@ export async function POST(request: NextRequest) {
     const analyticsBase = {
       eventType: "course_inquiry",
       sourcePage: "/transformation-program",
-      resourceName: "School BCBA Transformation Program",
+      resourceName: "School BCBA Systems Transformation Program",
     };
 
     await Promise.all([
@@ -226,7 +226,7 @@ export async function POST(request: NextRequest) {
         eventType: "transformation_apply",
         eventName: "transformation_apply_submitted",
         sourcePage: "/transformation-program",
-        resourceName: "School BCBA Transformation Program",
+        resourceName: "School BCBA Systems Transformation Program",
         additionalData: {
           employer,
           role: roleCategory,

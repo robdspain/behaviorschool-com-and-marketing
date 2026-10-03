@@ -4,9 +4,12 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
+import { LazyMotion } from "framer-motion";
 import { DesktopMenu } from "./DesktopMenu";
 import { MobileMenu } from "./MobileMenu";
 import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
+
+const loadMotionFeatures = () => import("./motion-features").then((mod) => mod.default);
 
 export function NavBar() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -14,6 +17,7 @@ export function NavBar() {
   const [openMobileKey, setOpenMobileKey] = useState<string | null>(null);
 
   return (
+    <LazyMotion features={loadMotionFeatures}>
     <nav
       role="navigation"
       aria-label="Primary"
@@ -29,6 +33,7 @@ export function NavBar() {
                 width={152}
                 height={57}
                 priority
+                fetchPriority="high"
                 className="h-11 w-auto"
               />
             </Link>
@@ -66,5 +71,6 @@ export function NavBar() {
         onToggleKey={(key) => setOpenMobileKey((prev) => (prev === key ? null : key))}
       />
     </nav>
+    </LazyMotion>
   );
 }

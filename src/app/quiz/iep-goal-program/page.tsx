@@ -69,7 +69,7 @@ const faqItems = [
   {
     question: "What is Priority Access?",
     answer:
-      "An optional checkbox to get first notice when the next School BCBA Transformation Program cohort opens. It is unchecked by default. Newsletter enrollment only happens if you opt in.",
+      "An optional checkbox to get first notice when the next School BCBA Systems Transformation Program cohort opens. It is unchecked by default. Newsletter enrollment only happens if you opt in.",
   },
   {
     question: "Who is this for?",

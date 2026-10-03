@@ -158,7 +158,7 @@ export function Footer() {
               IEP Goal Examples
             </Link>
             <Link
-              href="https://study.behaviorschool.com/contact"
+              href="https://study.behaviorschool.com/support/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#365548] hover:text-[var(--bs-ink)] hover:underline transition-colors inline-flex min-h-[44px] min-w-[44px] items-center justify-center"

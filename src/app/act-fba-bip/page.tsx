@@ -551,8 +551,8 @@ procedures, crisis protocol, and 30/60/90-day review schedule...]`}</pre>
               Want to learn this process with a cohort of school BCBAs?
             </h2>
             <p className="text-white/80 mb-2 leading-relaxed">
-              The <strong className="text-white">School BCBA Transformation Program</strong> walks you through this and
-              much more: live, 6 weeks, beginning {TRANSFORMATION_PROGRAM.cohort.startFull}.
+              The <strong className="text-white">School BCBA Systems Transformation Program</strong> walks you through this and
+              much more: {TRANSFORMATION_PROGRAM.cohort.scheduleLabel}, beginning {TRANSFORMATION_PROGRAM.cohort.startFull}.
             </p>
             <p className="text-white/60 mb-8 text-sm">
               Tuition: <strong className="text-white">{TRANSFORMATION_PROGRAM.pricing.payInFull}</strong>.

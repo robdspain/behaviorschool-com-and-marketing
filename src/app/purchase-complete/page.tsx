@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "You're In! | Transformation Program | Behavior School",
-  description: "Your Transformation Program purchase is confirmed. We'll be in touch within 1 business day to schedule your onboarding.",
+  title: "You're In! | School BCBA Systems Transformation Program | Behavior School",
+  description: "Your School BCBA Systems Transformation Program purchase is confirmed. We'll be in touch within 1 business day to schedule your onboarding.",
   robots: {
     index: false,
     follow: false,
@@ -26,7 +26,7 @@ export default function PurchaseCompletePage() {
           You&apos;re in!
         </h1>
         <p className="text-xl text-slate-600 mb-8">
-          Your <strong>Transformation Program</strong> purchase is confirmed. We&apos;re excited to work with you.
+          Your <strong>School BCBA Systems Transformation Program</strong> purchase is confirmed. We&apos;re excited to work with you.
         </p>
 
         {/* What Happens Next */}
