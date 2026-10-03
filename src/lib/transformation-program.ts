@@ -178,6 +178,18 @@ export type TransformationFaqItem = {
   answer: string;
 };
 
+/** In-page form for the W-9 FAQ. Visible FAQ and FAQPage JSON-LD both use the answer string. */
+export const W9_REQUEST_ANCHOR = "request-w9";
+
+export const TRANSFORMATION_DISTRICT_PAYMENT_FAQ_ANSWER =
+  "Yes. This program provides BCBA continuing education units (Learning CEUs from Behavior School, a Behavior Analyst Certification Board Authorized Continuing Education Provider). District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork.";
+
+export const TRANSFORMATION_W9_FAQ_ANSWER =
+  "Yes. Request it here and it arrives in your inbox right away.";
+
+export const W9_PENDING_MESSAGE = "We'll email it to you shortly.";
+export const W9_SENT_MESSAGE = "The W-9 is on its way to your inbox.";
+
 /** Visible FAQ copy and FAQPage JSON-LD share this list. */
 export function transformationProgramFaqItems(): TransformationFaqItem[] {
   const cohort = TRANSFORMATION_PROGRAM.cohort;
@@ -212,11 +224,11 @@ export function transformationProgramFaqItems(): TransformationFaqItem[] {
     },
     {
       question: "Can my district pay for this?",
-      answer: "Yes. This program qualifies as professional development. District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork.",
+      answer: TRANSFORMATION_DISTRICT_PAYMENT_FAQ_ANSWER,
     },
     {
       question: "Is a W-9 available?",
-      answer: "Yes, available on request. Contact us and we'll send it same day.",
+      answer: TRANSFORMATION_W9_FAQ_ANSWER,
     },
     {
       question: "Do you offer bulk enrollment for districts?",
