@@ -3,6 +3,7 @@ import { Resend } from 'resend';
 export const RESEND_FROM_NO_REPLY = 'Behavior School <noreply@updates.behaviorschool.com>';
 export const RESEND_FROM_ROB = 'Rob Spain, BCBA <rob@updates.behaviorschool.com>';
 export const RESEND_FROM_SUPPORT = 'Behavior School Support <support@updates.behaviorschool.com>';
+export const RESEND_FROM_SUPPORT_TRANSACTIONAL = 'Behavior School <support@behaviorschool.com>';
 
 export const RESEND_REPLY_TO_ROB = 'rob@behaviorschool.com';
 export const RESEND_REPLY_TO_SUPPORT = 'support@behaviorschool.com';

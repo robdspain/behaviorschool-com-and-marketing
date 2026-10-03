@@ -453,6 +453,12 @@ async function buildSitemap(
       changeFrequency: 'monthly',
       priority: 0.85,
     },
+    {
+      url: `${baseUrl}/events/fba-in-a-school-setting`,
+      lastModified: new Date('2026-10-03T00:00:00-07:00'),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
 
     // /study removed — permanent redirect to https://study.behaviorschool.com/
 
