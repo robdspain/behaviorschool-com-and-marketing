@@ -148,8 +148,8 @@
 [functions."bst-social-feedback-refresh"]
   schedule = "30 13 * * *"
 
-# DRAFT School FA starter kit v3: keep it out of search until Rob signs off on the kit.
+# DRAFT School FA starter kit v4: keep it out of search until Rob signs off on the kit.
 [[headers]]
-  for = "/downloads/school-fa-starter-kit-v3-DRAFT.pdf"
+  for = "/downloads/school-fa-starter-kit-v4-DRAFT.pdf"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"

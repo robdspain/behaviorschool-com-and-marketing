@@ -73,12 +73,12 @@ Robert Spain, BCBA, IBA
 Behavior School`;
     const html = `<p>Hi${firstNameForEmail},</p>
 <p>Thanks for joining the Oct 9 CEU, Functional Behavior Assessment in a School Setting, Friday, October 9, 2026, 12 to 1 PM Pacific Time.</p>
-<p><a href="${FBA_KIT_DOWNLOAD_URL}">Download your School FA starter kit</a></p>
-<p><a href="${FBA_KIT_GRAPHING_TEMPLATE_COPY_URL}">Make your own copy of the graphing template</a></p>
-<p><a href="https://behaviorschool.com/events/fba-in-a-school-setting">Visit the event page</a></p>
+<p><a href="${FBA_KIT_DOWNLOAD_URL}" style="color:#1f4d3f;text-decoration:underline">Download your School FA starter kit</a></p>
+<p><a href="${FBA_KIT_GRAPHING_TEMPLATE_COPY_URL}" style="color:#1f4d3f;text-decoration:underline">Make your own copy of the graphing template</a></p>
+<p><a href="https://behaviorschool.com/events/fba-in-a-school-setting" style="color:#1f4d3f;text-decoration:underline">Visit the event page</a></p>
 <p>Robert Spain, BCBA, IBA<br>Behavior School</p>
-<hr><p style="font-size:12px;color:#666">Behavior School LLC<br>8 The Green #20473<br>Dover, DE 19901<br>United States</p>
-<p style="font-size:12px;color:#666">This is a transactional delivery email. <a href="mailto:support@behaviorschool.com?subject=Unsubscribe">Unsubscribe</a></p>`;
+<hr style="border:0;border-top:1px solid #d9cdb8"><p style="font-size:14px;color:#365548">Behavior School LLC<br>8 The Green #20473<br>Dover, DE 19901<br>United States</p>
+<p style="font-size:14px;color:#365548">This is a transactional delivery email. <a href="mailto:support@behaviorschool.com?subject=Unsubscribe" style="color:#1f4d3f;text-decoration:underline">Unsubscribe</a></p>`;
 
     const { data, error } = await new Resend(process.env.RESEND_API_KEY).emails.send({
       from: RESEND_FROM_SUPPORT_TRANSACTIONAL,

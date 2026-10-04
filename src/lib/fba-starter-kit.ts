@@ -1,7 +1,7 @@
 export const FBA_KIT_GATED = true;
 export const FBA_KIT_SOURCE = 'calaba-fba-20261009';
-// DRAFT kit v3 (Oct 3, 2026). Not for production until Rob signs off on the kit.
-export const FBA_KIT_DOWNLOAD_PATH = '/downloads/school-fa-starter-kit-v3-DRAFT.pdf';
+// DRAFT kit v4 (Oct 3, 2026). Not for production until Rob signs off on the kit.
+export const FBA_KIT_DOWNLOAD_PATH = '/downloads/school-fa-starter-kit-v4-DRAFT.pdf';
 export const FBA_KIT_GRAPHING_TEMPLATE_COPY_URL = 'https://docs.google.com/spreadsheets/d/1zcAQRlsqUSJxuYEQWXlYciby4kIzQsrnZURgUFn3GPs/copy';
 export const FBA_KIT_DOWNLOAD_URL = `https://behaviorschool.com${FBA_KIT_DOWNLOAD_PATH}`;
 
