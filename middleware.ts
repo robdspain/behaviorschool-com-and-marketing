@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
+import { buildFbaShortLinkDestination } from './src/lib/fba-short-link'
 
 const COMMUNITY_HOST = 'community.behaviorschool.com'
 const COMMUNITY_TARGET = 'https://behaviorschool.com/transformation-program'
@@ -10,6 +11,10 @@ function isRetiredMasterclassPath(pathname: string): boolean {
 export async function middleware(request: NextRequest) {
   const host = request.headers.get('host')?.split(':')[0]?.toLowerCase()
   const { pathname } = request.nextUrl
+
+  if (pathname === '/fba' || pathname === '/fba/') {
+    return NextResponse.redirect(buildFbaShortLinkDestination(request.url), 301)
+  }
 
   if (isRetiredMasterclassPath(pathname)) {
     return NextResponse.redirect(new URL('/ceus', request.url), 301)
