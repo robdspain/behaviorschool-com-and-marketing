@@ -302,7 +302,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans antialiased mobile-optimized prevent-horizontal-scroll">
         {/* Skip link for keyboard users */}
-        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:bg-white focus:text-slate-900 focus:px-4 focus:py-2 focus:rounded focus:shadow">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:bg-white focus:text-[#171f1d] focus:px-4 focus:py-2 focus:rounded focus:shadow focus:outline focus:outline-[3px] focus:outline-[#1f4d3f] focus:outline-offset-2">
           Skip to content
         </a>
         <Providers>

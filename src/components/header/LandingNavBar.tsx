@@ -6,10 +6,10 @@ import { motion } from "framer-motion";
 
 export function LandingNavBar() {
   return (
+    <header className="sticky top-0 z-50">
     <nav
-      role="navigation"
       aria-label="Landing Page Navigation"
-      className="w-full bg-white border-b border-slate-200"
+      className="w-full bg-white/95 backdrop-blur border-b border-[#d9cdb8]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -20,8 +20,8 @@ export function LandingNavBar() {
             transition={{ duration: 0.2 }}
           >
             <Link href="/" className="flex-shrink-0 flex items-center gap-3">
-              <TrendingUp className="h-7 w-7 text-emerald-700" />
-              <span className="text-emerald-700 text-lg font-bold">Behavior School</span>
+              <TrendingUp className="h-7 w-7 text-[#1f4d3f]" />
+              <span className="text-[#1f4d3f] text-lg font-bold">Behavior School</span>
             </Link>
           </motion.div>
 
@@ -29,13 +29,13 @@ export function LandingNavBar() {
           <div className="hidden sm:flex items-center space-x-6">
             <Link 
               href="/transformation-program"
-              className="text-emerald-700 hover:text-emerald-800 text-sm font-medium transition-colors duration-200"
+              className="text-[#1f4d3f] hover:text-[#123628] text-sm font-medium transition-colors duration-200"
             >
               Community
             </Link>
             <Link 
               href="https://behaviorstudytools.com/"
-              className="text-emerald-700 hover:text-emerald-800 text-sm font-medium transition-colors duration-200"
+              className="text-[#1f4d3f] hover:text-[#123628] text-sm font-medium transition-colors duration-200"
             >
               Study Tools
             </Link>
@@ -45,7 +45,7 @@ export function LandingNavBar() {
             >
               <Link 
                 href="/transformation-program"
-                className="inline-flex items-center px-4 py-2 border border-emerald-600 text-emerald-700 hover:bg-emerald-50 text-sm font-medium rounded-lg transition-colors duration-200"
+                className="inline-flex items-center px-4 py-2 border border-[#1f4d3f] text-[#1f4d3f] hover:bg-[#f4efe5] text-sm font-medium rounded-lg transition-colors duration-200"
               >
                 Get Started
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -61,7 +61,7 @@ export function LandingNavBar() {
             >
               <Link 
                 href="/transformation-program"
-                className="inline-flex items-center px-3 py-2 border border-emerald-600 text-emerald-700 hover:bg-emerald-50 text-sm font-medium rounded-lg transition-colors duration-200"
+                className="inline-flex items-center px-3 py-2 border border-[#1f4d3f] text-[#1f4d3f] hover:bg-[#f4efe5] text-sm font-medium rounded-lg transition-colors duration-200"
               >
                 Start
                 <ArrowRight className="ml-1 h-4 w-4" />
@@ -71,5 +71,6 @@ export function LandingNavBar() {
         </div>
       </div>
     </nav>
+    </header>
   );
 }
