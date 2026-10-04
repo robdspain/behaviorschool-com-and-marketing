@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { useAnalytics } from '@/hooks/useAnalytics';
 
-export function BlogNewsletterSignup() {
+export function BlogNewsletterSignup({ submitTone = "gold" }: { submitTone?: "gold" | "paper" } = {}) {
   const pathname = usePathname();
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -51,12 +51,12 @@ export function BlogNewsletterSignup() {
 
   if (status === 'success') {
     return (
-      <div id="newsletter" className="bs-on-dark scroll-mt-24 bg-[#1E3A34] rounded-lg p-8 my-8">
+      <div id="newsletter" className="bs-on-dark scroll-mt-24 my-8 rounded-[12px] bg-[#1E3A34] p-8">
         <div className="max-w-2xl mx-auto text-center">
           <h3 className="text-2xl font-bold text-[#FAF3E0] mb-2">
             {alreadySubscribed ? 'You are already subscribed.' : 'One more step'}
           </h3>
-          <p className="text-[#FAF3E0]/80">
+          <p className="text-base text-[#f4efe5]">
             {alreadySubscribed
               ? 'Watch your inbox for the next Weekly Research Brief.'
               : 'Check your inbox now and click Confirm subscription. If it is not there in five minutes, check spam and submit the same address again.'}
@@ -65,7 +65,7 @@ export function BlogNewsletterSignup() {
             <button
               type="button"
               onClick={() => setStatus('idle')}
-              className="mt-3 text-sm font-semibold text-[#E3B23C] underline underline-offset-4"
+              className="mt-3 inline-flex min-h-11 items-center text-base font-semibold text-[#fbfaf6] underline underline-offset-4 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#fbfaf6]"
             >
               Request a fresh confirmation link
             </button>
@@ -76,12 +76,12 @@ export function BlogNewsletterSignup() {
   }
 
   return (
-    <div id="newsletter" className="bs-on-dark scroll-mt-24 bg-[#1E3A34] rounded-lg p-8 my-8">
+    <div id="newsletter" className="bs-on-dark scroll-mt-24 my-8 rounded-[12px] bg-[#1E3A34] p-8">
       <div className="max-w-2xl mx-auto">
         <h3 className="text-2xl font-bold text-[#FAF3E0] mb-2 text-center">
           The Weekly Research Brief
         </h3>
-        <p className="mb-6 text-center text-base text-[#FAF3E0]">
+        <p className="mb-6 text-center text-base text-[#f4efe5]">
           Each week: open research, clear summaries, and one practical next step for school BCBAs.
         </p>
 
@@ -93,24 +93,24 @@ export function BlogNewsletterSignup() {
             placeholder="Your email address"
             required
             disabled={status === 'loading'}
-            className="flex-1 px-4 py-3 rounded bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#E3B23C] disabled:opacity-50"
+            className="min-h-11 flex-1 rounded-[8px] bg-white px-4 py-3 text-base text-[#171f1d] placeholder:text-[#365548] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#fbfaf6] disabled:opacity-50"
           />
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="px-6 py-3 bg-[#E3B23C] text-[#1E3A34] font-semibold rounded hover:bg-[#E3B23C]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+            className={`inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-[8px] px-6 py-3 font-semibold text-[#171f1d] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#fbfaf6] disabled:cursor-not-allowed disabled:opacity-50 ${submitTone === "paper" ? "bg-[#fbfaf6]" : "bg-[#e4b63d]"}`}
           >
             {status === 'loading' ? 'Sending...' : 'Send me the weekly brief'}
           </button>
         </form>
 
         {status === 'error' && (
-          <p className="text-red-300 text-sm mt-3 text-center">
+          <p className="mt-3 text-center text-base text-[#fbfaf6]">
             Something went wrong. Please try again.
           </p>
         )}
 
-        <p className="text-xs text-[#FAF3E0]/60 mt-4 text-center">
+        <p className="mt-4 text-center text-base text-[#f4efe5]">
           Free. One email each week. Confirm your email to join. Unsubscribe anytime.
         </p>
       </div>

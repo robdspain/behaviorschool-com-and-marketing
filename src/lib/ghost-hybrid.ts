@@ -6,6 +6,7 @@
 */
 
 import { getAllPosts, getPostBySlug as getPostFromFile, getPublishedPosts, markdownToHtml } from './blog';
+import { extractSeoSlots, type SeoSlot } from './seo-blog-slots';
 
 // Types for backward compatibility with Ghost
 export interface Post {
@@ -33,6 +34,8 @@ export interface Post {
   twitter_title?: string | null;
   twitter_description?: string | null;
   twitter_image?: string | null;
+  program_cta?: boolean;
+  seo_slots?: SeoSlot[];
 }
 
 export interface Tag {
@@ -157,7 +160,8 @@ export async function getPostBySlug(
       return null;
     }
 
-    const html = await markdownToHtml(post.content);
+    const prepared = post.program_cta ? extractSeoSlots(post.content) : { markdown: post.content, slots: [] as SeoSlot[] };
+    const html = await markdownToHtml(prepared.markdown);
 
     return {
       id: post.slug,
@@ -182,6 +186,8 @@ export async function getPostBySlug(
       meta_description: post.meta_description || null,
       og_image: post.featured_image || null,
       twitter_image: post.featured_image || null,
+      program_cta: Boolean(post.program_cta),
+      seo_slots: prepared.slots,
     };
   } catch (error) {
     console.error(`Error fetching post ${slug}:`, error);
