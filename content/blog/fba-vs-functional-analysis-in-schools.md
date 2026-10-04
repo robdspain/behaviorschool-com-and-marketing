@@ -132,7 +132,7 @@ The regulation requires an FBA in these situations. It does not specify what met
 
 The point is not to run more functional analyses or fewer. It is to make the choice on purpose, write down why, and revisit it when the data say the hypothesis was wrong.
 
-If you are a school BCBA who wants to build these assessment systems with a cohort of peers, the [School BCBA Transformation Program](https://behaviorschool.com/transformation-program) is built for that work.
+If you are a school BCBA who wants to build these assessment systems with a cohort of peers, the [School BCBA Systems Transformation Program](https://behaviorschool.com/transformation-program) is built for that work.
 
 ## References
 
