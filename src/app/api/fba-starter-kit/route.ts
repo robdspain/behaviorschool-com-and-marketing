@@ -4,6 +4,7 @@ import { api, getConvexClient } from '@/lib/convex';
 import { RESEND_FROM_SUPPORT_TRANSACTIONAL } from '@/lib/resend';
 import {
   FBA_KIT_DOWNLOAD_URL,
+  FBA_KIT_GRAPHING_TEMPLATE_COPY_URL,
   buildFbaKitContactArgs,
   validateFbaKitInput,
 } from '@/lib/fba-starter-kit';
@@ -62,15 +63,20 @@ Thanks for joining the Oct 9 CEU, Functional Behavior Assessment in a School Set
 Download your School FA starter kit:
 ${FBA_KIT_DOWNLOAD_URL}
 
+Make your own copy of the graphing template:
+${FBA_KIT_GRAPHING_TEMPLATE_COPY_URL}
+
 Event page:
 https://behaviorschool.com/events/fba-in-a-school-setting
 
-Rob Spain, Behavior School`;
+Robert Spain, BCBA, IBA
+Behavior School`;
     const html = `<p>Hi${firstNameForEmail},</p>
 <p>Thanks for joining the Oct 9 CEU, Functional Behavior Assessment in a School Setting, Friday, October 9, 2026, 12 to 1 PM Pacific Time.</p>
 <p><a href="${FBA_KIT_DOWNLOAD_URL}">Download your School FA starter kit</a></p>
+<p><a href="${FBA_KIT_GRAPHING_TEMPLATE_COPY_URL}">Make your own copy of the graphing template</a></p>
 <p><a href="https://behaviorschool.com/events/fba-in-a-school-setting">Visit the event page</a></p>
-<p>Rob Spain, Behavior School</p>
+<p>Robert Spain, BCBA, IBA<br>Behavior School</p>
 <hr><p style="font-size:12px;color:#666">Behavior School LLC<br>8 The Green #20473<br>Dover, DE 19901<br>United States</p>
 <p style="font-size:12px;color:#666">This is a transactional delivery email. <a href="mailto:support@behaviorschool.com?subject=Unsubscribe">Unsubscribe</a></p>`;
 
