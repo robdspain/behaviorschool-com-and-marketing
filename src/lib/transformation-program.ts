@@ -31,7 +31,6 @@ export const TRANSFORMATION_PROGRAM = {
     scheduleLabel: "six live Thursday sessions over seven weeks (no session February 4)",
     summaryHeadline: "Six Thursdays, Jan 14 to Feb 25, 2027",
     summaryDetail: "6 to 8 PM Pacific Time, live online",
-    seatCap: 5,
     applicationsCloseLabel: "Thursday, January 7, 2027",
     applicationsCloseShort: "Thursday, Jan 7, 2027",
     applicationsCloseDate: "2027-01-07",
@@ -182,7 +181,7 @@ export type TransformationFaqItem = {
 export const W9_REQUEST_ANCHOR = "request-w9";
 
 export const TRANSFORMATION_DISTRICT_PAYMENT_FAQ_ANSWER =
-  "Yes. This program provides BCBA continuing education units (Learning CEUs from Behavior School, a Behavior Analyst Certification Board Authorized Continuing Education Provider). District purchase orders and invoice payments are accepted. Seats are held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork.";
+  "Yes. This program provides BCBA continuing education units (Learning CEUs from Behavior School, a Behavior Analyst Certification Board Authorized Continuing Education Provider). District purchase orders and invoice payments are accepted. Your place is held after a signed purchase order or written district payment approval is received, and invoices are due on the invoice terms shown. Contact us to request district paperwork.";
 
 export const TRANSFORMATION_W9_FAQ_ANSWER =
   "Yes. Request it here and it arrives in your inbox right away.";
@@ -197,10 +196,6 @@ export function transformationProgramFaqItems(): TransformationFaqItem[] {
     {
       question: "When does the next cohort start?",
       answer: `The ${cohort.label} meets live online on six Thursdays from ${cohort.sessionTime}: ${cohortSessionDayList()}. There is no session on ${skippedSessionLongDate()}. Apply by ${cohort.applicationsCloseLabel}.`,
-    },
-    {
-      question: "Are seats still available?",
-      answer: `A few seats are still remaining in the ${cohort.label}. Applications close when seats fill or by ${cohort.applicationsCloseLabel}, whichever comes first.`,
     },
     {
       question: "What is the order of operations to enroll?",
@@ -220,7 +215,7 @@ export function transformationProgramFaqItems(): TransformationFaqItem[] {
     },
     {
       question: "What is the refund window?",
-      answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, cohort seats are considered committed and are not refundable except where required by law.",
+      answer: "You have a five-day refund window after payment. Contact us within five calendar days of payment to request a refund. After that window, enrollment is considered committed and is not refundable except where required by law.",
     },
     {
       question: "Can my district pay for this?",

@@ -141,7 +141,7 @@ function ApplicationForm() {
           Apply for the {TRANSFORMATION_PROGRAM.name}
         </h2>
         <p className="text-[#365548] text-base">
-          {TRANSFORMATION_PROGRAM.cohort.label}. A few seats still remaining. Apply by {TRANSFORMATION_PROGRAM.cohort.applicationsCloseLabel}. Applications may close earlier if the remaining seats fill.
+          {TRANSFORMATION_PROGRAM.cohort.label}. Apply by {TRANSFORMATION_PROGRAM.cohort.applicationsCloseLabel}.
         </p>
         <p className="text-[#365548] text-base mt-3">
           Apply first. After review, we schedule a fit call. Acceptance requires that call; we may decline applicants who are not ready or not a fit.
