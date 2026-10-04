@@ -1,36 +1,29 @@
-import { Metadata } from "next";
-import SchoolBCBAContent from "./SchoolBCBAContent";
+import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo/metadata";
+import { HubContent } from "./HubContent";
 
-export const metadata: Metadata = {
-  title: "School BCBA Career Guide, Jobs & Resources",
+const canonical = "https://behaviorschool.com/school-bcba";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "BCBA in Schools: Role, Salary and How to Get Hired",
   description:
-    "Explore school BCBA jobs, salary data, career pathways, free tools, and practical training resources for behavior analysts working in schools.",
+    "What a BCBA does in schools, what it pays (BLS and a posted district schedule), and how to get hired and get through year one.",
+  canonical,
+  type: "article",
+  imageAlt: "BCBA in Schools",
   keywords: [
-    "school BCBA",
-    "school bcba jobs",
-    "school bcba salary",
-    "how to become a school bcba",
     "bcba in schools",
-    "iep behavior goals",
-    "behavior intervention plan",
-    "mtss pbis",
+    "behavior analyst in schools",
+    "school bcba",
+    "what does a school bcba do",
+    "school bcba salary",
+    "school bcba jobs",
+    "bcba in schools jobs",
+    "do bcbas get paid more than teachers",
+    "can bcbas work in schools",
   ],
-  openGraph: {
-    title: "School BCBA: Complete Career Guide & Resources | Behavior School",
-    description:
-      "Comprehensive school BCBA resources: job guides, salary insights, career pathways, free tools, and training for school behavior analysts.",
-    url: "https://behaviorschool.com/school-bcba",
-    siteName: "Behavior School",
-    images: [
-      { url: "/optimized/og-image.webp", width: 1200, height: 630, alt: "School BCBA Resources" },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  alternates: { canonical: "https://behaviorschool.com/school-bcba" },
-  robots: { index: true, follow: true },
-};
+});
 
 export default function SchoolBCBAHub() {
-  return <SchoolBCBAContent />;
+  return <HubContent />;
 }
