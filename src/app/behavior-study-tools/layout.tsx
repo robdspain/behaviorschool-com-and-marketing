@@ -100,7 +100,7 @@ export default function BehaviorStudyToolsLayout({
     "@type": "Product",
     name: "BehaviorSchool",
     description: "Comprehensive BCBA exam preparation platform featuring AI-powered practice questions, adaptive learning algorithms, and detailed performance analytics for behavior analyst certification success.",
-    image: `${SITE_URL}/optimized/BehaviorStudyTools/bcbaq-first-time-falling.webp`,
+    image: `${SITE_URL}/BehaviorStudyTools/Hero-BST-Home.webp`,
     brand: {
       "@type": "Brand",
       name: "Behavior School"

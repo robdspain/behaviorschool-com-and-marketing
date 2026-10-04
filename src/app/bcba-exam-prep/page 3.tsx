@@ -339,12 +339,12 @@ export default function BCBAExamPrepPage() {
             <div className="flex justify-center lg:justify-end">
               <div className="relative">
                 <Image
-                  src="/BehaviorStudyTools/bcbaq-first-time-falling.webp"
-                  alt="BCBA exam statistics showing declining pass rates - first-time candidates struggling with certification requirements"
+                  src="/BehaviorStudyTools/Hero-BST-Home.webp"
+                  alt="Behavior Study Tools practice question on a laptop and phone"
                   className="w-full max-w-lg h-auto rounded-2xl shadow-2xl"
                   loading="eager"
-                  width={1536}
-                  height={1024}
+                  width={1200}
+                  height={840}
                 />
               </div>
             </div>

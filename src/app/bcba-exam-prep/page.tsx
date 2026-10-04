@@ -210,10 +210,10 @@ export default function BCBAExamPrepPage() {
             >
               <div className="relative z-10">
                 <Image
-                  src="/BehaviorStudyTools/before-after-behaviorstudytools.webp"
-                  alt="Before and after using Behavior Study Tools - BCBA exam prep transformation"
-                  width={1184}
-                  height={864}
+                  src="/BehaviorStudyTools/Hero-BST-Home.webp"
+                  alt="Behavior Study Tools practice question on a laptop and phone"
+                  width={1200}
+                  height={840}
                   className="w-full h-auto rounded-2xl shadow-2xl"
                   priority
                 />

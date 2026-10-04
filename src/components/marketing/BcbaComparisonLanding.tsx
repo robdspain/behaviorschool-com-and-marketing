@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BarChart3, Check, ClipboardCheck, FileText, ShieldCheck, X } from "lucide-react";
 import { BstMarketingTracker } from "@/components/marketing/BstMarketingTracker";
@@ -38,15 +37,15 @@ export function BcbaComparisonLanding({
     <main className="min-h-screen bg-white text-slate-900">
       <BstMarketingTracker />
       <section className="bg-[#f7f3ee]">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:px-8 lg:py-32">
-          <div>
+        <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
+          <div className="max-w-3xl">
             <p className="text-xs font-bold uppercase tracking-[0.32em] text-[#1f4d3f]">
               BCBA exam prep comparison
             </p>
             <h1 className="mt-5 text-4xl font-extrabold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
               {title}
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+            <p className="mt-6 text-lg leading-8 text-slate-600">
               {description}
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -62,16 +61,6 @@ export function BcbaComparisonLanding({
                 <ArrowRight size={18} />
               </Link>
             </div>
-          </div>
-          <div className="relative overflow-hidden rounded-xl border border-[#1f4d3f]/15 bg-white shadow-2xl">
-            <Image
-              src="/BehaviorStudyTools/before-after-behaviorstudytools.webp"
-              alt="BehaviorSchool Study product preview"
-              width={1184}
-              height={864}
-              className="h-auto w-full object-cover"
-              priority
-            />
           </div>
         </div>
       </section>
