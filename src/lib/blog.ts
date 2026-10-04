@@ -19,6 +19,7 @@ export interface BlogPost {
   status: 'published' | 'draft';
   meta_title?: string;
   meta_description?: string;
+  program_cta?: boolean;
 }
 
 export interface BlogPostMetadata {
@@ -72,6 +73,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
       status: data.status || 'draft',
       meta_title: data.meta_title,
       meta_description: data.meta_description,
+      program_cta: data.program_cta === true,
     };
   } catch (error) {
     console.error(`Error reading post ${slug}:`, error);

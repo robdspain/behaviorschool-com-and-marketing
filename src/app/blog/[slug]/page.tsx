@@ -5,6 +5,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { EditPostButton } from "@/components/admin/EditPostButton";
 import { BlogNewsletterSignup } from "@/components/blog/NewsletterSignup";
+import { ProgramBlogArticle } from "@/components/content/ProgramBlogArticle";
+import { extractFaqPairs } from "@/lib/seo-blog-slots";
 
 // Decode HTML entities in text
 function decodeHtmlEntities(text: string): string {
@@ -38,35 +40,8 @@ function decodeHtmlEntities(text: string): string {
     .replace(/&#8221;/g, '\u201D');
 }
 
-// Extract FAQ items from HTML content
 function extractFAQs(html: string): { question: string; answer: string }[] {
-  if (!html) return [];
-  
-  const faqs: { question: string; answer: string }[] = [];
-  
-  // Look for FAQ section with ## Frequently Asked Questions
-  const faqSectionMatch = html.match(/<h2[^>]*>Frequently Asked Questions[^<]*<\/h2>([\s\S]*?)(?=<h2|$)/i);
-  if (!faqSectionMatch) return [];
-  
-  const faqSection = faqSectionMatch[1];
-  
-  // Extract h3 questions and their following content
-  const h3Regex = /<h3[^>]*>(.*?)<\/h3>\s*<p>(.*?)<\/p>/gs;
-  let match;
-  
-  while ((match = h3Regex.exec(faqSection)) !== null) {
-    const question = match[1].replace(/<[^>]*>/g, '').trim();
-    const answer = match[2].replace(/<[^>]*>/g, '').trim();
-    
-    if (question && answer) {
-      faqs.push({
-        question: decodeHtmlEntities(question),
-        answer: decodeHtmlEntities(answer),
-      });
-    }
-  }
-  
-  return faqs;
+  return extractFaqPairs(html);
 }
 
 function getArticleCta(post: { tags?: { name: string }[] | null }) {
@@ -372,6 +347,16 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
     )}
+    {post.program_cta ? (
+      <ProgramBlogArticle
+        title={decodeHtmlEntities(post.title || "")}
+        date={post.published_at}
+        excerpt={post.excerpt ? decodeHtmlEntities(post.excerpt) : null}
+        html={normalizeHtml(post.html || "", post.feature_image as string | undefined)}
+        slots={post.seo_slots ?? []}
+        campaign={slug}
+      />
+    ) : (
     <article className="mx-auto max-w-3xl px-6 lg:px-8 pt-20 pb-12">
       <header>
         <h1 className="text-3xl sm:text-4xl font-bold text-slate-900">{post.title}</h1>
@@ -435,6 +420,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         <BlogNewsletterSignup />
       </div>
     </article>
+    )}
     
     <EditPostButton ghostId={post.id as string} slug={slug} />
     </>
