@@ -310,6 +310,12 @@ async function buildSitemap(
       priority: 0.95,
     },
     {
+      url: `${baseUrl}/school-bcba/staff-training`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/school-bcba/vs-school-based-bcba`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
