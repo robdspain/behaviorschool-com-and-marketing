@@ -14,7 +14,7 @@ import { PrintTemplateButton } from "./print-button";
 const CAMPAIGN = "functional-behavior-assessment-guide";
 
 const linkClass =
-  "inline-flex min-h-11 items-center rounded-[8px] font-semibold text-[#1f4d3f] underline underline-offset-4 hover:text-[#123628] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f]";
+  "inline-block max-w-full min-h-11 break-words py-2 leading-7 align-middle rounded-[8px] font-semibold text-[#1f4d3f] underline underline-offset-4 hover:text-[#123628] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f] [overflow-wrap:anywhere]";
 
 const headingClass = "scroll-mt-6 text-[#171f1d]";
 
