@@ -1,6 +1,14 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { buildFbaKitContactArgs, validateFbaKitInput } from './fba-starter-kit';
+import {
+  FBA_KIT_DOWNLOAD_PATH,
+  FBA_KIT_DOWNLOAD_URL,
+  FBA_KIT_EMAIL_LINK_STYLE,
+  FBA_KIT_GRAPHING_TEMPLATE_COPY_URL,
+  buildFbaKitContactArgs,
+  buildFbaKitDeliveryEmail,
+  validateFbaKitInput,
+} from './fba-starter-kit';
 
 const valid = { name: 'Taylor Example', email: 'taylor@example.com', role: 'school BCBA', consent: true, website: '' };
 
@@ -63,6 +71,32 @@ test('preserves existing customer fields while adding the kit request', () => {
   });
   assert.equal('status' in args, false);
   assert.equal('revenue' in args, false);
+});
+
+test('delivery email lists the kit first, then the graphing template, with a shared 44px link style', () => {
+  assert.equal(FBA_KIT_DOWNLOAD_PATH, '/downloads/school-fa-starter-kit.pdf');
+  assert.equal(FBA_KIT_DOWNLOAD_URL, 'https://behaviorschool.com/downloads/school-fa-starter-kit.pdf');
+  assert.ok(FBA_KIT_GRAPHING_TEMPLATE_COPY_URL.endsWith('/copy'));
+
+  const { html, text } = buildFbaKitDeliveryEmail(' Taylor');
+  const kitHref = 'https://behaviorschool.com/downloads/school-fa-starter-kit.pdf';
+  const sheetHref = 'https://docs.google.com/spreadsheets/d/1zcAQRlsqUSJxuYEQWXlYciby4kIzQsrnZURgUFn3GPs/copy';
+  const sharedStyle = 'display:inline-block;min-height:44px;line-height:44px;color:#1f4d3f;text-decoration:underline';
+  assert.equal(FBA_KIT_EMAIL_LINK_STYLE, sharedStyle);
+
+  const kitIndex = html.indexOf(`href="${kitHref}"`);
+  const sheetIndex = html.indexOf(`href="${sheetHref}"`);
+  assert.ok(kitIndex > -1);
+  assert.ok(sheetIndex > kitIndex);
+  assert.ok(html.includes(`href="${kitHref}" style="${sharedStyle}"`));
+  assert.ok(html.includes(`href="${sheetHref}" style="${sharedStyle}"`));
+  assert.ok(kitHref.endsWith('/downloads/school-fa-starter-kit.pdf'));
+  assert.ok(sheetHref.endsWith('/copy'));
+  assert.ok(text.includes(kitHref));
+  assert.ok(text.includes(sheetHref));
+  assert.ok(text.indexOf(kitHref) < text.indexOf(sheetHref));
+  assert.ok(html.includes('Robert Spain, BCBA, IBA'));
+  assert.ok(text.includes('Robert Spain, BCBA, IBA'));
 });
 
 test('does not duplicate the kit tag for an existing contact', () => {
