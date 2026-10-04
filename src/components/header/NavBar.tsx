@@ -33,6 +33,44 @@ export function NavBar() {
   }, [pathname]);
 
   useEffect(() => {
+    const onFocusIn = (event: FocusEvent) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+      const header = barRef.current?.closest("header");
+      if (!header || header.contains(target)) return;
+      if (target.closest("a[href='#main-content']")) return;
+      if (window.getComputedStyle(target).position === "fixed") return;
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const behavior: ScrollBehavior = reducedMotion ? "auto" : "instant";
+
+      const headerBottom = () => header.getBoundingClientRect().bottom;
+      const rect = target.getBoundingClientRect();
+      const bottom = headerBottom();
+
+      if (rect.top < bottom + 8 && rect.bottom > 0) {
+        window.scrollBy({ top: rect.top - bottom - 16, behavior });
+        return;
+      }
+
+      if (rect.bottom > window.innerHeight) {
+        const startY = window.scrollY;
+        requestAnimationFrame(() => {
+          if (window.scrollY !== startY) return;
+          const next = target.getBoundingClientRect();
+          const nextHeaderBottom = headerBottom();
+          if (next.bottom > window.innerHeight && next.top >= nextHeaderBottom + 8) {
+            window.scrollBy({ top: next.bottom - window.innerHeight + 16, behavior });
+          }
+        });
+      }
+    };
+
+    document.addEventListener("focusin", onFocusIn);
+    return () => document.removeEventListener("focusin", onFocusIn);
+  }, []);
+
+  useEffect(() => {
     if (wasOpenRef.current && !isMobileOpen) {
       toggleRef.current?.focus();
     }

@@ -18,6 +18,10 @@
     scroll-padding-top: 5rem;
   }
 
+  :where(:focus, :target) {
+    scroll-margin-top: 5rem;
+  }
+
   body {
     overflow-x: clip;
     max-width: 100vw;

@@ -12,9 +12,20 @@ interface ScrollNavItem {
 interface ScrollNavProps {
   items: ScrollNavItem[];
   className?: string;
+  linkClassName?: string;
+  activeLinkClassName?: string;
+  inactiveLinkClassName?: string;
+  progressClassName?: string;
 }
 
-export function ScrollNav({ items, className }: ScrollNavProps) {
+export function ScrollNav({
+  items,
+  className,
+  linkClassName,
+  activeLinkClassName = "text-emerald-700 bg-emerald-50",
+  inactiveLinkClassName = "text-slate-600 hover:text-slate-900 hover:bg-slate-50",
+  progressClassName = "bg-emerald-500",
+}: ScrollNavProps) {
   const [activeSection, setActiveSection] = React.useState<string>("");
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -65,7 +76,7 @@ export function ScrollNav({ items, className }: ScrollNavProps) {
   return (
     <div className={cn("w-full bg-white border-b border-slate-200", className)}>
       <motion.div 
-        className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-500 origin-left"
+        className={cn("absolute bottom-0 left-0 right-0 h-0.5 origin-left", progressClassName)}
         style={{ scaleX }}
       />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,9 +90,8 @@ export function ScrollNav({ items, className }: ScrollNavProps) {
                     onClick={(e) => scrollToSection(e, item.id)}
                     className={cn(
                       "px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 block whitespace-nowrap",
-                      activeSection === item.id
-                        ? "text-emerald-700 bg-emerald-50"
-                        : "text-slate-600 hover:text-slate-900 hover:bg-slate-50"
+                      linkClassName,
+                      activeSection === item.id ? activeLinkClassName : inactiveLinkClassName
                     )}
                   >
                     {item.label}
