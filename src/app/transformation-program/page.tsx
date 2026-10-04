@@ -116,21 +116,15 @@ function CohortCard() {
       <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f]">Next cohort: {COHORT_LABEL.replace(/ cohort$/i, '')}</p>
       <p className="mt-3 text-[1.375rem] font-semibold leading-snug sm:text-2xl">{keepMonthAndDayTogether(COHORT_SUMMARY)}</p>
       <p className="mt-1 text-base leading-snug sm:text-lg">{COHORT_SUMMARY_DETAIL}</p>
-      <div className="mt-4 grid grid-cols-3 gap-3 border-t border-[#d9cdb8] pt-4">
+      <div className="mt-4 grid grid-cols-2 gap-3 border-t border-[#d9cdb8] pt-4">
         <div>
           <p className="text-sm font-semibold text-[#365548]">Tuition</p>
           <p className="text-base font-semibold">{OFFER_PRICE}</p>
           <p className="text-sm text-[#365548]">or 3 monthly payments of {TRANSFORMATION_PROGRAM.pricing.installment}</p>
         </div>
         <div>
-          <p className="text-sm font-semibold text-[#365548]">Seats</p>
-          <p className="text-base font-semibold">A few</p>
-          <p className="text-sm text-[#365548]">still remaining</p>
-        </div>
-        <div>
           <p className="text-sm font-semibold text-[#365548]">Apply by</p>
           <p className="text-base font-semibold">{keepMonthAndDayTogether(APPLICATIONS_CLOSE_SHORT)}</p>
-          <p className="text-sm text-[#365548]">earlier if seats fill</p>
         </div>
       </div>
       <a href="#apply" className={`${primaryCtaClass} mt-4 w-full`}>
@@ -255,7 +249,7 @@ export default function TransformationProgramPage() {
               Who it is not for: Registered Behavior Technicians, Board Certified Assistant Behavior Analysts, BCBA candidates who are not yet certified, general education staff, and clinic-only BCBAs without a school role.
             </p>
             <p className="text-[#171f1d] text-base text-center leading-relaxed">
-              A few seats still remaining. Apply by {APPLICATIONS_CLOSE_LABEL}. Applications may close earlier if the remaining seats fill. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
+              Apply by {APPLICATIONS_CLOSE_LABEL}. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
             </p>
           </div>
         </div>
@@ -407,12 +401,12 @@ export default function TransformationProgramPage() {
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm font-semibold uppercase tracking-widest text-[#1f4d3f] mb-3">Enrollment</p>
           <h2 className="text-3xl sm:text-4xl font-bold text-[#171f1d] mb-4">Apply for the {COHORT_LABEL}</h2>
-          <p className="text-[#365548] text-base mb-3">Six live Thursdays. School BCBAs only. A few seats still remaining. {OFFER_PRICE}.</p>
+          <p className="text-[#365548] text-base mb-3">Six live Thursdays. School BCBAs only. {OFFER_PRICE}.</p>
           <p className="text-[#171f1d] text-lg mb-3 max-w-xl mx-auto leading-relaxed">
             Apply first. Fit calls are scheduled after application review. Acceptance requires a fit call; we may decline applicants who are not ready or not a fit.
           </p>
           <p className="text-[#365548] text-base mb-6 max-w-xl mx-auto leading-relaxed">
-            Apply by {APPLICATIONS_CLOSE_LABEL}. Applications may close earlier if the remaining seats fill.
+            Apply by {APPLICATIONS_CLOSE_LABEL}.
           </p>
           <p className="text-[#171f1d] font-bold text-2xl mb-4">
             {OFFER_PRICE} tuition
@@ -441,7 +435,7 @@ export default function TransformationProgramPage() {
             </a>
           </p>
           <p className="text-[#365548] text-base mb-12">
-            Refund policy: five calendar days from payment. After that, cohort seats are committed and non-refundable except where required by law.
+            Refund policy: five calendar days from payment. After that, enrollment is committed and non-refundable except where required by law.
           </p>
 
           <details
@@ -472,7 +466,7 @@ export default function TransformationProgramPage() {
                 <a href={DISTRICT_EMAIL_LINK} className={textLinkClass}>
                   contact us
                 </a>{' '}
-                and we will send the paperwork. Seats are held once a signed purchase order or written district payment approval is received.
+                and we will send the paperwork. Your place is held once a signed purchase order or written district payment approval is received.
               </p>
               <div className="rounded-lg border border-[#d9cdb8] bg-[#f4efe5] p-4">
                 <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-[#365548]">Copy and forward to your supervisor</p>
