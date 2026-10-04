@@ -64,7 +64,7 @@ export default function Home() {
         eyebrow="Behavior School"
         title="Systems training for"
         highlight="school BCBAs"
-        subtitle="The School BCBA Systems Transformation Program is six live online sessions where you build the FBA, BIP, data, and staff training systems your caseload runs on. Next cohort starts Thursday, January 14, 2027. 5 seats."
+        subtitle="The School BCBA Systems Transformation Program is six live online sessions where you build the FBA, BIP, data, and staff training systems your caseload runs on. Next cohort starts Thursday, January 14, 2027."
         primaryCta={{ href: "/transformation-program", label: "See the Transformation Program" }}
         secondaryCta={{ href: "https://study.behaviorschool.com/free-mock-exam/", label: "Or take the free BCBA mock exam" }}
         variant="brand"

@@ -291,7 +291,7 @@ def build_packet():
         Paragraph("Instructor", styles["H2Green"]),
         Paragraph("Rob Spain, BCBA, IBA, brings more than 25 years of behavior-analytic work across school, district, teaching, and clinical settings.", styles["BodyPacket"]),
         Paragraph("District payment process", styles["H2Green"]),
-        Paragraph("District purchase orders and invoice payments are accepted. A seat is held after a signed purchase order or written district payment approval is received. A W-9 and supporting program documentation are available on request.", styles["BodyPacket"]),
+        Paragraph("District purchase orders and invoice payments are accepted. Your place is held after a signed purchase order or written district payment approval is received. A W-9 and supporting program documentation are available on request.", styles["BodyPacket"]),
         Spacer(1, 10),
         info_table([
             ("Vendor", "Behavior School LLC"),
@@ -304,7 +304,7 @@ def build_packet():
         ]),
         Spacer(1, 14),
         Paragraph("Refund policy", styles["H2Green"]),
-        Paragraph("A refund may be requested within five calendar days of payment. After that window, cohort seats are committed and are not refundable except where required by law.", styles["BodyPacket"]),
+        Paragraph("A refund may be requested within five calendar days of payment. After that window, enrollment is committed and is not refundable except where required by law.", styles["BodyPacket"]),
     ]
 
     contact = Table([[Paragraph("Questions or district paperwork", styles["ValueWhite"]), Paragraph("rob@behaviorschool.com", styles["ValueWhite"])]], colWidths=[3.4 * inch, 3.3 * inch])
@@ -371,7 +371,7 @@ def build_packet():
         invoice_detail,
         Spacer(1, 16),
         Paragraph("District payment", styles["H2Green"]),
-        Paragraph("For purchase-order or invoice billing, send the completed invoice and district purchase-order information to rob@behaviorschool.com. A seat is held after a signed purchase order or written district payment approval is received.", styles["BodyPacket"]),
+        Paragraph("For purchase-order or invoice billing, send the completed invoice and district purchase-order information to rob@behaviorschool.com. Your place is held after a signed purchase order or written district payment approval is received.", styles["BodyPacket"]),
         Paragraph("Online program information: behaviorschool.com/transformation-program", styles["BodyPacket"]),
         PageBreak(),
         Paragraph("TAX AND REMITTANCE INFORMATION", styles["Eyebrow"]),
