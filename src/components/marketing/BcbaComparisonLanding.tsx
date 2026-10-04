@@ -170,7 +170,7 @@ export function BcbaComparisonLanding({
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-20 sm:px-6 lg:px-8">
-        <div className="rounded-lg bg-[#1f4d3f] p-8 text-white">
+        <div className="bs-on-dark rounded-lg bg-[#1f4d3f] p-8 text-white">
           <FileText className="mb-4 text-[#e4b63d]" size={32} />
           <h2 className="text-2xl font-extrabold">Use the comparison, then test the workflow.</h2>
           <p className="mt-3 max-w-2xl text-emerald-50">

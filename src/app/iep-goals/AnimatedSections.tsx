@@ -405,8 +405,8 @@ export function AnimatedSections() {
                   Traditional goals can focus on compliance rather than meaningful, observable skills.
                 </p>
                 <p className="text-slate-700 leading-relaxed mb-4">
-                  I developed this values-based approach because I believe when we start with what matters to students — 
-                  their own values like being brave, kind, or helpful — everything changes. The goals become meaningful, 
+                  I developed this values-based approach because I believe when we start with what matters to students - 
+                  their own values like being brave, kind, or helpful - everything changes. The goals become meaningful, 
                   and students become invested in their own growth.
                 </p>
                 <p className="text-slate-700 leading-relaxed">
@@ -564,7 +564,7 @@ export function AnimatedSections() {
                   <div>
                     <h4 className="font-bold text-slate-900 mb-3">What Research Says:</h4>
                     <ul className="list-disc list-inside space-y-2 text-sm text-slate-700 text-left">
-                      <li>Don&apos;t hope skills transfer to new places—plan for it</li>
+                      <li>Don&apos;t hope skills transfer to new places-plan for it</li>
                       <li>Practice the same skill in many different situations</li>
                       <li>Give students tools to remind themselves what to do</li>
                       <li>Make rewards unpredictable so skills stick better</li>
@@ -773,7 +773,7 @@ export function AnimatedSections() {
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <h4 className="font-bold text-red-800 mb-2">✅ Includes:</h4>
+                    <h4 className="font-bold text-red-800 mb-2">Includes:</h4>
                     <ul className="list-disc list-inside text-left space-y-1 text-sm">
                       <li>Date and context</li>
                       <li>Specific behavior</li>
@@ -781,7 +781,7 @@ export function AnimatedSections() {
                     </ul>
                   </div>
                   <div>
-                    <h4 className="font-bold text-red-800 mb-2">❌ Missing:</h4>
+                    <h4 className="font-bold text-red-800 mb-2">Missing:</h4>
                     <ul className="list-disc list-inside text-left space-y-1 text-sm">
                       <li>Baseline data</li>
                       <li>Latency & fluency</li>
@@ -815,7 +815,7 @@ export function AnimatedSections() {
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
-                    <h4 className="font-bold text-emerald-800 mb-2">✅ Includes All Components:</h4>
+                    <h4 className="font-bold text-emerald-800 mb-2">Includes All Components:</h4>
                     <ul className="list-disc list-inside text-left space-y-1 text-sm">
                       <li>Baseline data (current performance)</li>
                       <li>Latency (10 seconds)</li>

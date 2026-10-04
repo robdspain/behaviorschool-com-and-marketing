@@ -24,18 +24,31 @@
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
-# Auto-submit sitemap to search engines after successful publish
+# IndexNow: submit changed URLs to Bing/Yandex/Seznam/Naver after each production deploy
 [[plugins]]
-  package = "netlify-plugin-submit-sitemap"
+  package = "./plugins/indexnow"
   [plugins.inputs]
-    baseUrl = "https://behaviorschool.com"
-    sitemapPath = "/sitemap.xml"
-    providers = ["google", "bing"]
+    host = "behaviorschool.com"
+    key = "a07fc6c7-3148-489c-85e2-5d82ab778569"
+    sitemapUrl = "https://behaviorschool.com/sitemap.xml"
 
 # Next.js handles routing, only redirect specific cases
 [[redirects]]
   from = "/www/*"
   to = "/:splat"
+  status = 301
+  force = true
+
+# Consolidate the legacy school BCBA training page on the canonical program URL.
+[[redirects]]
+  from = "/school-bcba-training-program"
+  to = "/transformation-program"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/school-bcba-training-program/"
+  to = "/transformation-program"
   status = 301
   force = true
 
@@ -58,6 +71,25 @@
   status = 301
   force = true
 
+# Free mock exam lives on Study: one 301 hop for slash and no-slash forms
+[[redirects]]
+  from = "/free-mock-exam"
+  to = "https://study.behaviorschool.com/free-mock-exam/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/free-mock-exam/"
+  to = "https://study.behaviorschool.com/free-mock-exam/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/free-mock-exam/*"
+  to = "https://study.behaviorschool.com/free-mock-exam/"
+  status = 301
+  force = true
+
 # Handle old URLs if any
 [[redirects]]
   from = "/old-page"
@@ -69,6 +101,12 @@
   from = "/supervision"
   to = "/supervisors"
   status = 301
+
+# Point the public PDF packet back to the canonical program page.
+[[headers]]
+  for = "/transformation-program-pd-packet.pdf"
+  [headers.values]
+    Link = "<https://behaviorschool.com/transformation-program>; rel=\"canonical\""
 
 # Transformation Program nurture sequence processor - every hour
 [functions."transformation-nurture-worker"]

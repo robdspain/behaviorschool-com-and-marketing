@@ -15,7 +15,7 @@ interface TimeDelayPopupProps {
 
 export function TimeDelayPopup({
   title = "The Weekly Research Brief",
-  description = "Open research, clear summaries, and practical next steps for school-based BCBAs, delivered each week.",
+  description = "Open research, clear summaries, and practical next steps for school BCBAs, delivered each week.",
   pageSource,
   buttonText = "Get the Research Brief",
   successMessage = "Check your inbox to confirm your subscription.",

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { menuSections } from "./config";
+import { SHOW_COHORT_BAND } from "@/lib/feature-flags";
+import { Button } from "@/components/ui/button";
 import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 type Props = {
@@ -25,7 +27,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
             return (
               <div key={key}>
                 <button
-                  className="flex min-h-11 w-full items-center justify-between rounded-lg px-3 py-2 text-base font-medium text-[#1f4d3f] hover:text-[#123628]"
+                  className="w-full flex items-center justify-between px-3 min-h-[44px] text-base font-medium text-[#171f1d] hover:text-[#1f4d3f] hover:underline"
                   onClick={() => onToggleKey(key)}
                   aria-expanded={expanded}
                 >
@@ -40,7 +42,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
                       <Link
                         key={child.href}
                         href={child.href}
-                        className="flex min-h-11 items-center rounded-lg px-3 py-2 text-[#1f4d3f] hover:bg-[#f4efe5] hover:text-[#123628]"
+                        className="block px-3 min-h-[44px] py-2 flex w-full items-center text-[#171f1d] font-medium hover:text-[#1f4d3f] hover:underline  rounded-md"
                         onClick={onClose}
                         target={child.external ? "_blank" : undefined}
                         rel={child.external ? "noreferrer noopener" : undefined}
@@ -57,32 +59,32 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
             <Link
               key={key}
               href={section.href ?? "#"}
-              className="flex min-h-11 items-center rounded-lg px-3 py-2 text-base font-medium text-[#1f4d3f] hover:bg-[#f4efe5] hover:text-[#123628]"
+              className="block px-3 min-h-[44px] py-2 flex w-full items-center text-lg font-medium text-[#171f1d] font-medium hover:text-[#1f4d3f] hover:underline  rounded-md"
               onClick={onClose}
-              target={section.href?.startsWith("http") ? "_blank" : undefined}
               rel={section.href?.startsWith("http") ? "noreferrer noopener" : undefined}
             >
               {section.label}
             </Link>
           );
         })}
-        <div className="px-3 pt-1">
+        <div className="px-3 pt-4 pb-2 space-y-3 flex flex-col">
+          {SHOW_COHORT_BAND && (
+          <Link 
+            href="/transformation-program"
+            className="bs-btn-secondary w-full"
+            onClick={onClose}
+          >
+            See the January cohort
+          </Link>
+          )}
           <Link
             href="/transformation-program"
+            className="bs-btn-primary w-full"
             onClick={onClose}
-            aria-label={`${TRANSFORMATION_PROGRAM.name}, ${TRANSFORMATION_PROGRAM.cohort.label}`}
-            className="flex min-h-11 items-center rounded-lg px-3 text-base font-semibold text-[#1f4d3f] underline underline-offset-4"
           >
-            {TRANSFORMATION_PROGRAM.cohort.label}
+            Transformation Program
           </Link>
         </div>
-        <Link
-          href="https://study.behaviorschool.com/free-practice/"
-          className="flex min-h-11 items-center rounded-lg px-3 py-2 text-base font-medium text-[#1f4d3f] hover:bg-[#f4efe5] hover:text-[#123628]"
-          onClick={onClose}
-        >
-          Take Free BCBA Practice Exam
-        </Link>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m as motion, AnimatePresence, MotionConfig } from "framer-motion";
 import { Dropdown } from "./Dropdown";
 import { menuSections } from "./config";
 
@@ -13,6 +13,7 @@ type Props = {
 
 export function DesktopMenu({ openKey, onOpen }: Props) {
   return (
+    <MotionConfig reducedMotion="user">
     <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
       {menuSections.map((section) => {
         const hasChildren = !!section.children?.length;
@@ -28,12 +29,12 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
               transition={{ duration: 0.2 }}
             >
               <motion.button
-                className="relative inline-flex min-h-11 items-center gap-1 rounded-lg px-3 py-2 text-sm font-medium text-[#1f4d3f] xl:text-base"
+                className="inline-flex items-center gap-1 px-3 min-h-[44px] text-sm xl:text-base font-medium text-[#171f1d] hover:text-[#1f4d3f] relative rounded-lg"
                 aria-haspopup="menu"
                 aria-expanded={openKey === key}
                 whileHover={{ 
                   scale: 1.1,
-                  backgroundColor: "rgba(31, 77, 63, 0.08)",
+                  backgroundColor: "transparent",
                   color: "#1f4d3f"
                 }}
                 whileTap={{ scale: 0.95 }}
@@ -47,7 +48,7 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
                   <ChevronDown className="size-4" />
                 </motion.div>
                 <motion.div
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#1f4d3f]"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#1f4d3f]"
                   initial={{ scaleX: 0 }}
                   whileHover={{ scaleX: 1 }}
                   transition={{ duration: 0.2 }}
@@ -81,8 +82,7 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
           >
             <Link
               href={section.href ?? "#"}
-              className="relative block min-h-11 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium text-[#1f4d3f] xl:text-base"
-              target={section.href?.startsWith("http") ? "_blank" : undefined}
+              className="px-3 min-h-[44px] inline-flex items-center justify-center text-sm xl:text-base font-medium text-[#171f1d] hover:text-[#1f4d3f] relative rounded-lg whitespace-nowrap"
               rel={section.href?.startsWith("http") ? "noreferrer noopener" : undefined}
             >
               <motion.div
@@ -93,7 +93,7 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
               />
               <span className="relative z-10">{section.label}</span>
               <motion.div
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#1f4d3f] rounded-lg"
+                className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#1f4d3f] rounded-full"
                 initial={{ scaleX: 0 }}
                 whileHover={{ scaleX: 1 }}
                 transition={{ duration: 0.3 }}
@@ -103,6 +103,7 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
         );
       })}
     </div>
+    </MotionConfig>
   );
 }
 

@@ -103,7 +103,7 @@ export default async function ResourcesPage() {
       <section className="bg-slate-950 text-white">
         <div className="mx-auto max-w-6xl px-6 lg:px-8 pt-16 pb-12">
           <div className="mb-8">
-            <Breadcrumbs items={[{ label: "Resources" }]} />
+            <Breadcrumbs className="[&_a]:text-[#fbfaf6] [&_span]:!text-[#fbfaf6] [&_svg]:!text-[#fbfaf6]" items={[{ label: "Resources" }]} />
           </div>
           <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-center">
             <div>
@@ -121,7 +121,7 @@ export default async function ResourcesPage() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href="#tools"
-                  className="inline-flex items-center gap-2 bg-emerald-500 text-slate-900 font-bold px-5 py-3 rounded-xl"
+                  className="inline-flex items-center gap-2 bg-[#e4b63d] text-[#171f1d] font-bold px-5 py-3 rounded-xl"
                 >
                   Explore Tools <ArrowRight className="w-4 h-4" />
                 </Link>

@@ -114,6 +114,7 @@ async function buildSitemap(
     '/masterclass/certificate',
     '/compare/behaviorschool-vs-bds',
     '/bds-modules-alternative',
+    '/school-bcba-training-program',
   ])
   // Prefixes to exclude entirely from sitemap (admin, test, auth, etc.)
   const excludedPrefixes = ['/admin', '/test', '/auth', '/r/', '/unauthorized', '/presentations/present', '/presentations/view', '/masterclass']
@@ -164,12 +165,6 @@ async function buildSitemap(
     // Core Service Pages - High Priority
     {
       url: `${baseUrl}/transformation-program`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.95,
-    },
-    {
-      url: `${baseUrl}/school-bcba-training-program`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.95,

@@ -15,7 +15,7 @@ export function ProductsSuiteHero() {
             className="aspect-[4/3] w-full object-cover object-center"
           />
         </div>
-        <p className="px-3 py-2 text-center text-[10px] font-semibold uppercase tracking-[0.16em] text-[#51645d]">
+        <p className="px-3 py-2 text-center text-[14px] font-semibold uppercase tracking-[0.16em] text-[#365548]">
           Built for school BCBA practice
         </p>
       </div>

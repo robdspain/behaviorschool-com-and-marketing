@@ -1,0 +1,8 @@
+name: indexnow-on-success
+inputs:
+  - name: host
+    required: true
+  - name: key
+    required: true
+  - name: sitemapUrl
+    required: true

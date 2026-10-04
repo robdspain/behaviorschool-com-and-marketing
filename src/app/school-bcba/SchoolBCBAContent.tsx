@@ -165,7 +165,7 @@ export default function SchoolBCBAContent() {
               <a className="rounded-xl border border-emerald-200 bg-white p-4 font-semibold text-emerald-800 hover:border-emerald-400 hover:text-emerald-950" href="https://robspain.com/blog/school-bcba-fba-bip-requests/">
                 Why FBA/BIP requests need a system
               </a>
-              <a className="rounded-xl border border-emerald-200 bg-white p-4 font-semibold text-emerald-800 hover:border-emerald-400 hover:text-emerald-950" href="https://robspain.com/transformation-program/">
+              <a className="rounded-xl border border-emerald-200 bg-white p-4 font-semibold text-emerald-800 hover:border-emerald-400 hover:text-emerald-950" href="/transformation-program">
                 School BCBA Systems Transformation Program
               </a>
             </div>

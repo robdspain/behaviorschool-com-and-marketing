@@ -19,7 +19,7 @@ const EFFECTIVE_SITE_URL = (!RAW_SITE_URL || /localhost/i.test(RAW_SITE_URL))
 export const metadata: Metadata = {
   metadataBase: new URL(EFFECTIVE_SITE_URL),
   title: "BehaviorSchool | Tools & Resources for School BCBAs",
-  description: "Free AI-powered tools for school BCBAs — FBA generator, BIP builder, IEP goal writer, and more. Built by a BCBA for the reality of school practice.",
+  description: "Free tools for school BCBAs: FBA generator, BIP builder, IEP goal writer, and more. Built by a school BCBA for the reality of school practice.",
   keywords: [
     "Behavior School",
     "Behavior School platform",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "BehaviorSchool | Tools & Resources for School BCBAs",
-    description: "Free AI-powered tools for school BCBAs — FBA generator, BIP builder, IEP goal writer, and more. Built by a BCBA for the reality of school practice.",
+    description: "Free tools for school BCBAs: FBA generator, BIP builder, IEP goal writer, and more. Built by a school BCBA for the reality of school practice.",
     url: "https://behaviorschool.com",
     type: "website",
     siteName: "Behavior School",
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "BehaviorSchool | Tools & Resources for School BCBAs",
-    description: "Free AI-powered tools for school BCBAs — FBA generator, BIP builder, IEP goal writer, and more.",
+    description: "Free tools for school BCBAs: FBA generator, BIP builder, IEP goal writer, and more.",
     images: ["/optimized/og-image.webp"],
   },
   other: {
@@ -127,7 +127,7 @@ export default function RootLayout({
           height: 512
         },
         image: `${SITE_URL}/optimized/og-image.webp`,
-        description: "Professional development, study tools, and resources for school BCBAs and behavior analysts in education.",
+        description: "Behavior School runs the School BCBA Systems Transformation Program and provides BCBA exam prep, supervision tools, IEP goal resources, behavior plan tools, and professional development for school BCBAs and behavior analysts.",
         foundingDate: "2020",
         contactPoint: {
           "@type": "ContactPoint",
@@ -151,8 +151,12 @@ export default function RootLayout({
           addressCountry: "US"
         },
         sameAs: [
-          "https://www.linkedin.com/company/behavior-school",
-          "https://x.com/behaviorschool",
+          "https://www.linkedin.com/company/behavior-school/",
+          "https://x.com/behavior_school",
+          "https://bsky.app/profile/behaviorschool.bsky.social",
+          "https://www.youtube.com/@BehaviorSchool",
+          "https://www.instagram.com/behaviorschool",
+          "https://www.facebook.com/profile.php?id=61564836345571",
           "https://community.behaviorschool.com"
         ],
         knowsAbout: [
@@ -172,18 +176,22 @@ export default function RootLayout({
         alternateName: ["Behavior School", "BehaviorSchool.com"],
         url: SITE_URL,
         inLanguage: "en-US",
-        description: "Behavior School provides BCBA exam prep, supervision tools, IEP goal resources, behavior plan tools, and professional development for school-based behavior analysts.",
+        description: "Behavior School runs the School BCBA Systems Transformation Program and provides BCBA exam prep, supervision tools, IEP goal resources, behavior plan tools, and professional development for school BCBAs and behavior analysts.",
         publisher: {
           "@id": `${SITE_URL}/#organization`
-        },
-        potentialAction: {
-          "@type": "SearchAction",
-          target: {
-            "@type": "EntryPoint",
-            urlTemplate: `${SITE_URL}/blog?q={search_term_string}`
-          },
-          "query-input": "required name=search_term_string"
         }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://behaviorstudytools.com/#app",
+        name: "Behavior Study Tools",
+        url: "https://study.behaviorschool.com/",
+        sameAs: ["https://behaviorstudytools.com/"],
+        applicationCategory: "EducationalApplication",
+        operatingSystem: "Web",
+        description: "BCBA exam prep app with a free 185-question mock exam (free account required), a free 9-question practice check (no account), and domain-level results aligned to the BCBA 6th Edition Test Content Outline.",
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD", description: "Free 9-question practice check without an account; one free 185-question mock exam and one domain mini mock with a free account, no credit card." },
+        publisher: { "@id": `${SITE_URL}/#organization` }
       }
     ]
   } as const;
@@ -192,7 +200,6 @@ export default function RootLayout({
       <head>
         <PerformanceMonitor />
         {/* Preconnect hints for performance */}
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link rel="preconnect" href="https://behaviorstudytools.com" />
@@ -203,23 +210,23 @@ export default function RootLayout({
 
         {/* DNS prefetch for additional performance */}
         <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="dns-prefetch" href="//googletagmanager.com" />
 
         <PrivacyCompliantAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID || "G-Z3XWL488ZP"} />
 
         {/* Google Ads tag (gtag.js) - Deferred for better performance */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=AW-17439907778"
-          strategy="lazyOnload"
-        />
-        <Script id="google-ads-config" strategy="lazyOnload">
+        <Script id="google-ads-config" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
+            window.gtag = window.gtag || gtag;
             gtag('js', new Date());
             gtag('config', 'AW-17439907778');
           `}
         </Script>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17439907778"
+          strategy="lazyOnload"
+        />
 
         {/* Ahrefs Analytics */}
         <Script

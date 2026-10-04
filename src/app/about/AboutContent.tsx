@@ -75,8 +75,8 @@ export default function AboutContent() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
               className="space-y-8"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
@@ -109,8 +109,8 @@ export default function AboutContent() {
 
             <motion.div
               className="relative"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
             >
@@ -363,7 +363,7 @@ export default function AboutContent() {
             <p className="text-slate-500 mb-6">Want updates on new tools and resources?</p>
             <Link
               href="/subscribe"
-              className="inline-flex items-center text-emerald-400 hover:text-emerald-300 font-semibold"
+              className="inline-flex min-h-[44px] items-center text-emerald-400 hover:text-emerald-300 font-semibold focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#fbfaf6]"
             >
               <Mail className="w-5 h-5 mr-2" />
               Subscribe for Updates

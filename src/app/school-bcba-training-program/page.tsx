@@ -8,7 +8,7 @@ import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 const canonical = "https://behaviorschool.com/school-bcba-training-program";
 
 export const metadata: Metadata = {
-  title: "School BCBA Training Program | Build Better FBA and BIP Systems",
+  title: "School BCBA Training Program | FBA and BIP Systems",
   description:
     "Six live Thursday sessions over seven weeks (no session February 4) for school BCBAs building repeatable FBA, BIP, staff training, and caseload systems.",
   alternates: { canonical },

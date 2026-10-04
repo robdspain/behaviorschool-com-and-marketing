@@ -10,6 +10,7 @@ const { summaryHeadline, sessionTime, label } = TRANSFORMATION_PROGRAM.cohort;
 const dateSpan = summaryHeadline.replace(/^Six Thursdays, /, '');
 const metaDescription = `The ${programName}: live online training for school BCBAs. ${summaryHeadline}, ${sessionTime}.`;
 const socialDateLine = `${dateSpan}, ${sessionTime}`;
+const openGraphDescription = `Six live online Thursday sessions for school BCBAs, ${socialDateLine}. Build FBA, BIP, and staff training systems.`;
 const ogImage = '/optimized/Course/transformation-program-og-1200x630.webp';
 const ogImageAlt = `${programName}, ${label}, six live online sessions for school BCBAs`;
 
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/transformation-program' },
   openGraph: {
     title: programName,
-    description: `Six live online Thursday sessions for school BCBAs, ${socialDateLine}. Build functional behavior assessment, behavior intervention plan, and staff training systems.`,
+    description: openGraphDescription,
     url: '/transformation-program',
     type: 'website',
     siteName: 'Behavior School',
