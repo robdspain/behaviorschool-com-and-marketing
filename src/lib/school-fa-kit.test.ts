@@ -40,6 +40,10 @@ test("school FA kit email delivers the kit and does not claim a district packet 
 
   assert.equal(rendered.subject, SCHOOL_FA_KIT_STEP_ZERO_SUBJECT);
   assert.match(rendered.text, /Hi Ada/);
+  assert.match(
+    rendered.text,
+    /School FA starter kit from the October 9 CalABA BehaviorLive presentation is ready/,
+  );
   assert.match(rendered.text, new RegExp(SCHOOL_FA_KIT_PDF_URL.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   assert.match(rendered.text, /docs.google.com\/spreadsheets/);
   assert.match(rendered.text, new RegExp(SCHOOL_FA_GRAPHING_TEMPLATE_COPY_URL.split("/d/")[1].split("/")[0]));

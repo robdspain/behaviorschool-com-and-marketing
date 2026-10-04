@@ -2,17 +2,24 @@ import type { Metadata } from "next";
 import { SchoolFAKitPage } from "./SchoolFAKitPage";
 
 export const metadata: Metadata = {
-  title: "Free School FA Starter Kit | Behavior School",
+  title: "School FA Starter Kit | Behavior School",
   description:
-    "Free School FA starter kit: task analyses, printable datasheets, and a graphing template for five functional analysis formats used in schools.",
+    "Behavior School handout for the Friday, October 9 CalABA BehaviorLive presentation, Functional Behavior Assessment in a School Setting.",
   robots: { index: false, follow: false },
   openGraph: {
-    title: "Free School FA Starter Kit",
+    title: "School FA Starter Kit for October 9",
     description:
-      "Task analyses, printable datasheets, and a graphing template for five school functional analysis formats.",
+      "The Behavior School handout for CalABA BehaviorLive: Functional Behavior Assessment in a School Setting.",
     url: "https://behaviorschool.com/fba",
     type: "website",
     siteName: "Behavior School",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "School FA Starter Kit for October 9",
+    description:
+      "The Behavior School handout for CalABA BehaviorLive: Functional Behavior Assessment in a School Setting.",
+    images: ["/optimized/og-image.webp"],
   },
 };
 

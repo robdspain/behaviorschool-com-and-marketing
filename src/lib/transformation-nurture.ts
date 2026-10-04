@@ -117,7 +117,7 @@ export function renderTransformationNurtureEmail(email: QueuedTransformationEmai
       if (schoolFaKit) {
         const bodyText = `Hi ${name},
 
-The School FA starter kit is ready.
+The School FA starter kit from the October 9 CalABA BehaviorLive presentation is ready.
 
 The PDF has the five task analyses, a printable datasheet for each format, and a blank graph page for each format:
 ${SCHOOL_FA_KIT_PDF_URL}

@@ -83,14 +83,14 @@ export function SchoolFAKitPage() {
     <div className="min-h-screen bg-[var(--bs-cream)] text-[var(--bs-ink)]">
       <section className="px-4 py-10 sm:px-6 sm:py-16">
         <div className="mx-auto max-w-3xl">
-          <p className="bs-eyebrow text-[var(--bs-forest)]">Free download</p>
+          <p className="bs-eyebrow text-[var(--bs-forest)]">Behavior School · Friday, October 9</p>
           <h1 className="mt-3 text-4xl font-bold leading-tight sm:text-5xl">
             School FA Starter Kit
           </h1>
           <p className="mt-4 text-lg leading-relaxed text-[var(--bs-secondary)]">
-            Five functional analysis formats for schools: step-by-step task analyses,
-            printable datasheets, and graph pages. Companion to the CalABA BAE SIG
-            webinar on October 9, 2026.
+            The handout for the CalABA BehaviorLive presentation, Functional Behavior
+            Assessment in a School Setting. Five formats, with the task analyses,
+            printable datasheets, and graph pages from the session.
           </p>
 
           <div className="mt-8 rounded-xl border border-[var(--bs-hairline)] bg-[var(--bs-paper)] p-5 sm:p-8">
