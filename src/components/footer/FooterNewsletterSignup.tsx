@@ -11,7 +11,7 @@ export function FooterNewsletterSignup() {
   }
 
   return (
-    <div className="border-b border-gray-200 bg-white">
+    <div className="border-b border-[#d9cdb8] bg-white">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <NewsletterSignup />
       </div>

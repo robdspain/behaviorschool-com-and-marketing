@@ -22,7 +22,7 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
           return (
             <motion.div
               key={key}
-              className="relative"
+              className={openKey === key ? "relative z-30" : "relative"}
               onMouseEnter={() => onOpen(key)}
               onMouseLeave={() => onOpen(null)}
               whileHover={{ scale: 1.05 }}

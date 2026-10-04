@@ -80,14 +80,14 @@ export function PrivacyCompliantAnalytics({ gaId }: AnalyticsProps) {
 
       {/* Privacy-compliant consent banner */}
       {showBanner && (
-        <div className="fixed bottom-0 left-0 right-0 bg-slate-900 text-white p-4 shadow-lg z-50">
+        <div className="fixed bottom-0 left-0 right-0 bg-[#171f1d] text-white p-4 shadow-lg z-[60]">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex-1">
               <p className="text-sm">
                 We use privacy-focused analytics to improve your experience. No personal data is collected or shared.
                 <a 
                   href="/privacy"
-                  className="text-emerald-400 hover:text-emerald-300 underline ml-1"
+                  className="text-[#fbfaf6] underline ml-1"
                   target="_blank"
                   rel="noopener"
                 >
@@ -98,13 +98,13 @@ export function PrivacyCompliantAnalytics({ gaId }: AnalyticsProps) {
             <div className="flex gap-3 flex-shrink-0">
               <button
                 onClick={declineAnalytics}
-                className="px-4 py-2 text-sm text-slate-300 hover:text-white border border-slate-600 rounded hover:border-slate-500 transition-colors"
+                className="inline-flex items-center justify-center px-4 text-sm text-[#fbfaf6] border border-[#fbfaf6] rounded-lg min-h-11 hover:bg-white/10 transition-colors"
               >
                 Decline
               </button>
               <button
                 onClick={acceptAnalytics}
-                className="px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-700 text-white rounded transition-colors"
+                className="inline-flex items-center justify-center px-4 text-sm bg-[#1f4d3f] hover:bg-[#123628] text-white rounded-lg min-h-11 transition-colors"
               >
                 Accept
               </button>

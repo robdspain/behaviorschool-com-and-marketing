@@ -12,12 +12,17 @@ type Props = {
   onClose: () => void;
   openKey: string | null;
   onToggleKey: (key: string) => void;
+  menuTop: number;
 };
 
-export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
+export function MobileMenu({ isOpen, onClose, openKey, onToggleKey, menuTop }: Props) {
   if (!isOpen) return null;
   return (
-    <div className="lg:hidden border-t border-slate-200 bg-white/95 backdrop-blur-sm">
+    <div
+      id="primary-mobile-menu"
+      className="lg:hidden fixed inset-x-0 bottom-0 z-[1] overflow-y-auto overscroll-contain border-t border-[#d9cdb8] bg-white max-h-[calc(100dvh-4rem)]"
+      style={{ top: menuTop }}
+    >
       <div className="px-2 py-3 space-y-1 sm:px-3">
         {menuSections.map((section) => {
           const key = section.label.toLowerCase();
