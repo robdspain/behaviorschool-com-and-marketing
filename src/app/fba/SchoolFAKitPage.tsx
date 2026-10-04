@@ -80,7 +80,7 @@ export function SchoolFAKitPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[var(--bs-cream)] text-[var(--bs-ink)]">
+    <div className="min-h-screen bg-[var(--bs-cream)] text-[var(--bs-ink)]">
       <section className="px-4 py-10 sm:px-6 sm:py-16">
         <div className="mx-auto max-w-3xl">
           <p className="bs-eyebrow text-[var(--bs-forest)]">Free download</p>
@@ -273,6 +273,6 @@ export function SchoolFAKitPage() {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
