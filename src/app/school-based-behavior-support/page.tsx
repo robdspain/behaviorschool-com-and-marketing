@@ -199,7 +199,7 @@ export default function SchoolBehaviorSupportPage() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
                 <Link 
-                  href="/iep-goals" 
+                  href="/iep-behavior-goals" 
                   className="inline-flex items-center px-8 py-3 border border-emerald-600 text-emerald-600 font-semibold rounded-xl hover:bg-emerald-50 transition-colors"
                 >
                   Start with IEP Goal Writing

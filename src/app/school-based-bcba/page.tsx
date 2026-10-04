@@ -169,7 +169,7 @@ export default function SchoolBasedBCBAPage() {
                 className="text-lg px-8 py-6 border-2 border-emerald-700 text-emerald-700 hover:bg-emerald-50 font-semibold"
                 asChild
               >
-                <Link href="/iep-goals">
+                <Link href="/iep-behavior-goals">
                   <Zap className="w-5 h-5 mr-2" />
                   Try Free Tools
                 </Link>
@@ -312,7 +312,7 @@ export default function SchoolBasedBCBAPage() {
                   Organize student-specific baseline, context, supports, measurement, and mastery decisions for IEP team review.
                 </p>
                 <Button variant="outline" size="sm" className="border-purple-600 text-purple-700 hover:bg-purple-50 font-semibold" asChild>
-                  <Link href="/iep-goals">
+                  <Link href="/iep-behavior-goals">
                     Use the Goal Writing System
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Link>
@@ -502,7 +502,7 @@ export default function SchoolBasedBCBAPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {[
-                { icon: Target, color: "emerald", title: "BehaviorSchool Goal Writing System", desc: "Build an editable BehaviorSchool Goal Draft from student-specific information", link: "/iep-goals", cta: "Build a Goal Draft" },
+                { icon: Target, color: "emerald", title: "BehaviorSchool Goal Writing System", desc: "Build an editable BehaviorSchool Goal Draft from student-specific information", link: "/iep-behavior-goals", cta: "Build a Goal Draft" },
                 { icon: FileText, color: "blue", title: "Behavior Plan Writer", desc: "Build teacher-ready BIPs with evidence-based strategies", link: "/behavior-plans", cta: "Create a Free BIP" },
                 { icon: Users, color: "purple", title: "Supervision Tracker", desc: "Invite-only tools in development for fieldwork documentation and progress review", link: "/supervisors", cta: "View Invite-Only Access" },
                 { icon: BookOpen, color: "orange", title: "BCBA Exam Prep", desc: "Free practice questions and mock exams for certification", link: "https://study.behaviorschool.com/free-practice/", cta: "Start Studying Free" }
@@ -572,7 +572,7 @@ export default function SchoolBasedBCBAPage() {
                 className="border-2 border-white text-white hover:bg-white hover:text-[#1F4D3F] font-bold py-6 text-base shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all" 
                 asChild
               >
-                <Link href="/iep-goals">
+                <Link href="/iep-behavior-goals">
                   Use the Free Goal Writing System
                 </Link>
               </Button>

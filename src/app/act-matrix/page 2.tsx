@@ -978,7 +978,7 @@ export default function ACTMatrixPage() {
                   Learn how to write IEP goals that incorporate student values for better engagement and outcomes.
                 </p>
                 <Button variant="outline" asChild>
-                  <Link href="/iep-goals">
+                  <Link href="/iep-behavior-goals">
                     Learn More
                   </Link>
                 </Button>

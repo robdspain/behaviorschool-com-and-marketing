@@ -64,7 +64,7 @@ const faqItems = [
   {
     question: "Do I need to enter my email to see results?",
     answer:
-      "No. You see your personalized ready/review checklist and a practical tip immediately after the last question. Email is optional if you want the checklist sent to your inbox with a link to the free Goal Writer at /iep-goals.",
+      "No. You see your personalized ready/review checklist and a practical tip immediately after the last question. Email is optional if you want the checklist sent to your inbox with a link to the free Goal Writer at /iep-behavior-goals.",
   },
   {
     question: "What is Priority Access?",
@@ -110,7 +110,7 @@ export default function IepGoalProgramQuizPage() {
               happens, and what supports are available — before you add BIP pages
               or coach staff. This quiz mirrors the quality checks in the{" "}
               <a
-                href="/iep-goals"
+                href="/iep-behavior-goals"
                 className="font-medium text-[#1F4D3F] underline-offset-2 hover:underline"
               >
                 free Behavior Goal Writer

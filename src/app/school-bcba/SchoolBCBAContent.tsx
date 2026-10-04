@@ -23,7 +23,7 @@ export default function SchoolBCBAContent() {
         title="Everything You Need to"
         highlight="Excel as a School BCBA"
         subtitle="From getting your first school BCBA job to mastering systems-level impact—free tools, comprehensive guides, and proven frameworks."
-        primaryCta={{ href: "/iep-goals", label: "Free IEP Goals Generator" }}
+        primaryCta={{ href: "/iep-behavior-goals", label: "Free IEP Goals Generator" }}
         variant="brand"
       />
 
@@ -189,7 +189,7 @@ export default function SchoolBCBAContent() {
             <LMCard
               title="BehaviorSchool Goal Writing System"
               desc="Build an editable behavior goal draft from baseline, context, supports, and measurement decisions."
-              href="/iep-goals"
+              href="/iep-behavior-goals"
               features={["Student-specific baseline", "Editable goal draft", "Measurement and objectives"]}
             />
             <LMCard

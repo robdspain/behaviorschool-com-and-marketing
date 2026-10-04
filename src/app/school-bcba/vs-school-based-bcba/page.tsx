@@ -272,7 +272,7 @@ export default function Page() {
                   items={[
                     { text: "School behavior support framework", href: "/school-bcba" },
                     { text: "ACT Matrix for schools", href: "/act-matrix" },
-                    { text: "Free IEP tools", href: "/iep-goals" }
+                    { text: "Free IEP tools", href: "/iep-behavior-goals" }
                   ]}
                 />
               </div>
@@ -318,7 +318,7 @@ export default function Page() {
                 <h3 className="font-bold text-lg text-emerald-900 mb-4">Free Tools</h3>
                 <ul className="space-y-3 text-emerald-900">
                   <li>
-                    <Link className="hover:text-emerald-700 font-medium flex items-center group" href="/iep-goals">
+                    <Link className="hover:text-emerald-700 font-medium flex items-center group" href="/iep-behavior-goals">
                       IEP Goals Generator
                       <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
@@ -330,7 +330,7 @@ export default function Page() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="hover:text-emerald-700 font-medium flex items-center group" href="/iep-goals">
+                    <Link className="hover:text-emerald-700 font-medium flex items-center group" href="/iep-behavior-goals">
                       Goal Quality Checker
                       <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Link>

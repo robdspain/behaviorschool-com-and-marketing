@@ -58,7 +58,7 @@ export function ProductsClient() {
             </Link>
             <span className="text-sm text-slate-600">No signup required</span>
             <Link
-              href="/iep-goals"
+              href="/iep-behavior-goals"
               className="inline-flex items-center px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold shadow-md hover:shadow-lg"
               aria-label="Try the IEP Goal Writer"
             >
@@ -300,7 +300,7 @@ export function ProductsClient() {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link 
-                    href="/iep-goals" 
+                    href="/iep-behavior-goals" 
                     className="inline-flex items-center px-8 py-4 rounded-xl bg-amber-400 hover:bg-amber-500 text-slate-900 text-base md:text-lg font-semibold shadow-lg hover:shadow-xl group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-700"
                     aria-label="Learn more about IEP Goal Writer"
                   >
@@ -513,7 +513,7 @@ export function ProductsClient() {
             itemListElement: [
               { '@type': 'ListItem', position: 1, name: 'BCBA Mock Exams', item: 'https://study.behaviorschool.com/free-mock-exam/' },
               { '@type': 'ListItem', position: 2, name: 'Free BCBA Mock Exam', item: 'https://study.behaviorschool.com/free-mock-exam/' },
-              { '@type': 'ListItem', position: 3, name: 'IEP Goal Writer', item: 'https://behaviorschool.com/iep-goals' },
+              { '@type': 'ListItem', position: 3, name: 'IEP Goal Writer', item: 'https://behaviorschool.com/iep-behavior-goals' },
               { '@type': 'ListItem', position: 4, name: 'Behavior Plan Writer', item: 'https://behaviorschool.com/behavior-plans' },
               { '@type': 'ListItem', position: 5, name: 'Study Tools Platform', item: 'https://behaviorstudytools.com/' },
               { '@type': 'ListItem', position: 6, name: 'School-Based BCBA Hub', item: 'https://behaviorschool.com/school-bcba' },

@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
  * Storage (Convex marketing deployment):
  * - Table `iepGoalProgramQuizResponses`: full answers + email + priorityAccess
  * - Table `crmContacts`: upsert with replaced quiz_* / result_band tags on retake
- * - Transactional email: checklist + /iep-goals link on every email submit
+ * - Transactional email: checklist + /iep-behavior-goals link on every email submit
  * - Newsletter: ONLY when Priority Access is opted in on this submit
  * - Transformation nurture: when Priority Access is newly checked (idempotent upgrade)
  */

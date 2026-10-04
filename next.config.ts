@@ -256,13 +256,18 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/iep-behavior-goals',
-        destination: '/iep-goals',
+        source: '/iep-goals',
+        destination: '/iep-behavior-goal-examples',
+        permanent: true,
+      },
+      {
+        source: '/iep-goals/',
+        destination: '/iep-behavior-goal-examples',
         permanent: true,
       },
       {
         source: '/iep-behavior-goals/widget',
-        destination: '/iep-goals',
+        destination: '/iep-behavior-goals',
         permanent: true,
       },
       {
@@ -272,17 +277,17 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/iep-goal-writer',
-        destination: '/iep-goals',
+        destination: '/iep-behavior-goals',
         permanent: true,
       },
       {
         source: '/iep-goal-writer/',
-        destination: '/iep-goals',
+        destination: '/iep-behavior-goals',
         permanent: true,
       },
       {
         source: '/iep-goal-generator',
-        destination: '/iep-goals',
+        destination: '/iep-behavior-goals',
         permanent: true,
       },
 
@@ -484,12 +489,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/iep-goal-qualitychecker',
-        destination: '/iep-goals',
+        destination: '/iep-behavior-goals',
         permanent: true,
       },
       {
         source: '/iep-goal-qualitychecker/',
-        destination: '/iep-goals',
+        destination: '/iep-behavior-goals',
         permanent: true,
       },
       // Block Ghost CMS URLs with redirects to proper pages

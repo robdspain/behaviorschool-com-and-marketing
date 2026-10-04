@@ -72,7 +72,7 @@ export default async function BlogPage() {
                 <a className="px-3 py-2 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 text-sm font-semibold hover:bg-amber-100" href="https://study.behaviorschool.com/free-mock-exam/">BCBA Mock Exam Free</a>
                 <a className="px-3 py-2 rounded-lg bg-cyan-50 text-cyan-800 border border-cyan-200 text-sm font-semibold hover:bg-cyan-100" href="/ai-for-behavior-analysts">AI for Behavior Analysts</a>
                 <a className="px-3 py-2 rounded-lg bg-pink-50 text-pink-800 border border-pink-200 text-sm font-semibold hover:bg-pink-100" href="/school-bcba">School‑Based BCBA</a>
-                <a className="px-3 py-2 rounded-lg bg-slate-50 text-slate-800 border border-slate-200 text-sm font-semibold hover:bg-slate-100" href="/iep-goals">IEP Goals</a>
+                <a className="px-3 py-2 rounded-lg bg-slate-50 text-slate-800 border border-slate-200 text-sm font-semibold hover:bg-slate-100" href="/iep-behavior-goals">IEP Goals</a>
                 <a className="px-3 py-2 rounded-lg bg-teal-50 text-teal-800 border border-teal-200 text-sm font-semibold hover:bg-teal-100" href="/act-matrix">ACT Matrix</a>
               </div>
             </div>

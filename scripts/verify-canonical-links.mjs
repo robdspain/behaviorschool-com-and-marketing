@@ -23,6 +23,7 @@ const legacyPaths = new Set([
   "/school-based-bcba",
   "/bcbas-in-schools",
   "/values-goal-assistant-landing",
+  "/iep-goals",
   "/iep-behavior-goals/widget",
   "/iep-goal-writer",
   "/school-based-behavior-support",

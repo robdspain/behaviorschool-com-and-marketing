@@ -83,12 +83,12 @@ export default function SiteMapViewer() {
       icon: <Target className="w-5 h-5" />,
       color: "bg-purple-100 text-purple-800",
       pages: [
-        { path: "/iep-goals", title: "IEP Goals Generator", description: "AI-powered goal generator", status: "live", cluster: "IEP Goals", priority: "high" },
+        { path: "/iep-behavior-goals", title: "IEP Goals Generator", description: "AI-powered goal generator", status: "live", cluster: "IEP Goals", priority: "high" },
         { path: "/iep-behavior-goals", title: "IEP Behavior Goals", description: "Templates and examples", status: "live", cluster: "IEP Goals", priority: "high" },
-        { path: "/iep-goals-examples", title: "IEP Goals Examples", description: "Comprehensive goal examples by domain", status: "planned", cluster: "IEP Goals", priority: "high" },
+        { path: "/iep-behavior-goals-examples", title: "IEP Goals Examples", description: "Comprehensive goal examples by domain", status: "planned", cluster: "IEP Goals", priority: "high" },
         { path: "/measurable-iep-goals-checklist", title: "Measurable IEP Goals Checklist", description: "Quality assurance guide", status: "planned", cluster: "IEP Goals", priority: "medium" },
-        { path: "/iep-goals-for-autism", title: "IEP Goals for Autism", description: "Autism-specific goals", status: "planned", cluster: "IEP Goals", priority: "high" },
-        { path: "/iep-goals-for-adhd", title: "IEP Goals for ADHD", description: "ADHD-focused objectives", status: "planned", cluster: "IEP Goals", priority: "medium" },
+        { path: "/iep-behavior-goals-for-autism", title: "IEP Goals for Autism", description: "Autism-specific goals", status: "planned", cluster: "IEP Goals", priority: "high" },
+        { path: "/iep-behavior-goals-for-adhd", title: "IEP Goals for ADHD", description: "ADHD-focused objectives", status: "planned", cluster: "IEP Goals", priority: "medium" },
         { path: "/iep-transition-goals", title: "IEP Transition Goals", description: "Post-secondary planning", status: "planned", cluster: "IEP Goals", priority: "medium" },
       ]
     },

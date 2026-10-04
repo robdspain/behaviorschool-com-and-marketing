@@ -11,8 +11,8 @@ export default function WidgetContent() {
         <Breadcrumbs
           items={[
             { label: "Products", href: "/products" },
-            { label: "IEP Goal Writer", href: "/iep-goals" },
-            { label: "Free Behavior Goals", href: "/iep-goals" },
+            { label: "IEP Goal Writer", href: "/iep-behavior-goals" },
+            { label: "Free Behavior Goals", href: "/iep-behavior-goals" },
             { label: "Generator" }
           ]}
         />

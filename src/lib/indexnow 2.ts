@@ -101,7 +101,7 @@ export async function submitUrlsInBatches(
  */
 export const COMMON_URLS = {
   homepage: '/',
-  iepGoals: '/iep-goals',
+  iepGoals: '/iep-behavior-goals',
   transformationProgram: '/transformation-program',
   behaviorStudyTools: '/behavior-study-tools',
   bcbaExamPrep: '/bcba-exam-prep',

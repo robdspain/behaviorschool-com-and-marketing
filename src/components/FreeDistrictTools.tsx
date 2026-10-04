@@ -25,7 +25,7 @@ const tools = [
 
 const routes = [
   { label: "Need a behavior plan fast", href: "/fba-to-bip" },
-  { label: "Need IEP behavior goals", href: "/iep-goals" },
+  { label: "Need IEP behavior goals", href: "/iep-behavior-goals" },
   { label: "Need invite-only Pro access", href: "/pro" },
 ];
 

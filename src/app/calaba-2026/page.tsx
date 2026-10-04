@@ -271,13 +271,13 @@ export default function CalABA2026Page() {
                 Icon: ClipboardList,
                 title: "IEP Goal Writer",
                 description: "Measurable, legally defensible IEP goals",
-                href: "/iep-goals",
+                href: "/iep-behavior-goals",
               },
               {
                 Icon: BookOpen,
                 title: "IEP Goal Bank",
                 description: "500+ evidence-based goals by domain and grade",
-                href: "/iep-goals",
+                href: "/iep-behavior-goals",
               },
 
             ].map((tool) => (

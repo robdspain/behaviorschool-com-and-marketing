@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "Free IEP Behavior Goals Generator | Behavior School",
     description: "Generate measurable, evidence-based IEP behavior goals instantly with this free tool for special education teachers and behavior analysts.",
     type: "website",
-    url: "https://behaviorschool.com/iep-goals",
+    url: "https://behaviorschool.com/iep-behavior-goals",
     images: [
       {
         url: "https://behaviorschool.com/thumbnails/iep-goal-thumb.webp",
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     site: "@BehaviorSchool"
   },
   alternates: {
-    canonical: "https://behaviorschool.com/iep-goals"
+    canonical: "https://behaviorschool.com/iep-behavior-goals"
   }
 };
 
@@ -64,7 +64,7 @@ const structuredData = {
   "@type": "WebApplication",
   "name": "IEP Behavior Goals Generator",
   "description": "Free tool to generate evidence-based IEP behavior goals for special education students",
-  "url": "https://behaviorschool.com/iep-goals",
+  "url": "https://behaviorschool.com/iep-behavior-goals",
   "applicationCategory": "EducationalApplication",
   "operatingSystem": "Web",
   "offers": {

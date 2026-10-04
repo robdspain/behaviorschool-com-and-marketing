@@ -101,7 +101,8 @@ async function buildSitemap(
     '/school-bcba/job-guide-2025',
     '/the-act-matrix-a-framework-for-school-based-bcbas',
     '/values-goal-assistant-landing',
-    '/iep-behavior-goals',
+    '/iep-goals',
+    '/iep-behavior-goals/widget',
     '/iep-goal-qualitychecker',
     '/school-based-behavior-support',
     '/iep-goal-generator',
@@ -354,7 +355,7 @@ async function buildSitemap(
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/iep-goals`,
+      url: `${baseUrl}/iep-behavior-goals`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.85,
@@ -387,7 +388,7 @@ async function buildSitemap(
       changeFrequency: 'monthly',
       priority: 0.85,
     },
-    // /iep-goal-writer removed — permanent redirect to /iep-goals
+    // /iep-goal-writer redirects to /iep-behavior-goals
     {
       url: `${baseUrl}/bcba-readiness-quiz`,
       lastModified: currentDate,
