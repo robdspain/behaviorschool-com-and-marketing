@@ -1,5 +1,13 @@
 import { api, getConvexClient } from "@/lib/convex";
 import { RESEND_FROM_ROB, RESEND_REPLY_TO_ROB } from "@/lib/resend";
+import {
+  hasResendKey,
+  isSchoolFaStarterKitSource,
+  SCHOOL_FA_GRAPHING_TEMPLATE_COPY_URL,
+  SCHOOL_FA_KIT_PDF_URL,
+  SCHOOL_FA_KIT_STEP_ZERO_SUBJECT,
+  schoolFaKitNurtureSubject,
+} from "@/lib/school-fa-kit";
 import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
 export const TRANSFORMATION_CALENDLY_URL =
@@ -33,7 +41,13 @@ type QueuedTransformationEmail = {
   shouldSkip?: boolean;
   enrollmentStatus?: string;
   contactStatus?: string;
+  metadata?: { source?: string } | null;
 };
+
+function queuedSource(email: QueuedTransformationEmail) {
+  const source = email.metadata?.source;
+  return typeof source === "string" ? source : "";
+}
 
 function firstNameOrThere(firstName?: string) {
   return firstName?.trim() || "there";
@@ -58,8 +72,16 @@ function linkButton(href: string, label: string) {
   return `<p style="margin:24px 0;"><a href="${href}" style="display:inline-block;background:#1f4d3f;color:#ffffff;text-decoration:none;padding:14px 22px;border-radius:8px;font-weight:700;">${label}</a></p>`;
 }
 
-function wrapEmail(opts: { title: string; bodyText: string; buttonHref?: string; buttonLabel?: string }) {
+function wrapEmail(opts: {
+  title: string;
+  bodyText: string;
+  buttonHref?: string;
+  buttonLabel?: string;
+  footer?: string;
+}) {
   const button = opts.buttonHref && opts.buttonLabel ? linkButton(opts.buttonHref, opts.buttonLabel) : "";
+  const footer = opts.footer
+    ?? "You are receiving this because you requested information about the School BCBA Systems Transformation Program. Reply to this email if you want me to stop following up.";
   return `<!DOCTYPE html>
 <html>
 <body style="margin:0;padding:0;background:#f8fafc;font-family:Arial,sans-serif;">
@@ -74,7 +96,7 @@ function wrapEmail(opts: { title: string; bodyText: string; buttonHref?: string;
               ${textToHtml(opts.bodyText)}
               ${button}
               <p style="margin:28px 0 0;font-size:16px;line-height:1.6;color:#334155;">Rob Spain, BCBA, IBA<br>Behavior School</p>
-              <p style="margin:24px 0 0;font-size:12px;line-height:1.5;color:#94a3b8;">You are receiving this because you requested information about the School BCBA Systems Transformation Program. Reply to this email if you want me to stop following up.</p>
+              <p style="margin:24px 0 0;font-size:12px;line-height:1.5;color:#94a3b8;">${escapeHtml(footer)}</p>
             </td>
           </tr>
         </table>
@@ -87,9 +109,45 @@ function wrapEmail(opts: { title: string; bodyText: string; buttonHref?: string;
 
 export function renderTransformationNurtureEmail(email: QueuedTransformationEmail) {
   const name = firstNameOrThere(email.firstName);
+  const source = queuedSource(email);
+  const schoolFaKit = isSchoolFaStarterKitSource(source);
+  const subject = schoolFaKitNurtureSubject(email.step, source, email.subject);
+  const footer = schoolFaKit
+    ? "You are receiving this because you requested the free School FA starter kit at behaviorschool.com/fba. These notes are about the School BCBA Systems Transformation Program. Reply to this email if you want me to stop following up."
+    : undefined;
 
   switch (email.step) {
     case 0: {
+      if (schoolFaKit) {
+        const bodyText = `Hi ${name},
+
+The School FA starter kit from the October 9 CalABA BehaviorLive presentation is ready.
+
+The PDF has the five task analyses, a printable datasheet for each format, and a blank graph page for each format:
+${SCHOOL_FA_KIT_PDF_URL}
+
+The editable graphing template is a Google Sheet. Make a copy for each student:
+${SCHOOL_FA_GRAPHING_TEMPLATE_COPY_URL}
+
+Use it with a qualified behavior analyst supervising the work. Get consent, and write stop criteria before any session.
+
+If you want this built into a system across a caseload, that is what the School BCBA Systems Transformation Program is for:
+${TRANSFORMATION_PROGRAM_URL}
+
+I will send a few short notes about the program. Reply if you want me to stop.`;
+        return {
+          subject,
+          text: bodyText,
+          html: wrapEmail({
+            title: SCHOOL_FA_KIT_STEP_ZERO_SUBJECT,
+            bodyText,
+            buttonHref: SCHOOL_FA_KIT_PDF_URL,
+            buttonLabel: "Download the starter kit",
+            footer,
+          }),
+        };
+      }
+
       const bodyText = `Hi ${name},
 
 I put the district packet here:
@@ -104,13 +162,14 @@ ${TRANSFORMATION_CALENDLY_URL}
 
 If your business office needs a W-9, invoice language, or a purchase-order path, reply to this email. I will help you get it to the right person.`;
       return {
-        subject: email.subject,
+        subject,
         text: bodyText,
         html: wrapEmail({
           title: "Here is the district packet you asked for",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Book a fit call",
+          footer,
         }),
       };
     }
@@ -125,13 +184,14 @@ That is the work we address in the School BCBA Systems Transformation Program. W
 
 If this is the part of your job that keeps spilling into nights and weekends, book a call and tell me what is happening in your setting.`;
       return {
-        subject: email.subject,
+        subject,
         text: `${bodyText}\n\n${TRANSFORMATION_CALENDLY_URL}`,
         html: wrapEmail({
           title: "The part of school BCBA work nobody owns",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Talk through the fit",
+          footer,
         }),
       };
     }
@@ -152,18 +212,30 @@ Here is what we actually work on across ${TRANSFORMATION_PROGRAM.cohort.schedule
 
 This is working time, not a run of slides. If you want to compare it with your current caseload, book a call and we can talk it through.`;
       return {
-        subject: email.subject,
+        subject,
         text: `${bodyText}\n\n${TRANSFORMATION_CALENDLY_URL}`,
         html: wrapEmail({
           title: "What we actually work on in six live Thursday sessions",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Book a fit call",
+          footer,
         }),
       };
     }
     case 3: {
-      const bodyText = `Hi ${name},
+      const bodyText = schoolFaKit
+        ? `Hi ${name},
+
+If a district needs to review the School BCBA Systems Transformation Program, the approval packet is here:
+${TRANSFORMATION_PACKET_URL}
+
+It includes the program description, curriculum, learning objectives, billing language, invoice template, and W-9 instructions.
+
+Here is a straightforward approval request you can use: "I would like to attend this cohort of ${TRANSFORMATION_PROGRAM.cohort.scheduleLabel} because it directly addresses FBA quality, BIP implementation, staff training, and caseload systems in schools."
+
+If your director or business office needs different wording, reply with what they asked for. I will help you write it.`
+        : `Hi ${name},
 
 If the district packet is sitting in your downloads folder, I can help you move it forward.
 
@@ -176,13 +248,14 @@ Here is a straightforward approval request you can use: "I would like to attend 
 
 If your director or business office needs different wording, reply with what they asked for. I will help you write it.`;
       return {
-        subject: email.subject,
+        subject,
         text: bodyText,
         html: wrapEmail({
           title: "Need help getting district approval?",
           bodyText,
           buttonHref: TRANSFORMATION_PACKET_URL,
           buttonLabel: "Open the district packet",
+          footer,
         }),
       };
     }
@@ -200,13 +273,14 @@ ${TRANSFORMATION_CALENDLY_URL}
 
 If now is not the right time, you do not need to do anything. I will stop following up about this cohort.`;
       return {
-        subject: email.subject,
+        subject,
         text: bodyText,
         html: wrapEmail({
           title: "Should we talk about the January cohort?",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Book a fit call",
+          footer,
         }),
       };
     }
@@ -214,9 +288,10 @@ If now is not the right time, you do not need to do anything. I will stop follow
 }
 
 async function sendViaResend(opts: { to: string; subject: string; html: string; text: string }) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    return { ok: false, status: 0, body: "resend_not_configured" };
+  const apiKey = process.env.RESEND_API_KEY?.trim() ?? "";
+  if (!hasResendKey({ RESEND_API_KEY: apiKey })) {
+    console.error("Transformation nurture: RESEND_API_KEY is not set. The queued email was not sent.");
+    return { ok: false, status: 0, body: "RESEND_API_KEY is not configured" };
   }
 
   const response = await fetch("https://api.resend.com/emails", {

@@ -32,6 +32,17 @@ export const sequenceSteps = [
   { step: 4, delayDays: 7, subject: "Should we talk about the January cohort?" },
 ] as const;
 
+/** Must match SCHOOL_FA_KIT_SOURCE and SCHOOL_FA_KIT_STEP_ZERO_SUBJECT in src/lib/school-fa-kit.ts. */
+const SCHOOL_FA_KIT_SOURCE = "school-fa-starter-kit";
+const SCHOOL_FA_KIT_STEP_ZERO_SUBJECT = "Your School FA starter kit is ready";
+
+function subjectForStep(step: number, source: string) {
+  if (step === 0 && source.toLowerCase().includes(SCHOOL_FA_KIT_SOURCE)) {
+    return SCHOOL_FA_KIT_STEP_ZERO_SUBJECT;
+  }
+  return sequenceSteps.find((item) => item.step === step)?.subject ?? "School BCBA Systems Transformation Program";
+}
+
 function nowIso() {
   return new Date().toISOString();
 }
@@ -116,6 +127,11 @@ export const start = mutation({
     notes: v.optional(v.string()),
     metadata: v.optional(v.any()),
   },
+  returns: v.object({
+    contactId: v.id("crmContacts"),
+    enrollmentId: v.id("transformationNurtureEnrollments"),
+    alreadyActive: v.boolean(),
+  }),
   handler: async (ctx, args) => {
     const timestamp = nowIso();
     const emailLower = normalizeEmail(args.email);
@@ -215,7 +231,7 @@ export const start = mutation({
         emailLower,
         firstName,
         step: item.step,
-        subject: item.subject,
+        subject: subjectForStep(item.step, args.source),
         scheduledFor: addDaysIso(timestamp, item.delayDays),
         status: "queued",
         metadata: { source: args.source },
