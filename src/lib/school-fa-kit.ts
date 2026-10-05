@@ -1,9 +1,10 @@
 /**
  * Free School FA starter kit delivered at /fba.
  *
- * The PDF is Rob Spain's "School FA Starter Kit" (task analyses, datasheets,
- * and blank graph pages). The graphing template is the current Google Sheet,
- * "School FA Graphing Template - Robert Spain (v2)".
+ * The PDF is the final v6 kit, 24 pages, titled "School FA Starter Kit by
+ * Robert Spain" (Robert Spain, BCBA, IBA). It includes five task analyses,
+ * printable datasheets, and blank graph pages. The graphing template is the
+ * current Google Sheet, "School FA Graphing Template - Robert Spain (v2)".
  *
  * SCHOOL_FA_KIT_STEP_ZERO_SUBJECT must match the subject chosen in
  * convex/transformationNurture.ts for this source.
@@ -56,4 +57,10 @@ export function schoolFaKitNurtureSubject(step: number, source: string, defaultS
     return SCHOOL_FA_KIT_STEP_ZERO_SUBJECT;
   }
   return defaultSubject;
+}
+
+/** True when env has a non-blank Resend key. Does not read or log the key value. */
+export function hasResendKey(env: { RESEND_API_KEY?: string | null }) {
+  const key = env.RESEND_API_KEY;
+  return typeof key === "string" && key.trim().length > 0;
 }

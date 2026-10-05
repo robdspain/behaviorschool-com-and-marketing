@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  hasResendKey,
   isSchoolFaStarterKitSource,
   SCHOOL_FA_GRAPHING_TEMPLATE_COPY_URL,
   SCHOOL_FA_KIT_PDF_URL,
@@ -28,13 +29,21 @@ test("school FA kit source uses its own first-email subject", () => {
   );
 });
 
+test("hasResendKey is false when the key is missing or blank", () => {
+  assert.equal(hasResendKey({}), false);
+  assert.equal(hasResendKey({ RESEND_API_KEY: undefined }), false);
+  assert.equal(hasResendKey({ RESEND_API_KEY: "" }), false);
+  assert.equal(hasResendKey({ RESEND_API_KEY: "   " }), false);
+  assert.equal(hasResendKey({ RESEND_API_KEY: "re_test_key" }), true);
+});
+
 test("school FA kit email delivers the kit and does not claim a district packet request", () => {
   const rendered = renderTransformationNurtureEmail({
     _id: "email-1",
     email: "ada@school.edu",
     firstName: "Ada",
     step: 0,
-    subject: SCHOOL_FA_KIT_STEP_ZERO_SUBJECT,
+    subject: districtPacketSubject,
     metadata: { source: "school-fa-starter-kit" },
   });
 
@@ -62,8 +71,23 @@ test("other Transformation inquiries still get the district packet email", () =>
     metadata: { source: "transformation-program" },
   });
 
+  assert.equal(rendered.subject, districtPacketSubject);
   assert.match(rendered.text, /I put the district packet here/);
   assert.doesNotMatch(rendered.text, /School FA starter kit is ready/);
+});
+
+test("school FA kit step 1 keeps the queued subject", () => {
+  const stepSubject = "The part of school BCBA work nobody owns";
+  const rendered = renderTransformationNurtureEmail({
+    _id: "email-4",
+    email: "ada@school.edu",
+    firstName: "Ada",
+    step: 1,
+    subject: stepSubject,
+    metadata: { source: "school-fa-starter-kit" },
+  });
+
+  assert.equal(rendered.subject, stepSubject);
 });
 
 test("school FA kit approval email does not assume the packet was already downloaded", () => {

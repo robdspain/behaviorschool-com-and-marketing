@@ -1,10 +1,12 @@
 import { api, getConvexClient } from "@/lib/convex";
 import { RESEND_FROM_ROB, RESEND_REPLY_TO_ROB } from "@/lib/resend";
 import {
+  hasResendKey,
   isSchoolFaStarterKitSource,
   SCHOOL_FA_GRAPHING_TEMPLATE_COPY_URL,
   SCHOOL_FA_KIT_PDF_URL,
   SCHOOL_FA_KIT_STEP_ZERO_SUBJECT,
+  schoolFaKitNurtureSubject,
 } from "@/lib/school-fa-kit";
 import { TRANSFORMATION_PROGRAM } from "@/lib/transformation-program";
 
@@ -107,7 +109,9 @@ function wrapEmail(opts: {
 
 export function renderTransformationNurtureEmail(email: QueuedTransformationEmail) {
   const name = firstNameOrThere(email.firstName);
-  const schoolFaKit = isSchoolFaStarterKitSource(queuedSource(email));
+  const source = queuedSource(email);
+  const schoolFaKit = isSchoolFaStarterKitSource(source);
+  const subject = schoolFaKitNurtureSubject(email.step, source, email.subject);
   const footer = schoolFaKit
     ? "You are receiving this because you requested the free School FA starter kit at behaviorschool.com/fba. These notes are about the School BCBA Systems Transformation Program. Reply to this email if you want me to stop following up."
     : undefined;
@@ -132,7 +136,7 @@ ${TRANSFORMATION_PROGRAM_URL}
 
 I will send a few short notes about the program. Reply if you want me to stop.`;
         return {
-          subject: email.subject,
+          subject,
           text: bodyText,
           html: wrapEmail({
             title: SCHOOL_FA_KIT_STEP_ZERO_SUBJECT,
@@ -158,7 +162,7 @@ ${TRANSFORMATION_CALENDLY_URL}
 
 If your business office needs a W-9, invoice language, or a purchase-order path, reply to this email. I will help you get it to the right person.`;
       return {
-        subject: email.subject,
+        subject,
         text: bodyText,
         html: wrapEmail({
           title: "Here is the district packet you asked for",
@@ -180,7 +184,7 @@ That is the work we address in the School BCBA Systems Transformation Program. W
 
 If this is the part of your job that keeps spilling into nights and weekends, book a call and tell me what is happening in your setting.`;
       return {
-        subject: email.subject,
+        subject,
         text: `${bodyText}\n\n${TRANSFORMATION_CALENDLY_URL}`,
         html: wrapEmail({
           title: "The part of school BCBA work nobody owns",
@@ -208,7 +212,7 @@ Here is what we actually work on across ${TRANSFORMATION_PROGRAM.cohort.schedule
 
 This is working time, not a run of slides. If you want to compare it with your current caseload, book a call and we can talk it through.`;
       return {
-        subject: email.subject,
+        subject,
         text: `${bodyText}\n\n${TRANSFORMATION_CALENDLY_URL}`,
         html: wrapEmail({
           title: "What we actually work on in six live Thursday sessions",
@@ -244,7 +248,7 @@ Here is a straightforward approval request you can use: "I would like to attend 
 
 If your director or business office needs different wording, reply with what they asked for. I will help you write it.`;
       return {
-        subject: email.subject,
+        subject,
         text: bodyText,
         html: wrapEmail({
           title: "Need help getting district approval?",
@@ -269,7 +273,7 @@ ${TRANSFORMATION_CALENDLY_URL}
 
 If now is not the right time, you do not need to do anything. I will stop following up about this cohort.`;
       return {
-        subject: email.subject,
+        subject,
         text: bodyText,
         html: wrapEmail({
           title: "Should we talk about the January cohort?",
@@ -284,9 +288,10 @@ If now is not the right time, you do not need to do anything. I will stop follow
 }
 
 async function sendViaResend(opts: { to: string; subject: string; html: string; text: string }) {
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    return { ok: false, status: 0, body: "resend_not_configured" };
+  const apiKey = process.env.RESEND_API_KEY?.trim() ?? "";
+  if (!hasResendKey({ RESEND_API_KEY: apiKey })) {
+    console.error("Transformation nurture: RESEND_API_KEY is not set. The queued email was not sent.");
+    return { ok: false, status: 0, body: "RESEND_API_KEY is not configured" };
   }
 
   const response = await fetch("https://api.resend.com/emails", {

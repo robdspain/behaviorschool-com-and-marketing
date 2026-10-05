@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
-import { SCHOOL_FA_KIT_SOURCE } from "@/lib/school-fa-kit";
+import { hasResendKey, SCHOOL_FA_KIT_SOURCE } from "@/lib/school-fa-kit";
 import { startTransformationNurture } from "@/lib/transformation-nurture";
 
 function cleanString(value: unknown, max: number) {
@@ -35,6 +35,12 @@ export async function POST(request: NextRequest) {
     }
 
     const role = cleanString(payload.role, 80);
+    const resendReady = hasResendKey({ RESEND_API_KEY: process.env.RESEND_API_KEY });
+    if (!resendReady) {
+      console.error(
+        "School FA kit: RESEND_API_KEY is not set. The lead is saved and the kit email stays queued for the hourly nurture worker.",
+      );
+    }
 
     await startTransformationNurture({
       email,
@@ -47,9 +53,10 @@ export async function POST(request: NextRequest) {
         page: "/fba",
         resource: SCHOOL_FA_KIT_SOURCE,
       },
+      sendDueNow: resendReady,
     });
 
-    return NextResponse.json({ ok: true, download: true });
+    return NextResponse.json({ ok: true, download: true, emailQueued: resendReady });
   } catch (error) {
     console.error("School FA kit signup failed:", error instanceof Error ? error.message : "unknown");
     return NextResponse.json(
