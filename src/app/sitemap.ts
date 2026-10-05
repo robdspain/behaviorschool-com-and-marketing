@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 }
 
-async function buildSitemap(
+export async function buildSitemap(
   baseUrl: string,
   currentDate: string,
 ): Promise<MetadataRoute.Sitemap> {
@@ -121,6 +121,8 @@ async function buildSitemap(
   // Hard noindex paths: pages intentionally kept out of sitemap
   const hardNoindexPaths = new Set<string>([
     '/resources',
+    // Preview until the page and the real starter kit are approved for publication.
+    '/events/fba-in-a-school-setting',
   ])
 
   // Load admin indexing settings and exclude any paths explicitly set to noindex
@@ -448,12 +450,8 @@ async function buildSitemap(
       changeFrequency: 'monthly',
       priority: 0.85,
     },
-    {
-      url: `${baseUrl}/events/fba-in-a-school-setting`,
-      lastModified: new Date('2026-10-03T00:00:00-07:00'),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
+
+    // /events/fba-in-a-school-setting stays out of the sitemap until publication is approved.
 
     // /study removed — permanent redirect to https://study.behaviorschool.com/
 

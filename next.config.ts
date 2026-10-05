@@ -720,6 +720,24 @@ const nextConfig: NextConfig = {
         ],
       },
       {
+        source: '/events/fba-in-a-school-setting',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow',
+          },
+        ],
+      },
+      {
+        source: '/downloads/school-fa-starter-kit.pdf',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, nofollow',
+          },
+        ],
+      },
+      {
         source: '/sitemap.xml',
         headers: [
           {

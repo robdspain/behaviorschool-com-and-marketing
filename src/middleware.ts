@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { buildFbaShortLinkDestination } from './lib/fba-short-link'
+import { FBA_KIT_GATED } from './lib/fba-starter-kit'
 
 const ADMIN_COOKIE_NAME = 'bs_admin_auth'
 const ADMIN_SESSION_MAX_AGE_MS = 24 * 60 * 60 * 1000
@@ -78,6 +79,23 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(buildFbaShortLinkDestination(request.url), 301)
   }
 
+  if (FBA_KIT_GATED && pathname === '/downloads/school-fa-starter-kit.pdf') {
+    return new NextResponse('The School FA starter kit is coming soon.', {
+      status: 404,
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-store',
+        'X-Robots-Tag': 'noindex, nofollow',
+      },
+    })
+  }
+
+  if (pathname === '/events/fba-in-a-school-setting') {
+    const response = NextResponse.next()
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow')
+    return response
+  }
+
   if (!isAdminAuthRoute(pathname) && !(await hasValidAdminSession(request))) {
     const loginUrl = new URL('/admin/login', request.url)
     loginUrl.searchParams.set('returnTo', `${pathname}${search}`.slice(0, 500))
@@ -90,5 +108,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/fba', '/fba/', '/admin', '/admin/:path*'],
+  matcher: ['/fba', '/fba/', '/admin', '/admin/:path*', '/events/fba-in-a-school-setting', '/downloads/school-fa-starter-kit.pdf'],
 }

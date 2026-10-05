@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { buildFbaShortLinkDestination } from './src/lib/fba-short-link'
+import { FBA_KIT_GATED } from './src/lib/fba-starter-kit'
 
 const COMMUNITY_HOST = 'community.behaviorschool.com'
 const COMMUNITY_TARGET = 'https://behaviorschool.com/transformation-program'
@@ -14,6 +15,17 @@ export async function middleware(request: NextRequest) {
 
   if (pathname === '/fba' || pathname === '/fba/') {
     return NextResponse.redirect(buildFbaShortLinkDestination(request.url), 301)
+  }
+
+  if (FBA_KIT_GATED && pathname === '/downloads/school-fa-starter-kit.pdf') {
+    return new NextResponse('The School FA starter kit is coming soon.', {
+      status: 404,
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Cache-Control': 'no-store',
+        'X-Robots-Tag': 'noindex, nofollow',
+      },
+    })
   }
 
   if (isRetiredMasterclassPath(pathname)) {
@@ -54,8 +66,12 @@ export async function middleware(request: NextRequest) {
 
   const response = NextResponse.next();
 
-  // Add noindex header for admin and test pages
-  if (pathname.startsWith('/admin') || pathname.startsWith('/test')) {
+  // Add noindex header for admin, test, and the unpublished Oct 9 event preview.
+  if (
+    pathname.startsWith('/admin') ||
+    pathname.startsWith('/test') ||
+    pathname === '/events/fba-in-a-school-setting'
+  ) {
     response.headers.set('X-Robots-Tag', 'noindex, nofollow');
   }
 

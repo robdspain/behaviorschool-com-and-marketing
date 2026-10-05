@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FbaStarterKitForm } from '@/components/events/FbaStarterKitForm';
-import { FBA_KIT_GATED } from '@/lib/fba-starter-kit';
+import { FBA_KIT_DELIVERY_INTRO, FBA_KIT_GATED, FBA_KIT_GATED_INTRO } from '@/lib/fba-starter-kit';
 
 const title = 'FBA in a School Setting: Free CEU with Rob Spain, Oct 9';
 const description = 'Free 1 BACB CEU with Rob Spain on BehaviorLive, Friday Oct 9, 2026, 12 to 1 PM Pacific Time. FBA vs FA decision rules for school BCBAs.';
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     images: [{ url: eventImage, width: 1536, height: 1024, alt: 'Behavior team reviewing a plan together' }],
   },
   twitter: { card: 'summary_large_image', title, description, images: [eventImage] },
+  robots: { index: false, follow: false, googleBot: { index: false, follow: false, noimageindex: true } },
 };
 
 const eventJsonLd = {
@@ -101,8 +102,8 @@ export default function FbaInSchoolSettingPage() {
             <div className="p-6">
               <p className="font-semibold text-[#1f4d3f]">School FA starter kit</p>
               <h2 className="mt-2 text-2xl font-bold text-[#171f1d]">Take the next step after the CEU</h2>
-              <p className="mt-3 text-sm leading-relaxed text-[#365548]">Get the starter kit by email.</p>
-              {FBA_KIT_GATED && <div className="mt-5"><FbaStarterKitForm /></div>}
+              <p className="mt-3 text-sm leading-relaxed text-[#365548]">{FBA_KIT_GATED ? FBA_KIT_GATED_INTRO : FBA_KIT_DELIVERY_INTRO}</p>
+              <div className="mt-5"><FbaStarterKitForm /></div>
             </div>
           </div>
           <div className="bs-on-dark rounded-xl bg-[#1f4d3f] p-6 text-[#fbfaf6]">
