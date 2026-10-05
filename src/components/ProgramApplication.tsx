@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { CheckCircle } from 'lucide-react';
+import { CheckCircle, ChevronDown } from 'lucide-react';
 import { TRANSFORMATION_PROGRAM } from '@/lib/transformation-program';
 import {
   CASH_FIELD_PROMPTS,
@@ -133,6 +133,8 @@ function ApplicationForm() {
 
   const fieldClass =
     'min-h-12 w-full rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] px-4 py-3 text-base text-[#171f1d] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f]';
+  const selectClass =
+    'block h-12 min-h-12 w-full appearance-none rounded-[8px] border border-[#365548] bg-[#fbfaf6] px-4 pr-10 text-base text-[#171f1d] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f]';
 
   return (
     <div className="mx-auto max-w-2xl rounded-lg border border-[#d9cdb8] bg-[#fbfaf6] p-7 shadow-sm md:p-12">
@@ -170,11 +172,11 @@ function ApplicationForm() {
             <label htmlFor="fullName" className="block text-base font-semibold text-[#171f1d] mb-1">Full Name</label>
             <input id="fullName" name="fullName" type="text" required autoComplete="name" className={fieldClass} />
           </div>
-          <label className="flex min-h-11 items-start gap-3 rounded-lg border border-[#d9cdb8] bg-[#f4efe5] p-4 text-base leading-6 text-[#365548]">
+          <label className="flex min-h-11 items-center gap-3 rounded-lg border border-[#d9cdb8] bg-[#f4efe5] p-4 text-base leading-6 text-[#365548]">
             <input
               name="marketingConsent"
               type="checkbox"
-              className="mt-1 size-6 rounded border-[#d9cdb8] text-[#1f4d3f] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f]"
+              className="size-6 shrink-0 rounded border-[#d9cdb8] text-[#1f4d3f] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-[#1f4d3f]"
             />
             <span>
               Send me occasional program updates and school BCBA resources. I can unsubscribe at any time.
@@ -194,12 +196,15 @@ function ApplicationForm() {
             <label htmlFor="roleCategory" className="block text-base font-semibold text-[#171f1d] mb-1">
               {CASH_FIELD_PROMPTS.role}
             </label>
-            <select id="roleCategory" name="roleCategory" required className={fieldClass}>
+            <div className="relative">
+            <select id="roleCategory" name="roleCategory" required className={selectClass}>
               <option value="">Select one</option>
               {ROLE_CATEGORY_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
             </select>
+            <ChevronDown aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 text-[#365548]" />
+            </div>
           </div>
           <div>
             <label htmlFor="currentRole" className="block text-base font-semibold text-[#171f1d] mb-1">
@@ -217,35 +222,44 @@ function ApplicationForm() {
             <label htmlFor="thursdayCapacity" className="block text-base font-semibold text-[#171f1d] mb-1">
               Can you attend Thursday sessions from 6 to 8 PM Pacific Time?
             </label>
-            <select id="thursdayCapacity" name="thursdayCapacity" required className={fieldClass}>
+            <div className="relative">
+            <select id="thursdayCapacity" name="thursdayCapacity" required className={selectClass}>
               <option value="">Select one</option>
               <option value="yes_all_sessions">Yes, I can attend all six sessions</option>
               <option value="yes_most_sessions">Yes, I can attend most and will make up any I miss</option>
               <option value="unsure">Not sure yet, my schedule may conflict</option>
               <option value="no">No, I cannot attend Thursdays from 6 to 8 PM Pacific Time</option>
             </select>
+            <ChevronDown aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 text-[#365548]" />
+            </div>
           </div>
           <div>
             <label htmlFor="payer" className="block text-base font-semibold text-[#171f1d] mb-1">
               {CASH_FIELD_PROMPTS.payment}
             </label>
-            <select id="payer" name="payer" required className={fieldClass}>
+            <div className="relative">
+            <select id="payer" name="payer" required className={selectClass}>
               <option value="">Select one</option>
               {PAYMENT_PATH_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
             </select>
+            <ChevronDown aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 text-[#365548]" />
+            </div>
           </div>
           <div>
             <label htmlFor="urgencyWindow" className="block text-base font-semibold text-[#171f1d] mb-1">
               {CASH_FIELD_PROMPTS.urgency}
             </label>
-            <select id="urgencyWindow" name="urgencyWindow" required className={fieldClass}>
+            <div className="relative">
+            <select id="urgencyWindow" name="urgencyWindow" required className={selectClass}>
               <option value="">Select one</option>
               {URGENCY_WINDOW_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>{option.label}</option>
               ))}
             </select>
+            <ChevronDown aria-hidden="true" className="pointer-events-none absolute right-3 top-1/2 size-5 -translate-y-1/2 text-[#365548]" />
+            </div>
           </div>
           <div>
             <label htmlFor="systemToRebuild" className="block text-base font-semibold text-[#171f1d] mb-1">

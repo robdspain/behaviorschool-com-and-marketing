@@ -22,7 +22,7 @@ export const SheetOverlay = React.forwardRef<
     ref={ref}
     data-slot="sheet-overlay"
     className={cn(
-      "fixed inset-0 z-50 bg-black/50 backdrop-blur-sm",
+      "fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm",
       className
     )}
     {...props}
@@ -40,7 +40,7 @@ export const SheetContent = React.forwardRef<
       ref={ref}
       data-slot="sheet-content"
       className={cn(
-        "fixed z-50 grid gap-4 border bg-background p-6 shadow-lg transition ease-in-out sm:rounded-none",
+        "fixed z-[60] grid gap-4 border bg-background p-6 shadow-lg transition ease-in-out sm:rounded-none",
         side === "right" && "inset-y-0 right-0 h-full w-3/4 max-w-sm data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right",
         side === "left" && "inset-y-0 left-0 h-full w-3/4 max-w-sm data-[state=open]:animate-in data-[state=open]:slide-in-from-left data-[state=closed]:animate-out data-[state=closed]:slide-out-to-left",
         side === "top" && "inset-x-0 top-0 h-1/3 data-[state=open]:animate-in data-[state=open]:slide-in-from-top data-[state=closed]:animate-out data-[state=closed]:slide-out-to-top",

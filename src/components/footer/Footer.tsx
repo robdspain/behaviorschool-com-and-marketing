@@ -106,7 +106,7 @@ export function Footer() {
       </div>
 
       {/* Lower Section - Navigation Links */}
-      <div className="border-t border-gray-200">
+      <div className="border-t border-[#d9cdb8]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-3 text-center text-sm">
             <Link href="/products" className="text-[#365548] hover:text-[var(--bs-ink)] hover:underline transition-colors inline-flex min-h-[44px] min-w-[44px] items-center justify-center">
