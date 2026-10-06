@@ -560,7 +560,7 @@ export default function ACTMatrixFrameworkPage() {
                 </h3>
                 <ul className="space-y-3">
                   <li>
-                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/iep-goals">
+                    <Link className="group flex items-center gap-2 text-emerald-700 hover:text-emerald-800 transition-colors" href="/iep-behavior-goals">
                       <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       <span className="text-sm font-medium">Values-Based IEP Goals</span>
                     </Link>

@@ -42,7 +42,7 @@ export default function NotFound() {
               <p className="text-sm text-[var(--bs-secondary)]">BCBA certification and exam prep</p>
             </Link>
             <Link 
-              href="/iep-goals" 
+              href="/iep-behavior-goals" 
               className="p-4 bg-[var(--bs-paper)] border border-[var(--bs-hairline)] rounded-xl"
             >
               <h3 className="font-semibold text-[var(--bs-ink)]">IEP Goals</h3>

@@ -296,14 +296,14 @@ export default function Page() {
                   <div>
                     <strong className="text-slate-900">Use your goal-writing tool:</strong> Create measurable behavior goals and export a one-page progress view (align to {" "}
                     <a className="text-emerald-700 underline" href="#ref-idea">34 C.F.R. § 300.320</a>). Use the {" "}
-                    <Link href="/iep-goals" className="text-emerald-700 underline hover:text-emerald-800">IEP Goal Writer</Link>.
+                    <Link href="/iep-behavior-goals" className="text-emerald-700 underline hover:text-emerald-800">IEP Goal Writer</Link>.
                   </div>
                 </li>
                 <li className="flex items-start">
                   <span className="flex items-center justify-center w-8 h-8 bg-emerald-100 text-emerald-700 rounded-full font-bold mr-4 flex-shrink-0">2</span>
                   <div>
                     <strong className="text-slate-900">Quality check:</strong> Run drafts against a goal-quality checklist (measurement dimensions + monitoring cadence per HLPs). {" "}
-                    <Link href="/iep-goals" className="text-emerald-700 underline hover:text-emerald-800">Goal Quality Checker</Link>
+                    <Link href="/iep-behavior-goals" className="text-emerald-700 underline hover:text-emerald-800">Goal Quality Checker</Link>
                   </div>
                 </li>
                 <li className="flex items-start">
@@ -451,10 +451,10 @@ export default function Page() {
               <div className="bg-white rounded-2xl p-6 shadow-lg border border-slate-200">
                 <h3 className="font-bold text-lg text-slate-900 mb-4">Tools for Candidates</h3>
                 <ul className="space-y-3">
-                  <li><Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/iep-goals">
+                  <li><Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/iep-behavior-goals">
                     IEP Goal Writer <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link></li>
-                  <li><Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/iep-goals">
+                  <li><Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/iep-behavior-goals">
                     Goal Quality Checker <ArrowRight className="ml-auto h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Link></li>
                   <li><Link className="text-emerald-700 hover:text-emerald-800 font-medium flex items-center group" href="/behavior-plans">

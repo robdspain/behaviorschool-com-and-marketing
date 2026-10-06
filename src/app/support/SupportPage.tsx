@@ -77,7 +77,7 @@ const faqSections = [
     items: [
       {
         q: "Is the IEP Goal Writer free?",
-        a: "Yes! The IEP Goal Writer is free to use at behaviorschool.com/iep-goals.",
+        a: "Yes! The IEP Goal Writer is free to use at behaviorschool.com/iep-behavior-goals.",
       },
       {
         q: "How does the FBA-to-BIP tool work?",

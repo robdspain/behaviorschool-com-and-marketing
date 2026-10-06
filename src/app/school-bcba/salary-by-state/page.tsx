@@ -295,7 +295,7 @@ export default function Page() {
                     <div>
                       <h3 className="font-bold text-slate-900 mb-2">Bring Evidence of Systems-Level Impact</h3>
                       <p className="text-slate-700 text-sm leading-relaxed">
-                        Present a 90-day implementation plan with sample artifacts: <Link href="/iep-goals" className="text-emerald-700 font-semibold hover:underline">IEP goals</Link>, <Link href="/behavior-plans" className="text-emerald-700 font-semibold hover:underline">behavior intervention plans</Link>, staff coaching cycles, and progress monitoring templates. Districts value candidates who demonstrate readiness to drive immediate impact.
+                        Present a 90-day implementation plan with sample artifacts: <Link href="/iep-behavior-goals" className="text-emerald-700 font-semibold hover:underline">IEP goals</Link>, <Link href="/behavior-plans" className="text-emerald-700 font-semibold hover:underline">behavior intervention plans</Link>, staff coaching cycles, and progress monitoring templates. Districts value candidates who demonstrate readiness to drive immediate impact.
                       </p>
                     </div>
                   </div>
@@ -599,7 +599,7 @@ export default function Page() {
                 </p>
                 <ul className="space-y-3">
                   <li>
-                    <Link className="flex items-center gap-2 text-blue-700 hover:text-blue-800 text-sm font-medium transition-colors" href="/iep-goals">
+                    <Link className="flex items-center gap-2 text-blue-700 hover:text-blue-800 text-sm font-medium transition-colors" href="/iep-behavior-goals">
                       IEP Goals Generator →
                     </Link>
                   </li>
@@ -609,7 +609,7 @@ export default function Page() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="flex items-center gap-2 text-blue-700 hover:text-blue-800 text-sm font-medium transition-colors" href="/iep-goals">
+                    <Link className="flex items-center gap-2 text-blue-700 hover:text-blue-800 text-sm font-medium transition-colors" href="/iep-behavior-goals">
                       IEP Goal Quality Checker →
                     </Link>
                   </li>

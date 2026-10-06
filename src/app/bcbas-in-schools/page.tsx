@@ -582,7 +582,7 @@ export default function BCBAsInSchoolsPage() {
                     </li>
                   </ul>
                   <div className="space-y-2">
-                    <Link href="/iep-goals">
+                    <Link href="/iep-behavior-goals">
                       <button className="w-full bg-white/20 hover:bg-white/30 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm">
                         Try IEP Goal Generator
                       </button>

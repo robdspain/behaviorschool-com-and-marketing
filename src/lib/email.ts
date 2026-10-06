@@ -204,7 +204,7 @@ export async function sendIepGoalProgramChecklistEmail(
     resultSummary: string;
   }
 ) {
-  const goalWriterUrl = "https://behaviorschool.com/iep-goals";
+  const goalWriterUrl = "https://behaviorschool.com/iep-behavior-goals";
   const checklistHtml = options.checklist
     .map((item) => {
       const icon =

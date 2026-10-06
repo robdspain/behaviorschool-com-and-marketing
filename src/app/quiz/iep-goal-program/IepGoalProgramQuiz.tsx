@@ -347,7 +347,7 @@ export function IepGoalProgramQuiz() {
                         <p className="mt-2 text-sm leading-relaxed text-[#3d4a46]">
                           We emailed your checklist and a link to the free{" "}
                           <Link
-                            href="/iep-goals"
+                            href="/iep-behavior-goals"
                             className="font-medium text-[#1F4D3F] underline-offset-2 hover:underline"
                           >
                             Behavior Goal Writer
@@ -363,10 +363,10 @@ export function IepGoalProgramQuiz() {
                         <p className="mt-2 text-sm leading-relaxed text-[#3d4a46]">
                           Get this checklist in your inbox with a direct link to{" "}
                           <Link
-                            href="/iep-goals"
+                            href="/iep-behavior-goals"
                             className="font-medium text-[#1F4D3F] underline-offset-2 hover:underline"
                           >
-                            /iep-goals
+                            /iep-behavior-goals
                           </Link>
                           .
                         </p>
@@ -481,7 +481,7 @@ export function IepGoalProgramQuiz() {
 
               <div className="mt-8 text-center">
                 <Link
-                  href="/iep-goals"
+                  href="/iep-behavior-goals"
                   className="inline-flex items-center gap-2 font-semibold text-[#1F4D3F] underline-offset-2 hover:underline"
                 >
                   Open the free Behavior Goal Writer

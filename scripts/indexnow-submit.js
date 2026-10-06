@@ -28,7 +28,7 @@ const PRIORITY_URLS = [
   '/bcba-exam-prep',
   '/school-based-bcba',
   '/iep-behavior-goals',
-  '/iep-goals',
+  '/iep-behavior-goal-examples',
   '/behavior-study-tools',
   '/supervisors',
   '/behavior-plans',
@@ -274,7 +274,7 @@ Examples:
   node scripts/indexnow-submit.js --blog "bcba-exam-prep-guide"
   
   # Notify about specific pages
-  node scripts/indexnow-submit.js --urls / /bcba-exam-prep /iep-goals
+  node scripts/indexnow-submit.js --urls / /bcba-exam-prep /iep-behavior-goals
 
 Search Engines Notified:
   - Bing (api.indexnow.org)

@@ -422,7 +422,7 @@ export default function AdminSitemapPage() {
       pages: [
         {
           name: 'IEP Goals',
-          path: '/iep-goals',
+          path: '/iep-behavior-goals',
           description: 'IEP goal writing tools and resources'
         },
         {
