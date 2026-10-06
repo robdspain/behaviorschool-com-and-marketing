@@ -130,17 +130,33 @@ function usableEmbeddedLineItems(session: StripeItem): StripeItem[] | null {
   return items;
 }
 
+async function collectPages(key: string, path: string, params: StripeParams): Promise<StripeItem[]> {
+  const items: StripeItem[] = [];
+  for await (const item of stripePages(key, path, params)) items.push(item);
+  return items;
+}
+
+async function listCompletedSessions(key: string, tsStart: number): Promise<StripeItem[]> {
+  const base: StripeParams = { status: 'complete', 'created[gte]': tsStart };
+  try {
+    return await collectPages(key, 'checkout/sessions', {
+      ...base,
+      'expand[]': ['data.line_items'],
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'list expand failed';
+    console.error('[weekly-revenue-summary] Session list expand failed; loading line items per sale:', message);
+    return collectPages(key, 'checkout/sessions', base);
+  }
+}
+
 async function lineItemsForPaidSession(key: string, session: StripeItem): Promise<StripeItem[]> {
   const embedded = usableEmbeddedLineItems(session);
   if (embedded) return embedded;
   if (!isCheckoutSessionId(session.id)) return [];
-  const items: StripeItem[] = [];
-  for await (const item of stripePages(key, `checkout/sessions/${session.id}/line_items`, {
+  return collectPages(key, `checkout/sessions/${session.id}/line_items`, {
     'expand[]': ['data.price'],
-  })) {
-    items.push(item);
-  }
-  return items;
+  });
 }
 
 function jsonResult(statusCode: number, body: unknown): FunctionResult {
@@ -174,16 +190,7 @@ const handler = async (event?: FunctionEvent): Promise<FunctionResult> => {
   const startDt = new Date(now.getTime() - lookback * 24 * 60 * 60 * 1000);
   const tsStart = Math.floor(startDt.getTime() / 1000);
 
-  const sessionParams: StripeParams = {
-    status: 'complete',
-    'created[gte]': tsStart,
-    'expand[]': ['data.line_items'],
-  };
-
-  const allSessions: StripeItem[] = [];
-  for await (const session of stripePages(stripeKey, 'checkout/sessions', sessionParams)) {
-    allSessions.push(session);
-  }
+  const allSessions = await listCompletedSessions(stripeKey, tsStart);
 
   const sessionsForBuckets: StripeItem[] = [];
   for (const session of allSessions) {
