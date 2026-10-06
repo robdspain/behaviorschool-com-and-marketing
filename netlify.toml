@@ -116,7 +116,7 @@
 [functions."bcba-2027-rebuild"]
   schedule = "5 7 1 1 *"
 
-# Weekly revenue summary, every Monday at 8 AM ET (13:00 UTC)
+# Weekly revenue summary, every Monday at 6 AM PT / 9 AM ET (13:00 UTC)
 [functions."weekly-revenue-summary"]
   schedule = "0 13 * * 1"
 
