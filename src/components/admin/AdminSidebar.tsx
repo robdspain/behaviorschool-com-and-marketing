@@ -21,7 +21,8 @@ import {
   BarChart3,
   PhoneCall,
   LifeBuoy,
-  ShieldCheck
+  ShieldCheck,
+  FileCheck
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -30,6 +31,7 @@ interface NavItem {
   href?: string;
   icon: React.ComponentType<{ className?: string }>;
   badge?: string;
+  badgeTitle?: string;
   children?: NavItem[];
 }
 
@@ -49,6 +51,7 @@ const navigation: NavItem[] = [
     icon: Users,
     children: [
       { name: "Submissions", href: "/admin/submissions", icon: Users },
+      { name: "W-9 Requests", href: "/admin/w9-requests", icon: FileCheck },
       { name: "School BCBA Survey", href: "/admin/school-bcba-survey", icon: BarChart3 },
       { name: "CRM", href: "/admin/crm", icon: Users },
       { name: "Transformation Funnel", href: "/admin/transformation-marketing", icon: Megaphone },
@@ -96,10 +99,15 @@ function SidebarNavItem({ item, isActive, onClick, collapsed }: { item: NavItem;
       <Link
         href={target}
         onClick={onClick}
-        className={`flex items-center justify-center w-10 h-10 rounded-lg mx-auto transition-colors ${active ? 'bg-emerald-50 text-emerald-700 border-2 border-emerald-200' : 'text-slate-600 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200'}`}
-        title={item.name}
+        className={`relative flex items-center justify-center w-10 h-10 rounded-lg mx-auto transition-colors ${active ? 'bg-emerald-50 text-emerald-700 border-2 border-emerald-200' : 'text-slate-600 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200'}`}
+        title={item.badgeTitle ?? item.name}
       >
         <item.icon className={`w-5 h-5 ${active ? 'text-emerald-600' : 'text-slate-500'}`} />
+        {item.badge ? (
+          <span className="absolute -right-1 -top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-emerald-600 px-1 text-[10px] font-bold leading-none text-white">
+            {item.badge}
+          </span>
+        ) : null}
       </Link>
     );
   }
@@ -118,11 +126,16 @@ function SidebarNavItem({ item, isActive, onClick, collapsed }: { item: NavItem;
                 : "text-slate-700 hover:bg-slate-50 border-2 border-transparent hover:border-slate-200"
             }
           `}
-          title={item.name}
+          title={item.badgeTitle ?? item.name}
         >
           <div className="flex items-center gap-3">
             <item.icon className={`w-5 h-5 flex-shrink-0 ${active ? "text-emerald-600" : "text-slate-500"}`} />
             <span className="flex-1 text-left">{item.name}</span>
+            {item.badge ? (
+              <span title={item.badgeTitle} className="px-2 py-0.5 text-xs font-bold bg-emerald-100 text-emerald-700 rounded-full">
+                {item.badge}
+              </span>
+            ) : null}
           </div>
           <ChevronRight className={`w-4 h-4 transition-transform ${isOpen ? 'transform rotate-90' : ''}`} />
         </button>
@@ -155,7 +168,7 @@ function SidebarNavItem({ item, isActive, onClick, collapsed }: { item: NavItem;
       <item.icon className={`w-5 h-5 flex-shrink-0 ${active ? "text-emerald-600" : "text-slate-500"}`} />
       <span className="flex-1">{item.name}</span>
       {item.badge && (
-        <span className="px-2 py-0.5 text-xs font-bold bg-emerald-100 text-emerald-700 rounded-full">
+        <span title={item.badgeTitle} className="px-2 py-0.5 text-xs font-bold bg-emerald-100 text-emerald-700 rounded-full">
           {item.badge}
         </span>
       )}
@@ -166,10 +179,27 @@ function SidebarNavItem({ item, isActive, onClick, collapsed }: { item: NavItem;
   );
 }
 
+function withPendingW9Badge(items: NavItem[], label: string | null): NavItem[] {
+  if (!label) return items;
+  return items.map((item) => {
+    if (item.name !== "Leads" || !item.children) return item;
+    const badgeTitle = `${label} pending W-9 requests`;
+    return {
+      ...item,
+      badge: label,
+      badgeTitle,
+      children: item.children.map((child) =>
+        child.href === "/admin/w9-requests" ? { ...child, badge: label, badgeTitle } : child,
+      ),
+    };
+  });
+}
+
 export function AdminSidebar() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [pendingW9Label, setPendingW9Label] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -181,6 +211,31 @@ export function AdminSidebar() {
     localStorage.setItem('admin_sidebar_collapsed', collapsed ? '1' : '0');
     window.dispatchEvent(new CustomEvent('admin-sidebar-toggle', { detail: { collapsed } }));
   }, [collapsed]);
+
+  useEffect(() => {
+    let cancelled = false;
+    async function loadPendingCount() {
+      try {
+        const response = await fetch("/api/admin/w9-requests?view=count", { credentials: "include" });
+        if (!response.ok) return;
+        const data = (await response.json()) as { pendingCount?: number; capped?: boolean };
+        if (cancelled) return;
+        if (typeof data.pendingCount === "number" && data.pendingCount > 0) {
+          setPendingW9Label(data.capped ? `${data.pendingCount}+` : String(data.pendingCount));
+        } else {
+          setPendingW9Label(null);
+        }
+      } catch {
+        if (!cancelled) setPendingW9Label(null);
+      }
+    }
+    void loadPendingCount();
+    window.addEventListener("w9-requests-changed", loadPendingCount);
+    return () => {
+      cancelled = true;
+      window.removeEventListener("w9-requests-changed", loadPendingCount);
+    };
+  }, [pathname]);
 
   const isActive = (href: string | undefined) => {
     if (!href) return false;
@@ -248,7 +303,7 @@ export function AdminSidebar() {
           {/* Navigation */}
           <nav className={`flex-1 overflow-y-auto ${collapsed ? 'px-2 py-4' : 'p-4'}`}>
             <div className={`${collapsed ? 'flex flex-col items-center gap-3' : 'space-y-1'}`}>
-              {navigation.map((item) => (
+              {withPendingW9Badge(navigation, pendingW9Label).map((item) => (
                 <SidebarNavItem
                   key={item.name}
                   item={item}
