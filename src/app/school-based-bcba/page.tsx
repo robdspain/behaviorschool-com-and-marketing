@@ -223,7 +223,7 @@ export default function SchoolBasedBCBAPage() {
                 What Is a School-Based BCBA?
               </h2>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                A Board Certified Behavior Analyst who applies ABA in K–12 schools, targeting behaviors that affect learning, engagement, and IEP compliance.
+                A Board Certified Behavior Analyst who applies ABA in K-12 schools, targeting behaviors that affect learning, engagement, and IEP compliance.
               </p>
             </div>
 
