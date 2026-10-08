@@ -1439,6 +1439,26 @@ export default defineSchema({
     .index("by_created_at", ["createdAt"])
     .index("by_success", ["success"]),
 
+  // Additive tracking for Transformation Program W-9 requests. Existing tables
+  // are unchanged. Deploy this schema before the admin page can read records.
+  w9Requests: defineTable({
+    name: v.string(),
+    email: v.string(),
+    organization: v.string(),
+    createdAt: v.number(),
+    status: v.union(v.literal("pending"), v.literal("sent")),
+    sentAt: v.optional(v.number()),
+    sentBy: v.optional(v.union(v.literal("auto"), v.literal("manual"))),
+    sourcePage: v.string(),
+    autoSendResult: v.union(
+      v.literal("sent"),
+      v.literal("fallback_no_pdf"),
+      v.literal("error"),
+    ),
+  })
+    .index("by_created_at", ["createdAt"])
+    .index("by_status_and_created", ["status", "createdAt"]),
+
   // ============================================================================
   // FERPA A4: Password history for reuse prevention (last 12 passwords)
   // ============================================================================

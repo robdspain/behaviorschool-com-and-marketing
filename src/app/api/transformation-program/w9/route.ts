@@ -6,6 +6,7 @@ import {
   loadPrivateW9Pdf,
   logW9Lead,
   processW9Request,
+  recordW9Request,
 } from "@/lib/w9-request";
 
 export const dynamic = "force-dynamic";
@@ -29,6 +30,7 @@ export async function POST(request: NextRequest) {
     rateLimitStore: await getW9RateLimitStore(),
     mailer: createResendW9Mailer(),
     logLead: logW9Lead,
+    recordRequest: recordW9Request,
   });
 
   return NextResponse.json(result.body, { status: result.status });

@@ -39,6 +39,8 @@ export const W9_ATTACHMENT_FILENAME = "Behavior-School-LLC-W-9.pdf";
 export const W9_SUBJECT = "Behavior School LLC W-9";
 export const W9_NOTIFY_SUBJECT = "W-9 requested";
 export const W9_NOTIFY_TO = "rob@behaviorschool.com";
+export const W9_SOURCE_PAGE = "/transformation-program";
+export const W9_ADMIN_URL = "https://behaviorschool.com/admin/w9-requests";
 export const W9_FROM = "Behavior School <support@behaviorschool.com>";
 export const W9_REPLY_TO = RESEND_REPLY_TO_ROB;
 export const W9_RATE_LIMIT = 3;
@@ -82,6 +84,25 @@ export type W9LeadEntry = {
   organization: string;
   pdfDelivered: boolean;
 };
+
+export type W9AutoSendResult = "sent" | "fallback_no_pdf" | "error";
+export type W9RequestStatus = "pending" | "sent";
+export type W9SentBy = "auto" | "manual";
+export type W9Delivery = "sent" | "file_missing" | "send_failed";
+
+export type W9RecordInput = {
+  name: string;
+  email: string;
+  organization: string;
+  createdAt: number;
+  status: W9RequestStatus;
+  sentAt?: number;
+  sentBy?: W9SentBy;
+  sourcePage: string;
+  autoSendResult: W9AutoSendResult;
+};
+
+export type W9RecordWriter = (entry: W9RecordInput) => Promise<{ id: string } | null>;
 
 export type W9RequestBody = {
   ok?: true;
@@ -213,11 +234,50 @@ export function requesterW9Text(): string {
   return `Here is the Behavior School LLC W-9 you requested.\n\n${MAILING_ADDRESS}`;
 }
 
+export function w9AdminRecordUrl(requestId: string): string {
+  return `${W9_ADMIN_URL}#${requestId}`;
+}
+
+export function w9RecordFromDelivery(args: {
+  name: string;
+  email: string;
+  organization: string;
+  delivery: W9Delivery;
+  now: number;
+  sourcePage?: string;
+}): W9RecordInput {
+  const sourcePage = args.sourcePage ?? W9_SOURCE_PAGE;
+  if (args.delivery === "sent") {
+    return {
+      name: args.name,
+      email: args.email,
+      organization: args.organization,
+      createdAt: args.now,
+      status: "sent",
+      sentAt: args.now,
+      sentBy: "auto",
+      sourcePage,
+      autoSendResult: "sent",
+    };
+  }
+
+  return {
+    name: args.name,
+    email: args.email,
+    organization: args.organization,
+    createdAt: args.now,
+    status: "pending",
+    sourcePage,
+    autoSendResult: args.delivery === "file_missing" ? "fallback_no_pdf" : "error",
+  };
+}
+
 export function robW9NotificationText(args: {
   name: string;
   email: string;
   organization: string;
-  delivery: "sent" | "file_missing" | "send_failed";
+  delivery: W9Delivery;
+  requestId?: string;
 }): string {
   const attachment =
     args.delivery === "sent"
@@ -225,7 +285,10 @@ export function robW9NotificationText(args: {
       : args.delivery === "file_missing"
         ? "Attachment: not sent. The private W-9 file is not in Netlify Blobs yet. Email it to this person after you upload the file."
         : "Attachment: not sent. The email to the requester failed. Please email the W-9 to this person.";
-  return `A W-9 was requested.\n\nName: ${args.name}\nWork email: ${args.email}\nOrganization: ${args.organization}\n${attachment}`;
+  const tracking = args.requestId
+    ? `Request ID: ${args.requestId}\nAdmin: ${w9AdminRecordUrl(args.requestId)}`
+    : `Request ID: not stored. The tracking table is not available yet.\nAdmin: ${W9_ADMIN_URL}`;
+  return `A W-9 was requested.\n\nName: ${args.name}\nWork email: ${args.email}\nOrganization: ${args.organization}\n${tracking}\n${attachment}`;
 }
 
 export function w9CrmNote(entry: W9LeadEntry, now = new Date()): string {
@@ -307,6 +370,28 @@ function readExistingContact(value: unknown): { tags: string[]; notes?: string; 
   return { tags, notes, leadSource };
 }
 
+export async function recordW9Request(entry: W9RecordInput): Promise<{ id: string } | null> {
+  try {
+    const client = getConvexClient();
+    const id = await client.mutation(api.w9Requests.record, {
+      name: entry.name,
+      email: entry.email,
+      organization: entry.organization,
+      createdAt: entry.createdAt,
+      status: entry.status,
+      sourcePage: entry.sourcePage,
+      autoSendResult: entry.autoSendResult,
+      ...(entry.sentAt !== undefined ? { sentAt: entry.sentAt } : {}),
+      ...(entry.sentBy !== undefined ? { sentBy: entry.sentBy } : {}),
+    });
+    if (typeof id !== "string" || id.length === 0) return null;
+    return { id };
+  } catch (error) {
+    console.error("W-9 request record failed", error instanceof Error ? error.message : "unknown");
+    return null;
+  }
+}
+
 export async function logW9Lead(entry: W9LeadEntry): Promise<void> {
   try {
     const client = getConvexClient();
@@ -343,6 +428,7 @@ export async function processW9Request(args: {
   rateLimitStore: RateLimitStore;
   mailer: W9Mailer;
   logLead?: (entry: W9LeadEntry) => Promise<void>;
+  recordRequest?: W9RecordWriter;
 }): Promise<W9RequestResult> {
   if (!isAllowedW9Origin(args.origin)) {
     return { status: 403, body: { error: "Request could not be completed." } };
@@ -383,6 +469,22 @@ export async function processW9Request(args: {
     if (!sent.ok) delivery = "send_failed";
   }
 
+  let requestId: string | undefined;
+  try {
+    const recorded = await (args.recordRequest ?? recordW9Request)(
+      w9RecordFromDelivery({
+        name: parsed.value.name,
+        email: parsed.value.email,
+        organization: parsed.value.organization,
+        delivery,
+        now,
+      }),
+    );
+    requestId = recorded?.id;
+  } catch (error) {
+    console.error("W-9 request record failed", error instanceof Error ? error.message : "unknown");
+  }
+
   const notified = await args.mailer.send({
     from: W9_FROM,
     to: W9_NOTIFY_TO,
@@ -393,6 +495,7 @@ export async function processW9Request(args: {
       email: parsed.value.email,
       organization: parsed.value.organization,
       delivery,
+      requestId,
     }),
   });
 
