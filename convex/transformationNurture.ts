@@ -271,10 +271,10 @@ export const rescheduleSchoolFaKitQueued = internalMutation({
   returns: v.object({
     dryRun: v.boolean(),
     perStep: v.object({
-      "1": v.number(),
-      "2": v.number(),
-      "3": v.number(),
-      "4": v.number(),
+      step1: v.number(),
+      step2: v.number(),
+      step3: v.number(),
+      step4: v.number(),
     }),
     total: v.number(),
   }),
@@ -287,7 +287,7 @@ export const rescheduleSchoolFaKitQueued = internalMutation({
       4: "2026-10-22T13:00:00.000Z",
     } as const;
     // Counts mean would-update in dry runs, updated otherwise.
-    const perStep = { "1": 0, "2": 0, "3": 0, "4": 0 };
+    const perStep = { step1: 0, step2: 0, step3: 0, step4: 0 };
     const timestamp = nowIso();
     const queued = await ctx.db
       .query("transformationNurtureEmails")
@@ -306,7 +306,7 @@ export const rescheduleSchoolFaKitQueued = internalMutation({
           updatedAt: timestamp,
         });
       }
-      perStep[step] += 1;
+      perStep[`step${step}`] += 1;
     }
 
     return { dryRun, perStep, total: Object.values(perStep).reduce((sum, count) => sum + count, 0) };
