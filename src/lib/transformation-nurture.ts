@@ -78,8 +78,15 @@ function wrapEmail(opts: {
   buttonHref?: string;
   buttonLabel?: string;
   footer?: string;
+  postscript?: { text: string; url: string };
 }) {
   const button = opts.buttonHref && opts.buttonLabel ? linkButton(opts.buttonHref, opts.buttonLabel) : "";
+  const postscript = opts.postscript
+    ? textToHtml(`${opts.postscript.text} ${opts.postscript.url}`).replace(
+        escapeHtml(opts.postscript.url),
+        `<a href="${escapeHtml(opts.postscript.url)}">${escapeHtml(opts.postscript.url)}</a>`,
+      )
+    : "";
   const footer = opts.footer
     ?? "You are receiving this because you requested information about the School BCBA Systems Transformation Program. Reply to this email if you want me to stop following up.";
   return `<!DOCTYPE html>
@@ -94,7 +101,7 @@ function wrapEmail(opts: {
             <td style="padding:32px;">
               <p style="margin:0 0 10px;color:#1f4d3f;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;">Behavior School</p>
               ${textToHtml(opts.bodyText)}
-              ${button}
+              ${button}${postscript ? `\n              ${postscript}` : ""}
               <p style="margin:28px 0 0;font-size:16px;line-height:1.6;color:#334155;">Rob Spain, BCBA, IBA<br>Behavior School</p>
               <p style="margin:24px 0 0;font-size:12px;line-height:1.5;color:#94a3b8;">${escapeHtml(footer)}</p>
             </td>
@@ -174,6 +181,10 @@ If your business office needs a W-9, invoice language, or a purchase-order path,
       };
     }
     case 1: {
+      const postscript = schoolFaKit ? {
+        text: "P.S. If you liked the research in Friday's talk, I write a free Weekly Research Brief for school BCBAs. You can join here:",
+        url: "https://robspain.com/newsletter/",
+      } : undefined;
       const bodyText = `Hi ${name},
 
 One thing I have learned in school systems: the BCBA often becomes the person who catches everything nobody else owns.
@@ -182,15 +193,18 @@ The referral comes in with thin data. The FBA clock is already running. The plan
 
 That is the work we address in the School BCBA Systems Transformation Program. We build a repeatable process from referral to assessment, from hypothesis to BIP, and from the written plan to what staff actually do.
 
-If this is the part of your job that keeps spilling into nights and weekends, book a call and tell me what is happening in your setting.`;
+${schoolFaKit
+  ? "One question from the end of Friday's talk: how do you see yourself using functional analysis in your day to day? Hit reply and tell me. I read every one."
+  : "If this is the part of your job that keeps spilling into nights and weekends, book a call and tell me what is happening in your setting."}`;
       return {
         subject,
-        text: `${bodyText}\n\n${TRANSFORMATION_CALENDLY_URL}`,
+        text: `${bodyText}\n\n${TRANSFORMATION_CALENDLY_URL}${postscript ? `\n\n${postscript.text} ${postscript.url}\n\nRob Spain, BCBA, IBA\nBehavior School\n\n${footer}` : ""}`,
         html: wrapEmail({
           title: "The part of school BCBA work nobody owns",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Talk through the fit",
+          postscript,
           footer,
         }),
       };

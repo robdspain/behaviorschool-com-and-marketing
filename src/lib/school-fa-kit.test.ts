@@ -109,3 +109,50 @@ test("school FA kit approval email does not assume the packet was already downlo
   assert.doesNotMatch(rendered.text, /sitting in your downloads folder/);
   assert.match(rendered.text, /approval packet is here/);
 });
+
+const originalStepOneBody = `Hi Sam,
+
+One thing I have learned in school systems: the BCBA often becomes the person who catches everything nobody else owns.
+
+The referral comes in with thin data. The FBA clock is already running. The plan has to make sense to staff who were not part of the assessment. Then the BCBA is expected to keep the whole thing moving.
+
+That is the work we address in the School BCBA Systems Transformation Program. We build a repeatable process from referral to assessment, from hypothesis to BIP, and from the written plan to what staff actually do.`;
+const oldFinalParagraph = "If this is the part of your job that keeps spilling into nights and weekends, book a call and tell me what is happening in your setting.";
+const calendlyUrl = "https://calendly.com/robspain/behavior-school-transformation-system-phone-call";
+const question = "One question from the end of Friday's talk: how do you see yourself using functional analysis in your day to day? Hit reply and tell me. I read every one.";
+const postscript = "P.S. If you liked the research in Friday's talk, I write a free Weekly Research Brief for school BCBAs. You can join here: https://robspain.com/newsletter/";
+
+function renderStepOne(source?: string) {
+  return renderTransformationNurtureEmail({
+    _id: "step-one-test",
+    email: "sam@example.com",
+    firstName: "Sam",
+    step: 1,
+    subject: "The part of school BCBA work nobody owns",
+    metadata: source ? { source } : undefined,
+  });
+}
+
+test("kit step 1 has the approved question and linked postscript in order", () => {
+  const rendered = renderStepOne("school-fa-starter-kit");
+  assert.ok(rendered.text.startsWith(`${originalStepOneBody}\n\n${question}\n\n${calendlyUrl}\n\n${postscript}\n\nRob Spain, BCBA, IBA\nBehavior School\n\n`));
+  assert.ok(!rendered.text.includes(oldFinalParagraph));
+  assert.ok(!rendered.html.includes(oldFinalParagraph));
+  assert.ok(rendered.html.includes(question));
+  assert.ok(rendered.html.includes('<a href="https://robspain.com/newsletter/">https://robspain.com/newsletter/</a>'));
+  assert.ok(rendered.html.indexOf("Talk through the fit") < rendered.html.indexOf("P.S."));
+  assert.ok(rendered.html.indexOf("P.S.") < rendered.html.indexOf("Rob Spain, BCBA, IBA"));
+  assert.match(rendered.text, /You are receiving this because you requested the free School FA starter kit/);
+  assert.doesNotMatch(rendered.text, /[—·]/);
+  assert.doesNotMatch(rendered.html, /[—·]/);
+});
+
+test("non-kit step 1 plain text remains exactly unchanged", () => {
+  for (const source of ["transformation-program", "website", undefined]) {
+    const rendered = renderStepOne(source);
+    assert.equal(rendered.text, `${originalStepOneBody}\n\n${oldFinalParagraph}\n\n${calendlyUrl}`);
+    assert.ok(rendered.html.includes(oldFinalParagraph));
+    assert.doesNotMatch(rendered.text, /P\.S\./);
+    assert.doesNotMatch(rendered.html, /P\.S\./);
+  }
+});
