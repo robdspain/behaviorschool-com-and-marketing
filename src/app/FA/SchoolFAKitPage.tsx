@@ -98,7 +98,7 @@ export function SchoolFAKitPage() {
             The handout for the October 9 session.
           </p>
           <p className="mt-4 hidden text-lg leading-relaxed text-[var(--bs-secondary)] sm:block">
-            The handout for the CalABA BehaviorLive presentation, Functional Behavior
+            The handout for the CalABA - Behavior Analysts in Education SIG (BAE) presentation, Functional Behavior
             Assessment in a School Setting. Five formats, with the task analyses,
             printable datasheets, and graph pages from the session.
           </p>
@@ -244,7 +244,7 @@ export function SchoolFAKitPage() {
           </div>
 
           <p className="mt-6 text-base leading-relaxed text-[var(--bs-secondary)] sm:hidden">
-            The handout for the CalABA BehaviorLive presentation, Functional Behavior
+            The handout for the CalABA - Behavior Analysts in Education SIG (BAE) presentation, Functional Behavior
             Assessment in a School Setting. Five formats, with the task analyses,
             printable datasheets, and graph pages from the session.
           </p>

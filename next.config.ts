@@ -70,6 +70,12 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Preserve old webinar kit links while using the approved /FA destination.
+      {
+        source: '/fba',
+        destination: '/FA',
+        permanent: true,
+      },
       // ============================================
       // HIGH-IMPACT SEO REDIRECTS (Feb 2026)
       // Consolidate duplicate URLs → canonical targets

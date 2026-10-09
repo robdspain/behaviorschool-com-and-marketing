@@ -1,9 +1,9 @@
 /**
- * Free School FA starter kit delivered at /fba.
+ * Free School FA starter kit delivered at /FA.
  *
- * The PDF is the final v6 kit, 24 pages, titled "School FA Starter Kit by
- * Robert Spain" (Robert Spain, BCBA, IBA). It includes five task analyses,
- * printable datasheets, and blank graph pages. The graphing template is the
+ * The corrected, expanded PDF is 29 pages, titled "School FA Starter Kit"
+ * (Robert Spain, BCBA, IBA). It includes five task analyses, printable
+ * datasheets, graph pages, and assessment workflows. The graphing template is the
  * current Google Sheet, "School FA Graphing Template - Robert Spain (v2)".
  *
  * SCHOOL_FA_KIT_STEP_ZERO_SUBJECT must match the subject chosen in
@@ -11,6 +11,8 @@
  */
 
 export const SCHOOL_FA_KIT_SOURCE = "school-fa-starter-kit";
+
+export const SCHOOL_FA_KIT_PAGE_PATH = "/FA";
 
 export const SCHOOL_FA_KIT_STEP_ZERO_SUBJECT = "Your School FA starter kit is ready";
 
@@ -27,12 +29,12 @@ export const SCHOOL_FA_GRAPHING_TEMPLATE_COPY_URL =
 
 export const SCHOOL_FA_KIT_FORMATS = [
   {
-    title: "Analog / formal FA",
+    title: "Extended FA (session-based)",
     detail: "Specialist-led conditions, with rate or interval data and a multielement graph.",
   },
   {
     title: "Synthesized FA (PFA / IISCA)",
-    detail: "An interview-built control and test, ended at the first precursor or target.",
+    detail: "Interview-informed test and control conditions. Original and performance-based procedures differ.",
   },
   {
     title: "Trial-based FA",
@@ -44,7 +46,7 @@ export const SCHOOL_FA_KIT_FORMATS = [
   },
   {
     title: "Precursor FA",
-    detail: "The analysis stops at a safe earlier response instead of the severe behavior.",
+    detail: "Analysis of an empirically supported earlier response that may reduce exposure to severe behavior.",
   },
 ] as const;
 

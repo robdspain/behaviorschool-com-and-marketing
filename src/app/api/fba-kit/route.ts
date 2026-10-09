@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import { NextRequest, NextResponse } from "next/server";
-import { hasResendKey, SCHOOL_FA_KIT_SOURCE } from "@/lib/school-fa-kit";
+import { hasResendKey, SCHOOL_FA_KIT_PAGE_PATH, SCHOOL_FA_KIT_SOURCE } from "@/lib/school-fa-kit";
 import { startTransformationNurture } from "@/lib/transformation-nurture";
 
 function cleanString(value: unknown, max: number) {
@@ -48,9 +48,9 @@ export async function POST(request: NextRequest) {
       role: role || undefined,
       source: SCHOOL_FA_KIT_SOURCE,
       tags: ["lead-magnet", SCHOOL_FA_KIT_SOURCE, "school-bcba", "transformation-program"],
-      notes: "Requested the free School FA starter kit at /fba.",
+      notes: `Requested the free School FA starter kit at ${SCHOOL_FA_KIT_PAGE_PATH}.`,
       metadata: {
-        page: "/fba",
+        page: SCHOOL_FA_KIT_PAGE_PATH,
         resource: SCHOOL_FA_KIT_SOURCE,
       },
       sendDueNow: resendReady,

@@ -113,7 +113,7 @@ export function renderTransformationNurtureEmail(email: QueuedTransformationEmai
   const schoolFaKit = isSchoolFaStarterKitSource(source);
   const subject = schoolFaKitNurtureSubject(email.step, source, email.subject);
   const footer = schoolFaKit
-    ? "You are receiving this because you requested the free School FA starter kit at behaviorschool.com/fba. These notes are about the School BCBA Systems Transformation Program. Reply to this email if you want me to stop following up."
+    ? "You are receiving this because you requested the free School FA starter kit at behaviorschool.com/FA. These notes are about the School BCBA Systems Transformation Program. Reply to this email if you want me to stop following up."
     : undefined;
 
   switch (email.step) {
@@ -121,7 +121,7 @@ export function renderTransformationNurtureEmail(email: QueuedTransformationEmai
       if (schoolFaKit) {
         const bodyText = `Hi ${name},
 
-The School FA starter kit from the October 9 CalABA BehaviorLive presentation is ready.
+The School FA starter kit from the October 9 CalABA - Behavior Analysts in Education SIG (BAE) presentation is ready.
 
 The PDF has the five task analyses, a printable datasheet for each format, and a blank graph page for each format:
 ${SCHOOL_FA_KIT_PDF_URL}
