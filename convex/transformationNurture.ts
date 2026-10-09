@@ -265,6 +265,54 @@ export const start = mutation({
   },
 });
 
+/** One-time October 2026 reschedule. Does not affect scheduling for future signups. */
+export const rescheduleSchoolFaKitQueued = internalMutation({
+  args: { dryRun: v.optional(v.boolean()) },
+  returns: v.object({
+    dryRun: v.boolean(),
+    perStep: v.object({
+      "1": v.number(),
+      "2": v.number(),
+      "3": v.number(),
+      "4": v.number(),
+    }),
+    total: v.number(),
+  }),
+  handler: async (ctx, args) => {
+    const dryRun = args.dryRun ?? false;
+    const targets = {
+      1: "2026-10-13T13:00:00.000Z",
+      2: "2026-10-15T13:00:00.000Z",
+      3: "2026-10-20T13:00:00.000Z",
+      4: "2026-10-22T13:00:00.000Z",
+    } as const;
+    // Counts mean would-update in dry runs, updated otherwise.
+    const perStep = { "1": 0, "2": 0, "3": 0, "4": 0 };
+    const timestamp = nowIso();
+    const queued = await ctx.db
+      .query("transformationNurtureEmails")
+      .withIndex("by_status_scheduled", (q) => q.eq("status", "queued"))
+      .collect();
+
+    for (const email of queued) {
+      const step = email.step;
+      if (step !== 1 && step !== 2 && step !== 3 && step !== 4) continue;
+      const enrollment = await ctx.db.get(email.enrollmentId);
+      if (enrollment?.source !== SCHOOL_FA_KIT_SOURCE) continue;
+      if (email.scheduledFor === targets[step]) continue;
+      if (!dryRun) {
+        await ctx.db.patch(email._id, {
+          scheduledFor: targets[step],
+          updatedAt: timestamp,
+        });
+      }
+      perStep[step] += 1;
+    }
+
+    return { dryRun, perStep, total: Object.values(perStep).reduce((sum, count) => sum + count, 0) };
+  },
+});
+
 export const listDueEmails = query({
   args: {
     now: v.string(),
