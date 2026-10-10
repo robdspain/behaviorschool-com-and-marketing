@@ -6,4 +6,5 @@ export const menuSections: MenuSection[] = [
   { label: "Supervision", href: "/supervisors" },
   { label: "CEUs", href: "/ceus" },
   { label: "About", href: "/about" },
+  { label: "Shop", href: "https://shop.behaviorschool.com/" },
 ];
