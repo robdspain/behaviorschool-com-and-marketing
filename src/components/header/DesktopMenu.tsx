@@ -29,7 +29,7 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
               transition={{ duration: 0.2 }}
             >
               <motion.button
-                className="inline-flex items-center gap-1 px-3 min-h-[44px] text-sm xl:text-base font-medium text-[#171f1d] hover:text-[#1f4d3f] relative rounded-lg"
+                className="inline-flex items-center gap-1 px-3 min-h-[44px] text-sm xl:text-base font-medium text-[#171f1d] hover:text-[#1f4d3f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1f4d3f] focus-visible:ring-offset-2 relative rounded-lg"
                 aria-haspopup="menu"
                 aria-expanded={openKey === key}
                 whileHover={{ 
@@ -82,7 +82,7 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
           >
             <Link
               href={section.href ?? "#"}
-              className="px-3 min-h-[44px] inline-flex items-center justify-center text-sm xl:text-base font-medium text-[#171f1d] hover:text-[#1f4d3f] relative rounded-lg whitespace-nowrap"
+              className="px-3 min-h-[44px] inline-flex items-center justify-center text-sm xl:text-base font-medium text-[#171f1d] hover:text-[#1f4d3f] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1f4d3f] focus-visible:ring-offset-2 relative rounded-lg whitespace-nowrap"
               rel={section.href?.startsWith("http") ? "noreferrer noopener" : undefined}
             >
               <motion.div
@@ -106,4 +106,3 @@ export function DesktopMenu({ openKey, onOpen }: Props) {
     </MotionConfig>
   );
 }
-

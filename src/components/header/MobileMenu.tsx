@@ -27,7 +27,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
             return (
               <div key={key}>
                 <button
-                  className="w-full flex items-center justify-between px-3 min-h-[44px] text-base font-medium text-[#171f1d] hover:text-[#1f4d3f] hover:underline"
+                  className="w-full flex items-center justify-between px-3 min-h-[44px] text-base font-medium text-[#171f1d] hover:text-[#1f4d3f] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1f4d3f] focus-visible:ring-offset-2"
                   onClick={() => onToggleKey(key)}
                   aria-expanded={expanded}
                 >
@@ -42,7 +42,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
                       <Link
                         key={child.href}
                         href={child.href}
-                        className="block px-3 min-h-[44px] py-2 flex w-full items-center text-[#171f1d] font-medium hover:text-[#1f4d3f] hover:underline  rounded-md"
+                        className="block px-3 min-h-[44px] py-2 flex w-full items-center text-[#171f1d] font-medium hover:text-[#1f4d3f] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1f4d3f] focus-visible:ring-offset-2 rounded-md"
                         onClick={onClose}
                         target={child.external ? "_blank" : undefined}
                         rel={child.external ? "noreferrer noopener" : undefined}
@@ -59,7 +59,7 @@ export function MobileMenu({ isOpen, onClose, openKey, onToggleKey }: Props) {
             <Link
               key={key}
               href={section.href ?? "#"}
-              className="block px-3 min-h-[44px] py-2 flex w-full items-center text-lg font-medium text-[#171f1d] font-medium hover:text-[#1f4d3f] hover:underline  rounded-md"
+              className="block px-3 min-h-[44px] py-2 flex w-full items-center text-lg font-medium text-[#171f1d] font-medium hover:text-[#1f4d3f] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1f4d3f] focus-visible:ring-offset-2 rounded-md"
               onClick={onClose}
               rel={section.href?.startsWith("http") ? "noreferrer noopener" : undefined}
             >
