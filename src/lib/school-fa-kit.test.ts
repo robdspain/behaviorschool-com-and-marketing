@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { schoolFaKitSlotsIso } from "../../convex/schoolFaKitSchedule";
 import {
   hasResendKey,
   isSchoolFaStarterKitSource,
@@ -26,6 +27,39 @@ import { NextRequest } from "next/server";
 
 const unsubscribeUrl = transformationUnsubscribeUrl("TESTTOKEN");
 const districtPacketSubject = "Here is the district packet you asked for";
+
+const slotExamples = [
+  { name: "Monday morning", signup: "2026-10-12T10:00:00-07:00", dates: ["13", "15", "20", "22"] },
+  { name: "Saturday morning", signup: "2026-10-10T08:00:00-07:00", dates: ["13", "15", "20", "22"] },
+  { name: "Tuesday evening", signup: "2026-10-13T19:00:00-07:00", dates: ["15", "20", "22", "27"] },
+  { name: "11 hours before Tuesday", signup: "2026-10-12T19:00:00-07:00", dates: ["15", "20", "22", "27"] },
+];
+for (const { name, signup, dates } of slotExamples) {
+  test(`FA kit slots: ${name}`, () => {
+    assert.deepEqual(schoolFaKitSlotsIso(signup, 4), dates.map((day) => `2026-10-${day}T13:00:00.000Z`));
+  });
+}
+
+test("FA kit slots follow Pacific DST across November 1", () => {
+  assert.deepEqual(schoolFaKitSlotsIso("2026-10-28T10:00:00-07:00", 4), [
+    "2026-10-29T13:00:00.000Z",
+    "2026-11-03T14:00:00.000Z",
+    "2026-11-05T14:00:00.000Z",
+    "2026-11-10T14:00:00.000Z",
+  ]);
+});
+
+test("FA kit minimum lead time is inclusive and preserves sub-hour precision", () => {
+  assert.deepEqual(schoolFaKitSlotsIso("2026-10-12T18:00:00-07:00", 1), ["2026-10-13T13:00:00.000Z"]);
+  assert.deepEqual(schoolFaKitSlotsIso("2026-10-12T18:00:00.001-07:00", 1), ["2026-10-15T13:00:00.000Z"]);
+  assert.deepEqual(schoolFaKitSlotsIso("2026-10-12T18:00:00-07:00", 0), []);
+});
+
+test("FA kit slots follow the spring DST change", () => {
+  assert.deepEqual(schoolFaKitSlotsIso("2027-03-10T10:00:00-08:00", 2), [
+    "2027-03-11T14:00:00.000Z", "2027-03-16T13:00:00.000Z",
+  ]);
+});
 
 test("school FA kit source uses its own first-email subject", () => {
   assert.equal(isSchoolFaStarterKitSource("school-fa-starter-kit"), true);
@@ -344,6 +378,19 @@ test("new enrollments receive a token and retain the five-step schedule", async 
   assert.deepEqual(rows.transformationNurtureEmails.map((row) =>
     (Date.parse(row.scheduledFor) - Date.parse(enrollment.startedAt)) / 86400000), [0, 1, 3, 5, 7]);
 });
+
+for (const source of ["school-fa-starter-kit", "Website:SCHOOL-FA-STARTER-KIT:download"]) {
+  test(`new kit enrollment keeps step zero immediate and uses Pacific slots: ${source}`, async () => {
+    const { rows, ctx } = nurtureDatabase();
+    rows.transformationNurtureEnrollments = [];
+    rows.transformationNurtureEmails = [];
+    await invoke(start, ctx, { email: "ada@school.edu", source });
+    const signup = rows.transformationNurtureEnrollments[0].startedAt;
+    assert.deepEqual(rows.transformationNurtureEmails.map((row) => row.scheduledFor), [
+      signup, ...schoolFaKitSlotsIso(signup, 4),
+    ]);
+  });
+}
 
 for (const suppression of ["unsubscribed", "do-not-contact", "enrollment-unsubscribed", "paused", "customer", "missing-contact"]) {
   test(`send preparation skips ${suppression}`, async () => {

@@ -2,6 +2,7 @@ import { internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 import type { MutationCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
+import { schoolFaKitSlotsIso } from "./schoolFaKitSchedule";
 
 const status = v.union(
   v.literal("active"),
@@ -330,6 +331,9 @@ export const start = mutation({
       updatedAt: timestamp,
     });
 
+    const kitSlots = args.source.toLowerCase().includes(SCHOOL_FA_KIT_SOURCE)
+      ? schoolFaKitSlotsIso(timestamp, sequenceSteps.length - 1)
+      : null;
     for (const item of sequenceSteps) {
       await ctx.db.insert("transformationNurtureEmails", {
         enrollmentId,
@@ -339,7 +343,9 @@ export const start = mutation({
         firstName,
         step: item.step,
         subject: subjectForStep(item.step, args.source),
-        scheduledFor: addDaysIso(timestamp, item.delayDays),
+        scheduledFor: kitSlots && item.step > 0
+          ? kitSlots[item.step - 1]
+          : addDaysIso(timestamp, item.delayDays),
         status: "queued",
         metadata: { source: args.source },
         createdAt: timestamp,
