@@ -1,3 +1,4 @@
+// Implements RFC 8058 one-click unsubscribe for the Transformation nurture emails (GET shows confirmation, POST is one-click).
 import { NextRequest } from "next/server";
 import { api, getConvexClient } from "@/lib/convex";
 
