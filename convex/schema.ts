@@ -784,8 +784,11 @@ export default defineSchema({
       v.literal("completed"),
       v.literal("converted"),
       v.literal("paused"),
-      v.literal("canceled")
+      v.literal("canceled"),
+      v.literal("unsubscribed")
     ),
+    unsubscribeToken: v.optional(v.string()),
+    unsubscribedAt: v.optional(v.string()),
     startedAt: v.string(),
     completedAt: v.optional(v.string()),
     lastSentStep: v.optional(v.number()),
@@ -795,7 +798,8 @@ export default defineSchema({
   })
     .index("by_email_lower", ["emailLower"])
     .index("by_contact", ["contactId"])
-    .index("by_status", ["status"]),
+    .index("by_status", ["status"])
+    .index("by_unsubscribe_token", ["unsubscribeToken"]),
 
   transformationNurtureEmails: defineTable({
     enrollmentId: v.id("transformationNurtureEnrollments"),
