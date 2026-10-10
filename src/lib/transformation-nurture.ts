@@ -1,5 +1,6 @@
+import { MAILING_ADDRESS } from "@/lib/email-compliance";
 import { api, getConvexClient } from "@/lib/convex";
-import { RESEND_FROM_ROB, RESEND_REPLY_TO_ROB } from "@/lib/resend";
+import { RESEND_REPLY_TO_ROB } from "@/lib/resend";
 import {
   hasResendKey,
   isSchoolFaStarterKitSource,
@@ -16,6 +17,20 @@ export const TRANSFORMATION_PACKET_URL =
   "https://behaviorschool.com/transformation-program-pd-packet.pdf";
 export const TRANSFORMATION_PROGRAM_URL =
   "https://behaviorschool.com/transformation-program";
+
+export const NURTURE_FROM = "Rob Spain, Behavior School <rob@updates.behaviorschool.com>";
+
+export function transformationUnsubscribeUrl(token: string) {
+  if (!/^[A-Za-z0-9_-]+$/.test(token)) throw new Error("Invalid unsubscribe token");
+  return `https://behaviorschool.com/api/transformation-program/unsubscribe?token=${encodeURIComponent(token)}`;
+}
+
+export function nurtureComplianceHeaders(unsubscribeUrl: string) {
+  return {
+    "List-Unsubscribe": `<${unsubscribeUrl}>, <mailto:rob@behaviorschool.com?subject=unsubscribe>`,
+    "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+  };
+}
 
 type StartTransformationNurtureInput = {
   email: string;
@@ -77,7 +92,8 @@ function wrapEmail(opts: {
   bodyText: string;
   buttonHref?: string;
   buttonLabel?: string;
-  footer?: string;
+  footer: string;
+  unsubscribeUrl: string;
   postscript?: { text: string; url: string };
 }) {
   const button = opts.buttonHref && opts.buttonLabel ? linkButton(opts.buttonHref, opts.buttonLabel) : "";
@@ -87,8 +103,7 @@ function wrapEmail(opts: {
         `<a href="${escapeHtml(opts.postscript.url)}">${escapeHtml(opts.postscript.url)}</a>`,
       )
     : "";
-  const footer = opts.footer
-    ?? "You are receiving this because you requested information about the School BCBA Systems Transformation Program. Reply to this email if you want me to stop following up.";
+  const footer = opts.footer;
   return `<!DOCTYPE html>
 <html>
 <body style="margin:0;padding:0;background:#f8fafc;font-family:Arial,sans-serif;">
@@ -103,7 +118,7 @@ function wrapEmail(opts: {
               ${textToHtml(opts.bodyText)}
               ${button}${postscript ? `\n              ${postscript}` : ""}
               <p style="margin:28px 0 0;font-size:16px;line-height:1.6;color:#334155;">Rob Spain, BCBA, IBA<br>Behavior School</p>
-              <p style="margin:24px 0 0;font-size:12px;line-height:1.5;color:#94a3b8;">${escapeHtml(footer)}</p>
+              <p style="margin:24px 0 0;font-size:12px;line-height:1.5;color:#475569;">${escapeHtml(footer)}<br><a href="${escapeHtml(opts.unsubscribeUrl)}">Unsubscribe</a><br>${escapeHtml(MAILING_ADDRESS).replace(/\n/g, "<br>")}</p>
             </td>
           </tr>
         </table>
@@ -114,14 +129,15 @@ function wrapEmail(opts: {
 </html>`;
 }
 
-export function renderTransformationNurtureEmail(email: QueuedTransformationEmail) {
+export function renderTransformationNurtureEmail(email: QueuedTransformationEmail, unsubscribeUrl: string) {
   const name = firstNameOrThere(email.firstName);
   const source = queuedSource(email);
   const schoolFaKit = isSchoolFaStarterKitSource(source);
   const subject = schoolFaKitNurtureSubject(email.step, source, email.subject);
   const footer = schoolFaKit
     ? "You are receiving this because you requested the free School FA starter kit at behaviorschool.com/FA. These notes are about the School BCBA Systems Transformation Program. Reply to this email if you want me to stop following up."
-    : undefined;
+    : "You are receiving this because you requested information about the School BCBA Systems Transformation Program. Reply to this email if you want me to stop following up.";
+  const textFooter = `${footer}\nUnsubscribe: ${unsubscribeUrl}\n${MAILING_ADDRESS}`;
 
   switch (email.step) {
     case 0: {
@@ -144,13 +160,14 @@ ${TRANSFORMATION_PROGRAM_URL}
 I will send a few short notes about the program. Reply if you want me to stop.`;
         return {
           subject,
-          text: bodyText,
+          text: `${bodyText}\n\n${textFooter}`,
           html: wrapEmail({
             title: SCHOOL_FA_KIT_STEP_ZERO_SUBJECT,
             bodyText,
             buttonHref: SCHOOL_FA_KIT_PDF_URL,
             buttonLabel: "Download the starter kit",
             footer,
+            unsubscribeUrl,
           }),
         };
       }
@@ -170,13 +187,14 @@ ${TRANSFORMATION_CALENDLY_URL}
 If your business office needs a W-9, invoice language, or a purchase-order path, reply to this email. I will help you get it to the right person.`;
       return {
         subject,
-        text: bodyText,
+        text: `${bodyText}\n\n${textFooter}`,
         html: wrapEmail({
           title: "Here is the district packet you asked for",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Book a fit call",
           footer,
+          unsubscribeUrl,
         }),
       };
     }
@@ -198,7 +216,7 @@ ${schoolFaKit
   : "If this is the part of your job that keeps spilling into nights and weekends, book a call and tell me what is happening in your setting."}`;
       return {
         subject,
-        text: `${bodyText}\n\n${TRANSFORMATION_CALENDLY_URL}${postscript ? `\n\n${postscript.text} ${postscript.url}\n\nRob Spain, BCBA, IBA\nBehavior School\n\n${footer}` : ""}`,
+        text: `${bodyText}\n\n${TRANSFORMATION_CALENDLY_URL}${postscript ? `\n\n${postscript.text} ${postscript.url}\n\nRob Spain, BCBA, IBA\nBehavior School` : ""}\n\n${textFooter}`,
         html: wrapEmail({
           title: "The part of school BCBA work nobody owns",
           bodyText,
@@ -206,6 +224,7 @@ ${schoolFaKit
           buttonLabel: "Talk through the fit",
           postscript,
           footer,
+          unsubscribeUrl,
         }),
       };
     }
@@ -227,13 +246,14 @@ Here is what we actually work on across ${TRANSFORMATION_PROGRAM.cohort.schedule
 This is working time, not a run of slides. If you want to compare it with your current caseload, book a call and we can talk it through.`;
       return {
         subject,
-        text: `${bodyText}\n\n${TRANSFORMATION_CALENDLY_URL}`,
+        text: `${bodyText}\n\n${TRANSFORMATION_CALENDLY_URL}\n\n${textFooter}`,
         html: wrapEmail({
           title: "What we actually work on in six live Thursday sessions",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Book a fit call",
           footer,
+          unsubscribeUrl,
         }),
       };
     }
@@ -263,13 +283,14 @@ Here is a straightforward approval request you can use: "I would like to attend 
 If your director or business office needs different wording, reply with what they asked for. I will help you write it.`;
       return {
         subject,
-        text: bodyText,
+        text: `${bodyText}\n\n${textFooter}`,
         html: wrapEmail({
           title: "Need help getting district approval?",
           bodyText,
           buttonHref: TRANSFORMATION_PACKET_URL,
           buttonLabel: "Open the district packet",
           footer,
+          unsubscribeUrl,
         }),
       };
     }
@@ -288,20 +309,21 @@ ${TRANSFORMATION_CALENDLY_URL}
 If now is not the right time, you do not need to do anything. I will stop following up about this cohort.`;
       return {
         subject,
-        text: bodyText,
+        text: `${bodyText}\n\n${textFooter}`,
         html: wrapEmail({
           title: "Should we talk about the January cohort?",
           bodyText,
           buttonHref: TRANSFORMATION_CALENDLY_URL,
           buttonLabel: "Book a fit call",
           footer,
+          unsubscribeUrl,
         }),
       };
     }
   }
 }
 
-async function sendViaResend(opts: { to: string; subject: string; html: string; text: string }) {
+async function sendViaResend(opts: { to: string; subject: string; html: string; text: string; unsubscribeUrl: string }) {
   const apiKey = process.env.RESEND_API_KEY?.trim() ?? "";
   if (!hasResendKey({ RESEND_API_KEY: apiKey })) {
     console.error("Transformation nurture: RESEND_API_KEY is not set. The queued email was not sent.");
@@ -315,7 +337,8 @@ async function sendViaResend(opts: { to: string; subject: string; html: string; 
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      from: RESEND_FROM_ROB,
+      from: NURTURE_FROM,
+      headers: nurtureComplianceHeaders(opts.unsubscribeUrl),
       to: [opts.to],
       subject: opts.subject,
       html: opts.html,
@@ -334,10 +357,11 @@ async function sendViaResend(opts: { to: string; subject: string; html: string; 
   return { ok: response.ok, status: response.status, body, id };
 }
 
-async function sendNurtureEmail(email: QueuedTransformationEmail) {
-  const rendered = renderTransformationNurtureEmail(email);
+async function sendNurtureEmail(email: QueuedTransformationEmail, unsubscribeUrl: string) {
+  const rendered = renderTransformationNurtureEmail(email, unsubscribeUrl);
   const resend = await sendViaResend({
     to: email.email,
+    unsubscribeUrl,
     subject: rendered.subject,
     html: rendered.html,
     text: rendered.text,
@@ -390,16 +414,16 @@ export async function processTransformationNurture(opts: { limit?: number } = {}
   };
 
   for (const email of due) {
-    if (email.shouldSkip) {
+    // Re-read consent immediately before every send, including rows fetched earlier.
+    const prepared = await getConvexClient().mutation(api.transformationNurture.prepareEmailForSend, {
+      id: email._id,
+    }) as { unsubscribeToken: string | null };
+    if (!prepared.unsubscribeToken) {
       result.skipped += 1;
-      await getConvexClient().mutation(api.transformationNurture.markEmailSkipped, {
-        id: email._id,
-        reason: `Skipped because enrollment=${email.enrollmentStatus || "missing"} contact=${email.contactStatus || "missing"}`,
-      });
       continue;
     }
 
-    const sent = await sendNurtureEmail(email);
+    const sent = await sendNurtureEmail(email, transformationUnsubscribeUrl(prepared.unsubscribeToken));
     if (sent.ok) {
       result.sent += 1;
       await getConvexClient().mutation(api.transformationNurture.markEmailSent, {

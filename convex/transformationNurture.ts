@@ -1,5 +1,6 @@
 import { internalMutation, mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import type { MutationCtx } from "./_generated/server";
 import type { Doc, Id } from "./_generated/dataModel";
 
 const status = v.union(
@@ -7,7 +8,8 @@ const status = v.union(
   v.literal("completed"),
   v.literal("converted"),
   v.literal("paused"),
-  v.literal("canceled")
+  v.literal("canceled"),
+  v.literal("unsubscribed")
 );
 
 const emailStatus = v.union(
@@ -113,6 +115,110 @@ async function insertActivity(
   });
 }
 
+// Convex Web Crypto uses its per-invocation seeded CSPRNG, safe across retries.
+function newUnsubscribeToken() {
+  return Array.from(crypto.getRandomValues(new Uint8Array(32)), (byte) =>
+    byte.toString(16).padStart(2, "0")
+  ).join("");
+}
+
+function skipReason(
+  enrollment: Doc<"transformationNurtureEnrollments"> | null,
+  contact: Doc<"crmContacts"> | null,
+) {
+  if (!enrollment || !contact) return "Enrollment or contact missing";
+  if (enrollment.status === "unsubscribed") return "Enrollment unsubscribed";
+  if (contact.marketingConsentStatus === "unsubscribed") return "Contact unsubscribed from marketing";
+  if (contact.tags?.includes("do-not-contact")) return "Contact tagged do-not-contact";
+  if (enrollment.status !== "active") return "Enrollment inactive";
+  if (contact.status === "customer") return "Contact is a customer";
+  return null;
+}
+
+const unsubscribeResult = v.object({ rowsSkipped: v.number(), contactUpdated: v.boolean() });
+
+async function unsubscribeEnrollment(
+  ctx: MutationCtx,
+  enrollment: Doc<"transformationNurtureEnrollments">,
+  source: string,
+) {
+  const timestamp = nowIso();
+  if (enrollment.status !== "unsubscribed" || !enrollment.unsubscribedAt) {
+    await ctx.db.patch(enrollment._id, {
+      status: "unsubscribed",
+      unsubscribedAt: enrollment.unsubscribedAt ?? timestamp,
+      updatedAt: timestamp,
+    });
+  }
+  let rowsSkipped = 0;
+  // start creates exactly five rows per enrollment; never scan the global queue.
+  for await (const email of ctx.db.query("transformationNurtureEmails")
+    .withIndex("by_enrollment", (q) => q.eq("enrollmentId", enrollment._id))) {
+    if (email.status !== "queued") continue;
+    await ctx.db.patch(email._id, {
+      status: "skipped",
+      errorMessage: "Enrollment unsubscribed",
+      updatedAt: timestamp,
+    });
+    rowsSkipped += 1;
+  }
+  const contact = await ctx.db.get(enrollment.contactId);
+  const contactUpdated = !!contact && (contact.marketingConsentStatus !== "unsubscribed"
+    || !contact.marketingConsentAt || !contact.marketingConsentSource);
+  if (contactUpdated) {
+    await ctx.db.patch(enrollment.contactId, {
+      marketingConsentStatus: "unsubscribed",
+      marketingConsentAt: timestamp,
+      marketingConsentSource: source,
+      updatedAt: timestamp,
+    });
+  }
+  return { rowsSkipped, contactUpdated };
+}
+
+export const unsubscribeByToken = mutation({
+  args: { token: v.string() },
+  returns: v.null(),
+  handler: async (ctx, { token }) => {
+    if (!/^[a-f0-9]{64}$/.test(token)) return null;
+    const enrollment = await ctx.db.query("transformationNurtureEnrollments")
+      .withIndex("by_unsubscribe_token", (q) => q.eq("unsubscribeToken", token)).unique();
+    if (enrollment) await unsubscribeEnrollment(ctx, enrollment, "transformation-nurture-unsubscribe");
+    return null;
+  },
+});
+
+export const unsubscribeEnrollmentById = internalMutation({
+  args: { enrollmentId: v.id("transformationNurtureEnrollments"), source: v.string() },
+  returns: unsubscribeResult,
+  handler: async (ctx, { enrollmentId, source }) => {
+    const enrollment = await ctx.db.get(enrollmentId);
+    return enrollment ? unsubscribeEnrollment(ctx, enrollment, source)
+      : { rowsSkipped: 0, contactUpdated: false };
+  },
+});
+
+export const prepareEmailForSend = mutation({
+  args: { id: v.id("transformationNurtureEmails") },
+  returns: v.object({ unsubscribeToken: v.union(v.string(), v.null()) }),
+  handler: async (ctx, { id }) => {
+    const email = await ctx.db.get(id);
+    if (!email || email.status !== "queued") return { unsubscribeToken: null };
+    const enrollment = await ctx.db.get(email.enrollmentId);
+    const contact = await ctx.db.get(email.contactId);
+    const reason = skipReason(enrollment, contact);
+    if (reason || !enrollment) {
+      await ctx.db.patch(id, { status: "skipped", errorMessage: reason ?? "Enrollment missing", updatedAt: nowIso() });
+      return { unsubscribeToken: null };
+    }
+    const unsubscribeToken = enrollment.unsubscribeToken ?? newUnsubscribeToken();
+    if (!enrollment.unsubscribeToken) {
+      await ctx.db.patch(enrollment._id, { unsubscribeToken, updatedAt: nowIso() });
+    }
+    return { unsubscribeToken };
+  },
+});
+
 export const start = mutation({
   args: {
     email: v.string(),
@@ -217,6 +323,7 @@ export const start = mutation({
       firstName,
       source: args.source,
       status: "active",
+      unsubscribeToken: newUnsubscribeToken(),
       startedAt: timestamp,
       metadata: args.metadata,
       createdAt: timestamp,
@@ -331,7 +438,7 @@ export const listDueEmails = query({
     for (const email of due) {
       const enrollment = await ctx.db.get(email.enrollmentId);
       const contact = await ctx.db.get(email.contactId);
-      if (!enrollment || !contact || enrollment.status !== "active" || contact.status === "customer") {
+      if (skipReason(enrollment, contact) || !enrollment || !contact) {
         rows.push({ ...email, shouldSkip: true, enrollmentStatus: enrollment?.status, contactStatus: contact?.status });
       } else {
         rows.push({ ...email, shouldSkip: false, enrollmentStatus: enrollment.status, contactStatus: contact.status });
@@ -361,10 +468,12 @@ export const markEmailSent = mutation({
       updatedAt: timestamp,
     });
 
-    await ctx.db.patch(email.enrollmentId, {
+    const enrollment = await ctx.db.get(email.enrollmentId);
+    const stillActive = enrollment?.status === "active";
+    if (enrollment) await ctx.db.patch(email.enrollmentId, {
       lastSentStep: email.step,
-      completedAt: email.step === sequenceSteps[sequenceSteps.length - 1].step ? sentAt : undefined,
-      status: email.step === sequenceSteps[sequenceSteps.length - 1].step ? "completed" : "active",
+      completedAt: stillActive && email.step === sequenceSteps[sequenceSteps.length - 1].step ? sentAt : enrollment?.completedAt,
+      status: stillActive && email.step === sequenceSteps[sequenceSteps.length - 1].step ? "completed" : enrollment.status,
       updatedAt: timestamp,
     });
 
@@ -374,7 +483,7 @@ export const markEmailSent = mutation({
       updatedAt: timestamp,
     });
 
-    if (email.step === sequenceSteps[sequenceSteps.length - 1].step) {
+    if (stillActive && email.step === sequenceSteps[sequenceSteps.length - 1].step) {
       await ctx.db.insert("crmTasks", {
         title: "Personal follow-up after Transformation nurture",
         description: "The 5-email Transformation sequence is complete. Follow up personally unless this lead has already scheduled or purchased.",
@@ -419,6 +528,7 @@ export const markEmailFailed = mutation({
     const timestamp = nowIso();
     const email = await ctx.db.get(args.id);
     if (!email) throw new Error("Queued email not found");
+    if (email.status !== "queued") return;
 
     await ctx.db.patch(args.id, {
       status: "failed",
@@ -455,6 +565,7 @@ export const markEmailSkipped = mutation({
     const timestamp = nowIso();
     const email = await ctx.db.get(args.id);
     if (!email) throw new Error("Queued email not found");
+    if (email.status !== "queued") return;
 
     await ctx.db.patch(args.id, {
       status: "skipped",
@@ -523,7 +634,8 @@ export const listEnrollments = query({
           .collect()
       : await ctx.db.query("transformationNurtureEnrollments").collect();
 
-    return rows.sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, limit);
+    return rows.sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, limit)
+      .map(({ unsubscribeToken: _token, ...enrollment }) => enrollment);
   },
 });
 

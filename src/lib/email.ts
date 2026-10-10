@@ -1,3 +1,4 @@
+import { MAILING_ADDRESS } from "@/lib/email-compliance";
 import {
   getResend,
   RESEND_FROM_NO_REPLY,
@@ -14,11 +15,6 @@ import {
 // 4. From address MUST clearly identify sender
 // 5. Subject lines MUST NOT be deceptive
 // ============================================
-
-const MAILING_ADDRESS = `Behavior School LLC
-8 The Green #20473
-Dover, DE 19901
-United States`;
 
 const UNSUBSCRIBE_URL = 'https://behaviorschool.com/unsubscribe';
 const PREFERENCES_URL = 'https://behaviorschool.com/email-preferences';
