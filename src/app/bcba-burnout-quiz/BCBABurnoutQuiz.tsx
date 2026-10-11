@@ -521,18 +521,6 @@ export function BCBABurnoutQuiz() {
             </p>
             <span className="text-emerald-700 font-semibold">School BCBA Systems Transformation Program →</span>
           </a>
-          <a
-            href="https://community.behaviorschool.com"
-            className="bg-white border-2 border-slate-200 rounded-2xl p-5 hover:border-emerald-300 transition-colors"
-          >
-            <div className="flex items-center gap-2 text-emerald-700 font-semibold mb-2">
-              <Sparkles className="w-4 h-4" /> Isolation
-            </div>
-            <p className="text-sm text-slate-600 mb-3">
-              Join a community of school-based BCBAs.
-            </p>
-            <span className="text-emerald-700 font-semibold">Join the Community →</span>
-          </a>
         </div>
 
         <div className="bg-white rounded-2xl shadow-md p-6 text-center">

@@ -598,11 +598,11 @@ export default function BCBAsInSchoolsPage() {
 
               <div className="text-center">
                 <p className="text-emerald-100 text-sm mb-4">
-                  Connect with school-based BCBAs sharing strategies, resources, and support
+                  Access evidence-based tools, training, and practical support for school-based BCBAs
                 </p>
                 <Link href="/transformation-program">
                   <button className="bg-white/20 hover:bg-white/30 text-white font-semibold px-8 py-3 rounded-lg transition-colors inline-flex items-center gap-2">
-                    Join Free Community
+                    Explore the Transformation Program
                     <ArrowRight className="w-5 h-5" />
                   </button>
                 </Link>
@@ -715,7 +715,7 @@ export default function BCBAsInSchoolsPage() {
               <div className="bg-gradient-to-br from-emerald-600 to-blue-600 rounded-xl shadow-lg p-6 text-white">
                 <h3 className="font-bold text-xl mb-3">Advance Your School BCBA Impact</h3>
                 <p className="text-emerald-100 text-sm mb-4 leading-relaxed">
-                  Access evidence‑based tools, training, and a supportive community of school‑based practitioners.
+                  Access evidence‑based tools and training for school‑based practitioners.
                 </p>
                 <Link href="/transformation-program">
                   <button className="w-full bg-white text-emerald-700 hover:bg-emerald-50 font-semibold py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2">

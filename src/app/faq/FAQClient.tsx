@@ -46,7 +46,7 @@ const faqData: FAQCategory[] = [
     items: [
       {
         question: "How long does the transformation program take?",
-        answer: "The core program runs for several weeks with structured modules, live coaching sessions, and implementation activities. However, you'll continue to have access to resources, community support, and updated content beyond the initial program period to ensure long-term growth and success."
+        answer: "The core program runs for several weeks with structured modules, live coaching sessions, and implementation activities. You'll also retain access to the program resources and updated content beyond the initial program period."
       },
       {
         question: "What's included in the program?",
@@ -57,7 +57,6 @@ const faqData: FAQCategory[] = [
               <li>Structured curriculum with evidence-based strategies</li>
               <li>Live coaching and Q&A sessions</li>
               <li>Implementation tools and templates</li>
-              <li>Private community access for networking and support</li>
               <li>Case study reviews and real-world applications</li>
               <li>Recorded trainings you can revisit anytime</li>
               <li>Continuing education credits (CEUs) where applicable</li>
@@ -71,7 +70,7 @@ const faqData: FAQCategory[] = [
       },
       {
         question: "How much time do I need to commit each week?",
-        answer: "Most participants dedicate 2-4 hours per week to the program, including live sessions, implementation activities, and engaging with the community. The program is designed to fit into a busy school schedule, and you can adjust your pace based on your availability."
+        answer: "Most participants dedicate 2-4 hours per week to the program, including live sessions and implementation activities. The program is designed to fit into a busy school schedule, and you can adjust your pace based on your availability."
       },
       {
         question: "Can I get CEU credits for the program?",
@@ -121,20 +120,16 @@ const faqData: FAQCategory[] = [
     ]
   },
   {
-    title: "Support & Community",
+    title: "Support",
     items: [
       {
         question: "Will I get personalized support?",
-        answer: "Yes! The program includes live coaching sessions where you can ask questions, get feedback on specific cases, and receive personalized guidance. You'll also have access to our private community where you can connect with other school BCBAs and get support between sessions."
+        answer: "Yes! The program includes live coaching sessions where you can ask questions, get feedback on specific cases, and receive personalized guidance."
       },
       {
         question: "What if I can't attend a live session?",
-        answer: "All live sessions are recorded and made available to participants. If you miss a session, you can watch the recording at your convenience. You can also submit questions in advance or through the community if you can't attend live."
+        answer: "All live sessions are recorded and made available to participants. If you miss a session, you can watch the recording at your convenience. You can also submit questions in advance if you can't attend live."
       },
-      {
-        question: "Can I access the community after the program ends?",
-        answer: "Yes! Program participants maintain access to the community and updated resources after the core program period. This ensures you have ongoing support as you continue to grow in your practice."
-      }
     ]
   },
   {

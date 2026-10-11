@@ -107,7 +107,6 @@ async function buildSitemap(
     '/iep-goal-generator',
     '/iep-goal-writer',
     '/behavior-study-tools',
-    '/community',
     '/masterclass',
     '/masterclass/enroll',
     '/masterclass/course',

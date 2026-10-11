@@ -313,7 +313,7 @@ export default function AboutContent() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid gap-8 max-w-2xl mx-auto">
             {/* School BCBA Systems Transformation Program */}
             <motion.div 
               className="bg-white rounded-2xl p-8 shadow-xl border-t-4 border-red-500"
@@ -336,27 +336,6 @@ export default function AboutContent() {
               </Link>
             </motion.div>
 
-            {/* Community */}
-            <motion.div 
-              className="bg-white rounded-2xl p-8 shadow-xl border-t-4 border-emerald-500"
-              whileHover={{ y: -5 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-bold rounded-full mb-4 uppercase tracking-wider">
-                Free Resource
-              </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-4">School BCBA Community</h3>
-              <p className="text-slate-600 mb-8 leading-relaxed">
-                Join school-based behavior professionals sharing tools, strategies, and support in our private network.
-              </p>
-              <Link
-                href="https://community.behaviorschool.com"
-                className="inline-flex items-center justify-center w-full px-6 py-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-colors shadow-lg shadow-emerald-200"
-              >
-                Join the Community
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </motion.div>
           </div>
 
           <div className="mt-16 text-center">

@@ -131,7 +131,7 @@ export default function SiteMapViewer() {
       icon: <Globe className="w-5 h-5" />,
       color: "bg-teal-100 text-teal-800",
       pages: [
-        { path: "/transformation-program", title: "Community", description: "Professional community hub", status: "live", cluster: "ABA Education", priority: "high" },
+        { path: "/transformation-program", title: "Transformation Program", description: "School BCBA systems transformation program", status: "live", cluster: "ABA Education", priority: "high" },
         { path: "/about", title: "About", description: "Company information", status: "live", cluster: "ABA Education", priority: "medium" },
         { path: "/blog", title: "Blog", description: "Educational content and articles", status: "live", cluster: "ABA Education", priority: "high" },
         { path: "/resources", title: "Resources", description: "Resource library", status: "live", cluster: "ABA Education", priority: "medium" },

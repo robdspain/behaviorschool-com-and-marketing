@@ -109,7 +109,6 @@ export default function BehaviorSchoolVsBDS() {
               { name: 'FBA-to-BIP Pipeline', behaviorSchool: true, competitor: false },
               { name: 'CEU / Continuing Education', behaviorSchool: true, competitor: 'partial' },
               { name: 'Supervision Tools', behaviorSchool: 'partial', competitor: 'Not verified' },
-              { name: 'Professional Community', behaviorSchool: 'partial', competitor: 'Not verified' },
             ],
           },
           {

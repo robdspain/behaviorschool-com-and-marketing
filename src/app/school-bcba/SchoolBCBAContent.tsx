@@ -39,7 +39,7 @@ export default function SchoolBCBAContent() {
         stats={[
           { icon: School, label: "School-Focused", subLabel: "Specifically for Education" },
           { icon: Brain, label: "Evidence-Based", subLabel: "Science-Driven Practice" },
-          { icon: Users, label: "Community", subLabel: "Network of Professionals" },
+          { icon: Users, label: "Practical Support", subLabel: "School-Focused Resources" },
           { icon: Download, label: "Practical Tools", subLabel: "Classroom-Ready Resources" },
         ]}
       />

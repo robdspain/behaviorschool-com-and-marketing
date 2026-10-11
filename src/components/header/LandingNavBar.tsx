@@ -31,7 +31,7 @@ export function LandingNavBar() {
               href="/transformation-program"
               className="text-emerald-700 hover:text-emerald-800 text-sm font-medium transition-colors duration-200"
             >
-              Community
+              Transformation Program
             </Link>
             <Link 
               href="https://behaviorstudytools.com/"

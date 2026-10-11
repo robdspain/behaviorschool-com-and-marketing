@@ -278,11 +278,6 @@ export default function AdminSitemapPage() {
           description: 'Overview of all products and services'
         },
         {
-          name: 'Community',
-          path: '/community',
-          description: 'Community and connection resources'
-        },
-        {
           name: 'About',
           path: '/about',
           description: 'About Behavior School and our mission'

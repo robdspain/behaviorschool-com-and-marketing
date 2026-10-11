@@ -198,7 +198,6 @@ export const PRIORITY_URLS = [
   '/blog',
   '/about',
   '/resources',
-  '/community',
 ];
 
 /**
