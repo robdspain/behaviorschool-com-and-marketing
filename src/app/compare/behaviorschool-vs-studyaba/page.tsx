@@ -60,7 +60,7 @@ export default function BehaviorSchoolVsStudyABA() {
           'School-based BCBA scenarios and content',
           'IEP + behavior plan tools included at no extra cost',
           'Modern, interactive platform (not PDFs)',
-          'All-in-one: exam prep + CEUs + tools + community',
+          'All-in-one: exam prep + CEUs + tools',
         ]}
         features={[
           {
@@ -85,7 +85,6 @@ export default function BehaviorSchoolVsStudyABA() {
               { name: 'FBA-to-BIP Pipeline', behaviorSchool: true, competitor: false },
               { name: 'Continuing Education (CEUs)', behaviorSchool: true, competitor: false },
               { name: 'Supervision Tools', behaviorSchool: true, competitor: false },
-              { name: 'Professional Community', behaviorSchool: true, competitor: false },
             ],
           },
           {
@@ -112,7 +111,7 @@ export default function BehaviorSchoolVsStudyABA() {
         faqItems={[
           {
             q: 'Is ABA Exam Review cheaper than BehaviorSchool?',
-            a: 'ABA Exam Review offers one-time purchases ($70-$140) which can be cheaper upfront. However, BehaviorSchool includes a free tier, and its subscription bundles exam prep with IEP tools, behavior plan generators, CEUs, and a professional community - making it better overall value.',
+            a: 'ABA Exam Review offers one-time purchases ($70-$140) which can be cheaper upfront. However, BehaviorSchool includes a free tier, and its subscription bundles exam prep with IEP tools, behavior plan generators, and CEUs - making it better overall value.',
           },
           {
             q: 'Does ABA Exam Review have AI tools?',

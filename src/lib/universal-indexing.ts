@@ -160,7 +160,6 @@ export const UNIVERSAL_PRIORITY_URLS = [
   '/blog',
   '/about',
   '/resources',
-  '/community',
   '/sitemap.xml',    // Important for AI bots
   '/feed.xml',       // Important for AI bots and RSS readers
 ];

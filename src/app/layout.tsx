@@ -157,7 +157,6 @@ export default function RootLayout({
           "https://www.youtube.com/@BehaviorSchool",
           "https://www.instagram.com/behaviorschool",
           "https://www.facebook.com/profile.php?id=61564836345571",
-          "https://community.behaviorschool.com"
         ],
         knowsAbout: [
           "Applied Behavior Analysis",
@@ -203,7 +202,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
         <link rel="preconnect" href="https://behaviorstudytools.com" />
-        <link rel="preconnect" href="https://community.behaviorschool.com" />
 
         {/* Preload critical images */}
         <link rel="preload" href="/optimized/Hero/Hero-group1-optimized.webp" as="image" type="image/webp" fetchPriority="high" />

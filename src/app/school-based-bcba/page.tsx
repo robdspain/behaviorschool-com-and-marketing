@@ -555,7 +555,7 @@ export default function SchoolBasedBCBAPage() {
               The School BCBA Systems Transformation Program is six live sessions over seven weeks for school BCBAs.
             </p>
             
-            <div className="grid md:grid-cols-3 gap-6 mb-8">
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
               <Button 
                 size="lg" 
                 className="bg-white text-[#1F4D3F] hover:bg-yellow-100 font-bold py-6 text-base shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all" 
@@ -577,16 +577,6 @@ export default function SchoolBasedBCBAPage() {
                 </Link>
               </Button>
               
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-2 border-white text-white hover:bg-white hover:text-[#1F4D3F] font-bold py-6 text-base shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all" 
-                asChild
-              >
-                <Link href="/transformation-program">
-                  Join Our Community
-                </Link>
-              </Button>
             </div>
 
             <div className="flex items-center justify-center gap-6 text-sm text-emerald-100">
@@ -645,11 +635,6 @@ export default function SchoolBasedBCBAPage() {
                   answer: "Current tools include the BehaviorSchool Goal Writing System, Behavior Plan Writer, and BCBA Exam Prep. The Supervision Tracker is in development and available only by invitation.",
                   color: "red"
                 },
-                {
-                  question: "Who should join the Behavior School community?",
-                  answer: "School-based BCBAs, behavior analysts in K-12 settings, school psychologists, special education teachers, and anyone implementing behavior support systems in educational environments. Both current practitioners and those pursuing BCBA certification are welcome.",
-                  color: "yellow"
-                }
               ].map((faq, idx) => (
                 <div key={idx} className={`border-l-4 border-${faq.color}-500 bg-${faq.color}-50 pl-6 pr-6 py-6 rounded-r-xl hover:shadow-lg transition-shadow`}>
                   <h3 className="text-xl font-bold text-slate-900 mb-3">
@@ -751,14 +736,6 @@ export default function SchoolBasedBCBAPage() {
                     "text": "Current tools include the BehaviorSchool Goal Writing System, Behavior Plan Writer, and BCBA Exam Prep. The Supervision Tracker is in development and available only by invitation."
                   }
                 },
-                {
-                  "@type": "Question",
-                  "name": "Who should join the Behavior School community?",
-                  "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": "School-based BCBAs, behavior analysts in K-12 settings, school psychologists, special education teachers, and anyone implementing behavior support systems in educational environments. Both current practitioners and those pursuing BCBA certification are welcome."
-                  }
-                }
               ]
             },
             "provider": {

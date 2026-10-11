@@ -90,7 +90,6 @@ export default function BehaviorSchoolVsMagicSchool() {
               { name: 'BCBA Practice Questions', behaviorSchool: true, competitor: false },
               { name: 'Continuing Education (CEUs)', behaviorSchool: true, competitor: false },
               { name: 'Supervision Tools', behaviorSchool: true, competitor: false },
-              { name: 'School BCBA Community', behaviorSchool: true, competitor: false },
             ],
           },
           {

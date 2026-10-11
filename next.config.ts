@@ -480,12 +480,12 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/community',
-        destination: '/transformation-program',
+        destination: '/',
         permanent: true,
       },
       {
         source: '/community/',
-        destination: '/transformation-program',
+        destination: '/',
         permanent: true,
       },
       {

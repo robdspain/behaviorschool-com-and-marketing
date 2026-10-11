@@ -60,7 +60,7 @@ export default function WidgetContent() {
               Want to Save Your Goals & Get Weekly IEP Tips?
             </h3>
             <p className="text-slate-600">
-              Join our community and get expert tips, templates, and resources for writing effective IEP goals.
+              Get expert tips, templates, and resources for writing effective IEP goals.
             </p>
           </div>
           <NewsletterSignup />
